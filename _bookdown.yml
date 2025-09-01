@@ -1,16 +1,16 @@
-book_filename: "tcsm.Rmd"
+book_filename: "isem.Rmd"
 rmd_files: [
   "index.Rmd",
   "assignments.Rmd",
-  "week0.Rmd",
-  "week1.Rmd",
-  "week2.Rmd",
-  "week3.Rmd",
-  "week4.Rmd",
-  "week5.Rmd",
-  "week6.Rmd",
-  "week7.Rmd",
-  "week8.Rmd"
+  "week0.Rmd", # Prep
+  "week1.Rmd", # Intro to R
+  "week2.Rmd", # Path analysis
+  "week3.Rmd", # Mediation & moderation
+  "week4.Rmd", # CFA I
+  "week5.Rmd", # CFA II
+  "week6.Rmd", # No class
+  "week7.Rmd", # SEM
+  "week8.Rmd"  # Multiple group models
   ]
 delete_merged_file: true
 documentclass: book

@@ -1,614 +1,499 @@
 ## In-Class Exercises
 
-In these exercises, we will continue with our re-analysis/replication of the 
-Kestilä (2006) results. Rather than attempting a direct replication, we will now
-redo the analysis using *exploratory factor analysis* (EFA).
+```{r, include = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+This week, we will wrap up our re-analysis of the Kestilä (2006) results. During
+this practical, you will conduct a CFA of the *Attitudes toward Immigration*
+items and compare the results to those obtained from your previous EFA- and
+PCA-based replications of Kestilä (2006).
 
 ---
 
-### 
+###
 
-Load the [*ess_round1.rds*][ess_data] dataset.
+Load the ESS data.
 
-- These are the data that we saved after the data processing in the At-Home
-  Exercises.
+- The relevant data are contained in the [*ess_round1.rds*][ess_data] file.
 
 <details>
   <summary>Click to show code</summary>
-
-``` {r, eval = FALSE}
-ess <- readRDS("ess_round1.rds")
-```
-
-``` {r, echo = FALSE}
+  
+```{r, echo = FALSE}
 dataDir <- "../../../../data/"
 ess <- readRDS(paste0(dataDir, "ess_round1.rds"))
 ```
 
+```{r, eval = FALSE}
+ess <- readRDS("ess_round1.rds")
+```
+
+</details>
+
+---
+
+We are going to conduct a CFA to evaluate the measurement model implied by the
+five-factor representation of the *Attitudes toward Immigration* items that you
+should have found via the EFA you conducted in the 
+[Week 4 In-Class Exercises](in-class-exercises-3.html).
+
+*Caveat:* Technically, the following CFA result have no confirmatory value
+because we'll be estimating our CFA models from the same data that we used for
+our EFA. Practicing the techniques will still be useful, though.
+
+---
+
+### {#cfaSyntaxAtt}
+
+Define the `lavaan` model syntax for the CFA implied by the five-factor solution
+from \@ref(efaAtt).
+
+- Enforce a simple structure; do not allow any cross-loadings.
+- Covary the five latent factors.
+- Do not specify any mean structure.
+- Save this model syntax as an object in your environment.
+
+*Hints:*
+
+- You can algorithmically enforce a simple structure by assigning each item to
+  the factor upon which it loads most strongly.
+- You can download the fitted `psych::efa()` object for the five-factor solution 
+  [here](data/w4_efa_attitudes.rds).
+- The pattern matrix for the five-factor EFA solution in our Week 4 exercises is
+  equivalent to the solution presented in Table 3 of Kestilä (2006).
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_5f <- '
+## Immigration Policy:
+ip =~ imrcntr + eimrcnt + eimpcnt + imsmetn + impcntr + imdfetn 
+
+## Social Threat:
+st =~ imbgeco + imbleco + imwbcnt + imwbcrm + imtcjob + imueclt
+
+## Refugee Policy:
+rp =~ gvrfgap + imrsprc + rfgbfml + rfggvfn + rfgawrk + rfgfrpc + shrrfg
+
+## Cultural Threat:
+ct =~ qfimchr + qfimwht + pplstrd + vrtrlg
+
+## Economic Threat:
+et =~ imwgdwn + imhecop 
+'
+```
+
+*Note:* We don't have to specify the latent covariances in the model syntax, we
+can tell `lavaan` to estimate all latent covariances when we fit the model.
+
 </details>
 
 ---
 
 ###
 
-Kestilä (2006) claimed that running a PCA is a good way to test if the questions 
-in the ESS measure attitudes towards immigration and trust in politics.
+Estimate the CFA model you defined above, and summarize the results.
 
-- Based on what you've learned from the readings and lectures, do you agree with 
-this position?
+- Use the `lavaan::cfa()` function to estimate the model.
+- Use the default settings for the `cfa()` function.
+- Request the model fit statistics with the summary by supplying the 
+`fit.measures = TRUE` argument to `summary()`.
+- Request the standardized parameter estimates with the summary by supplying the 
+`standardized = TRUE` argument to `summary()`.
 
-<details>
-  <summary>Click for explanation</summary>
+Check the results, and answer the following questions:
 
-Hopefully not. PCA is not a method for estimating latent measurement structure; 
-PCA is a dimension reduction technique that tries to summarize a set of data 
-with a smaller set of component scores. If we really want to estimate the factor
-structure underlying a set of observed variables, we should use EFA.
-
-</details>
-
----
-
-###
-
-Suppose you had to construct the *trust in politics* and *attitude towards 
-immigration* scales described by Kestilä (2006) based on the theory and 
-background information presented in that article.
-
-- What type of analysis would you choose? 
-- What key factors would influence your decision?
-
-<details>
-  <summary>Click for explanation</summary>
-  
-- We are trying to estimate meaningful latent factors, so EFA would be an 
-appropriate method.
-- The theory presented by Kestilä (2006) did not hypothesize a particular number
-of factors, so we would need to use appropriate techniques to estimate the best
-number. In particular, combining information from:
-    - Scree plots
-    - Parallel analysis
-    - Substantive interpretability of the (rotated) factor loadings
-- Since the factors are almost certainly correlated, we should apply an oblique 
-rotation.
-
-</details>
-
----
-
-We will now rerun the two PCAs that you conducted for the 
-[At-Home Exercises](at-home-exercises-3.html) using EFA. We will estimate the 
-EFA models using the `psych::fa()` function, but we need to know how many
-factors to extract.
-
-- We could simply estimate a range of solutions and compare the results.
-- We can restrict the range of plausible solutions and save some time by first 
-checking/plotting the eigenvalues and running parallel analysis.
-
----
-
-###
-
-Estimate the number of latent factors underlying the *Trust* items based on the 
-eigenvalues, the scree plot, and parallel analysis. 
-
-- How many factors are suggested by each method?
-
-**1. Eigenvalue estimation**
+- Does the model fit the data well?
+- How are the latent variances and covariances specified when using the default 
+settings?
+- How is the model identified when using the default settings?
 
 <details>
   <summary>Click to show code</summary>
   
 ```{r}
-## Load the psych package:
-library(psych)
+## Load the lavaan package:
+library(lavaan)
 
-## Run a trivial EFA on the 'trust' items
-efa_trust0 <- select(ess, trstlgl:trstplt) %>%
-  fa(nfactors = 1, rotate = "none")  
+## Estimate the CFA model:
+fit_5f <- cfa(mod_5f, data = ess)
+
+## Summarize the fitted model:
+summary(fit_5f, fit.measures = TRUE, standardized = TRUE)
 ```
-
+ 
   <details>
-    <summary>Click for explanation (EFA)</summary>
-  
-First, we run a trivial EFA using the `psych::fa()` function to estimate the
-eigenvalues.
+    <summary>Click for explanation</summary>
 
-- We don't care about the factors yet, so we can extract a single factor.
-- We also don't care about interpretable solutions, so we don't need rotation.
+No, the model does not seem to fit the data well.
 
-  </details>
+- The SRMR looks good, but one good looking fit statistic is not enough.
+- The TLI and CFI are in the "unacceptable" range.
+- RMSEA is in the "questionable" range.
+- The $\chi^2$ is highly significant, but we don't care.
 
-```{r}
-## View the estimated eigenvalues:
-round(efa_trust0$values, digits = 3)
-```
+The `cfa()` function is just a wrapper for the `lavaan()` function with several 
+options set at the defaults you would want for a standard CFA. 
 
-  <details>
-    <summary>Click for explanation (eigenvalue extraction)</summary>
+- By default:
+   - All latent variances and covariances are freely estimated (due to the 
+     argument `auto.cov.lv.x = TRUE`)
+   - The model is identified by fixing the first factor loading of each factor 
+     to 1 (due to the argument `auto.fix.first = TRUE`)
 
-We can check the eigenvalues to see what proportion of the observed variance is 
-accounted for by each additional factor we may extract.
-  
-Since only one eigenvalue is greater than one, the so-called "Kaiser Criterion"
-would suggest extracting a single factor. 
-  
-- The Kaiser Criterion is not a valid way to select the number of factors in 
-  EFA. So, we don't want to rely on this information alone.
-  
-We can still use the eigenvalues to help us with factor enumeration, though.
-One way to do so is by plotting the eigenvalues in a *scree plot*. 
+To see a full list of the (many) options you can specify to tweak the behavior
+of `lavaan` estimation functions run `?lavOptions`.
 
   </details>
 </details>
 
 ---
 
-**2. Scree plot**
+Now, we will consider a couple of alternative factor structures for the *Attitudes
+toward Immigration* CFA. First, we will go extremely simple by estimating a one-factor 
+model wherein all *Attitude* items are explained by a single latent variable.
+
+---
+
+### {#cfaSyntaxAtt1f}
+
+Define the `lavaan` model syntax for a one-factor model of the *Immigration* items.
+
+- Save this syntax as an object in your environment.
 
 <details>
   <summary>Click to show code</summary>
 
-Given a vector of estimated eigenvalues, we can create a scree plot using 
-`ggplot()` and the `geom_line()` or `geom_path()` geometry.
-  
 ```{r}
-library(ggplot2)
-library(magrittr)
-
-efa_trust0 %$% data.frame(y = values, x = 1:length(values)) %>%
-  ggplot(aes(x, y)) + 
-  geom_line() +
-  xlab("No. of Factors") +
-  ylab("Eigenvalues")
+mod_1f <- '
+ati =~ imrcntr + eimrcnt + eimpcnt + imsmetn + impcntr + imdfetn + imbgeco +
+       imbleco + imwbcnt + imwbcrm + imtcjob + imueclt + gvrfgap + imrsprc +
+       rfgbfml + rfggvfn + rfgawrk + rfgfrpc + shrrfg  + qfimchr + qfimwht +
+       pplstrd + vrtrlg  + imwgdwn + imhecop
+'
 ```
 
-We can also use the `psych::scree()` function to create a scree plot directly
-from the data.
-
-```{r}
-select(ess, trstlgl:trstplt) %>% scree(pc = FALSE)
-```
-  
-  <details>
-    <summary>Click for explanation (scree plot)</summary>
-  
-Although the scree plot provides useful information, we need to interpret that 
-information subjectively, and the conclusions are sometimes ambiguous, in this 
-case.
-
-- In this case, the plot seems to suggest either one or three components, 
-  depending on where we consider the "elbow" to lie.
-  
-As recommended in the lecture, we can also use "parallel analysis"
-[(Horn, 1965)](https://doi.org/10.1007/BF02289447) to provide more objective
-information about the number of factors. We'll use the `psych::fa.parallel()`
-function to implement parallel analysis.
-
-- Parallel analysis relies on randomly simulated/permuted data, so we should
-  set a seed to make sure our results are reproducible.
-- We can set the `fa = "fa"` option to get only the results for EFA.
-
-  </details>
 </details>
 
 ---
 
-**3. Parallel Analysis**
+### {#compare1f5f}
+
+Estimate the one-factor model, and summarize the results.
+
+- Compare the fit measures for the one-factor and five-factor models
+- Which model better fits the data?
+
+*Note:* Remember, you can use the `lavaan::fitMeasures()` function to extract 
+only the model fit information from a fitted `lavaan` object.
 
 <details>
   <summary>Click to show code</summary>
   
 ```{r}
-## Set the random number seed:
-set.seed(235711)
+## Estimate the one factor model:
+fit_1f <- cfa(mod_1f, data = ess)
 
-## Run the parallel analysis:
-pa_trust <- select(ess, trstlgl:trstplt) %>%
-     fa.parallel(fa = "fa") 
+## Summarize the results:
+summary(fit_1f)
+
+## Compare fit statistics:
+fitMeasures(fit_5f,
+            fit.measures = c("npar",                  # Estimated parameters
+                             "chisq", "df", "pvalue", # Model fit vs. saturated
+                             "cfi", "tli",            # Model fit vs. baseline
+                             "rmsea", "srmr"),        # Model fit vs. saturated
+            output = "text")
+
+fitMeasures(fit_1f,
+            fit.measures = c("npar",                  # Estimated parameters
+                             "chisq", "df", "pvalue", # Model fit vs. saturated
+                             "cfi", "tli",            # Model fit vs. baseline
+                             "rmsea", "srmr"),        # Model fit vs. saturated
+            output = "text")
 ```
   
   <details>
     <summary>Click for explanation</summary>
     
-The results of the parallel analysis suggest `r pa_trust$nfact` factors. 
-
----
-
-If you've been paying close attention, you may have noticed that we need to
-compute the eigenvalues from the original data to run parallel analysis. 
-Hence, we don't actually need to run a separate EFA to estimate the
-eigenvalues.
-  
-```{r}
-## View the eigenvalues estimated during the parallel analysis:
-pa_trust$fa.values
-
-## Compare to the version from the EFA:
-pa_trust$fa.values - efa_trust0$values
-
-## Recreate the scree plot from above:
-pa_trust %$% data.frame(y = fa.values, x = 1:length(fa.values)) %>%
-  ggplot(aes(x, y)) + 
-  geom_line() +
-  xlab("No. of Factors") +
-  ylab("Eigenvalues")
-```
-
-Of course, we also see the same scree plot printed as part of the parallel
-analysis. So, there's really no reason to create a separate scree plot, at all, 
-if we're doing parallel analysis.
-
-  </details>
-</details>
-
----
-
-**4. Conclusion**
-
-<details>
-  <summary>Click for explanation</summary>
-  
-The different criteria disagree on how many factors we should extract, but we
-have narrowed the range.
-
-- Based on the scree plot and parallel analysis, we should consider solutions 
-for 3 to `r pa_trust$nfact` factors. 
-- We need to examine the factor loadings to see which solution makes the most 
-substantive sense.
-
-</details>
-
----
-
-###
-
-Do the same analysis for the *attitudes toward immigration* items.
-
-<details>
-  <summary>Click to show code</summary>
-  
-This time, we'll start by running the parallel analysis and get the eigenvalues 
-and scree plot from `psych::fa.parallel()`.
-
-```{r}
-## Set the seed:
-set.seed(235711)
-
-## Run parallel analysis on the 'attitudes' items:
-pa_att <- select(ess, imsmetn:rfgbfml) %>% fa.parallel(fa = "fa")
-
-## Check the eigenvalues:
-round(pa_att$fa.values, digits = 3)
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-For the *attitudes toward immigration* analysis, the results are even more 
-ambiguous than they were for the *trust* items.
-
-- The Kaiser Criterion suggests `r sum(pa_att$fa.value > 1)` factors.
-- The scree plot is hopelessly ambiguous.
-    - At least 3 factors?
-    - No more than 9 factors?
-- Parallel analysis suggests `r pa_att$nfact` factors
-
-Based on the scree plot and parallel analysis, it seems reasonable to consider 
-solutions for 3 to `r pa_att$nfact` factors.
-
-- Again, we need to check the substantive interpretation to choose the most 
-reasonable solution.
-
-  </details>
-</details>
-
----
-
-To evaluate the substantive interpretability of the different solutions, we need
-to estimate the full EFA models for each candidate number of factors. We then 
-compare the factor loadings across solutions to see which set of loadings define
-the most reasonable set of latent variables.
-
----
-
-### {#trust_efa}
-
-For the *trust* items, estimate the EFA models for each plausible number of 
-components that you identified above.
-
-- Use the `psych::fa()` function to estimate the models.
-
-You will need to specify a few key options.
-
-- The data (including only the variables you want to analyze)
-- The number of factors that you want to extract
-- The rotation method
-- The estimation method
-- The method of estimating factor scores
-
-*Hint:* You can save yourself a lot of typing/copy-pasting (and the attendant 
-chances of errors) by using a `for()` loop to iterate through numbers of factors.
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-## Define an empty list to hold all of our fitted EFA objects:
-efa_trust <- list()
-
-## Loop through the interesting numbers of factors and estimate an EFA for each:
-for(i in 3:6) 
-  efa_trust[[as.character(i)]] <- ess %>% 
-    select(trstlgl:trstplt) %>% 
-    fa(nfactors = i,          # Number of factors = Loop index
-       rotate   = "promax",   # Oblique rotation
-       scores   = "Bartlett") # Estimate factor scores with WLS
-```
-
-</details>
-
----
-
-###
-
-Repeat the above analysis for the *attitudes* items.
-
-<details>
-  <summary>Click to show code</summary>
+ The one-factor model definitely seems to fit worse than the five-factor model.
  
-```{r}
-efa_att <- list()
-for(i in 3:7)
-  efa_att[[as.character(i)]] <- ess %>%
-    select(imsmetn:rfgbfml) %>%
-    fa(nfactors = i,         
-       rotate   = "promax",  
-       scores   = "Bartlett")
-```
-
-</details>
-
----
-
-###
-
-Compare the factor loading matrices from the models estimated from the *Trust* 
-items, and select the best solution.
-
-*Hints:*
-
-- The factor loadings are stored in the `loadings` slot of the object returned 
-by `psych::fa()`.
-- Looping can also be useful here.
-
-
-<details>
-  <summary>Click to show code</summary>
-  
-```{r}
-for(x in efa_trust) print(x$loadings)
-```
- 
-  <details>
-    <summary>Click for explanation</summary>
-
-*Note:* Any factor loadings with magnitude lower than 0.1 are suppressed in
-above output.
-
-The factor loadings matrix indicates how strongly each latent factor (columns) 
-associates with the observed items (rows). We can interpret these factor loadings 
-in the same way that we would interpret regression coefficients (indeed, a factor 
-analytic model can be viewed as a multivariate regression model wherein the 
-latent factors are the predictors and the observed items are the outcomes). 
-
-- A higher factor loading indicates a stronger association between the item and 
-factor linked by that loading. 
-    - Items with high factor loadings are "good" indicators of the respective 
-    factors.
-- Items with only very low loadings do not provide much information about any factor.
-    - You may want to exclude such items from your analysis.
-    - Note that the size of the factor loadings depends on the number of factors. 
-    So, you should only consider excluding an observed item after you have
-    chosen the number of latent factors.
-
-When we print the loading matrix, we see additional information printed below
-the factor loadings.
-
-- *Proportion Var*: What proportion of the items' variance is explained by each 
-of the factors.
-- *Cumulative Var*: How much variance the factors explain, in total. 
-    - If you estimated as many factors as items, then the *Cumulative Var* for
-    the final factor would be `1.00` (i.e., 100%).
-
   </details>
 </details>
 
 ---
 
-### {#efaAtt}
-
-Compare the factor loading matrices from the models estimated from the *Attitudes* 
-items, and select the best solution.
-
-<details>
-  <summary>Click to show code</summary>
- 
-```{r}
-for(x in efa_att) print(x$loadings)
-```
-
-</details>
-
----
-
-It is very possible that you selected a different numbers of factors than Kestilä 
-(2006). We need to keep these exercises consistent, though. So, the remaining 
-questions will all assume you have extract three factors from the *Trust* items
-and five factors from the *Attitudes* items, to parallel the Kestilä (2006) results.
-
-```{r}
-## Select the three-factor solution for 'trust':
-efa_trust <- efa_trust[["3"]]
-
-## Select the five-factor solution for 'attitudes':
-efa_att <- efa_att[["5"]]
-```
-
-```{r echo = FALSE}
-saveRDS(efa_trust, "../../data/w4_efa_trust.rds")
-saveRDS(efa_att, "../../data/w4_efa_attitudes.rds")
-```
-
----
-
-### {#factorScores}
-
-Give the factor scores meaningful names, and add the scores to the `ess` dataset 
-as new columns.
-
-*Hint:* If you're not sure of what do to, check \@ref(pcScores).
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-## Rename the factor scores:
-colnames(efa_trust$scores) <- c("trust_inst", "satisfy", "trust_pol")
-colnames(efa_att$scores)   <- c("effects", 
-                                "allowance", 
-                                "refugees", 
-                                "ethnic", 
-                                "europe")
-
-## Add factor scores to the dataset as new columns:
-ess <- data.frame(ess, efa_trust$scores, efa_att$scores)
-```
-
-</details>
-
----
-
-Kestilä (2006) used the component scores to descriptively evaluate country-level 
-differences in *Attitudes toward Immigration* and *Political Trust*. So, now it's 
-time to replicate those analyses.
-
----
-
 ###
 
-Repeat the Kestilä (2006) between-country comparison using the factor scores you 
-created in \@ref(factorScores) and an appropriate statistical test.
-
-<details>
-  <summary>Click to show code</summary>
-
-Here, we'll only demonstrate a possible approach to analyzing one of the *Trust*
-dimensions. We can use a linear model to test whether the countries differ in
-average levels of *Trust in Institutions* (as quantified by the relevant factor
-score).
-
-```{r}
-## Estimate the model:
-out <- lm(trust_inst ~ country, data = ess)
-
-## View the regression-style summary:
-summary(out)
-
-## View the results as an ANOVA table:
-anova(out)
-
-## Post-hoc tests
-out %>% aov() %>% TukeyHSD()
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-According to the omnibus F-test, average levels of *Trust in Institutions*
-significantly differ between countries, but this test cannot tell us between 
-which countries the differences lie. 
-
-Similarly, the t statistics associated with each dummy code in the regression-style
-summary only tell us if that country differs significantly from the reference 
-country (i.e., `r levels(ess$country)[1]`), but we cannot see, for example, if
-there is a significant difference in average trust levels between Belgium and 
-the Netherlands.
-
-One way to test for differences between the individual countries would be a 
-post hoc test of all pairwise comparisons. Since we'll be doing 
-`r choose(10, 2)` tests, we need to apply a correction for repeated testing.
-
-- Above, we use the `TukeyHSD()` function to conduct all pairwise comparisons 
-  while applying Tukey's HSD correction.
-- The `TukeyHSD()` function only accepts models estimated with the `aov()` 
-  function, so we first pass our fitted lm object through `aov()`.
-
-  </details>
-</details>
-
----
-
-The second part of the Kestilä (2006) analysis was to evaluate how 
-socio-demographic characteristics affected attitudes towards immigrants and 
-trust in politics among the Finnish electorate. Before we can replicate this
-part of the analysis, we need to subset the data to only the Finnish cases.
-
----
-
-###
-
-Create a new data frame that contains only the Finnish cases from `ess`.
-
-*Hint:* You can use logical indexing based on the `country` variable. 
-
-<details>
-  <summary>Click to show code</summary>
-  
-```{r}
-ess_finland <- filter(ess, country == "Finland")
-```
-
-</details>
-
----
-
-We still have one more step before we can estimate any models. We must prepare 
-our variables for analysis.
-
-- Our dependent variables will be the factor scores generated above. So, we do 
-not need to apply any further processing.
-- We have not yet used any of the independent variables, though. So, we should 
-inspect those variables to see if they require any processing. 
-
-In our processed `ess` data, the relevant variables have the following names:
-
-- `sex`
-- `yrbrn`
-- `eduyrs`
-- `polintr`
-- `lrscale`
-
----
-
-###
-
-Inspect the independent variables listed above.
-
-<details>
-  <summary>Click to show code</summary>
-  
-```{r}
-library(tidySEM)
-
-select(ess_finland, sex, yrbrn, eduyrs, polintr, lrscale) %>% 
-  descriptives()
-```
+Given the CFA results from the five factor model, would a second-order CFA be
+appropriate for the *Attitudes towards Immigration* data? Why or why not?
 
 <details>
   <summary>Click for explanation</summary>
 
-It looks like we still need some recoding. 
+Yes, a second-order CFA model is a theoretically appropriate representation of 
+the *Attitudes towards Immigration* items. 
+
+- The first order latent variables in the five-factor model are all 
+  significantly correlated.
+- The first order latent variables in the five-factor model seem to tap 
+  different aspects of some single underlying construct. 
+
+</details>
+
+---
+
+### {#cfa2nd}
+
+Define the `lavaan` model syntax for a second-order CFA model of the *Attitudes
+towards Immigration* items, estimate it, and inspect the results.
+
+- Use the five factors defined in \@ref(cfaSyntaxAtt) as the first order factors.
+  
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_2o <- paste(mod_5f,
+                'ati =~ ip + rp + st + ct + et',
+                sep = '\n')
+
+fit_2o <- cfa(mod_2o, data = ess)
+summary(fit_2o, fit.measures = TRUE)
+```
+
+</details>
+
+---
+
+###
+
+Compare the model fit of the first- and second-order five-factor models using 
+the `fitMeasures()` function.
+
+- Which model offers the better fit?
+- Which model is more complex?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+fitMeasures(fit_5f,
+  fit.measures = c("npar",                  # Estimated parameters
+                   "chisq", "df", "pvalue", # Model fit vs. saturated
+                   "cfi", "tli",            # Model fit vs. baseline
+                   "rmsea", "srmr"),        # Model fit vs. saturated
+  output = "text")
+
+fitMeasures(fit_2o,
+  fit.measures = c("npar",                  # Estimated parameters
+                   "chisq", "df", "pvalue", # Model fit vs. saturated
+                   "cfi", "tli",            # Model fit vs. baseline
+                   "rmsea", "srmr"),        # Model fit vs. saturated
+  output = "text")
+```
+ 
+  <details>
+    <summary>Click for explanation</summary>
+ 
+The CFI and TLI are both slightly better in the original five factor model,
+but the RMSEA and SRMR of both models don't differ out to three decimal places. 
+As usual, both models have a significant $\chi^2$, but that doesn't tell us much.
+
+  </details>
+</details>
+
+---
+
+Qualitative comparisons of model fit are fine, but we'd like to have an actual
+statistical test for these fit differences. As it happens, we have just such a
+test: a nested model $\Delta \chi^2$ test (AKA, chi-squared difference test, 
+change in chi-squared test, likelihood ratio test).
+
+In the Week 7 lecture, we'll cover nested models and tests thereof, but it will
+be useful to start thinking about these concepts now. Two models are said to be
+*nested* if you can define one model by placing constraints on the other model.
+
+By way of example, consider the following two CFA models.
+
+```{r, echo = FALSE}
+library(semPlot)
+library(semptools)
+
+hsMod <- '
+visual  =~ x1 + x2 + x3
+textual =~ x4 + x5 + x6
+'
+
+hsFit <- cfa(hsMod, data = HolzingerSwineford1939) 
+
+semPaths(hsFit,
+         layout = "tree2",
+         sizeMan = 10,
+         sizeMan2 = 8,
+         sizeLat = 18,
+         curve = 3,
+         esize = 2,
+         asize = 4,
+         mar = c(6, 2, 10, 2),
+         DoNotPlot = TRUE,
+         nCharNodes = 0) %>%
+rotate_resid(c(visual = -45, textual = 45)) %>%
+plot()
+
+hsMod2 <- '
+visual  =~ x1 + x2 + x3
+textual =~ x4 + x5 + x6
+
+visual ~~ 0 * textual
+'
+
+cfa(hsMod2, data = HolzingerSwineford1939) %>%
+  semPaths(layout = "tree2",
+           sizeMan = 10,
+           sizeMan2 = 8,
+           sizeLat = 18,
+           curve = 3,
+           esize = 2,
+           asize = 4,
+           mar = c(6, 2, 10, 2),
+           DoNotPlot = TRUE,
+           nCharNodes = 0,
+           exoCov = FALSE) %>%
+rotate_resid(c(visual = -45, textual = 45)) %>%
+plot()
+```
+
+The second model is nested within the first model, because we can define the
+second model by fixing the latent covariance to zero in the first model.
+
+Notice that the data contain $6(6 + 1) / 2 = 21$ unique pieces of information.
+The first model estimates `r (p = fitMeasures(hsFit, "npar"))` parameters, and 
+the second model estimates `r p - 1` parameters. Hence the first model has 
+`r (df1 = 21 - p)` degrees of freedom, and the second model has `r df1 + 1`
+degrees of freedom.
+
+In general, the following must hold whenever *Model B* is nested within *Model A*.
+
+- Model B will have *fewer* estimated parameters than Model A.
+- Model B will have *more* degrees of freedom than Model A.
+- Model A will be *more* complex than model B.
+- Model A will fit the data *better* than model B.
+
+---
+
+**Saturated Model**
+
+All models are nested within the saturated model, because the saturated model
+estimates all possible relations among the variables. Regardless of what model
+we may be considering, we can always convert that model to a saturated model by
+estimating all possible associations. Hence, all models are nested within the 
+saturated model.
+
+```{r, echo = FALSE}
+tmp        <- rep(0, 6)
+names(tmp) <- lavNames(hsFit)
+
+lav_partable_unrestricted(hsFit) %>% 
+  cfa(data = HolzingerSwineford1939) %>%
+  semPaths(layout = "tree",
+           sizeMan = 10,
+           sizeMan2 = 8,
+           curve = 3,
+           esize = 2,
+           asize = 4,
+           DoNotPlot = TRUE) %>%
+  rotate_resid(tmp) %>%
+  plot()
+```
+
+---
+
+**Baseline Model**
+
+Similarly, the baseline model (AKA, independence model) is nested within all 
+other models. In the baseline model, we only estimate the variances of the 
+observed items; all associations are constrained to zero. We can always convert
+our model to the baseline model by fixing all associations to zero. Hence, the
+baseline model is nested within all other models.
+
+```{r, echo = FALSE}
+lav_partable_independence(hsFit) %>% 
+  cfa(data = HolzingerSwineford1939) %>%
+  semPaths(layout = "tree",
+           sizeMan = 10,
+           sizeMan2 = 8,
+           esize = 2,
+           asize = 4)
+```
+
+---
+
+When two models are nested, we can use a $\Delta \chi^2$ test to check if the
+nested model fits *significantly worse* than its parent model. Whenever we place
+constraints on the model, the fit will deteriorate, but we want to know if the
+constraints we imposed to define the nested model have produced *too much* loss
+of fit.
+
+We can use the `anova()` function to easily conduct $\Delta \chi^2$ tests 
+comparing models that we've estimated with `cfa()` or `sem()`.
+
+---
+
+###
+
+Use the `anova()` function to compare the five-factor model from 
+\@ref(cfaSyntaxAtt) and one-factor model from \@ref(cfaSyntaxAtt1f). 
+
+- Explain what `Df`, `Chisq`, `Chisq diff`, `Df diff`, and `Pr(>Chisq)` mean.
+- Which model is more complex?
+- Which model fits better?
+- What is the conclusion of the test?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+anova(fit_1f, fit_5f)
+```
+  
+  <details>
+    <summary>Click for explanation</summary>
+    
+The `Df` column contains the degrees of freedom of each model.
+
+- Higher df $\Rightarrow$ Less complex model
+
+The `Chisq` column shows the $\chi^2$ statistics (AKA, likelihood ratio
+statistics) for each model.
+
+- $\chi^2$ = The ratio of the likelihoods for the estimated model and the 
+     saturated model).
+- Larger $\chi^2$ $\Rightarrow$ Worse fit
+
+`Chisq diff` is the difference between the two $\chi^2$ values (i.e., 
+$\Delta \chi^2$).
+
+- How much better the more complex model fits the data
+- Larger $\Delta \chi^2$ values indicate greater losses of fit induced by the
+  constraints needed to define the nested model.
+
+`Df diff` is the difference in the degrees of freedom between the models. 
+
+- Since both models must be estimated from the same pool of variables, this 
+  difference also represents the number of parameters that were constrained
+  to define the nested model.
+ 
+`Pr(>Chisq)` is a p-value for the $\Delta \chi^2$ test.
+
+- $H_0: \Delta \chi^2 = 0$
+- $H_1: \Delta \chi^2 > 0$
+
+The five-factor model is more complex than the one-factor model, but the extra
+complexity is justified The five-factor model fits significantly better than
+the one-factor model.
 
   </details>
 </details>
@@ -617,239 +502,205 @@ It looks like we still need some recoding.
 
 ###
 
-Apply any necessary recoding/transformations.
+Use the `anova()` function to compare the first- and second-order five-factor
+models from \@ref(cfaSyntaxAtt) and \@ref(cfa2nd). 
 
-**1. Age**
+- Which model is more complex?
+- What is the conclusion of the test?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+anova(fit_5f, fit_2o)
+```
+  
+  <details>
+    <summary>Click for explanation</summary>
+    
+The first-order model is more complex than the second-order model 
+(df = `r fitMeasures(fit_5f, "df")` vs. df = `r fitMeasures(fit_2o, "df")`),
+and the extra complexity is necessary. The first-order model fits significantly
+better than the second-order model.
+
+  </details>
+</details>
+
+---
+
+###
+
+Based on the results above, would you say that you have successfully confirmed
+the five-factor structure implied by the EFA?
+
+<details>
+  <summary>Click for explanation</summary>
+
+Nope, not so much. The first-order five-factor model may fit the data best out
+of the three models considered here, but it still fits terribly. None of these
+models is an adequate representation of the *Attitudes toward Immigration* items.
+
+This result is particularly embarrassing when you consider that we've stacked the
+deck in our favor by using the same data to conduct the EFA and the CFA.
+
+When we fail to support the hypothesized measurement model, the confirmatory 
+phase of our analysis is over. At this point, we've essentially rejected our
+hypothesized measurement structure, and that's the conclusion of our analysis.
+We don't have to throw up our hands in despair, however. We can still contribute
+something useful by modifying the theoretical measurement model through an 
+exploratory, data-driven, post-hoc analysis.
+
+We'll give that a shot below.
+
+</details>
+
+---
+
+###
+
+Modify the five-factor CFA from \@ref(cfaSyntaxAtt) by freeing the following
+parameters.
+
+- The residual covariance between `imrcntr` and `eimrcnt`
+   - These questions both ask about allowing immigration from wealthy countries.
+   - It makes sense that answers on these two items share some additional, 
+     unique variance above-and-beyond what they contribute to the common factors. 
+- The residual covariance between `qfimchr` and `qfimwht`
+   - These questions are both about imposing qualifications on immigration
+     (specifically Christian religion and "white" race).
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-ess_finland <- mutate(ess_finland, age = 2002 - yrbrn)
+fit_5f_cov <- paste(mod_5f, 
+                    'imrcntr ~~ eimrcnt', 
+                    'qfimchr ~~ qfimwht', 
+                    sep = '\n') %>%
+  cfa(data = ess)
+
+summary(fit_5f_cov, fit.measures = TRUE)
 ```
 
+</details>
+
+---
+
+###
+
+Evaluate the model modifications.
+
+- Did the model fit significantly improve?
+- Is the fit of the modified model acceptable?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+anova(fit_5f_cov, fit_5f)
+fitMeasures(fit_5f_cov)
+```
+  
   <details>
     <summary>Click for explanation</summary>
+ 
+Yes, the model fit improved significantly. In this case, the original five-factor
+model is nested within the modified model. So, our $\Delta \chi^2$ test is 
+evaluating the improvement in fit contributed by freeing the two residual 
+covariances. The $\Delta \chi^2$ test is significant, so we can conclude that
+including the two new parameter estimates has significantly improved the model fit.
 
-The data contain the participants' years of birth instead of their age, but 
-Kestilä analyzed age. Fortunately, we know that the data were collected in
-2002, so we can simply subtract each participant's value of `yrbrn` from the
-2002 to compute their age.
+- I.e., Estimating these two residual covariances is "worth it" in the sense of
+  balancing model fit and model complexity.
+
+Also, the fit of the modified model is now acceptable.
+
+**Caveat** 
+
+If we had found this result when testing our original model, we would be
+well-situated to proceed with our analysis. In this case, however, we are no
+longer justified in generalizing these estimates to the population. We only
+arrived at this well-fitting model by modifying our original theoretical model
+to better fit the data using estimates derived from those same data to guide our
+model modifications.
+
+We've conducted this post-hoc analysis to help inform future research, and this
+result is useful as a starting point for future studies. Now, anyone analyzing
+these scales in the future could incorporate these residual covariances into
+their initial theoretical model. Basically, we conduct these types of post-hoc
+analyses to help future researchers learn from our mistakes.
+
+  </details>
+</details>
+
+<!------------------------------------------------------------------------------
+
+---
+
+###
+
+Examine the sections Latent Variables and Covariances in the lavaan output. 
+
+- Determine whether the latent variable `refugeepolicy` represents a person's
+  tendency to be either for or against policies targeting refugees.
+- With which latent variables is `refugeepolicy` positively correlated?
+- With which latent variables is `refugeepolicy` negatively correlated?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+summary(fit_5f_cov, standardized = TRUE)
+```
+  
+  <details>
+    <summary>Click for explanation</summary>
+ 
+We can tell from the factor loadings that `refugeepolicy` represents a 
+favorable stance towards refugees. The first indicator provides the scale
+for the latent variable. In this case, this is the indicator `gvrfgap` 
+("Government should be generous judging applications for refugee status").
+The other indicators in support of allowing refugees to work or bring
+close family members also have positive loadings, which makes sense. 
+ 
+The variables `rfgfrpc` and `shrrfg` have negative loadings, because they are
+attitudes towards the statements "Most refugee applicants not in real fear
+of persecution own countries" and "Country has more than its fair share of
+people applying refugee status". This makes sense, because someone who has
+a high degree of support for policies helping refugees is likely to have a
+low degree of support for those statements.
+ 
+Refugee policy correlates positively with `immigpolicy` and `culturalthreat`
+and negatively with `socialthreat` and `economicthreat`.
   
   </details>
 </details>
 
 ---
 
-**2. Political Interest**
-
-<details>
-  <summary>Click to show code</summary>
-
-First, we'll transform `polintr`.
-
-```{r}
-## Recode the four factor levels into two factor levels:
-ess_finland <-
-  mutate(ess_finland,
-         polintr_bin = recode_factor(polintr,
-                                     "Not at all interested" = "Low Interest",
-                                     "Hardly interested" = "Low Interest",
-                                     "Quite interested" = "High Interest",
-                                     "Very interested" = "High Interest")
-         )
-
-## Check the conversion:
-with(ess_finland, table(old = polintr, new = polintr_bin, useNA = "always"))
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-<!------------------------------------------------------------------------------
-
- The variables `polintr` and `lrscale` are represented as character vectors. If
- we analyze these variables as they are, R will convert the character vectors
- to factors and make dummy codes for each distinct value; we definitely don't
- want that. 
- 
- We need to convert `polintr` and `lrscale` to numeric vectors, but we cannot
- naively apply the `as.numeric()` function, because R doesn't know how to
- convert a word into a number (or, at least, not how we want the operation to
- be done). There are many ways that we could go about this conversion, but the
- `recode()` function from the `dplyr` package is particularly useful for
- arbitrary recoding tasks such as we have here.
-
-------------------------------------------------------------------------------->
-
- Kestilä (2006) dichotomized `polintr` by combining the lowest two and highest 
- two categories. So, we don't actually want to convert the `polint` variable
- into a numeric, Likert-type variable. We want `polint` to be a binary factor.
- The `recode_factor()` function from `dplyr()` will automatically convert our
- result into a factor.
-
-<!------------------------------------------------------------------------------
-
-For political orientation, only the two extreme values of the scale are labeled 
-as text. So, we only need to recode those two levels.
-
-- Since we're only replacing two of the 11 values, we'll need to provide a
-value for the `.default` argument in `dplyr::recode()`.
-
-------------------------------------------------------------------------------->
-
-  </details>
-</details>
-
----
-
-As with the `ess_round1.rds` data, we will be coming back to this Finnish
-subsample data in future practical exercises. So, we should save our work by
-writing the processed dataset to disk.
-
----
-
 ###
 
-Use the `saveRDS()` function to save the processed Finnish subsample data.
+Which indicator has the highest amount of shared variance / is the item most
+representative of each of the latent variables?
 
 <details>
-  <summary>Click to see code</summary>
+  <summary>Click for explanation</summary>
 
-```{r eval = FALSE}
-## Save the processed Finnish data:
-saveRDS(ess_finland, "ess_finland.rds")
-```
+We can look either at `Std.lv` or `Std.all` under the Latent Variables section
+of the output. 
 
-```{r echo = FALSE}
-## Save the processed Finnish data:
-saveRDS(ess_finland, paste0(dataDir, "ess_finland.rds"))
-```
-
-</details>
-
----
-
-Now, we're finally ready to replicate the regression analysis from Kestilä (2006).
-Creating a single aggregate score by summing the individual component scores is 
-a pretty silly thing to do, though. So, we won't reproduce that aspect of the 
-analysis.
-
----
-
-### {#efaRegression}
-
-Run a series of multiple linear regression analyses with the factor scores you 
-created in \@ref(factorScores) as the dependent variables and the same predictors 
-used by Kestilä (2006). 
-
-- Do your results agree with those reported by Kestilä (2006)?
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-## Predicting 'Trust in Institutions':
-out_trust_inst <- lm(trust_inst ~ sex + age + eduyrs + polintr_bin + lrscale, 
-                     data = ess_finland)
-summary(out_trust_inst)
-
-## Predicting 'Trust in Politicians':
-out_trust_pol <- lm(trust_pol ~ sex + age + eduyrs + polintr_bin + lrscale, 
-                    data = ess_finland)
-summary(out_trust_pol)
-
-## Predicting 'Attitudes toward Refugees':
-out_refugees <- lm(refugees ~ sex + age + eduyrs + polintr_bin + lrscale, 
-                   data = ess_finland)
-summary(out_refugees)
-```
-
-</details>
-
----
-
-That does it for our replication of the Kesilä (2006) analyses, but we still have
-one more topic to consider in this practical. One of the most common applications
-of EFA is *scale development*. Given a pool of items without a known factor
-structure, we try to estimate the underlying latent factors that define the
-(sub)scales represented by our items.
-
-In such applications, we use the factor loading matrix for our optimal solution 
-to make "bright-line" assignments of items to putative factors according to the 
-simple structure represented by the estimated factor loading matrix. In other 
-words, we disregard small factor loadings and assign observed items to only the
-single latent factor upon which they load most strongly. We then hypothesize that
-those items are true indicators of that latent factor.
-
-We can use *confirmatory factor analysis* (which you will learn about next week)
-to test rigorously this hypothesis, but we can already get started by estimating
-the *internal consistency* (a type of reliability) of the hypothesized subscales. 
-
----
-
-###
-
-Estimate the internal consistency of the three *Trust* subscales and five 
-*Attitudes* subscales implied by your EFA solutions from above.
-
-- Use *Cronbach's Alpha* to quantify internal consistency.
-- Use the `alpha()` function from the **psych** package to conduct the analysis.
-- Run your analysis on the full `ess` dataset, not the Finnish subset.
-
-Are the subscales implied by your EFA reliable, in the sense of good internal 
-consistency?
-
-- Note that $\alpha > 0.7$ is generally considered acceptable, and $\alpha > 0.8$ 
-is usually considered good.
-
-<details>
-  <summary>Click to show code</summary>
+- For `immigpolicy`, `impcntr` has the highest absolute value.
+- For `socialthreat`, `imwbcnt` has the highest absolute value.
+- For `refugeepolicy`, `shrrfg` has the highest absolute value.
+- For `culturalthreat`, `pplstrd` has the highest absolute value.
+- For `economicthreat`, `imhecop` has the highest absolute value.
   
-```{r}
-## Run the reliability analysis on the subscale data:
-(
-  out <- select(ess, starts_with("stf")) %>%
-    psych::alpha()
-)
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-Here, we estimate the reliability of the *Satisfaction* subscale from the *Trust* 
-analysis. According to our EFA, the *Satisfaction* subscale should be indicated
-by the following five variables:
- 
-- `stfeco`
-- `stfgov`
-- `stfdem`
-- `stfedu`
-- `stfhlth`
- 
-We select these variables using the tidy-select function `starts_with()` to 
-extract all variables beginning with the three characters *"stf"*. To estimate 
-the internal consistency of this subscale, we simply provide a data frame 
-containing only the subscale data to the `alpha()` function.
-
-The `raw_alpha` value is the estimate of Cronbach's Alpha. In this case 
-$\alpha = `r round(out$total$raw_alpha, 3)`$, so the subscale is pretty reliable.
-
-The table labeled "Reliability if an item is dropped" shows what Cronbach's 
-Alpha would be if each item were excluded from the scale. If this value is
-notably higher than the `raw_alpha` value, it could indicate a bad item.
- 
-- Note that reliability is only one aspect of scale quality, though. So, you 
-shouldn't throw out items just because they perform poorly in reliability
-analysis. 
-
-  </details>
 </details>
+
+------------------------------------------------------------------------------->
 
 ---
 
 End of In-Class Exercises
 
 ---
-
-[ess_data]: https://surfdrive.surf.nl/files/index.php/s/an0GVjaMiZYA73u/download

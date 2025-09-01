@@ -1,69 +1,13 @@
 ## Lecture
 
-Often, we work with scales that have a validated or hypothesized factor structure. 
-In the former case, the scale structure has been validated through previous 
-psychometric studies. In the latter case, we may have conducted an EFA to 
-estimate the factor structure on prior data, or theory/intuition may suggest a 
-plausible structure. Regardless of how we come to expect a given factor structure, 
-such situations represent *confirmatory* modeling problems, because we are 
-attempting to empirically confirm an a priori expectation. Hence, exploratory 
-methods like EFA are not appropriate, and we should employ confirmatory modeling 
-techniques.
-
-This week we consider one such technique: *confirmatory factor analysis* (CFA). 
-As the name suggests, CFA is related to the EFA methods we discussed last week
-in that both methods are flavors of factor analysis. However, the two methods 
-address fundamentally different research questions. Rather than attempting to 
-estimate an unknown factor structure (as in EFA), we now want to compare a 
-hypothesized measurement model (i.e., factor structure) to observed data in order
-to evaluate the model's plausibility.
+This week we extend last week's introduction to CFA by focussing on model estimation and identification.
 
 ### Recordings
 
-#### Overview {-}
 
-We'l start with Caspar's lecture recording. These slide should give you a good
-overview of the important ideas.
-
-*Note:*
-
-When Caspar discusses the complexity of the second-order CFA model, it's easy to
-misunderstand his statements. We need to be careful not to over-generalize.
-
-- In general, a second-order CFA *is not* more complex than a first-order CFA.
-   - Actually, in most practical applications, the opposite is true.
-- A second-order CFA *is* more complex than a first-order CFA, when the factors 
-  in the first-order CFA are *uncorrelated*.
-   - This is the situation Caspar references in the recording when claiming that
-     the second-order model is more complex.
-   - We hardly ever want to fit such first-order CFA, though.
-   - The default CFA fully saturates the latent covariance structure.
-- If the factors in the first-order CFA are fully correlated (according to
-  standard practice), and we include a single second-order factor, the following 
-  statements hold.
-   - If the first-order CFA has more than three factors, the first-order model 
-     is more complex than the second-order model.
-   - If the first-order model has three or fewer factors, the first- and
-     second-order models are equivalent (due to scaling constraints we need to
-     impose to identify the second-order model).
-   - The second-order model *cannot be* more complex than the first-order model
-     (assuming both models are correctly identified and no extra constraints are
-     imposed).
-- The above statements may not hold in more complex situations (e.g., more than
-  one second-order factor, partially saturated first-order correlation structure, 
-  etc.).
-   - You can always identify the more complex model by calculating the degrees
-     of freedom for both models.
-   - The model with *fewer* degrees of freedom is *more complex*.
-
-```{r echo = FALSE}
-knitr::include_url("https://www.youtube.com/embed/GTEmuveyJ1k")
-```
-
-The next five recordings supplement Caspar's overview. These recordings dig
-deeper into some of the more tricky ideas that tend to cause the most confusion.
-In particular, these recordings focus on model estimation, identification, and
-scaling.
+These five recordings supplement Caspar's overview from last week. These recordings dig deeper into some of the more
+tricky ideas that tend to cause the most confusion. In particular, these recordings focus on model estimation,
+identification, and scaling.
 
 #### Types of Latent Construct {-}
 
@@ -152,7 +96,4 @@ scaling.
 
 ### Slides
 
-You can download the lecture slides below.
-
-- [Caspar's Slides](pdf/cfa.pdf)
-- [Estimation & Identification Slides](pdf/cfa_estimation.pdf)
+You can download the lecture slides [here](pdf/cfa_estimation.pdf).

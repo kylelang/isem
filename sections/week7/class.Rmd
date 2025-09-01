@@ -1,279 +1,40 @@
 ## In-Class Exercises
 
-```{r include = FALSE}
-library(haven)
-library(dplyr)
-library(lavaan)
-```
+In these exercises, you will use full structural equation modeling (SEM) to
+evaluate the *Theory of Reasoned Action* (TORA), which is a popular psychological 
+theory of social behavior developed by Ajzen and Fishbein. The theory states that 
+actual behavior is predicted by behavioral intention, which is in turn predicted 
+by the attitude toward the behavior and subjective norms about the behavior. 
+Later, a third determinant was added, *perceived behavioral control*. The extent
+to which people feel that they have control over their behavior also influences 
+their behavior.
 
 ---
 
-### Measurement Invariance {#w7MeasurementInvariance}
+The data we will use for this practical are available in the 
+[*toradata.csv*][tora_data] file. These data were synthesized according to the
+results of Reinecke (1998)'s investigation of condom use by young people between
+16 and 24 years old. 
+
+The data contain the following variables:
+
+- `respnr`: Numeric participant ID
+- `behavior`: The dependent variable *condom use* 
+    - Measured on a 5-point frequency scale (How often do you...)
+- `intent`: A single item assessing behavioral intention 
+    - Measured on a similar 5-point scale (In general, do you intend to...). 
+- `attit_1`:`attit_3`: Three indicators of attitudes about condom use
+    - Measured on a 5-point rating scale (e.g., using a condom is awkward)
+- `norm_1`:`norm_3`: Three indicators of social norms about condom use
+    - Measured on a 5-point rating scale (e.g., I think most of my friends would 
+    use...)
+- `control_1`:`control_3`: Three indicators of perceived behavioral control 
+    - Measured on a 5-point rating scale (e.g., I know well how to use a condom)
+- `sex`: Binary factor indicating biological sex
 
 ---
 
-We'll now pick up where we left off with the [At-Home Exercises](at-home-exercises-6.html)
-by testing measurement invariance in the two-group CFA from \@ref(twoGroupCFA).
-
-As you saw in the lecture, measurement invariance testing allows us to 
-empirically test for differences in the measurement model between the groups. If 
-we can establish measurement invariance, we can draw the following (equivalent) 
-conclusions: 
-
-- Our latent constructs are defined equivalently in all groups.
-- The participants in every group are interpreting our items in the same way. 
-- Participants in different groups who have the same values for the observed 
-indicators will also have the same score on the latent variable.
-- Between-group differences in latent parameters are due to true differences in
-the underlying latent constructs and not caused by differences in measurement.
-
-Anytime we make between-group comparisons (e.g., ANOVA, t-tests, moderation by 
-group, etc.) we assume invariant measurement. That is, we assume that the scores
-we're comparing have the same meaning in each group. When doing multiple group 
-SEM, however, we're apprised of the incredibly powerful capability of actually 
-testing this---very important, and often violated---assumption.
-
-The process of testing measurement invariance can get quite complex, but the 
-basic procedure boils down to using model comparison tests to evaluate the 
-plausibility of increasingly strong between-group constraints. For most problems,
-these constraints amount to the following three levels:
-
-1. *Configural:* The same pattern of free and fixed effects in all groups
-1. *Weak (aka Metric):* Configural + Equal factor loadings in all groups
-1. *Strong (aka Scalar):* Weak + Equal item intercepts in all groups
-
-You can read more about measurement invariance [here][van_de_schoot_et_al] and
-[here][putnick_bornstein], and you can find a brief discussion of how to 
-conduct measurement invariance tests in **lavaan** [here][mi_tutorial].
-
----
-
-####
-
-Load the *PGDdata2.txt* data as you did for the [At-Home Exercises](at-home-exercises-6.html).
-
-- *Note:* Unless otherwise specified, all analyses in Section
-  \@ref(w7MeasurementInvariance) use these data.
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r eval = FALSE}
-library(dplyr)
-
-## Load the data:
-pgd <- read.table("PGDdata2.txt",
-                  na.strings = "-999",
-                  header = TRUE,
-                  sep = "\t") %>%
-       filter(!is.na(Kin2))
-
-## Check the results:
-head(pgd)
-summary(pdg)
-str(pgd)
-```
-
-```{r echo = FALSE}
-dataDir <- "../../../../data/"
-pgd <- read.table(paste0(dataDir, "PGDdata2.txt"),
-                  na.strings = "-999",
-                  header = TRUE,
-                  sep = "\t") %>%
-       filter(!is.na(Kin2))
-
-head(pgd)
-summary(pgd)
-str(pgd)
-```
-
-</details>
-
----
-
-#### {#miTesting}
-
-Test *configural*, *weak*, and *strong* invariance using the multiple-group CFA
-from \@ref(twoGroupCFA).
-
-- What are your conclusions?
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-library(lavaan)
-library(semTools) # provides the compareFit() function
-
-## Define the syntax for the CFA model:
-cfaMod <- 'grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5'
-
-## Estimate the configural model:
-configOut <- cfa(cfaMod, data = pgd, group = "Kin2")
-
-## Estimate the weak invariance model:
-weakOut <- cfa(cfaMod, data = pgd, group = "Kin2", group.equal = "loadings")
-
-## Estimate the strong invariance model:
-strongOut <- cfa(cfaMod,
-                 data = pgd,
-                 group = "Kin2",
-                 group.equal = c("loadings", "intercepts")
-                 )
-
-summary(configOut)
-summary(weakOut)
-summary(strongOut)
-
-## Test invariance through model comparison tests:
-compareFit(configOut, weakOut, strongOut) %>% summary()
-```
-
-```{r, echo = FALSE}
-fit1 <- fitMeasures(configOut, 
-                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
-                    )
-
-cChi2 <- fit1["chisq"] %>% round(2)
-cDf <- fit1["df"]
-cP <- fit1["pvalue"] %>% round(3)
-rmsea <- fit1["rmsea"] %>% round(3)
-cfi <- fit1["cfi"] %>% round(3)
-srmr <- fit1["srmr"] %>% round(3)
-
-tmp <- anova(configOut, weakOut, strongOut)
-  
-wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
-wDf   <- tmp[2, "Df diff"]
-wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
-
-sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
-sDf   <- tmp[3, "Df diff"]
-sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
-
-fit2 <- fitMeasures(strongOut, 
-                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
-                    )
-
-strongChi2 <- fit2["chisq"] %>% round(2)
-strongDf <- fit2["df"]
-strongP <- fit2["pvalue"] %>% round(3)
-strongRmsea <- fit2["rmsea"] %>% round(3)
-strongCfi <- fit2["cfi"] %>% round(3)
-strongSrmr <- fit2["srmr"] %>% round(3)
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-- Configural invariance holds.
-   - The unrestricted, two-group model fits the data very well 
-     ($\chi^2[`r cDf`] = `r cChi2`$,
-     $p = `r cP`$,
-     $\textit{RMSEA} = `r rmsea`$,
-     $\textit{CFI} = `r cfi`$,
-     $\textit{SRMR} = `r srmr`$).
-- Weak invariance holds.
-   - The model comparison test shows a non-significant loss of fit between the 
-     configural and weak models ($\Delta \chi^2[`r wDf`] = `r wChi2`$, $p = `r wP`$).
-- Strong invariance holds.
-   - The model comparison test shows a non-significant loss of fit between the 
-     weak and strong models ($\Delta \chi^2[`r sDf`] = `r sChi2`$, $p = `r sP`$).
-   - The strongly invariant model still fits the data well
-     ($\chi^2[`r strongDf`] = `r strongChi2`$,
-     $p = `r strongP`$,
-     $\textit{RMSEA} = `r strongRmsea`$,
-     $\textit{CFI} = `r strongCfi`$,
-     $\textit{SRMR} = `r strongSrmr`$).
-
-  </details>
-</details>
-
----
-
-### Testing Between-Group Differences
-
----
-
-Once we establish strong invariance, we have empirical evidence that latent mean
-levels are comparable across groups. Hence, we can test for differences in those
-latent means. In this section, we'll conduct the equivalent of a t-test using
-our two-group CFA model.
-
-More specifically, we want to know if the latent mean of `grief` differs
-significantly between the `Kin2` groups. The null and alternative hypotheses for
-this test are as follows:
-
-\[
-H_0: \alpha_1 = \alpha_2\\
-H_1: \alpha_1 \neq \alpha_2
-\]
-
-Where, $\alpha_1$ and $\alpha_2$ represent the latent means in Group 1 and 
-Group 2, respectively.
-
----
-
-####
-
-Use the strongly invariant model from \@ref(miTesting) to test the latent mean 
-difference described above.
-
-- What is your conclusion?
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-## Estimate the model with the latent means equated:
-resOut <- cfa(cfaMod,
-              data = pgd,
-              group = "Kin2",
-              group.equal = c("loadings", "intercepts", "means")
-              )
-
-## Check the results:
-summary(resOut)
-
-## Test the mean differences via a LRT:
-anova(strongOut, resOut)
-```
-
-```{r echo = FALSE}
-tmp <- anova(strongOut, resOut)
-  
-chi2 <- tmp[2, "Chisq diff"] %>% round(2)
-df   <- tmp[2, "Df diff"]
-p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-We can equate the latent means by specifying the `group.equal = "means"`
-argument in `cfa()`. Then, we simply compare this constrained model to the
-strong invariance model to get our test of mean differences.
-
-In this case, the means of the `grief` factor do not significantly differ between
-`Kin2` groups ($\Delta \chi^2[`r df`] = `r chi2`$, $p = `r p`$), assuming we 
-adopt an alpha-level of 0.05 or lower for the test.
-
-  </details>
-</details>
-
----
-
-### Multiple-Group SEM for Moderation
-
----
-
-Now, we're going to revisit the TORA model from the 
-[Week 6 In-Class Exercises](in-class-exercises-5.html), and use a multiple-group
-model to test the moderating effect of *sex*.
-
----
-
-####
+###
 
 Load the data contained in the *toradata.csv* file.
 
@@ -293,16 +54,456 @@ condom <- read.csv(paste0(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
 
 ---
 
-Before we get to any moderation tests, however, we first need to establish
-measurement invariance. The first step in any multiple-group analysis that
-includes latent variables is measurement invariance testing.
+### {#toraCFA}
+
+The data contain multiple indicators of *attitudes*, *norms*, and *control*.
+Run a CFA for these three latent variables.
+
+- Correlate the latent factors.
+- Do the data support the measurement model for these latent factors?
+- Are the three latent factors significantly correlated?
+- Is it reasonable to proceed with our evaluation of the TORA theory?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(lavaan)
+
+mod_cfa <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+'
+
+fit <- cfa(mod_cfa, data = condom)
+
+summary(fit, fit.measures = TRUE)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- Yes, the model fits the data well, and the measurement parameters (e.g., factor
+loadings, residual variances) look reasonable. So, the data seem to support this 
+measurement structure.
+- Yes, all three latent variables are significantly, positively correlated.
+- Yes. 
+   - The measurement structure is supported, so we can use the latent variables
+   to represent the respective constructs in our subsequent SEM. 
+   - The TORA doesn't actually say anything about the associations between these 
+   three factors, but it makes sense that they would be positively associated.
+   So, we should find this result comforting.
+
+  </details>
+</details>
 
 ---
 
-####
+###
+
+Estimate the basic TORA model as an SEM.
+
+- Predict *intention* from *attitudes* and *norms*.
+- Predict *condom use* from *intention*. 
+- Use the latent versions of *attitudes* and *norms*. 
+- Covary the *attitudes* and *norms* factors.
+- Does the model fit well?
+- Do the estimates align with the TORA?
+- How much variance in *intention* and *condom use* are explained by the model?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod <- '
+## Define the latent variables:
+attitudes =~ attit_1 + attit_2 + attit_3
+norms     =~ norm_1  + norm_2  + norm_3
+
+## Define the structural model:         
+intent   ~ attitudes + norms
+behavior ~ intent
+'
+
+fit <- sem(mod, data = condom)
+
+summary(fit, fit.measures = TRUE, rsquare = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- inspect(fit, "r2")
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- Yes, the model still fits the data very well.
+- Yes, the estimates all align with the TORA. Specifically, *attitudes* and 
+*norms* both significantly predict *intention*, and *intention* significantly 
+predicts *condom use*.
+- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in 
+*intention* and `r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in 
+*condom use*.
+
+  </details>
+</details>
+
+---
+
+### {#updatedModel}
+
+Update your model to represent the extended TORA model that includes 
+*perceived behavioral control*.
+
+- Regress *condom use* onto *perceived behavioral control*.
+- Use the latent variable representation of *control*.
+- Covary all three exogenous latent factors.
+- Does the model fit well?
+- Do the estimates align with the updated TORA?
+- How much variance in *intention* and *condom use* are explained by the model?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_tora <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+             
+intent   ~ attitudes + norms
+behavior ~ intent + control
+'
+
+fit_tora <- sem(mod_tora, data = condom)
+
+summary(fit_tora, fit.measures = TRUE, rsquare = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- inspect(fit_tora, "r2")
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- Yes, the model still fits the data very well.
+- Yes, the estimates all align with the updated TORA. Specifically, *attitudes* 
+and *norms* both significantly predict *intention*, while *intention* and 
+*control* both significantly predict *condom use*.
+- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in 
+*intention* and `r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in 
+*condom use*.
+
+  </details>
+</details>
+
+---
+
+The TORA model explicitly forbids direct paths from *attitudes* and *norms* to
+*behaviors*; these effects should be fully mediated by the *behavioral intention*. 
+The theory does not specify how *perceived behavioral control* should affect 
+*behaviors*. There may be a direct effect of *control* on *behavior*, or the
+effect may be (partially) mediated by *intention*.
+
+---
+
+###
+
+Evaluate the hypothesized indirect effects of *attitudes* and *norms*.
+
+- Include *attitudes*, *norms*, and *control* in your model as in \@ref(updatedModel).
+- Does *intention* significantly mediate the effects of *attitudes* and *norms* 
+on *behavior*?
+    - Don't forget to follow all the steps we covered for testing mediation.
+- Are both of the above effects completely mediated?
+- Do these results comport with the TORA? Why or why not?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r boot1, cache = TRUE}
+mod <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+             
+intent   ~ a1 * attitudes + a2 * norms
+behavior ~ b * intent + control + attitudes + norms
+
+ie_att  := a1 * b
+ie_norm := a2 * b
+'
+
+set.seed(235711)
+
+fit <- sem(mod, data = condom, se = "bootstrap", bootstrap = 1000)
+
+summary(fit, ci = TRUE)
+```
+
+- Yes, both indirect effects are significant according to the 95% bootstrapped CIs.
+- Yes, both effects are completely moderated by *behavioral intention*. We can
+infer as much because the direct effects of *attitudes* and *norms* on *condom 
+use* are both nonsignificant.
+- Yes, these results comport with the TORA. Both effects are fully mediated, as
+the theory stipulates.
+
+</details>
+
+---
+
+In addition to evaluating the significance of the indirect and direct effects, 
+we can also take a model-comparison perspective. We can use model comparisons to
+test if removing the direct effects of *attitudes* and *norms* on *condom use* 
+significantly decreases model fit. In other words, are those paths needed to 
+accurately represent the data, or are they "dead weight". 
+
+---
+
+###
+
+Use a $\Delta \chi^2$ test to evaluate the necessity of including the direct
+effects of *attitudes* and *norms* on *condom use* in the model.
+
+- What is your conclusion?
+
+<details>
+  <summary>Click for explanation</summary>
+
+We only need to compare the fit of the model with the direct effects included
+to the fit of the model without the direct effects. We've already estimated both
+models, so we can simply submit the fitted **lavaan** objects to the `anova()` 
+function.
+
+```{r}
+anova(fit, fit_tora)
+```
+
+The $\Delta \chi^2$ test is not significant. So, we have not lost a significant
+amount of fit by fixing the direct effects to zero. In other words, the complete
+mediation model explains the data just as well as the partial mediation model. So,
+we should probably prefer the more parsimonious model.
+
+</details>
+
+---
+
+###
+
+Use some statistical means of evaluating the most plausible way to include 
+*perceived behavioral control* into the model.
+
+- Choose between the following three options:
+    1. *control* predicts *behavior* via a direct, un-mediated effect.
+    1. *control* predicts *behavior* via an indirect effect that is completely 
+    mediated by *intention*.
+    1. *control* predicts *behavior* via both an indirect effect through 
+    *intention* and a residual direct effect.
+
+*Hint:* There is more than one way to approach this problem.
+
+---
+
+**Approach 1: Testing Effects**
+
+<details>
+  <summary>Click to show code</summary>
+
+One way to tackle this problem is to test the indirect, direct, and total effects.
+
+```{r boot2, cache = TRUE}
+## Allow for partial mediation:
+mod1 <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+             
+intent   ~ attitudes + norms + a * control
+behavior ~ b * intent + c * control
+
+ie    := a * b
+total := ie + c
+'
+
+set.seed(235711)
+
+fit1 <- sem(mod1, data = condom, se = "bootstrap", bootstrap = 1000)
+summary(fit1, ci = TRUE)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+From the above results, we can see that the direct and total effects are both
+significant, but the indirect effect is not. Hence, it probably makes the most
+sense to include *control* via a direct (non-mediated) effect on *behavior*.
+
+  </details>
+</details>
+
+---
+
+**Approach 2.1: Nested Model Comparison**
+
+<details>
+  <summary>Click to show code</summary>
+
+We can also approach this problem from a model-comparison perspective. We can
+fit models that encode each pattern of constraints and check which one best 
+represents the data. 
+
+```{r}
+## Force complete mediation:
+mod2 <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+             
+intent   ~ attitudes + norms + control
+behavior ~ intent
+'
+
+## Force no mediation:
+mod3 <- '
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+             
+intent   ~ attitudes + norms
+behavior ~ intent + control
+'
+
+## Estimate the two restricted models:
+fit2 <- sem(mod2, data = condom)
+fit3 <- sem(mod3, data = condom)
+
+## Check the results:
+summary(fit2)
+summary(fit3)
+
+## Do either of the restricted models fit worse than the partial mediation model?
+anova(fit1, fit2)
+anova(fit1, fit3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+The above $\Delta \chi^2$ tests tell us that the full mediation model fits 
+significantly worse than the partial mediation model. Hence, forcing full 
+mediation by fixing the direct effect to zero is an unreasonable restraint. The 
+total effect model, on the other hand, does not fit significantly worse than the 
+partial mediation model. So, we can conclude that removing the indirect effect
+and modeling the influence of *control* on *behavior* as an un-mediated direct
+association represents the data just as well as a model that allows for both 
+indirect and direct effects. Hence, we should prefer the more parsimonious total
+effects model.
+
+  </details>
+</details>
+
+---
+
+**Approach 2.2: Non-Nested Model Comparison**
+
+<details>
+  <summary>Click to show code</summary>
+
+We can also use *information criteria* to compare our models. The two most
+popular information criteria are the *Akaike's Information Criterion* (AIC) and
+the *Bayesian Information Criterion* (BIC).
+
+```{r}
+## Which model is the most parsimonious representation of the data?
+AIC(fit1, fit2, fit3)
+BIC(fit1, fit2, fit3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+While the effect tests and the nested model comparisons both lead us to prefer 
+the non-mediated model, we cannot directly say that the complete mediation
+model fits significantly worse than the non-mediated model. We have not directly
+compared those two models, and we cannot do so with the $\Delta \chi^2$. We 
+cannot do such a test because these two models are not nested: we must both add
+and remove a path to get from one model specification to the other. Also, both
+models have the same degrees of freedom, so we cannot define a sampling 
+distribution against which we would compare the $\Delta \chi^2$, anyway.
+
+We can use information criteria to get around this problem, though. Information
+criteria can be used to compare both nested and non-nested models. These criteria 
+are designed to rank models by balancing their fit to the data and their complexity.
+When comparing models based on information criteria, a lower value indicates a 
+better model in the sense of a better balance of fit and parsimony. The above 
+results show that both the AIC and the BIC agree that the no-mediation model is
+the best.
+
+  </details>
+</details>
+
+---
+
+**Conclusion**
+
+<details>
+  <summary>Click for explanation</summary>
+
+So, in the end, regardless of how we approach the question, all of our results 
+suggest modeling *perceived behavioral control* as a direct, non-mediated
+predictor of *condom* use.
+
+</details>
+
+<!------------------------------------------------------------------------------
+
+---
+
+Up to this point, we've implemented multiple group models simply by specifying 
+some grouping factor in the **lavaan** fitting function and proceeding with our
+primary analysis (e.g., testing for moderation by group). When we have latent 
+variables in our model, however, we get a new opportunity: we can test 
+*measurement invariance*. 
+
+Basically, measurement invariance testing allows us to empirically test for 
+differences in the measurement model between the groups. If we can establish 
+measurement invariance, we can draw the following (equivalent) conclusions: 
+
+- Our latent constructs are defined equivalently in all groups.
+- The participants in every group are interpreting our items in the same way. 
+- Participants in different groups who have the same values for the observed 
+indicators will also have the same score on the latent variable.
+- Between-group differences in latent parameters are due to true differences in
+the underlying latent constructs and not caused by differences in measurement.
+
+Anytime we make between-group comparisons (e.g., ANOVA, t-tests, moderation by 
+group, etc.) we assume invariant measurement. That is, we assume that the scores
+we're comparing have the same meaning in each group. When doing multiple group 
+SEM, however, we're apprised of the incredibly powerful capability of actually 
+testing this---very important, and often violated---assumption.
+
+
+The process of testing measurement invariance can get quite complex, but the 
+basic procedure boils down to using model comparison tests to evaluate the 
+plausibility of increasingly strong between-group constraints. For most problems,
+these constraints amount to the following three levels:
+
+1. *Configural:* The same pattern of free and fixed effects in all groups
+1. *Weak (aka Metric):* Configural + Equal factor loadings in all groups
+1. *Strong (aka Scalar):* Weak + Equal item intercepts in all groups
+
+You can read more about measurement invariance [here][van_de_schoot_et_al] and
+[here][putnick_bornstein], and you can find a brief discussion of how to 
+conduct measurement invariance tests in **lavaan** [here][mi_tutorial].
+
+---
+
+###
 
 Test for measurement invariance across *sex* groups in the three latent variables
-of the TORA model from \@ref(toraCFA).
+of the TORA model above.
 
 - Test configural, weak, and strong invariance.
 - Test for invariance in all three latent factors simultaneously.
@@ -310,224 +511,84 @@ of the TORA model from \@ref(toraCFA).
 supported?
 
 <details>
-  <summary>Click to show code</summary>
+  <summary>Click for explanation</summary>
 
 ```{r}
-tora_cfa <- '
-  attitudes =~ attit_1   + attit_2   + attit_3
-  norms     =~ norm_1    + norm_2    + norm_3
-  control   =~ control_1 + control_2 + control_3
-'
-
 ## Estimate the models:
-config <- cfa(tora_cfa, data = condom, group = "sex")
-weak <- cfa(tora_cfa, data = condom, group = "sex", group.equal = "loadings")
-strong <- cfa(tora_cfa, 
+config <- cfa(mod_cfa, 
+              data = condom, 
+              group = "sex")
+weak <- cfa(mod_cfa, 
+            data = condom, 
+            group = "sex",
+            group.equal = "loadings")
+strong <- cfa(mod_cfa, 
               data = condom, 
               group = "sex",
               group.equal = c("loadings", "intercepts")
               )
 
 ## Check that everything went well:
-summary(config)
+summary(config, fit.measures = TRUE)
 summary(weak)
 summary(strong)
 
 ## Test measurement invariance:
-compareFit(config, weak, strong) %>% summary()
+anova(config, weak, strong)
+
+## Make sure the strongly invariant model still fits well in an absolute sense:
+fitMeasures(strong)
 ```
 
-```{r, echo = FALSE}
-fit1 <- fitMeasures(config, 
-                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
-                    )
+Yes, we have been able to establish full measurement invariance. 
 
-chi2 <- fit1["chisq"] %>% round(2)
-df <- fit1["df"]
-p <- fit1["pvalue"] %>% round(3)
-rmsea <- fit1["rmsea"] %>% round(3)
-cfi <- fit1["cfi"] %>% round(3)
-srmr <- fit1["srmr"] %>% round(3)
+- The configurally invariant model fits the data well.
+- The $\Delta \chi^2$ tests support the tenability of the weak and strong 
+invariance constraints.
+- The strongly invariance model still fits the data well.
 
-tmp <- anova(config, weak, strong)
-  
-wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
-wDf   <- tmp[2, "Df diff"]
-wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
-
-sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
-sDf   <- tmp[3, "Df diff"]
-sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
-
-fit2 <- fitMeasures(strong, 
-                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
-                    )
-
-strongChi2 <- fit2["chisq"] %>% round(2)
-strongDf <- fit2["df"]
-strongP <- fit2["pvalue"] %>% round(3)
-strongRmsea <- fit2["rmsea"] %>% round(3)
-strongCfi <- fit2["cfi"] %>% round(3)
-strongSrmr <- fit2["srmr"] %>% round(3)
-```
-
-  <details>
-    <summary>Click for explanation</summary>
-
-Yes, we can establish full measurement invariance. 
-
-- Configural invariance holds.
-   - The unrestricted, multiple-group model fits the data well 
-     ($\chi^2[`r df`] = `r chi2`$,
-     $p = `r p`$,
-     $\textit{RMSEA} = `r rmsea`$,
-     $\textit{CFI} = `r cfi`$,
-     $\textit{SRMR} = `r srmr`$).
-- Weak invariance holds.
-   - The model comparison test shows a non-significant loss of fit between the 
-     configural and weak models ($\Delta \chi^2[`r wDf`] = `r wChi2`$, $p = `r wP`$).
-- Strong invariance holds.
-   - The model comparison test shows a non-significant loss of fit between the 
-     weak and strong models ($\Delta \chi^2[`r sDf`] = `r sChi2`$, $p = `r sP`$).
-   - The strongly invariant model still fits the data well
-     ($\chi^2[`r strongDf`] = `r strongChi2`$,
-     $p = `r strongP`$,
-     $\textit{RMSEA} = `r strongRmsea`$,
-     $\textit{CFI} = `r strongCfi`$,
-     $\textit{SRMR} = `r strongSrmr`$).
-
-  </details>
 </details>
 
 ---
 
-Once we've established measurement invariance, we can move on to testing 
-hypotheses about between-group differences secure in the knowledge that our 
+Once you've established measurement invariance, you can move on to testing 
+hypotheses about between-group differences secure in the knowledge that your 
 latent factors represent the same hypothetical constructs in all groups.
 
 ---
 
-#### {#toraFullModel}
+###
 
-Estimate the full TORA model from \@ref(updatedModel) as a multiple-group model.
+Using a strongly invariant model, conduct an omnibus test to see if *sex* 
+moderates any of the regression paths in the TORA model.
 
-- Use `sex` as the grouping variables.
-- Keep the strong invariance constraints in place.
-
-<details>
-  <summary>Click to show code</summary>
-  
-```{r}
-## Add the structural paths to the model:
-tora_sem <- paste(tora_cfa,
-                  'intent ~ attitudes + norms
-                   behavior ~ intent + control',
-                  sep = '\n')
-
-## Estimate the model:
-toraOut <- sem(tora_sem, 
-               data = condom, 
-               group = "sex", 
-               group.equal = c("loadings", "intercepts")
-               )
-
-## Check the results:
-summary(toraOut, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
-```
-
-</details>
-
----
-
-####
-
-Conduct an omnibus test to check if `sex` moderates any of the latent regression
-paths in the model from \@ref(toraFullModel).
+- What do you conclude.
 
 <details>
   <summary>Click for explanation</summary>
-
+  
 ```{r}
-## Estimate a restricted model wherein all latent regression paths are equated
-## across groups.
-toraOut0 <- sem(tora_sem, 
+fit_full <- sem(mod_tora, 
                 data = condom, 
                 group = "sex", 
-                group.equal = c("loadings", "intercepts", "regressions")
+                group.equal = c("loadings", "intercepts")
                 )
 
-## Test the constraints:
-anova(toraOut, toraOut0)
+fit_res <- sem(mod_tora, 
+               data = condom, 
+               group = "sex", 
+               group.equal = c("loadings", "intercepts", "regressions")
+               )
+
+anova(fit_full, fit_res)
 ```
 
-```{r echo = FALSE}
-tmp <- anova(toraOut, toraOut0)
-  
-chi2 <- tmp[2, "Chisq diff"] %>% round(2)
-df   <- tmp[2, "Df diff"]
-p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
-```
+Equating all regression paths across groups produces a significant loss of fit.
+Therefore, *sex* must moderate at least some of these paths.
 
-  <details>
-    <summary>Click for explanation</summary>
-
-We can equate the latent regressions by specifying the `group.equal = "regressions"`
-argument in `sem()`. Then, we simply compare this constrained model to the
-unconstrained model from \@ref(toraFullModel) to get our test of moderation.
-
-Equating all regression paths across groups produces a significant loss of fit
-($\Delta \chi^2[`r df`] = `r chi2`$, $p < 0.001$). Therefore, *sex* must 
-moderate at least some of these paths.
-
-  </details>
 </details>
 
----
-
-####
-
-Conduct a two-parameter test to check if `sex` moderates the effects of `intent`
-and `control` on `behavior`.
-
-- Use the `lavTestWald()` function to conduct your test.
-- Keep only the weak invariance constraints when estimating the model.
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-## Add the structural paths to the model and assign labels:
-tora_sem <- paste(tora_cfa,
-                  'intent ~ attitudes + norms
-                   behavior ~ c(b1f, b1m) * intent + c(b2f, b2m) * control',
-                  sep = '\n')
-
-## Estimate the model with weak invariance constraints:
-toraOut <- sem(tora_sem, data = condom, group = "sex", group.equal = "loadings")
-
-## Check the results:
-summary(toraOut, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
-
-## Test for moderation:
-lavTestWald(toraOut, "b1f == b1m; b2f == b2m")
-```
-
-```{r echo = FALSE}
-tmp <- lavTestWald(toraOut, "b1f == b1m; b2f == b2m")
-
-chi2 <- round(tmp$stat, 2)
-df <- tmp$df
-p <- round(tmp$p.value, 3)
-```
-  <details>
-    <summary>Click for explanation</summary>
-
-The Wald test suggest significant moderation ($\Delta \chi^2[`r df`] = `r chi2`$, 
-$p = `r p`$). Equating these two regression slopes across groups produces a
-significant loss of fit. Therefore, *sex* must moderate one or both of these paths.
-
-  </details>
-</details>
+------------------------------------------------------------------------------->
 
 ---
 
@@ -535,10 +596,7 @@ End of In-Class Exercises
 
 ---
 
-[sesam2_data]: https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M/download
-[pgd_data]: https://surfdrive.surf.nl/files/index.php/s/xxkp4gZY682AGyY/download
-[tora_data]: https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download
-[boelen_et_al_2010]: https://doi.org/10.1016/j.jad.2010.01.076
 [mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html
 [van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740
 [putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004
+[tora_data]: https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download

@@ -1,0 +1,62 @@
+## Lecture
+
+How do you know if you have measured the putative hypothetical construct that 
+you intend to measure?
+
+- The methods introduced in this lecture (namely, latent variables, factor 
+  analysis, and reliability analysis) can shed empirical light on this issue. 
+
+In the social and behavioral sciences we're often forced to measure key concepts
+indirectly. For example, we have no way of directly quantifying a person's 
+current level of depression, or their innate motivation, or their risk-aversion,
+or any of the other myriad psychological features that comprise the human mental 
+state. In truth, we cannot really *measure* these hypothetical 
+constructs at all, we must *estimate* latent representations thereof (though, 
+psychometricians still use the language of physical measurement to describe this 
+process).
+
+Furthermore, we can rarely estimate an adequate representation with only a single 
+observed variable (e.g., question on a survey, score on a test, reading from a 
+sensor). We generally need several observed variables to reliably represent a 
+single hypothetical construct. For example, we cannot accurately determine 
+someone’s IQ or socio-economic status based on their response to a single 
+question; we need several questions that each tap into slightly different 
+aspects of IQ or SES. 
+
+Given multiple items measuring the same construct, we can use the methods 
+discussed in this lecture (i.e., factor analysis and reliability analysis) to 
+evaluate the quality of our measurement (i.e., how well we have estimated the 
+underlying hypothetical construct). If we do well enough in this estimation 
+task, we will be able to combine these estimated *latent variables* with the 
+*path analysis* methods discussed in previous two weeks to produce the full
+*structural equation models* that we will cover at the end of this course. 
+
+### Recording
+
+*Notes:*
+
+- This week, we'll be re-using Caspar van Lissa's old slides and lecture
+  recording. So, you'll see Caspar in the following video, and the slides will
+  have a notably different flavor than our usual materials.
+
+- Don't be confused by any mention of "model fit" in the lecture. We haven't
+  covered model fit yet, but we will do so next week.
+
+<iframe width="560" 
+        height="315" 
+        src="https://www.youtube.com/embed/M1hk2byeLZY?si=FY2QJB447QKah6pT"
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" 
+        allowfullscreen>
+</iframe>
+
+### Slides
+
+You can download the lecture slides [here](pdf/efa.pdf).

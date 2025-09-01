@@ -1,62 +1,63 @@
 ## Lecture
 
-How do you know if you have measured the putative hypothetical construct that 
-you intend to measure?
+Often, we work with scales that have a validated or hypothesized factor structure. 
+In the former case, the scale structure has been validated through previous 
+psychometric studies. In the latter case, we may have conducted an EFA to 
+estimate the factor structure on prior data, or theory/intuition may suggest a 
+plausible structure. Regardless of how we come to expect a given factor structure, 
+such situations represent *confirmatory* modeling problems, because we are 
+attempting to empirically confirm an a priori expectation. Hence, exploratory 
+methods like EFA are not appropriate, and we should employ confirmatory modeling 
+techniques.
 
-- The methods introduced in this lecture (namely, latent variables, factor 
-  analysis, and reliability analysis) can shed empirical light on this issue. 
+This week we consider one such technique: *confirmatory factor analysis* (CFA). 
+As the name suggests, CFA is related to the EFA methods we discussed last week
+in that both methods are flavors of factor analysis. However, the two methods 
+address fundamentally different research questions. Rather than attempting to 
+estimate an unknown factor structure (as in EFA), we now want to compare a 
+hypothesized measurement model (i.e., factor structure) to observed data in order
+to evaluate the model's plausibility.
 
-In the social and behavioral sciences we're often forced to measure key concepts
-indirectly. For example, we have no way of directly quantifying a person's 
-current level of depression, or their innate motivation, or their risk-aversion,
-or any of the other myriad psychological features that comprise the human mental 
-state. In truth, we cannot really *measure* these hypothetical 
-constructs at all, we must *estimate* latent representations thereof (though, 
-psychometricians still use the language of physical measurement to describe this 
-process).
+### Recordings
 
-Furthermore, we can rarely estimate an adequate representation with only a single 
-observed variable (e.g., question on a survey, score on a test, reading from a 
-sensor). We generally need several observed variables to reliably represent a 
-single hypothetical construct. For example, we cannot accurately determine 
-someone’s IQ or socio-economic status based on their response to a single 
-question; we need several questions that each tap into slightly different 
-aspects of IQ or SES. 
+We'l start with Caspar's lecture recording. These slide should give you a good
+overview of the important ideas.
 
-Given multiple items measuring the same construct, we can use the methods 
-discussed in this lecture (i.e., factor analysis and reliability analysis) to 
-evaluate the quality of our measurement (i.e., how well we have estimated the 
-underlying hypothetical construct). If we do well enough in this estimation 
-task, we will be able to combine these estimated *latent variables* with the 
-*path analysis* methods discussed in previous two weeks to produce the full
-*structural equation models* that we will cover at the end of this course. 
+*Note:*
 
-### Recording
+When Caspar discusses the complexity of the second-order CFA model, it's easy to
+misunderstand his statements. We need to be careful not to over-generalize.
 
-*Notes:*
+- In general, a second-order CFA *is not* more complex than a first-order CFA.
+   - Actually, in most practical applications, the opposite is true.
+- A second-order CFA *is* more complex than a first-order CFA, when the factors 
+  in the first-order CFA are *uncorrelated*.
+   - This is the situation Caspar references in the recording when claiming that
+     the second-order model is more complex.
+   - We hardly ever want to fit such first-order CFA, though.
+   - The default CFA fully saturates the latent covariance structure.
+- If the factors in the first-order CFA are fully correlated (according to
+  standard practice), and we include a single second-order factor, the following 
+  statements hold.
+   - If the first-order CFA has more than three factors, the first-order model 
+     is more complex than the second-order model.
+   - If the first-order model has three or fewer factors, the first- and
+     second-order models are equivalent (due to scaling constraints we need to
+     impose to identify the second-order model).
+   - The second-order model *cannot be* more complex than the first-order model
+     (assuming both models are correctly identified and no extra constraints are
+     imposed).
+- The above statements may not hold in more complex situations (e.g., more than
+  one second-order factor, partially saturated first-order correlation structure, 
+  etc.).
+   - You can always identify the more complex model by calculating the degrees
+     of freedom for both models.
+   - The model with *fewer* degrees of freedom is *more complex*.
 
-- This week, we'll be re-using Caspar van Lissa's old slides and lecture
-  recording. So, you'll see Caspar in the following video, and the slides will
-  have a notably different flavor than our usual materials.
-
-- Don't be confused by any mention of "model fit" in the lecture. We haven't
-  covered model fit yet, but we will do so next week.
-
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/M1hk2byeLZY?si=FY2QJB447QKah6pT"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
-</iframe>
+```{r echo = FALSE}
+knitr::include_url("https://www.youtube.com/embed/GTEmuveyJ1k")
+```
 
 ### Slides
 
-You can download the lecture slides [here](pdf/efa.pdf).
+You can download the lecture slides [here](pdf/cfa.pdf).

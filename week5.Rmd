@@ -1,19 +1,16 @@
-# CFA
+# CFA II
 
 ```{r week5_global_options, include = FALSE}
 source("code/chapter_setup.R")
 partDir <- paste0(partDir0, "week5/")
 ```
 
-This week, we will introduce *confirmatory factor analysis* (CFA) and discuss 
-how it differs from EFA. Furthermore, we will revisit the ideas of model fit, 
-model complexity, and model identification. 
+This week, we will continue with CFA by focussing on the ideas of model fit, model complexity, and model identification. 
 
 **Homework before the lecture**
 
 1. Watch the [Lecture Recording](lecture-4.html) for this week.
-1. Complete the [Reading](reading-4.html) for this week, and answer the 
-associated reading questions.
+1. Complete the [Reading](reading-4.html) for this week, and answer the associated reading questions.
 
 **Homework before the practical**
 
@@ -25,9 +22,8 @@ During the practical you will work on the [In-Class Exercises](in-class-exercise
  
 **Extra resources**
 
-If you're still struggling with some of the content after working through the
-above materials, head over to the [Extra Resources](extra-resources.html) page
-and take a look at the embedded tutorial.
+If you're still struggling with some of the content after working through the above materials, head over to the
+[Extra Resources](extra-resources.html) page and take a look at the embedded tutorial.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
 knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")

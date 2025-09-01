@@ -1,30 +1,11 @@
-# Full SEM
+# Fall Break
 
-```{r week6_global_options, include = FALSE}
-source("code/chapter_setup.R")
-partDir <- paste0(partDir0, "week6/")
-```
+We're taking a break this week, so there will be no new lecture or practical content.
 
-This week, we will focus on integrating all of the disparate methods we've
-covered so far into full-fledged *structural equation models*.
+<p align = "center">
+![](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnJjYXp6eHZ6anBkZnYxNjU4aW5tcnFrOHBrNG9rYWU5Z3VlMG93ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lRSRi2YLOhk5rBMpl2/giphy.gif)
+</p>
 
-**Homework before the lecture**
-
-1. Watch the [Lecture Recording](lecture-5.html) for this week.
-1. Complete the [Reading](reading-5.html) for this week, and answer the 
-associated reading questions.
-
-**Homework before the practical**
-
-Complete the [At-Home Exercises](at-home-exercises-5.html). 
-
-**Practical content**
-
-During the practical you will work on the [In-Class Exercises](in-class-exercises-5.html).
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
-knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-```
+<!-- <p align = "center"> -->
+<!-- ![](https://i.gifer.com/NyoI.gif) -->
+<!-- </p> -->

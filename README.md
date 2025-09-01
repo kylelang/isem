@@ -1,2 +1,4 @@
-# tcsm
-This repository will hold the materials for Theory Construction and Statistical Modeling
+# isem
+
+This repository holds the materials for *Introduction to Structural Equation Modeling* (formerly, *Theory Construction
+and Statistical Modeling*).
