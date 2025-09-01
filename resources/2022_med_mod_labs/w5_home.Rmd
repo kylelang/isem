@@ -1,0 +1,413 @@
+## At-Home Exercises
+
+```{r include = FALSE}
+library(foreign)
+library(lavaan)
+library(dplyr)
+
+seData <- read.spss(paste0(dataDir, "SelfEsteem.sav"), to.data.frame = TRUE)
+```
+
+In this practical, we will analyze the data contained in *SelfEsteem.sav*. These
+data comprise 143 observations of the following variables. 
+
+- *case*: Participant ID number
+- *ParAtt*: Parental Attachment
+- *PeerAtt*: Peer Attachment
+- *Emp*: Empathy
+- *ProSoc*: Prosocial behavior
+- *Aggr*: Aggression
+- *SelfEst*: Self-esteem
+
+---
+
+###
+
+Load the *SelfEsteem.sav* data.
+
+*Note*: Unless otherwise specified, all following analyses apply to these data.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, eval = FALSE}
+library(foreign)
+seData<- read.spss("SelfEsteem.sav", to.data.frame = TRUE)
+```
+
+</details>
+
+---
+
+For this analysis, we are interested in the (indirect) effects of parental and 
+peer attachment on self-esteem. Furthermore, we want to evaluate the mediating 
+roles of empathy and social behavior (i.e., prosocial behavior and aggression).
+
+Specifically, we have the following hypotheses.
+
+1. Better peer relationships will promote higher self-esteem via a three-step 
+indirect process.
+    a. Better peer relationships will increase empathy levels.
+    a. Higher empathy will increase prosocial behavior and decrease aggressive 
+    behavior.
+    a. More prosocial behaviors and less aggressive behavior will both produce 
+    higher self-esteem.
+1. Better relationships with parents directly increase self-esteem.
+
+---
+
+To evaluate these hypotheses, we will use **lavaan** to estimate the following 
+multiple mediator model as a path model. 
+
+![](images/week5_home_full_model.png)
+
+---
+
+### {#syntax1}
+
+Specify the lavaan model syntax implied by the path diagram shown above.
+
+- Save the resulting character string as an object in your environment.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+mod <- '
+## Equation for outcome:
+SelfEst ~ ProSoc + Aggr + Emp + ParAtt + PeerAtt
+
+## Equations for stage 2 mediators:
+ProSoc ~ PeerAtt + ParAtt + Emp
+Aggr ~ PeerAtt + ParAtt + Emp
+
+## Equation for stage 1 mediator:
+Emp ~ ParAtt + PeerAtt
+
+## Covariances:
+ProSoc ~~ Aggr
+ParAtt ~~ PeerAtt
+'
+```
+
+</details>
+
+---
+
+### {#fit1}
+
+Use the `lavaan::sem()` function to estimate the model defined in \@ref(syntax1).
+
+- Use the default settings in `sem()`.
+- Summarize the fitted model.
+- Do you notice anything special about the model fit? If so, can you explain?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+library(lavaan)
+out <- sem(mod, data = seData)
+summary(out, fit.measures = TRUE)
+```
+
+The model fits the data perfectly because the model is saturated (i.e., we have
+estimated all possible paths). So, the model-implied covariance matrix exactly 
+replicates the observed covariance matrix. We can tell that the model is
+saturated because the degrees of freedom for the $\chi^2$ statistic are 0.
+
+</details>
+
+---
+
+### 
+
+Considering the parameter estimates from \@ref(fit1), what can you say about the 
+hypotheses? 
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, include = FALSE}
+tmp <- summary(out)$pe
+
+parent <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "ParAtt") 
+peer   <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "PeerAtt") 
+```
+
+Notice that all of the hypotheses stated above are explicitly directional. Hence,
+when evaluating the significance of the structural paths that speak to these
+hypotheses, we should use one-tailed tests. We cannot ask **lavaan** to return 
+one-tailed p-values, but we have no need to do so. We can simply divide the 
+two-tailed p-values in half.
+
+The significant direct effect of `ParAtt` on `SelfEst` 
+($\beta = `r parent$est %>% round(3)`$, 
+$Z = `r parent$z %>% round(2)`$,
+$p = `r (parent$p / 2) %>% round(3)`$) and the lack of a significant direct 
+effect of `PeerAtt` on `SelfEst` ($\beta = `r peer$est %>% round(3)`$, 
+$Z = `r peer$z %>% round(3)`$,
+$p = `r (peer$p / 2) %>% round(3)`$) align with our hypotheses.
+
+The remaining patterns of individual estimates also seem to conform with the 
+hypotheses (e.g., all of the individual paths comprising the indirect effects of 
+`PeerAtt` on `SelfEst` are significant). We cannot make any firm conclusions 
+until we actually estimate and test the indirect effects, though.
+
+</details>
+
+---
+
+Remember that an indirect effect (IE) is the product of multiple regression 
+slopes. Therefore, to estimate an IE, we must define these products in our 
+model syntax. In **lavaan**, we define the new IE parameters in two steps. 
+
+1. Label the relevant regression paths.
+1. Use the labels to define new parameters that represent the desired IEs.
+
+We can define new parameters in lavaan model syntax via the `:=` operator. The 
+**lavaan** website contains a tutorial on this procedure: <http://lavaan.ugent.be/tutorial/mediation.html>
+
+---
+
+###
+
+Use the procedure described above to modify the model syntax from \@ref(syntax1) 
+by adding definitions of the two hypothesized IEs from `PeerAtt` to `SelfEst`.
+
+<details>
+  <summary>Click for explanation</summary>
+
+You can use any labeling scheme that makes sense to you, but I recommend adopting
+some kind of systematic rule. Here, I will label the individual estimates in 
+terms of the short variable names used in the path diagram above. 
+
+Notice that I only label the parameters that I will use to define the IEs. You 
+are free to label any parameter that you like, but I choose the to label only 
+the minimally sufficient set to avoid cluttering the code/output.
+
+```{r}
+mod <- '
+## Equation for outcome:
+SelfEst ~ y_m21 * ProSoc + y_m22 * Aggr + Emp + ParAtt + PeerAtt
+
+## Equations for stage 2 mediators:
+ProSoc ~ m21_x2 * PeerAtt + ParAtt + m21_m1 * Emp
+Aggr ~ m22_x2 * PeerAtt + ParAtt + m22_m1 * Emp
+
+## Equation for stage 1 mediator:
+Emp ~ ParAtt + m1_x2 * PeerAtt
+
+## Covariances:
+ProSoc ~~ Aggr
+ParAtt ~~ PeerAtt
+
+## Indirect effects:
+ie_pro := m1_x2 * m21_m1 * y_m21
+ie_agg := m1_x2 * m22_m1 * y_m22
+'
+```
+
+</details>
+
+---
+
+### {#test1}
+
+Use `lavaan::sem()` to estimate the model with the IEs defined.
+
+- Use the default settings for `sem()`.
+- Are the hypothesized IEs significant according to the default tests?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+out <- sem(mod, data = seData)
+summary(out)
+```
+
+```{r, include = FALSE}
+tmp <- summary(out)$pe
+
+pro <- tmp %>% filter(label == "ie_pro")
+agg <- tmp %>% filter(label == "ie_agg")
+```
+
+The IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial 
+Behavior* is significant ($\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
+$Z = `r pro$z %>% round(2)`$, $p = `r (pro$p / 2) %>% round(3)`$), as is the 
+analogous IE through *Aggressive Behavior* 
+($\hat{\textit{IE}} = `r agg$est %>% round(3)`$, 
+$Z = `r agg$z %>% round(2)`$, $p = `r (agg$p / 2) %>% round(3)`$).
+
+</details>
+
+---
+
+The tests we used to evaluate the significance of the IEs in \@ref(test1) are 
+flawed because they assume normal sampling distributions for the IEs. However, 
+the IEs are defined as products of multiple, normally distributed, regression 
+slopes. So, the IEs themselves cannot be normally distributed (at least in 
+finite samples), and the results of the normal-theory significance tests may be 
+misleading. 
+
+To get an accurate test of the IEs, we should use *bootstrapping* to generate an 
+empirical sampling distribution for each IE. In **lavaan**, we implement 
+bootstrapping by specifying the `se = "bootstrap"` option in the fitting 
+function (i.e., the `cfa()` or `sem()` function) and specifying the number of 
+bootstrap samples via the `bootstrap` option. 
+
+***Workflow Tip*** 
+
+To draw reliable conclusions from bootstrapped results, we need many 
+bootstrap samples (i.e., B > 1000), but we must estimate the full model for each 
+of these samples, so the estimation can take a long time. To avoid too much 
+frustration, you should first estimate the model without bootstrapping to make 
+sure everything is specified correctly. Only after you are certain that your 
+code is correct do you want to run the full bootstrapped version.
+
+---
+
+### {#boot}
+
+Re-estimate the model from \@ref(test1) using 1000 bootstrap samples.
+
+- Other than the `se` and `bootstrap` options, use the defaults.
+- Are the hypothesized IEs significant according to the bootstrap-based test
+statistics?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r boot_estimate, cache = TRUE}
+## Set a seed to get replicable bootstrap samples:
+set.seed(235711)
+
+## Estimate the model with bootstrapping:
+out_boot <- sem(mod, data = seData, se = "bootstrap", bootstrap = 1000)
+
+## Summarize the model:
+summary(out_boot)
+```
+
+```{r, include = FALSE}
+tmp <- summary(out_boot)$pe
+
+pro <- tmp %>% filter(label == "ie_pro")
+agg <- tmp %>% filter(label == "ie_agg")
+```
+
+As with the normal-theory tests, both of the hypothesized IEs of *Peer Attachment* 
+on *Self Esteem* are significant (*Prosocial Behavior*:
+$\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
+$Z = `r pro$z %>% round(2)`$,
+$p = `r (pro$p / 2) %>% round(3)`$
+; *Aggressive Behavior*: 
+$\hat{\textit{IE}} = `r agg$est %>% round(3)`$, 
+$Z = `r agg$z %>% round(2)`$,
+$p = `r (agg$p / 2) %>% round(3)`$).
+
+</details>
+
+---
+
+When you use the `summary()` function to summarize the bootstrapped model from 
+\@ref(boot), the output will probably look pretty much the same as it did in 
+\@ref(test1), but it's not. The standard errors and test statistics in the 
+bootstrapped summary are derived from empirical sampling distributions, whereas 
+these values are based on an assumed normal sampling distribution in \@ref(test1).
+
+The standard method of testing IEs with bootstrapping is to compute confidence 
+intervals (CIs) from the empirical sampling distribution of the IEs. In **lavaan**, 
+we can compute basic (percentile, 95%) CIs by adding the `ci = TRUE` option to 
+the `summary()` function. To evaluate our directional hypotheses at an 
+$\alpha = 0.05$ level, however, we need to compute 90% CIs. We can get more 
+control over the summary statistics (include the CIs) with the 
+`parameterEstimates()` function. 
+
+---
+
+###
+
+Check the documentation for `lavaan::parameterEstimates()`.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, eval = FALSE}
+?parameterEstimates
+```
+
+</details>
+
+---
+
+###
+
+Use the `parameterEstimates()` function to compute bootstrapped CIs for the 
+hypothesized IEs.
+
+- Compute percentile CIs.
+- Are the IEs significant according to the bootstrapped CIs?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+parameterEstimates(out_boot, ci = TRUE, level = 0.9)
+```
+
+```{r, include = FALSE}
+tmp <- parameterEstimates(out_boot, ci = TRUE, level = 0.9)
+
+pro <- tmp %>% filter(label == "ie_pro")
+agg <- tmp %>% filter(label == "ie_agg")
+```
+
+When evaluating a directional hypothesis with a CI, we only consider one of the
+interval's boundaries. 
+
+- For a hypothesized positive effect, we check only if the lower boundary is 
+greater than zero. 
+- For a hypothesized negative effect, we check if the upper boundary is less 
+than zero.
+
+As with the previous tests, the IE of *Peer Attachment* on *Self Esteem* through 
+*Empathy* and *Prosocial Behavior* is significant 
+($\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
+$95\% ~ CI = [`r pro$ci.lower %>% round(3)`; \infty]$), as is the analogous IE 
+through *Aggressive Behavior* ($\hat{\textit{IE}} = `r agg$est %>% round(3)`$, 
+$95\% ~ CI = [-\infty; `r agg$ci.upper %>% round(3)`]$).
+
+</details>
+
+---
+
+###
+
+Based on the analyses you've conducted here, what do you conclude vis-à-vis the 
+original hypotheses?
+
+<details>
+  <summary>Click for explanation</summary>
+
+The hypothesized indirect effects between *Peer Attachment*  and *Self Esteem* 
+were supported in that the IE through *Empathy* and *Prosocial Behavior* as well
+as the IE through *Empathy* and *Aggressive Behavior* were both significant. The 
+hypothesized direct effect of *Parent Attachment* on *Self Esteem* was also born 
+out via a significant direct effect in the model.
+
+These results may not tell the whole story, though. We have not tested for 
+indirect effects between *Parent Attachment* and *Self Esteem*, and we have not 
+evaluated simpler indirect effects between *Peer Attachment* and *Self Esteem*
+(e.g., `PeerAtt` $\rightarrow$ `Emp` $\rightarrow$ `SelfEst`). We'll consider 
+these points during the In-Class Exercises.
+
+</details>
+
+---
+
+End of At-Home Exercises
+
+---

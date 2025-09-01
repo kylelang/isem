@@ -1,0 +1,453 @@
+## At-Home Exercises
+
+```{r include = FALSE}
+library(haven)
+library(dplyr)
+library(lavaan)
+```
+
+---
+
+### Multiple-Group Path Analysis {#mgPathAnalysis}
+
+---
+
+To fix ideas, we'll start these practical exercises by re-running part of the 
+moderation analysis from the [Week 3 At-Home Exercises](#moderation)
+as a multiple group model.
+
+---
+
+####
+
+Load the [*Sesam2.sav*][sesam2_data] data.
+
+- *NOTE:* Unless otherwise specified, all analyses in Section \@ref(mgPathAnalysis)
+  use these data.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+library(haven)
+
+# Read the data into an object called 'sesam2':
+sesam2 <- read_sav("Sesam2.sav")
+```
+
+```{r, echo = FALSE}
+dataDir <- "../../../../data/"
+sesam2 <- read_sav(paste0(dataDir, "Sesam2.sav"))
+```
+</details>
+
+---
+
+`VIEWCAT` is a nominal grouping variable, but it is represented as a numeric
+variable in the `sesam2` data. The levels represent the following frequencies of
+Sesame Street viewership of the children in the data:
+
+- `VIEWCAT = 1`: Rarely/Never
+- `VIEWCAT = 2`: 2--3 times a week
+- `VIEWCAT = 3`: 4--5 times a week
+- `VIEWCAT = 4`: \> 5 times a week
+
+We will use `VIEWCAT` as the grouping variable in our path model. To do so, we
+don't really need to convert `VIEWCAT` into a factor, but, if we do, **lavaan**
+will give our groups meaningful labels in the output. That added clarity can be
+pretty helpful.
+
+---
+
+####
+
+Convert *VIEWCAT* into a factor.
+
+- Make sure that `VIEWCAT = 1` is the reference group.
+- Assign the factor labels denoted above.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+library(dplyr)
+
+## Store the old version for checking:
+tmp <- sesam2$VIEWCAT
+
+## Convert 'VIEWCAT' to a factor:
+ sesam2 <- mutate(sesam2,
+                  VIEWCAT = factor(VIEWCAT,
+                                   labels = c("Rarely/never",
+                                              "2-3 times per week",
+                                              "4-5 times per week",
+                                              "> 5 times per week")
+                                              )
+                  )
+
+## Check the conversion:
+table(old = tmp, new = sesam2$VIEWCAT, useNA = "always")
+```
+
+</details>
+
+---
+
+####
+
+Create a conditional slopes plot to visualize the effect of `AGE` on `POSTNUMB`
+within each of the `VIEWCAT` groups.
+
+- Based on this visualization, do you think it is reasonable to expect that
+  `VIEWCAT` moderates the effect of `AGE` on `POSTNUMB`?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(ggplot2)
+
+ggplot(sesam2, aes(AGE, POSTNUMB, color = VIEWCAT)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+The regression lines representing the conditional focal effects are not parallel,
+so there appears to be some level of moderation. That being said, the differences
+are pretty small, so the moderation may not be significant (i.e., the non-parallel 
+regression lines may simply be reflecting sampling variability).
+
+  </details>
+</details>
+
+---
+
+We will use path analysis to test if `VIEWCAT` moderates the effect of `AGE` on
+`POSTNUMB`. This analysis will entail three steps:
+
+1.  Estimate the unrestricted multiple-group model wherein we regress `POSTNUMB`
+   onto `AGE` and specify `VIEWCAT` as the grouping factor.
+2.  Estimate the restricted model wherein we constrain the `AGE` $\rightarrow$
+   `POSTNUMB` effect to be equal in all `VIEWCAT` groups.
+3.  Conduct a $\Delta \chi^2$ test to compare the fit of the two models.
+
+---
+
+#### {#fullPaMod}
+
+Estimate the unrestricted path model described above.
+
+- Include the intercept term in your model.
+- Judging from the focal effects estimate in each group, do you think moderation
+  is plausible? 
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(lavaan)
+
+## Estimate the additive model a view the results:
+out_full <- sem('POSTNUMB ~ 1 + AGE', data = sesam2, group = "VIEWCAT")
+summary(out_full)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+There are some notable differences in the `AGE` $\rightarrow$ `POSTNUMB` focal
+effect between `VIEWCAT` groups. It looks like `VIEWCAT` could moderate the 
+focal effect.
+
+  </details>
+</details>
+
+---
+
+#### {#resPaMod}
+
+Estimate the restricted model described above.
+
+- Equate the focal effect across all `VIEWCAT` groups.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Estimate the restricted model and view the results:
+out_res <- sem('POSTNUMB ~ 1 + c("b1", "b1", "b1", "b1") * AGE',
+               data = sesam2,
+               group = "VIEWCAT")
+summary(out_res)
+```
+
+</details>
+
+---
+
+#### 
+
+Test for moderation by comparing the full and restricted models from
+\@ref(fullPaMod) and \@ref(resPaMod), respectively:
+
+- Does `VIEWCAT` significantly moderate the effect of `AGE` on `POSTNUMB`?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Test for moderation:
+anova(out_full, out_res)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+  
+```{r, include = FALSE}
+tmp <- anova(out_full, out_res)
+  
+chi2 <- tmp[2, "Chisq diff"] %>% round(3)
+df   <- tmp[2, "Df diff"]
+p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+```
+  
+No, *VIEWCAT* does not significantly moderate the effect of *AGE* on *POSTNUMB*
+($\Delta \chi^2[`r df`] = `r chi2`$, $p = `r p`$).
+
+  </details>
+</details>
+
+---
+
+### Multiple-Group CFA {#mgCFA}
+
+---
+
+In the next part of these exercises, we will estimate a multiple-group CFA to
+evaluate the measurement structure of a scale assessing *Prolonged Grief Disorder*.
+The relevant data are contained in the [*PGDdata2.txt*][pgd_data] file. This dataset 
+consists of a grouping variable, `Kin2` (with two levels: "partner" and "else")
+and 5 items taken from the *Inventory of Complicated Grief*: 
+
+1. Yearning
+1. Part of self died
+1. Difficulty accepting the loss
+1. Avoiding reminders of deceased
+1. Bitterness about the loss 
+
+You can find more information about this scale in [Boelen et al. (2010)][boelen_et_al_2010].
+
+---
+
+####
+
+Load the *PGDdata2.txt* data.
+
+- Use the `read.table()` function to load the data.
+   - Convert the missing values to `NA` via the `na.strings` argument.
+   - Retain the column labels via the `header` argument.
+   - Specify the field delimiter as the tab character (i.e., `"\t"`).
+- Exclude any cases with missing values on `Kin2`.
+
+- *NOTE:* Unless otherwise specified, all analyses in Section \@ref(mgCFA) use
+  these data.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r eval = FALSE}
+## Load the data:
+pgd <- read.table("PGDdata2.txt",
+                  na.strings = "-999",
+                  header = TRUE,
+                  sep = "\t") %>%
+       filter(!is.na(Kin2))
+
+## Check the results:
+head(pgd)
+summary(pdg)
+str(pgd)
+```
+
+```{r echo = FALSE}
+pgd <- read.table(paste0(dataDir, "PGDdata2.txt"),
+                  na.strings = "-999",
+                  header = TRUE,
+                  sep = "\t") %>%
+       filter(!is.na(Kin2))
+
+head(pgd)
+summary(pgd)
+str(pgd)
+```
+
+</details>
+
+---
+
+#### {#oneGroupCFA}
+
+Run a single-group CFA wherein the five scale variables described above indicate
+a single latent factor.
+
+- Do not include any grouping variable.
+- Use the default settings in the `cfa()` function.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Define the model syntax:
+cfaMod <- 'grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5'
+
+## Estimate the model:
+out0 <- cfa(cfaMod, data = pgd)
+```
+
+</details>
+
+---
+
+#### 
+
+Summarize the evaluate the fitted CFA
+
+- Does the model fit well?
+- Are the items homogeneously associated with the latent factor?
+- Which item is most weakly associated with the latent factor?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Summarize the fitted model:
+summary(out0, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+```{r, echo = FALSE}
+fit0 <- fitMeasures(out0, c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr"))
+
+chi2 <- fit0["chisq"] %>% round(2)
+df <- fit0["df"]
+p <- fit0["pvalue"] %>% round(3)
+rmsea <- fit0["rmsea"] %>% round(3)
+cfi <- fit0["cfi"] %>% round(3)
+srmr <- fit0["srmr"] %>% round(3)
+
+r2 <- inspect(out0, "r2")
+ly <- inspect(out0, "std.all")$lambda
+
+bad <- r2 %>% which.min() %>% names()
+
+r2 <- r2[bad] %>% round(3) %>% as.numeric()
+ly <- ly[bad, ] %>% round(3) %>% as.numeric()
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- The model fits the data quite well ($\chi^2[`r df`] = `r chi2`$,
+$p = `r p`$,
+$\textit{RMSEA} = `r rmsea`$,
+$\textit{CFI} = `r cfi`$,
+$\textit{SRMR} = `r srmr`$).
+- All of the indicators appear to be more-or-less equally good indicators of the
+  latent factor except for `r bad` which has a standardized factor loading of 
+  $\lambda = `r ly`$ and $R^2 = `r r2`$.
+
+  </details>
+</details>
+
+---
+
+#### {#twoGroupCFA}
+
+Rerun the CFA from \@ref(oneGroupCFA) as a multiple-group model.
+
+- Use the `Kin2` variable as the grouping factor.
+- Do not place any equality constraints across groups.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+out1 <- cfa(cfaMod, data = pgd, group = "Kin2")
+```
+
+</details>
+
+---
+
+####
+
+Summarize the fitted multiple-group CFA from \@ref(twoGroupCFA).
+
+- Does the two-group model fit the data well?
+- Do you notice any salient differences between the two sets of within-group
+  estimates?
+  
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+summary(out1, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+```{r, echo = FALSE}
+fit1 <- fitMeasures(out1, c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr"))
+
+chi2 <- fit1["chisq"] %>% round(2)
+df <- fit1["df"]
+p <- fit1["pvalue"] %>% round(3)
+rmsea <- fit1["rmsea"] %>% round(3)
+cfi <- fit1["cfi"] %>% round(3)
+srmr <- fit1["srmr"] %>% round(3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- The two-group model also fits the data very well ($\chi^2[`r df`] = `r chi2`$,
+$p = `r p`$,
+$\textit{RMSEA} = `r rmsea`$,
+$\textit{CFI} = `r cfi`$,
+$\textit{SRMR} = `r srmr`$).
+- No, there are no striking differences between the two sets of estimates. Although
+  there is certainly some variability between groups, the two sets of estimates
+  don't look systematically different.
+
+  </details>
+</details>
+
+---
+
+####
+
+Based on the above results, what can you conclude about configural, weak, and
+strong measurement invariance across the `Kin2` groups?
+
+<details>
+  <summary>Click for explanation</summary>
+
+- Configural invariance holds. The unrestricted multiple-group CFA fits the data
+  adequately (very well, actually), and the measurement model parameters are 
+  reasonable in both groups.
+- We cannot yet draw any conclusions about weak or strong invariance. We need to
+  do the appropriate model comparison tests first.
+
+</details>
+
+---
+
+End of At-Home Exercises
+
+---
+
+[sesam2_data]: https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M/download
+[pgd_data]: https://surfdrive.surf.nl/files/index.php/s/xxkp4gZY682AGyY/download
+[boelen_et_al_2010]: https://doi.org/10.1016/j.jad.2010.01.076

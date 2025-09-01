@@ -1,0 +1,65 @@
+## Formative Assessment
+
+```{r include = FALSE}
+fName <- paste0(imageDir, "formative2.png")
+
+if(!file.exists(fName)) {
+  library(tidySEM)
+  library(lavaan)
+  library(ggplot2)
+
+  df <- cbind(iris[1:75, 1:3], iris[76:150, 2:4])
+  lo <- get_layout("x1", 
+                   "x2", 
+                   "x3", 
+                   "x4", 
+                   "x5", 
+                   "x6",
+                   "",   
+                   "f1", 
+                   "",   
+                   "",   
+                   "f2", 
+                   "", 
+                   rows = 2)
+  
+  tmp1 <- cbind(
+    unname(
+      expand.grid(c("f1", "f2"), paste0("x", 1:6), stringsAsFactors = FALSE)
+      ), 
+    arrow = "last")
+  tmp2 <- data.frame(cbind(c("f1", "f2"), c("f1", "f2")), arrow = "last")
+  tmp3 <- data.frame(cbind(paste0("x", 1:6), paste0("x", 1:6)), arrow = "both")
+  
+  names(tmp1) <- names(tmp2) <- names(tmp3) <- c("from", "to", "arrow")
+  dat         <- rbind(tmp1, tmp2, tmp3)
+  
+  set.seed(58)
+  p <- graph_sem(layout = lo, edges = dat, angle = 179, fix_coord = TRUE)
+  
+  print(p)
+  
+  ggsave(fName, p, "png")
+}
+```
+
+A formative assessment helps you judge your progress in the course and helps you 
+address any blind spots in your understanding of the material. 
+
+- This assessment does not contribute to your course grade.
+- If you get a question wrong, you will receive a hint on how to improve your 
+understanding of the material.
+
+Ideally, you should complete this assessment  *after* you have watched the 
+lecture recording, but *before* the lecture meeting. 
+
+- This way, if you discover gaps in your understanding, we can discuss any 
+topics that need more attention during the lecture meeting.
+
+---
+
+```{r results = "asis", echo = FALSE}
+source(paste0(quizDir, "formative.R"))
+questionnaire(paste0(quizDir, "formative2.csv"))
+```
+

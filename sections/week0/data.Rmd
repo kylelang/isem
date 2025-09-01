@@ -1,0 +1,24 @@
+# Course Data {-} 
+
+All of the data files you will need for the course are available in this 
+[SurfDrive directory](https://surfdrive.surf.nl/files/index.php/s/93FzuSnGidunEVA).
+
+- Follow the link to download a ZIP archive containing the data you will need to 
+complete the practical exercises and assignments.
+- Extract these data files to a convenient location on your computer.
+
+## Note on Data Updates {-}
+
+During the course, we may need to update some of these datasets and/or add some 
+new datasets to the SurfDrive directory. If so, you will need to download the 
+updated data.
+
+We will let you know if and when any datasets are modified. In such situations, 
+you are responsible for updating your data.
+
+- Working with outdated data will probably produce incorrect results.
+   - Your answer won't match the solutions we expect.
+   - Your answer will be marked as incorrect, even if the code used to produce
+     the answer is correct.
+   - Points lost on an assignment due to using outdated datasets will not be 
+     returned.

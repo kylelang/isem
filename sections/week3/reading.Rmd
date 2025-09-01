@@ -1,0 +1,138 @@
+## Reading
+
+```{r include = FALSE}
+answers <- yaml::yaml.load_file("../../answers.yml")$rq3
+```
+
+### Reference {-}
+
+[
+Baron, R. M. & Kenny, D. A. (1986). The moderator-mediator variable distinction 
+in social psychological research: Conceptual, strategic, and statistical 
+Considerations. *Journal of Personality and Individual Differences, 51*(6), 
+1173--1182
+](https://doi.org/10.1037//0022-3514.51.6.1173)
+
+### Questions {-}
+
+1. What is *mediation*? Give an example of mediation.
+1. According to the authors, we must satisfy four criteria to infer mediation.
+What are these criteria?
+1. What is "moderation", and how is it different from "mediation"? 
+1. Give an example of moderation.
+1. What are the four methods given by Baron and Kenny as suitable ways to to 
+study interaction effects?  
+1. The authors suggest that one of the most common ways to address unreliability
+is to use multiple indicators. Thinking back to what you've learned about factor 
+analysis, briefly explain why multiple indicators can improve reliability.
+1. How can you determine whether a variable is a mediator or moderator? 
+
+```{asis, echo = answers}
+### Answers {-}
+
+1. Mediation is a way of describing the relations among three, or more, variables. 
+Specifically, mediation entails a causal process wherein X affects Y indirectly 
+through M. With a hypothesis of mediation, we ask *how* or *why* does X affect Y?
+    - Amount of study (X) affects exam score (Y) through mastery of the course 
+    material (M).
+    - Physical exercise (X) affects mood (Y) through neurotransmitter levels (M).
+    - Political events (X) affect stock prices (Y) through investor hopes/fears (M).
+1. According to the authors, we can only infer mediation after satisfying the 
+following criteria.
+    a. X significantly predicts Y.
+    a. X significantly predicts M.
+    a. M significantly predicts Y.
+    a. The size of the effect of X on Y decreases after controlling for M.
+1. A moderator is a variable that affects the relation between two other variables. 
+Moderation is about context: *when* does X affect Y (where we define *when* in 
+terms of the level of some moderator variable). Mediation, on the other hand, is 
+concerned with explaining *how* X transmits its effect to Y (in terms of 
+intermediary variables).
+1. A few possibilities:
+    - Quality of recovery moderates the relation between training intensity and 
+    strength gains for power lifters.
+    - Amount of income moderates the relation between length of employment and 
+    level of job satisfaction.
+    - Level of fatalistic thinking moderates the efficacy of a new therapy for 
+    treating depression.
+1. The different recommendations are broken down according to the measurement
+levels of the IV and moderator.
+    - *Case 1:* Discrete IV, Discrete Moderator $\rightarrow$ Factorial ANOVA
+    - *Case 2:* Continuous IV, Discrete Moderator $\rightarrow$ Test the focal
+    effect within each level of the moderator.
+    - *Case 3:* Discrete IV, Continuous Moderator $\rightarrow$ Include (an) 
+    interaction effect(s) in your model.
+    - *Case 4:* Continuous IV, Continuous Moderator $\rightarrow$ Include an 
+    interaction effect in your model.
+1. Each observed variable contains measurement error. When forming scales using 
+multiple indicators, random measurement errors should cancel out. Measuring each
+hypothetical construct with multiple items also produces better operationalizations 
+of constructs.
+1. The data cannot tell us if some variable, say Z, should be a moderator or a 
+mediator; we must base this decision on theory and substantive expertise. We must 
+think about the process by which X affects Y and ask: 
+    - Is Z an intermediary step in the causal chain linking X and Y?
+        - If so, we should include Z as a mediator.
+    - Does Z stand apart from the causal chain linking X and Y but affect the
+    nature of that linkage via contextual influences?
+        - If so, we should include Z as a moderator.
+    
+    Statistically speaking, we would prefer our moderators to be unrelated to X 
+    and Y, while we want mediators to relate strongly with both X and Y.
+```
+
+---
+
+### Reference {-}
+
+[
+Hayes, A. F. (2009). Beyond Baron and Kenny: Statistical mediation analysis in 
+the new millennium. *Communication Monographs, 76*(4), 408--420.
+](https://www.researchgate.net/profile/Gulnaz_Anjum2/post/Is_it_still_mediation_if_there_is_no_relationship_between_the_IV_DV/attachment/5e8c3227f155db0001f34b05/AS%3A877594253721600%401586246183233/download/2009-Hayes-BeyondBaronandKennyStatisticalmediationanalysisinthenewmillennium.pdf)
+
+### Questions {-}
+
+1. What is an indirect or mediated effect? 
+1. What is the difference between the total and direct effect?
+1. What is the main problem with the Barron & Kenny "Causal Steps Approach"?
+1. What is bootstrapping, and why is it a better way to test mediation than 
+Sobel's test?
+1. Explain how it is possible that "effects that don't exist can be mediated".
+
+```{asis echo = answers}
+### Answers {-}
+
+1. The indirect effect (IE) is the part of the effect of X on Y that is 
+transmitted through M. We compute the IE by multiplying the effect of X on M (a) 
+and the effect of M on Y (b): $IE = ab$.
+1. The total effect is the effect of X on Y without accounting for M. The direct 
+effect is the effect of X on Y after controlling for M.
+1. The B&K approach infers mediation based on a sequence of significance tests, 
+and this repeated testing lowers power. Moreover, if no significant total effect 
+is found between X and Y, researchers applying B&K logic must infer the absence 
+of any indirect effect, but a nonsignificant total effect does not imply a lack 
+of mediation.
+1. Bootstrapping constructs an empirical sampling distribution for a parameter 
+by resampling rows from the original data many (e.g., 1000) times, and conducting 
+the same analysis on each of these samples. The distribution of these parameter 
+estimates represents an empirical sampling distribution for the parameter. This 
+sampling distribution is then used to support inference (e.g., by deriving 
+confidence intervals or standard errors). Sobel's test assumes the IE is normally 
+distributed, which cannot be true in finite samples. Bootstrapping is a 
+nonparametric technique that directly estimates the sampling distribution of the
+IE rather than assuming some parametric form.
+1. The following passage from the reading (p. 414) explains: 
+
+    > That X can exert an indirect effect on Y through M in the absence of an 
+    > association between X and Y becomes explicable once you consider that a total 
+    > effect is the sum of many different paths of influence, direct and indirect, 
+    > not all of which may be a part of the formal model. For example, it could be 
+    > that two or more indirect paths carry the effect from X through Y, and those 
+    > paths operate in opposite directions (cf., MacKinnon, Krull, & Lockwood, 2000). 
+    > Much as a main effect in 2 $\times$ 2 ANOVA might be nonsignificant if the 
+    > simple effects are opposite in sign (i.e., a crossover interaction), two or 
+    > more indirect effects with opposite signs can cancel each other out, producing 
+    > a total effect and perhaps even a total indirect effect that is not detectably 
+    > different from zero, in spite of the existence of specific indirect effects 
+    > that are not zero.
+```

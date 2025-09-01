@@ -1,0 +1,544 @@
+## In-Class Exercises
+
+```{r include = FALSE}
+library(haven)
+library(dplyr)
+library(lavaan)
+```
+
+---
+
+### Measurement Invariance {#w7MeasurementInvariance}
+
+---
+
+We'll now pick up where we left off with the [At-Home Exercises](at-home-exercises-6.html)
+by testing measurement invariance in the two-group CFA from \@ref(twoGroupCFA).
+
+As you saw in the lecture, measurement invariance testing allows us to 
+empirically test for differences in the measurement model between the groups. If 
+we can establish measurement invariance, we can draw the following (equivalent) 
+conclusions: 
+
+- Our latent constructs are defined equivalently in all groups.
+- The participants in every group are interpreting our items in the same way. 
+- Participants in different groups who have the same values for the observed 
+indicators will also have the same score on the latent variable.
+- Between-group differences in latent parameters are due to true differences in
+the underlying latent constructs and not caused by differences in measurement.
+
+Anytime we make between-group comparisons (e.g., ANOVA, t-tests, moderation by 
+group, etc.) we assume invariant measurement. That is, we assume that the scores
+we're comparing have the same meaning in each group. When doing multiple group 
+SEM, however, we're apprised of the incredibly powerful capability of actually 
+testing this---very important, and often violated---assumption.
+
+The process of testing measurement invariance can get quite complex, but the 
+basic procedure boils down to using model comparison tests to evaluate the 
+plausibility of increasingly strong between-group constraints. For most problems,
+these constraints amount to the following three levels:
+
+1. *Configural:* The same pattern of free and fixed effects in all groups
+1. *Weak (aka Metric):* Configural + Equal factor loadings in all groups
+1. *Strong (aka Scalar):* Weak + Equal item intercepts in all groups
+
+You can read more about measurement invariance [here][van_de_schoot_et_al] and
+[here][putnick_bornstein], and you can find a brief discussion of how to 
+conduct measurement invariance tests in **lavaan** [here][mi_tutorial].
+
+---
+
+####
+
+Load the *PGDdata2.txt* data as you did for the [At-Home Exercises](at-home-exercises-6.html).
+
+- *Note:* Unless otherwise specified, all analyses in Section
+  \@ref(w7MeasurementInvariance) use these data.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r eval = FALSE}
+library(dplyr)
+
+## Load the data:
+pgd <- read.table("PGDdata2.txt",
+                  na.strings = "-999",
+                  header = TRUE,
+                  sep = "\t") %>%
+       filter(!is.na(Kin2))
+
+## Check the results:
+head(pgd)
+summary(pdg)
+str(pgd)
+```
+
+```{r echo = FALSE}
+dataDir <- "../../../../data/"
+pgd <- read.table(paste0(dataDir, "PGDdata2.txt"),
+                  na.strings = "-999",
+                  header = TRUE,
+                  sep = "\t") %>%
+       filter(!is.na(Kin2))
+
+head(pgd)
+summary(pgd)
+str(pgd)
+```
+
+</details>
+
+---
+
+#### {#miTesting}
+
+Test *configural*, *weak*, and *strong* invariance using the multiple-group CFA
+from \@ref(twoGroupCFA).
+
+- What are your conclusions?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(lavaan)
+library(semTools) # provides the compareFit() function
+
+## Define the syntax for the CFA model:
+cfaMod <- 'grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5'
+
+## Estimate the configural model:
+configOut <- cfa(cfaMod, data = pgd, group = "Kin2")
+
+## Estimate the weak invariance model:
+weakOut <- cfa(cfaMod, data = pgd, group = "Kin2", group.equal = "loadings")
+
+## Estimate the strong invariance model:
+strongOut <- cfa(cfaMod,
+                 data = pgd,
+                 group = "Kin2",
+                 group.equal = c("loadings", "intercepts")
+                 )
+
+summary(configOut)
+summary(weakOut)
+summary(strongOut)
+
+## Test invariance through model comparison tests:
+compareFit(configOut, weakOut, strongOut) %>% summary()
+```
+
+```{r, echo = FALSE}
+fit1 <- fitMeasures(configOut, 
+                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
+                    )
+
+cChi2 <- fit1["chisq"] %>% round(2)
+cDf <- fit1["df"]
+cP <- fit1["pvalue"] %>% round(3)
+rmsea <- fit1["rmsea"] %>% round(3)
+cfi <- fit1["cfi"] %>% round(3)
+srmr <- fit1["srmr"] %>% round(3)
+
+tmp <- anova(configOut, weakOut, strongOut)
+  
+wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
+wDf   <- tmp[2, "Df diff"]
+wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+
+sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
+sDf   <- tmp[3, "Df diff"]
+sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
+
+fit2 <- fitMeasures(strongOut, 
+                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
+                    )
+
+strongChi2 <- fit2["chisq"] %>% round(2)
+strongDf <- fit2["df"]
+strongP <- fit2["pvalue"] %>% round(3)
+strongRmsea <- fit2["rmsea"] %>% round(3)
+strongCfi <- fit2["cfi"] %>% round(3)
+strongSrmr <- fit2["srmr"] %>% round(3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+- Configural invariance holds.
+   - The unrestricted, two-group model fits the data very well 
+     ($\chi^2[`r cDf`] = `r cChi2`$,
+     $p = `r cP`$,
+     $\textit{RMSEA} = `r rmsea`$,
+     $\textit{CFI} = `r cfi`$,
+     $\textit{SRMR} = `r srmr`$).
+- Weak invariance holds.
+   - The model comparison test shows a non-significant loss of fit between the 
+     configural and weak models ($\Delta \chi^2[`r wDf`] = `r wChi2`$, $p = `r wP`$).
+- Strong invariance holds.
+   - The model comparison test shows a non-significant loss of fit between the 
+     weak and strong models ($\Delta \chi^2[`r sDf`] = `r sChi2`$, $p = `r sP`$).
+   - The strongly invariant model still fits the data well
+     ($\chi^2[`r strongDf`] = `r strongChi2`$,
+     $p = `r strongP`$,
+     $\textit{RMSEA} = `r strongRmsea`$,
+     $\textit{CFI} = `r strongCfi`$,
+     $\textit{SRMR} = `r strongSrmr`$).
+
+  </details>
+</details>
+
+---
+
+### Testing Between-Group Differences
+
+---
+
+Once we establish strong invariance, we have empirical evidence that latent mean
+levels are comparable across groups. Hence, we can test for differences in those
+latent means. In this section, we'll conduct the equivalent of a t-test using
+our two-group CFA model.
+
+More specifically, we want to know if the latent mean of `grief` differs
+significantly between the `Kin2` groups. The null and alternative hypotheses for
+this test are as follows:
+
+\[
+H_0: \alpha_1 = \alpha_2\\
+H_1: \alpha_1 \neq \alpha_2
+\]
+
+Where, $\alpha_1$ and $\alpha_2$ represent the latent means in Group 1 and 
+Group 2, respectively.
+
+---
+
+####
+
+Use the strongly invariant model from \@ref(miTesting) to test the latent mean 
+difference described above.
+
+- What is your conclusion?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Estimate the model with the latent means equated:
+resOut <- cfa(cfaMod,
+              data = pgd,
+              group = "Kin2",
+              group.equal = c("loadings", "intercepts", "means")
+              )
+
+## Check the results:
+summary(resOut)
+
+## Test the mean differences via a LRT:
+anova(strongOut, resOut)
+```
+
+```{r echo = FALSE}
+tmp <- anova(strongOut, resOut)
+  
+chi2 <- tmp[2, "Chisq diff"] %>% round(2)
+df   <- tmp[2, "Df diff"]
+p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+We can equate the latent means by specifying the `group.equal = "means"`
+argument in `cfa()`. Then, we simply compare this constrained model to the
+strong invariance model to get our test of mean differences.
+
+In this case, the means of the `grief` factor do not significantly differ between
+`Kin2` groups ($\Delta \chi^2[`r df`] = `r chi2`$, $p = `r p`$), assuming we 
+adopt an alpha-level of 0.05 or lower for the test.
+
+  </details>
+</details>
+
+---
+
+### Multiple-Group SEM for Moderation
+
+---
+
+Now, we're going to revisit the TORA model from the 
+[Week 6 In-Class Exercises](in-class-exercises-5.html), and use a multiple-group
+model to test the moderating effect of *sex*.
+
+---
+
+####
+
+Load the data contained in the *toradata.csv* file.
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r, eval = FALSE}
+condom <- read.csv("toradata.csv", stringsAsFactors = TRUE)
+```
+
+```{r, echo = FALSE}
+dataDir <- "../../../../data/"
+condom <- read.csv(paste0(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
+```
+
+</details>
+
+---
+
+Before we get to any moderation tests, however, we first need to establish
+measurement invariance. The first step in any multiple-group analysis that
+includes latent variables is measurement invariance testing.
+
+---
+
+####
+
+Test for measurement invariance across *sex* groups in the three latent variables
+of the TORA model from \@ref(toraCFA).
+
+- Test configural, weak, and strong invariance.
+- Test for invariance in all three latent factors simultaneously.
+- Is full measurement invariance (i.e., up to and including strong invariance)
+supported?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+tora_cfa <- '
+  attitudes =~ attit_1   + attit_2   + attit_3
+  norms     =~ norm_1    + norm_2    + norm_3
+  control   =~ control_1 + control_2 + control_3
+'
+
+## Estimate the models:
+config <- cfa(tora_cfa, data = condom, group = "sex")
+weak <- cfa(tora_cfa, data = condom, group = "sex", group.equal = "loadings")
+strong <- cfa(tora_cfa, 
+              data = condom, 
+              group = "sex",
+              group.equal = c("loadings", "intercepts")
+              )
+
+## Check that everything went well:
+summary(config)
+summary(weak)
+summary(strong)
+
+## Test measurement invariance:
+compareFit(config, weak, strong) %>% summary()
+```
+
+```{r, echo = FALSE}
+fit1 <- fitMeasures(config, 
+                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
+                    )
+
+chi2 <- fit1["chisq"] %>% round(2)
+df <- fit1["df"]
+p <- fit1["pvalue"] %>% round(3)
+rmsea <- fit1["rmsea"] %>% round(3)
+cfi <- fit1["cfi"] %>% round(3)
+srmr <- fit1["srmr"] %>% round(3)
+
+tmp <- anova(config, weak, strong)
+  
+wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
+wDf   <- tmp[2, "Df diff"]
+wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+
+sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
+sDf   <- tmp[3, "Df diff"]
+sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
+
+fit2 <- fitMeasures(strong, 
+                    c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
+                    )
+
+strongChi2 <- fit2["chisq"] %>% round(2)
+strongDf <- fit2["df"]
+strongP <- fit2["pvalue"] %>% round(3)
+strongRmsea <- fit2["rmsea"] %>% round(3)
+strongCfi <- fit2["cfi"] %>% round(3)
+strongSrmr <- fit2["srmr"] %>% round(3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+Yes, we can establish full measurement invariance. 
+
+- Configural invariance holds.
+   - The unrestricted, multiple-group model fits the data well 
+     ($\chi^2[`r df`] = `r chi2`$,
+     $p = `r p`$,
+     $\textit{RMSEA} = `r rmsea`$,
+     $\textit{CFI} = `r cfi`$,
+     $\textit{SRMR} = `r srmr`$).
+- Weak invariance holds.
+   - The model comparison test shows a non-significant loss of fit between the 
+     configural and weak models ($\Delta \chi^2[`r wDf`] = `r wChi2`$, $p = `r wP`$).
+- Strong invariance holds.
+   - The model comparison test shows a non-significant loss of fit between the 
+     weak and strong models ($\Delta \chi^2[`r sDf`] = `r sChi2`$, $p = `r sP`$).
+   - The strongly invariant model still fits the data well
+     ($\chi^2[`r strongDf`] = `r strongChi2`$,
+     $p = `r strongP`$,
+     $\textit{RMSEA} = `r strongRmsea`$,
+     $\textit{CFI} = `r strongCfi`$,
+     $\textit{SRMR} = `r strongSrmr`$).
+
+  </details>
+</details>
+
+---
+
+Once we've established measurement invariance, we can move on to testing 
+hypotheses about between-group differences secure in the knowledge that our 
+latent factors represent the same hypothetical constructs in all groups.
+
+---
+
+#### {#toraFullModel}
+
+Estimate the full TORA model from \@ref(updatedModel) as a multiple-group model.
+
+- Use `sex` as the grouping variables.
+- Keep the strong invariance constraints in place.
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+## Add the structural paths to the model:
+tora_sem <- paste(tora_cfa,
+                  'intent ~ attitudes + norms
+                   behavior ~ intent + control',
+                  sep = '\n')
+
+## Estimate the model:
+toraOut <- sem(tora_sem, 
+               data = condom, 
+               group = "sex", 
+               group.equal = c("loadings", "intercepts")
+               )
+
+## Check the results:
+summary(toraOut, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+</details>
+
+---
+
+####
+
+Conduct an omnibus test to check if `sex` moderates any of the latent regression
+paths in the model from \@ref(toraFullModel).
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+## Estimate a restricted model wherein all latent regression paths are equated
+## across groups.
+toraOut0 <- sem(tora_sem, 
+                data = condom, 
+                group = "sex", 
+                group.equal = c("loadings", "intercepts", "regressions")
+                )
+
+## Test the constraints:
+anova(toraOut, toraOut0)
+```
+
+```{r echo = FALSE}
+tmp <- anova(toraOut, toraOut0)
+  
+chi2 <- tmp[2, "Chisq diff"] %>% round(2)
+df   <- tmp[2, "Df diff"]
+p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+We can equate the latent regressions by specifying the `group.equal = "regressions"`
+argument in `sem()`. Then, we simply compare this constrained model to the
+unconstrained model from \@ref(toraFullModel) to get our test of moderation.
+
+Equating all regression paths across groups produces a significant loss of fit
+($\Delta \chi^2[`r df`] = `r chi2`$, $p < 0.001$). Therefore, *sex* must 
+moderate at least some of these paths.
+
+  </details>
+</details>
+
+---
+
+####
+
+Conduct a two-parameter test to check if `sex` moderates the effects of `intent`
+and `control` on `behavior`.
+
+- Use the `lavTestWald()` function to conduct your test.
+- Keep only the weak invariance constraints when estimating the model.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Add the structural paths to the model and assign labels:
+tora_sem <- paste(tora_cfa,
+                  'intent ~ attitudes + norms
+                   behavior ~ c(b1f, b1m) * intent + c(b2f, b2m) * control',
+                  sep = '\n')
+
+## Estimate the model with weak invariance constraints:
+toraOut <- sem(tora_sem, data = condom, group = "sex", group.equal = "loadings")
+
+## Check the results:
+summary(toraOut, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+
+## Test for moderation:
+lavTestWald(toraOut, "b1f == b1m; b2f == b2m")
+```
+
+```{r echo = FALSE}
+tmp <- lavTestWald(toraOut, "b1f == b1m; b2f == b2m")
+
+chi2 <- round(tmp$stat, 2)
+df <- tmp$df
+p <- round(tmp$p.value, 3)
+```
+  <details>
+    <summary>Click for explanation</summary>
+
+The Wald test suggest significant moderation ($\Delta \chi^2[`r df`] = `r chi2`$, 
+$p = `r p`$). Equating these two regression slopes across groups produces a
+significant loss of fit. Therefore, *sex* must moderate one or both of these paths.
+
+  </details>
+</details>
+
+---
+
+End of In-Class Exercises
+
+---
+
+[sesam2_data]: https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M/download
+[pgd_data]: https://surfdrive.surf.nl/files/index.php/s/xxkp4gZY682AGyY/download
+[tora_data]: https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download
+[boelen_et_al_2010]: https://doi.org/10.1016/j.jad.2010.01.076
+[mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html
+[van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740
+[putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004

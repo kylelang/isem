@@ -1,0 +1,107 @@
+## Reading
+
+```{r include = FALSE}
+answers <- yaml::yaml.load_file("../../answers.yml")$rq6
+```
+
+### Reference {-}
+
+[
+Weston, R. & Gore, P. A. (2006). A brief guide to structural equation modeling.
+*The Counseling Psychologist 34*, 719--752.
+](http://tcp.sagepub.com/content/34/5/719.full.pdf+html)
+
+*Notes:*
+
+- This article is quite general and provides an overview of things we have 
+discussed so far in this course. This article also also adds an important new 
+idea: combining factor analysis with path modeling to produce a full Structural 
+Equation Model (SEM). 
+- Skip the part on GFI (p. 741).
+    - The GFI has been shown to be too dependent on sample size and is not 
+    recommended any longer.
+- Skip the part on missing data.
+    - There is nothing wrong with this section, but missing data analysis is a 
+    broad and difficult topic that we cannot adequately cover in this course.
+    - If you would like to learn more about missing data and how to treat them, 
+    you can take two courses offered by our department:
+        - *Conducting a Survey*
+        - *Missing Data Theory and Causal Effects*
+
+### Questions {-}
+
+1. The authors state three similarities and two big differences between SEM and 
+other multivariate statistical techniques (e.g., ANCOVA, regression). What are 
+these similarities and differences? 
+1. Do you agree with the relative strengths and weaknesses of SEM vs. other 
+methods that the authors present?
+1. The authors miss at least one additional advantage of SEM over other 
+multivariate methods. What is this missing advantage? 
+1. Explain what the terms “measurement model” and “structural model" mean in the 
+SEM context.
+1. What are the 6 steps of doing an SEM-based analysis given by the authors? 
+1. The authors claim that testing an SEM using cross-validation is a good idea. 
+When is cross-validation helpful in SEM? 
+    - Hint: You may have to do some independent (internet, literature) research
+    to learn how cross-validation can be implemented in SEM.
+
+```{asis, echo = answers}
+### Answers {-}
+
+**Q1:**
+
+- Similarities:
+    1. All these methods are different flavors of the general linear model.
+    1. These methods only produce valid results when their assumptions are met.
+    1. None of these methods can prove causality. 
+- Differences:
+    1. We can include latent constructs in SEM.
+        - Latent variables provide a better operationalization of theoretical 
+        constructs than observed scale scores.
+        - Latent variables contain less measurement error than observed scale
+        scores.
+    1. We can test for the model fit in SEM.
+
+**Q2:** 
+
+The ability to test model fit is presented as a disadvantage, but that doesn't 
+make much sense. Tests for the model fit can tell us how well our theory comports 
+with the data! 
+
+**Q3:** 
+
+In SEM, we can model more complex relations between constructs/variables.
+
+**Q4:**
+
+- *Measurement model* = The factor model part of the overall SEM wherein the 
+latent constructs are defined in terms of their relations to the observed 
+indicators
+    
+- *Structural model* = The path model part of the overall SEM wherein causal 
+linkages between the constructs/variables are defined and estimated as
+path/regression coefficients
+
+**Q5:**
+
+1. Data collection
+1. Model specification
+1. Model identification
+1. Model estimation
+1. Model evaluation
+1. Model modification
+    
+**Q6:**
+
+Any time you make post hoc modifications to your model based on the model's 
+estimates/results, you step out of the realm of confirmatory modeling and enter 
+the exploratory regime. If you treat your modified model as though you had 
+hypothesized and estimated the modified structure from the beginning, you risk 
+overfitting the data, and you cannot fully trust the inferential conclusions. 
+
+After making post hoc model modifications, you can check their effect by 
+refitting your modified model to a set of hold-out validation data. If the 
+modified model still fits the validation data well and the results align with 
+those from the original data, you can safely use the model to evaluate your 
+theoretical questions.
+```

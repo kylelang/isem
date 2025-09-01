@@ -1,0 +1,76 @@
+## Reading
+
+```{r include = FALSE}
+answer <- yaml::yaml.load_file("../../answers.yml")$rq2
+```
+
+### Reference {-}
+
+[
+Smaldino, P. E. (2017). 
+*Models are stupid, and we need more of them*.
+In R.R. Vallacher, S.J. Read, \& A. Nowakt (Eds.), 
+*Computational Social Psychology* (pp. 311--331).
+New York: Routledge.
+](https://smaldino.com/wp/wp-content/uploads/2018/01/Smaldino2017-ModelsAreStupid.pdf)
+
+**SKIP PAGES 322 - 327**
+
+### Questions {-}
+
+1. What are the differences between a “verbal model” and a “formal model”?
+1. As explained in the paragraph “A Brief Note on Statistical Models”, formal 
+models are not the same as statistical models. Still, we can learn a lot from 
+Smaldino’s approach. Write down three insights from this paper that you would 
+like to apply to your statistical modeling during this course.
+
+
+```{asis, echo = answer}
+### Answers {-}
+
+**Q1:**
+
+- A verbal model can be non-specific about many things
+    - The level of analysis
+    - The definitions of its parts
+    - The relationships within the modeled system
+- Verbal models can appear powerful and useful partly because they employ 
+strategic ambiguity. 
+    - Because verbal models are so vague, they can apparently explain many 
+    different phenomena, even contradictory ones (e.g., the Cubist chicken). 
+- A formal model, on the other hand, seeks to rigorously define its level of 
+analysis, parts (variables), and relationships between these parts. 
+
+**Q2:**
+
+- You should define the level of analysis for your model
+- You should clearly operationalize the parts (variables) and explicitly define 
+the hypothesized relationships (causal, correlational, definitional) between 
+these parts
+- The act of formally defining our models is productive. We can test a 
+well-defined model using data. We can discuss such a model among experts with 
+relative consensus about what the model means, and we can improve it. 
+    - These things are harder to do with vague verbal models.
+- Every model imposes some violence upon reality.
+    - I.e., every model is wrong (but some are useful).
+- Because a model is a simplification, by necessity, we leave out many factors. 
+    - This simplification is a feature, not a bug. Models abstract away the 
+    uninteresting details (i.e., noise) of a phenomenon.
+    - Even models that are too simple to be interesting represent useful 
+    building-blocks to expand upon when creating more complex, interesting models.
+- Data can be used to validate a model and to refine the model into a closer 
+approximation of reality
+```
+
+### Suggested Reading (Optional) {-}
+
+The following paper is not required, but it's definitely worth a read. Breiman
+provides a very interesting perspective on different ways to approach a 
+modeling-based analysis.
+
+[
+Breiman, L. (2001).
+Statistical Modeling: The Two Cultures (with comments and a rejoinder by the author).
+*Statistical Science, 16*(3) 199--231.
+https://doi.org/10.1214/ss/1009213726
+](https://doi.org/10.1214/ss/1009213726)

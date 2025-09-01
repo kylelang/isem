@@ -1,0 +1,126 @@
+## Reading
+
+```{r include = FALSE}
+answer <- yaml::yaml.load_file("../../answers.yml")$rq2
+```
+
+This week, you will read two papers.
+
+---
+
+### Reference 1 {-}
+
+[
+Preacher, K. J., & MacCullum, R. C. (2003). 
+Repairing Tom Swift’s electric factor analysis machine, 
+*Understanding Statistics 2*(1) 13--43.
+](http://kuscholarworks.ku.edu/dspace/bitstream/1808/1492/1/preacher_maccallum_2003.pdf)
+
+### Questions 1 {-}
+
+1. What is a latent variable? 
+    a. Give an example of a latent variable.
+1. What is factor analysis, and what can you investigate using this method? 
+1. In the introduction, Preacher and Maccallum describe a “little jiffy” method 
+of doing factor analysis. Briefly describe this little jiffy---or bad practice---method. 
+1. Briefly explain the key differences between Principal Component Analyses (PCA)
+and Exploratory Factor Analyses (EFA). 
+1. What is the purpose of factor rotation? 
+
+```{asis echo = answer}
+### Answers 1 {-}
+
+1. A latent variable is a variable (i.e. something that differs between research 
+subjects or changes within the same subject over time) that we cannot observe 
+directly. Rather, we infer the value of a latent variable by combining observed 
+variables that each tap into different aspects of the latent variable. 
+    a. Almost all psychological, sociological, or cultural constructs are latent 
+    variables. Some common examples include IQ, personality, political or racial 
+    attitudes, mathematical or artistic ability, etc. 
+1. (Exploratory) factor analysis is a statistical method for estimating the 
+latent measurement structure that generates a set of measured variables. In other
+words, when doing EFA, we're trying to estimate how many latent variables underlie
+a set of observed data and which observed items "belong to" which latent variable.
+1. The "little jiffy" method consists of the following steps:
+    a. Run a PCA to extract factors
+    a. Apply no subsequent rotation or the varimax rotation
+    a. Retain all components with eigenvalues greater than 1.0
+    
+    This approach results from running "factor analysis" with the SPSS defaults.
+    In most situations, however, this setup won't give a meaningful answer to 
+    the substantive research questions we're investigating when doing EFA.
+1. The main difference between PCA and EFA comes down to how the observed 
+variance is factored between the latent variables and the unique (residual) 
+factors.
+    - PCA directly explains the observed variances. So, if you extract enough 
+    components, the latent variables will explain 100% of the observed variance. 
+    - EFA allows each observed item to retain its own unique factor to quantify 
+    the item variance not explained by the latent variables. Unless you constrain 
+    the model, the variance explained by the latent factors should not reach 
+    100% of the observed variance. 
+1. Factor rotation entails applying linear transformations to "rotate" the 
+factor axes (i.e., the geometric representations of the latent variables) through 
+the data space to produce a so-called "simple structure" in which each observed 
+item loads onto only one factor (to the extent that this is possible). 
+    There are two flavors of rotations: 
+    - Orthogonal rotation: All latent factors are uncorrelated (i.e. the factor 
+    axes describe a 90 degree angle)
+    - Oblique rotation: The latent factors are allowed to correlate
+```
+
+---
+
+### Reference 2 {-}
+
+[
+Kestilä, E. (2006). 
+Is there demand for radical right populism in the Finnish electorate? 
+*Scandinavian Political Studies 29*(3), 169--191.
+](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9477.2006.00148.x)
+
+### Questions 2 {-}
+
+1. What is the research question that the author tries to answer? 
+1. Briefly describe the characteristics of the Radical Right Parties (RRP) in 
+Europe. 
+1. What are the two main explanations of support for RRP upon which this paper 
+focuses? 
+1. Does the empirical part of the paper reflect the theoretical framework well?
+Why or why not?
+1. According to the author, is Finland very different from other European 
+countries on the main dependent variables? 
+1. What is the author's conclusion (i.e., how does the author answer the 
+research question)? 
+
+```{asis echo = answer}
+### Answers 2 {-}
+
+1. Why is there no Radical Right Party in Finland? 
+    - To explore this question, the author considers how similar the attitudes 
+    of the Finnish electorate about trust in politics and immigration are to 
+    other Western-European countries. 
+1. Pages 175--177 provide the relevant information. Briefly:
+    - RRPs emphasize anti-immigrant attitudes and connect immigration to 
+    feelings of insecurity, spurring debates about crime. 
+    - RRPs are anti-elitist, protest parties that often push for lower taxes 
+    while protecting the welfare state. 
+    - RRPs represent the antitheses of green parties. 
+    - RRPs represent the ‘losers’ of modernization and emphasize traditional 
+    moral values, social norms, the role of the family, and the importance of 
+    national culture. 
+1. The anti-immigration issue and protest voting
+1. Of course, this conclusion is debatable, but I don't think the empirical and 
+theoretical aspects of the paper align very well. The way the key constructs are 
+operationalized (i.e., via orthogonally rotated component scores) is not a very 
+good way to get sensible estimates of the true hypothetical constructs. 
+Furthermore, the idea of defining the outcome for the final regression analysis 
+as the naive sum of the component scores casts considerable doubt on the validity 
+of that analysis (in terms of the DV accurately representing its putative construct).
+1. No, Finland is very similar to other (Nordic) European countries. 
+1. Anti-immigrant and anti-politics attitudes cannot explain why there is no RRP 
+in Finland. 
+    - The author finds reasons for the absence of such a link in history and the 
+    fact that politicians from mainstream political parties have caught the 
+    populist voters.
+```
+

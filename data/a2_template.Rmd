@@ -1,0 +1,96 @@
+---
+title: "Group 42"
+author: ["Zaphod Beeblebrox", "Tricia McMillan", "Marvin T.P. Andy"]
+
+documentclass: article
+papersize: a4
+geometry: margin = 20mm
+fontfamily: sans
+output:
+  pdf_document:
+    number_sections: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lavaan)
+library(knitr)
+```
+
+\hrule
+
+\vspace{6pt}
+
+For Assignment 2, you will conduct a CFA and report the results via this
+worksheet.
+
+- Provide the requested information for each of the following items.
+- Only include the necessary information; waffling will hurt your grade.
+- Replace the placeholder values above with your Assignment 2 Group's details
+  and the appropriate date.
+- Submit the completed worksheet as a PDF document.
+
+*NOTE:* The relative weights for each item are given in brackets.
+
+\vspace{12pt}
+
+\hrule
+
+# Which dataset are you using? [1]
+
+# Describe your hypothesized measurement model. [2]
+
+- *What latent factors are you estimating?*
+- *Which items will you use to define each latent factor?*
+- *Why is your hypothesized factor structure justified?*
+
+# Provide a path diagram of your theoretical measurement model. [2]
+
+# Provide the lavaan syntax for your model. [2]
+
+```{r}
+
+```
+
+# Use the `lavaan::cfa()` function to estimate your model. [2]
+
+```{r}
+
+```
+
+# Report the relevant parameter estimates from your fitted model. [3]
+
+- *Don't include the entire model summary.*
+- *The `lavaan::lavInspect()` or `lavaan::parameterEstimates()` functions could
+  be useful here.*
+
+```{r, echo = FALSE}
+
+```
+
+# Report the $R^2$ estimates from your fitted model. [2]
+
+```{r, echo = FALSE}
+
+```
+
+# Report suitable model fit indices for your estimated model. [3]
+
+- *Don't include every fit index lavaan provides.*
+
+```{r, echo = FALSE}
+
+```
+
+# Do your results support the validity of your hypothesized model? [4]
+
+- *Explain why or why not.*
+
+# Do you think the model could be improved? [2]
+
+- *If so, explain how you would modify the model.*
+- *If not, explain why no improvement is possible.*
+
+\vspace{12pt}
+
+\hrule

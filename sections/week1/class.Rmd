@@ -1,0 +1,208 @@
+## In-Class Exercises
+
+In this week's practical, we'll go a little further into what's possible with R.
+Don't worry if you cannot remember everything in these primers---they're only
+meant to familiarize you with what is possible and to get you some experience
+interacting with R and RStudio.
+
+You can access the In-Class Exercises via the following link.
+
+- [Link to In-Class Exercises](https://kylemlang.com/r-primers/class.html)
+
+<!------------------------------------------------------------------------------
+
+### Viewing Data
+
+This first primer introduces a special data format called a *tibble*, as well as
+some functions for viewing your data.
+
+<iframe 
+  id="01tibbles"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/01-tibbles/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Dissecting Data
+
+In the next primer, we'll explore tools to subset and rearrange you data:
+`select()`, `filter()`, and `arrange()`.
+
+<iframe 
+  id="02isolating"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/02-isolating/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Grouping and Manipulating Data
+
+<div style = "padding:10px;
+              background-color: #FFFACD;
+              color: black;
+              margin-bottom: 5px;">
+
+**Advanced**
+ 
+If you made it through the previous two sections with ease and want to challenge
+yourself, go ahead with this next section. If you're running short on time, you
+can skip ahead to *Exploratory Data Analysis*.
+
+</div>
+
+$$\vc$$
+
+<iframe 
+  id="03deriving"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/03-deriving/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Exploratory Data Analysis
+
+<iframe 
+  id="01datascience"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/01-Exploratory-Data-Analysis/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Visualizing Data
+
+Visualizing data is a great way to start understanding a data set. In this
+section, we'll highlight a few examples of how you can use the **ggplot2**
+libarary to visualize your data. Primers on many other visualizations are
+available on [Posit Cloud](https://posit.cloud/learn/primers/3).
+
+#### Bar Charts for Categorical Variables {-}
+
+<iframe 
+  id="04barchart"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/01-bar-charts/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+#### Scatterplots for Continuous Variables {-}
+
+<iframe 
+  id="05scatter"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/05-scatterplots/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Tidying Data
+
+This primer will provide an overview of what's meant by "tidy data". You only
+need to complete the *Tidy Data* section---the sections on *Gathering* and 
+*Spreading* columns are useful, but we won't ask you to apply those techniques 
+in this course.
+
+<iframe 
+  id="06tidy"
+  width="100%"
+  height="500"
+  src="https://tutorials.shinyapps.io/01-reshape-data/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+------------------------------------------------------------------------------->
+
+---
+
+### Recap {-}
+
+Hopefully, after completing the practical exercises for this week, you feel more
+comfortable using R's basic functionality.
+
+Here's a brief description of the functions covered in this week's practical exercises:
+
+  - `install.packages()` for installing packages
+    - Remember to put the package names in quotes
+  - `library()` for loading packages
+  - `View()` for viewing your dataset
+  - `select()` for picking only certain columns 
+  - `filter()` for picking only certain rows
+  - `arrange()` for changing the rows order
+  - `%>%` aka "the pipe" for chaining commands together
+    - In RStudio, you can hit `ctrl+shift+m` as a handy key combination
+  - `?` for help files
+  
+Logical tests and Boolean operators
+
+  - `==` equal to
+  - `!=` not equal to
+  - `<` less than
+  - `<=` less than or equal to
+  - `>` greater than
+  - `>=` greater than or equal to
+  - `is.na()` is the value NA (not available)
+  - `!is.na` is the value not NA 
+  - `&` and (true only if the left and right are both true)
+  - `|` or (true if either the left or right are true)
+  - `!` not (invert true/false)
+  - `%in%` in (is left in the larger set of right values)
+  - `any()` any (true if any in the set are true)
+  - `all()` all (true if all in the set are true)
+  - `xor()` xor (true if one and only one of the set are true)
+
+ggplot2 
+
+  - `ggplot()` create the basic object from which to building a plot
+  - `aes()` contains the aesthetic mappings (like x and y)
+  - `geom_bar()` bar plots for distributions of categorical variables
+  - `geom_point()` scatterplots for plotting two continuous variables
+  - `geom_label_repel()` for plotting text
+  - `facet_wrap()` for creating sets of conditional plots
+  
+---
+
+End of In-Class Exercises
+
+---

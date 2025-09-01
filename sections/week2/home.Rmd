@@ -1,0 +1,137 @@
+## At-Home Exercises
+
+```{r include = FALSE}
+opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
+dataDir <- "../../../../data/"
+
+```
+
+Load the `LifeSat.sav` data. 
+
+```{r, echo = FALSE}
+library(dplyr)
+library(haven)
+LifeSat <- read_spss(paste0(dataDir, "LifeSat.sav"))
+```
+
+```{r, eval = FALSE}
+library(dplyr)
+library(haven)
+
+LifeSat <- read_spss("LifeSat.sav") 
+```
+
+---
+
+###
+
+Make a table of descriptive statistics for the variables: `LifSat`, `educ`, 
+`ChildSup`, `SpouSup`, and `age`. 
+
+- What is the average age in the sample? 
+- What is the range (youngest and oldest child)? 
+
+*Hint:* Use the `tidySEM::descriptives()` function.`
+
+<details>
+  <summary>Click for explanation</summary>
+
+- The package `tidySEM` contains the `descriptives()` function for computing 
+descriptive statistics. 
+- The `describe()` function in the `psych` package is a good alternative.
+
+```{r}
+library(tidySEM)
+
+descriptives(LifeSat[ , c("LifSat", "educ", "ChildSup", "SpouSup", "age")])
+```
+</details>
+
+---
+
+### {#slr1}
+
+Run a simple linear regression with `LifSat` as the dependent variable and 
+`educ` as the independent variable.
+
+*Hints:*
+
+- The `lm()` function (short for linear model) does linear regression. 
+- The `summary()` function provides relevant summary statistics for the model. 
+- It can be helpful to store the results of your analysis in an object.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+results <- lm(LifSat ~ educ, data = LifeSat)
+summary(results)
+```
+</details>
+
+---
+
+### {#slr2}
+
+Repeat the analysis from \@ref(slr1) with `age` as the independent variable. 
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+results <- lm(LifSat ~ age, data = LifeSat)
+summary(results)
+```
+</details>
+
+---
+
+### {#slr3}
+
+Repeat the analysis from \@ref(slr1) and \@ref(slr2) with `ChildSup` as the 
+independent variable. 
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+results <- lm(LifSat ~ ChildSup, data = LifeSat)
+summary(results)
+```
+</details>
+
+---
+
+### {#mlr}
+
+Run a multiple linear regression with `LifSat` as the dependent variable and 
+`educ`, `age`, and `ChildSup` as the independent variables. 
+
+*Hint:* You can use the `+` sign to add multiple variables to the right hand
+side (RHS) of your model formula.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+results <- lm(LifSat ~ educ + age + ChildSup, data = LifeSat)
+summary(results)
+```
+</details>
+
+---
+
+### 
+
+Compare the results from \@ref(mlr) with those from \@ref(slr1), \@ref(slr2), 
+and \@ref(slr3).
+
+- What do you notice when you compare the estimated slopes for each of the three 
+predictors in the multiple regression model with the corresponding estimates 
+from the simple regression models? 
+
+---
+
+End of At-Home Exercises
+
+---

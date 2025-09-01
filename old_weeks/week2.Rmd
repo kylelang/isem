@@ -1,0 +1,52 @@
+# EFA
+
+```{r week2_global_options, include = FALSE}
+library(dplyr)
+
+dataDir  <- "../../../data/"
+quizDir  <- "../assess/"
+partDir  <- "sections/"
+imageDir <- "../images/"
+```
+
+**Homework before the lecture**
+
+1. Watch the [Lecture Recording](lecture-1.html) for this week.
+1. Complete the [Reading](reading-1.html) for this week, and answer the 
+associated reading questions.
+1. Complete the [Formative Assessment](formative-assessment-1.html) for this week.
+
+**Lecture content**
+
+This lecture constitutes a general introduction to latent variables and scaling 
+procedures. We will discuss several different aspects of exploratory factor 
+analysis (EFA). Most notably:
+
+- The differences between Principal Component Analyses (PCA) and Factor Analysis
+- Model estimation and factor extraction methods
+- Factor rotations
+
+You will have to make decisions regarding each of these aspects when conducting
+a factor analysis. We will also discuss reliability and factor scores as means 
+of evaluating the properties of a scale.
+
+**Homework before the practical**
+
+Complete the [At-Home Exercises](at-home-exercises-1.html). 
+
+**Practical content**
+
+During the practical you will work on the [In-Class Exercises](in-class-exercises-1.html).
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
+knitr::knit_child(paste0(partDir, "w2_lecture.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+knitr::knit_child(paste0(partDir, "w2_reading.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+knitr::knit_child(paste0(partDir, "w2_assess.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+knitr::knit_child(paste0(partDir, "w2_home.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+knitr::knit_child(paste0(partDir, "w2_class.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+```

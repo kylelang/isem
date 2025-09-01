@@ -1,0 +1,408 @@
+## At-Home Exercises
+
+In these exercise we will analyze the *suicide_risk.rds* dataset. These analyses 
+are based on the following paper.
+
+[
+Metha, A., Chen, E, Mulvenon, S., and Dode, I. (1998). A theoretical model of 
+suicide risk. *Archives of Suicide Research, 4*, 115--133.
+](https://doi.org/10.1080/13811119808260442)
+
+The *suicide_risk.rds* dataset was simulated from the covariance matrices 
+presented on p.123 of the above paper. These data contain the following variables.
+
+1. `suirisk`: A numeric variable representing suicide risk
+1. `subabuse`: A numeric variable representing severity of substance abuse
+1. `hopeless`: A numeric variable representing degree of hopelessness
+1. `selfesteem`: A numeric variable representing levels of self-esteem
+1. `depression`: A numeric variable representing depression levels
+1. `sex`: A factor recording biological sex
+
+We will use these data to investigate if *sex* moderates the effects of
+*substance abuse*, *hopelessness*, *self-esteem*, and *depression* on *suicide
+risk*.
+
+---
+
+###
+
+Load the *suicide_risk.rds* dataset.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, echo = FALSE}
+suicide <- readRDS(paste0(dataDir, "suicide_risk.rds"))
+```
+
+```{r, eval = FALSE}
+suicide <- readRDS("suicide_risk.rds")
+```
+
+</details>
+
+---
+
+###
+
+Use `ggplot()` to visualize the bivariate relations between the four continuous 
+predictors and *suicide risk*.
+
+- Based on these figures, do you think a linear relation between *suicide risk*
+and the four continuous predictors is reasonable?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+library(ggplot2)
+
+## Create the basic plots for each predictor:
+p1 <- ggplot(suicide, aes(x = subabuse, y = suirisk)) 
+p2 <- ggplot(suicide, aes(x = hopeless, y = suirisk)) 
+p3 <- ggplot(suicide, aes(x = selfesteem, y = suirisk)) 
+p4 <- ggplot(suicide, aes(x = depression, y = suirisk)) 
+
+## Add the details and print:
+p1 +
+  geom_point() +  # Add the scatterplot points
+  geom_smooth() + # Add a smoothed trend
+  theme_classic() # Use a nicer theme
+
+p2 + geom_point() + geom_smooth() + theme_classic()
+p3 + geom_point() + geom_smooth() + theme_classic()
+p4 + geom_point() + geom_smooth() + theme_classic()
+```
+
+We can also use the `grid.arrange()` function from the **gridExtra** package to
+join these four plots into a single figure.
+
+```{r}
+library(gridExtra)
+
+grid.arrange(p1 + geom_point() + geom_smooth() + theme_classic(),
+             p2 + geom_point() + geom_smooth() + theme_classic(),
+             p3 + geom_point() + geom_smooth() + theme_classic(),
+             p4 + geom_point() + geom_smooth() + theme_classic(), 
+             ncol = 2)
+```
+
+There does appear to be an association between each of the predictors and 
+*suicide risk*. The trends don't look perfectly linear, but they don't look too 
+systematically nonlinear either, so modeling these relationships as linear seems
+sensible.
+
+</details>
+
+---
+ 	 
+###
+
+Modify the scatterplots from above by coloring the points and trend lines 
+according to `sex`.
+
+- Based on these figures, do you think *sex* may moderate (some of) these 
+bivariate relations?
+
+<details>
+  <summary>Click for explanation</summary>
+
+In the `ggplot()` call, we simply need to define assign `sex` to the "colour" 
+aesthetic.
+
+```{r}
+## Create the basic plots for each predictor:
+p1 <- ggplot(suicide, aes(x = subabuse, y = suirisk, colour = sex)) 
+p2 <- ggplot(suicide, aes(x = hopeless, y = suirisk, colour = sex)) 
+p3 <- ggplot(suicide, aes(x = selfesteem, y = suirisk, colour = sex)) 
+p4 <- ggplot(suicide, aes(x = depression, y = suirisk, colour = sex))
+
+grid.arrange(p1 + geom_point() + geom_smooth() + theme_classic(),
+             p2 + geom_point() + geom_smooth() + theme_classic(),
+             p3 + geom_point() + geom_smooth() + theme_classic(),
+             p4 + geom_point() + geom_smooth() + theme_classic(), 
+             ncol = 2)
+```
+
+Of all the predictors, it looks like *substance abuse* shows the greatest 
+differences between the male and female trends. The other three predictors 
+demonstrate pretty similar effects for both sexes.
+
+</details>
+
+---
+
+To test moderation, we need to include interactions (i.e., product terms) 
+between the moderator variable(s) and the focal predictor(s) on the RHS of our 
+regression equation. If we're using the `lm()` function to estimate our models 
+via OLS regression, we need only specify the appropriate product terms in the 
+model syntax. 
+
+---
+
+### {#olsMod}
+
+Use the `lm()` function to test the moderating influence of `sex` on the four 
+focal effects with OLS regression.
+
+- Does *sex* significantly moderate the four focal effects?
+
+*Hint:* To specify an interaction, simply "multiply" the variable names for the
+moderator and focal predictor using the `*` symbol in the formula syntax.
+
+- E.g., `y ~ x * z`
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+out <- lm(suirisk ~ sex * subabuse + sex * hopeless + sex * selfesteem + sex * depression, 
+          data = suicide)
+
+summary(out)
+```
+
+```{r, echo = FALSE}
+tmp <- summary(out)$coef["sexmale:depression", ]
+
+b <- tmp["Estimate"] 
+t <- tmp["t value"]
+p <- tmp["Pr(>|t|)"]
+
+df <- out$df.residual
+```
+
+It doesn't look like *sex* has too much affect. Only the effect of *depression* 
+on *suicide risk* was significantly moderated by *sex* ($\beta = `r round(b, 3)`$, 
+$t[`r df`] = `r round(t, 2)`$, $p = `r round(p, 3)`$)
+
+</details>
+
+---
+
+Of course, we can do an analogous analysis via path modeling in **lavaan**. 
+Unfortunately, **lavaan** will not (yet) dummy code our factors, so we need to
+manually create a dummy coded version of *sex*.
+
+---
+
+###
+
+Dummy code the `sex` factor.
+
+<details>
+  <summary>Click for explanation</summary>
+
+You have seen several ways of doing this in previous practicals. Here, I'll use
+the quick-and-dirty `ifelse()` approach.
+
+```{r}
+suicide$female <- ifelse(suicide$sex == "female", 1, 0)
+```
+
+</details>
+
+---
+
+###
+
+Define the **lavaan** model syntax for the same moderated regression model you 
+estimated in \@ref(olsMod).
+
+*Hints:*
+
+- To define an interaction term in lavaan syntax, use the `:` operator instead 
+of `*`.
+- You will need to explicitly include the variable names for the individual 
+predictors (as well as the interaction terms) in the model syntax.
+
+<details>
+  <summary>Click for explanation</summary>
+  
+```{r}
+mod <- '
+suirisk ~ subabuse + hopeless + selfesteem + depression + female
+suirisk ~ female:subabuse + female:hopeless + female:selfesteem + female:depression
+'
+```
+
+Note that I've broken the formula definition into two lines. Doing so has no
+effect on the model's specification or estimation but keeps the syntax a bit 
+tidier (by keeping the lines from getting too long).
+
+</details>
+
+---
+
+### {#pathMod}
+
+Use `lavaan::sem()` to estimate the above model.
+
+- What are your conclusions vis-à-vis the moderating influence of *sex*?
+- Do these results differ from those of the OLS regression?
+- What proportion of the variability in *suicide risk* is explained by this model?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+library(lavaan)
+
+out <- sem(mod, data = suicide)
+summary(out, rsquare = TRUE)
+```
+
+- The path analysis gives the same results as the OLS regression. So, the 
+conclusions are also the same.
+- The model explains `r (100 * lavInspect(out, "r2")) %>% round(2)`% 
+of the variability in *suicide risk*.
+
+</details>
+
+---
+
+Based on the results above, it looks like *sex* does not have much moderating
+influence. If we are trying to build a statistical model of *suicide risk*, we 
+may question if the overall moderating effect of *sex* really improves the model.
+
+We may also want to evaluate the significance of the focal effects, themselves. 
+In the moderated model, the estimates for the focal predictors are *conditional 
+effects*, not ordinary partial regression weights. In this particular case, these
+conditional effects represent the effect of each focal predictor on the outcome
+for males (i.e., the reference group of the moderator).
+
+If we simply want to know if these focal predictors significantly affect *suicide
+risk*, without conditioning on *sex*, we need to estimate a restricted model
+containing no moderation (i.e., the additive model with all the same predictors 
+but no interactions).
+
+---
+
+###
+
+Specify the **lavaan** model syntax for the restricted model described above.
+
+<details>
+  <summary>Click for explanation</summary>
+  
+```{r}
+mod <- '
+suirisk ~ subabuse + hopeless + selfesteem + depression + female
+'
+```
+
+</details>
+
+---
+
+###
+
+Use `lavaan::sem()` to estimate the above model.
+
+- Are the focal predictors significantly associated with *suicide risk*?
+- Is *sex* significantly associated with *suicide risk*?
+- How much variability in *suicide risk* is explained by these predictors?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+out_res <- sem(mod, data = suicide)
+summary(out_res, rsquare = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- summary(out_res)$pe %>% 
+  filter(op == "~", rhs %in% c("subabuse", "depression", "female"))
+
+b1 <- tmp[1, "est"] 
+z1 <- tmp[1, "z"]
+
+b2 <- tmp[2, "est"]
+z2 <- tmp[2, "z"]
+
+b3 <- tmp[3, "est"]
+z3 <- tmp[3, "z"]
+p3 <- tmp[3, "pvalue"]
+```
+
+- Only *substance abuse* ($\beta = `r round(b1, 3)`$, $z = `r round(z1, 2)`$, 
+$p < 0.001$) and *depression* ($\beta = `r round(b2, 3)`$, $z = `r round(z2, 2)`$, 
+$p < 0.001$) are significant predictors of *suicide risk*.
+- No, *sex* is not a significant predictor of *suicide risk* 
+($\beta = `r round(b3, 3)`$, $z = `r round(z3, 2)`$, $p = `r round(p3, 3)`$).
+- These five predictors explain `r (100 * lavInspect(out_res, "r2")) %>% round(2)`% 
+of the variability in *suicide risk*.
+
+</details>
+
+---
+
+###
+
+Compare the full model (including interactions) and the restricted model (without
+interactions).
+
+- How much additional variability in *suicide risk* do we explain by including the 
+four interaction terms?
+- Can we conduct a $\Delta \chi^2$ test to compare these two models?
+    - If you think so, conduct the test and interpret the results.
+    - If you do not think so, explain why not.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, echo = FALSE}
+r2Diff <- lavInspect(out, "r2") - lavInspect(out_res, "r2")
+```
+
+To see how much additional variability we explain, we simply subtract the $R^2$
+for the restricted model from the $R^2$ for the full model. 
+
+- Adding the interaction terms explains `r round(100 * r2Diff, 2)`% more 
+variability in *suicide risk*.
+
+Unfortunately, we cannot use a $\Delta \chi^2$ test to compare these models 
+because they are both saturated (hence, they both have perfect fit). Also, these
+models are not nested because we added four new variables (hence, added four new 
+columns and rows to the covariance matrix) when adding the interaction terms.
+
+- If we want, we can manually implement a $\Delta R^2$ test analogous to what 
+we would do in OLS regression, but doing so is a bit of a faff.
+
+```{r}
+## Extract the residual variance:
+eF <- lavInspect(out, "theta")["suirisk", "suirisk"]
+eR <- lavInspect(out_res, "theta")["suirisk", "suirisk"]
+
+## Compute the residual DF:
+n   <- lavInspect(out, "nobs")
+dfF <- n - fitMeasures(out, "npar")
+dfR <- n - fitMeasures(out_res, "npar")
+
+## Compute the F statistic for the R^2 difference:
+(f <- ((eR - eF) / (dfR - dfF)) / (eF / dfF))
+
+## Compute the p-value by comparing to an F-distribution
+(p <- pf(f, dfR - dfF, dfF, lower.tail = FALSE))
+```
+
+The F-statistic for the $\Delta R^2$ test is significant 
+($\Delta R^2 = `r round(r2Diff, 3)`$, 
+$F[`r dfR - dfF`, `r dfF`] = `r round(f, 2)`$,
+$p = `r round(p, 3)`$), so we can say that including the moderating influence of 
+*sex* explains significantly more variability in *suicide risk*. Of course, you 
+could certainly question if an additional `r round(100 * r2Diff, 2)`% of 
+variance explained is a meaningful increase. Regardless of how you judge the 
+increase in explained variance, though, we cannot necessarily say that adding 
+the interaction terms produces a "better" model. Both models perfectly recreate 
+the observed data; they are statistically equivalent representations of the 
+phenomenon.
+
+</details>
+
+---
+
+End of At-Home Exercises
+
+---

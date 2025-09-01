@@ -1,0 +1,52 @@
+## At-Home Exercises
+
+This week is all about gaining familiarity with R and RStudio. We'll be using 
+material from the introductory tutorials that were previously available as 
+*Posit Primers*. These exercises work through some basic elements of data
+visualization and statistical programming in R. Although you should already have
+R working, this week's practical exercises don't require that you have R
+installed on your system.
+
+You can access the At-Home Exercises via the following link.
+
+- [Link to At-Home Exercises](https://kylemlang.com/r-primers/home.html)
+
+<!------------------------------------------------------------------------------
+
+### Visualizations with R
+
+<iframe 
+  id="01visualization"
+  width="100%"
+  height="500"
+  src="https://kylemlang.com/r-primers/basics/01-visualization-basics/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+---
+
+### Programming with R
+
+<iframe 
+  id="02programming"
+  width="100%"
+  height="500"
+  src="https://kylemlang.com/r-primers/basics/02-programming-basics/"
+  scrolling="auto"
+  data-external="1"
+  allow="fullscreen"
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+
+------------------------------------------------------------------------------->
+
+---
+
+End of At-Home Exercises
+
+---

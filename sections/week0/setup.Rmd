@@ -1,0 +1,147 @@
+# Software Setup {-}
+
+This chapter will help you prepare for the course by showing how to install R 
+and RStudio on your computer. If you're already using R, there may be nothing 
+new for you here. That being said, you should look over this chapter to ensure
+that your current setup will be compatible with the course requirements.
+
+If you have never used R before, this chapter is essential! The information is 
+this chapter will be crucial for getting your computer ready for the course.
+
+![](images/chap2.jpg)
+
+## Typographic Conventions {-}
+
+Throughout this GitBook, we (try to) use a consistent set of typographic 
+conventions:
+
+- Functions are typeset in a code font, and the name of the function is always 
+followed by parentheses
+    - E.g., `sum()`, `mean()`
+- Other R objects (e.g., data objects, function arguments) are in also typeset
+in a code font but without parentheses
+    - E.g., `seTE`, `method.tau` 
+- Sometimes, we’ll use the package name followed by two colons (`::`, the 
+so-called *scope-resolution operator), like `lavaan::sem()`. This command is 
+valid R code and will run if you copy it into your R console. The `lavaan::` 
+part of the command tells R that we want to use the `sem()` from the `lavaan` 
+package.
+
+<!----------------------------------------------------------------------------->
+
+## Installing software {-}
+
+Before we start the course, we have to install three things:
+
+- **R**: A free program for statistical programming
+- **RStudio**: An integrated development environment (IDE) which makes it easier 
+to work with R. 
+- Several **packages**: Separate pieces of 'add-on' software for R with 
+functions to do specific analyses. Packages also include documentation describing 
+how to use their functions and sample data.
+
+---
+
+### Installing R {-}
+
+The latest version of R is available [here](https://cran.r-project.org).
+
+- Click the appropriate link for your operating system and follow the 
+instructions for installing the latest stable release.
+- Depending on which OS you select, you may be given an option to install 
+different components (e.g., *base*, *contrib*, *Rtools*). For this course, you 
+will only need the *base* package. 
+
+---
+
+### Installing RStudio {-}
+
+```{r, echo = FALSE, fig.width = 3, fig.height = 2}
+library(png)
+library(grid)
+img <- readPNG(paste0(imageDir, "rstudiologo.png"))
+grid.raster(img)
+```
+
+Download the Free Desktop version of RStudio from the 
+[download page](https://www.rstudio.com/products/rstudio/download/) of the 
+[RStudio website](https://www.rstudio.com/).
+
+---
+
+### Installing packages {-}
+
+To participate in this course, you will need a few essential **R packages**. 
+Here's an overview of the packages and why we need them:
+
+```{r, echo = FALSE}
+data.frame(
+  Package = c("lavaan",
+              "dplyr",
+              "ggplot2",
+              "tidySEM",
+              "semTools",
+              "psych",
+              "rockchalk",
+              "foreign",
+              "readxl"),
+  Description = c("A sophisticated and user-friendly package for structural equation modeling",
+                  "A powerful suite of data-processing tools",
+                  "A flexible and user-friendly package for making graphs",
+                  "Plotting and tabulating the output of SEM-models",
+                  "Comparing models, establishing measurement invariance across groups",
+                  "Descriptive statistics and EFA",
+                  "Probing interactions",
+                  "Loading data from SPSS '.sav' files",
+                  "Loading data from Excel '.xslx' files")
+  ) %>%
+  knitr::kable()
+```
+
+To install these packages, we use the `install.packages()` function in R.
+
+1. Open RStudio
+1. Inside RStudio, find the window named **Console** on left side of the screen.
+3. Copy the following code into the console and hit `Enter`/`Return` to run the 
+command.
+
+```{r, eval = FALSE}
+install.packages(c("lavaan",
+                   "dplyr",
+                   "ggplot2",
+                   "tidySEM",
+                   "semTools",
+                   "psych",
+                   "rockchalk",
+                   "foreign",
+                   "readxl"),
+                 dependencies = TRUE)
+```
+
+#### Compiling packages from source {-}
+
+On Windows and Mac, R packages are distributed in two ways:
+
+1. Pre-compiled binary executables
+   - Binary packages can be run directly (equivalent to .exe files on Windows).
+   - You don't need any special tools to install binary packages.
+1. Archives of source code
+   - Packages installed via source code must be compiled locally.
+   - You will need an appropriate toolchain to build and install the package.
+   - New versions of a package are usually distributed via source code before
+   they get a binary release. So this option will get you the latest versions of
+   the packages.
+
+When you run the above command, you may see a message asking if you would like
+to compile certain packages from source. If so, it's usually best to accept this
+option. You may also get a message asking if you want to install **Rtools**. A
+typical Windows setup is missing the toolchain needed to compile R packages from
+source, so the R folks have packaged the necessary tools in a standalone
+software bundle called **Rtools**.
+
+You can find the appropriate **Rtools** installer through
+[this CRAN page](https://cran.r-project.org/bin/windows/Rtools/).
+
+- Follow the links for your R version and operating system.
+
+<!----------------------------------------------------------------------------->

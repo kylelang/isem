@@ -1,0 +1,25 @@
+
+
+
+In regression, R-square indicated the fit of your model to the data.
+ True False
+ 
+15. In structural equation modeling, fit is based on differences between the observed
+covariance matrix and the model-implied covariance matrix.
+True False 
+
+ 8. In a well fitting structural equation model, most of the variance in the
+dependent variable can be explained.
+True False
+
+
+
+
+
+6. In moderation analysis, the relationships between the independent variable,
+dependent variable and moderator, always have to be linear.
+ True False 
+
+
+
+A quadratic relationship could be interpreted as an interaction of a predictor with itself.	"FALSE"	TRUE	This is true; to estimate an interaction effect, you multiply predictor X1 with predictor X2 to get interaction term X1*X2. To estimate a quadratic effect, you multiply predictor X1 with itself to get quadratic term X1*X1, or X1^2. 

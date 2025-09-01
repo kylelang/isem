@@ -1,0 +1,10 @@
+```{r, include = FALSE}
+library(foreign)
+source("code/chapter_setup.R")
+partDir <- paste0(partDir0, "week0/")
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
+knit_child(paste0(partDir, "setup.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "data.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+```

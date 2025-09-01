@@ -1,0 +1,1018 @@
+%%% Title:    TCSM: Multiple Group Models
+%%% Author:   Kyle M. Lang
+%%% Created:  ? (Adapted from Rebecca's Summer School slides)
+%%% Modified: 2023-10-11
+
+\documentclass[10pt]{beamer}
+\usetheme{Utrecht}
+
+\usepackage{graphicx}
+\usepackage[natbibapa]{apacite}
+\usepackage[libertine]{newtxmath}
+\usepackage{fancybox}
+\usepackage{booktabs}
+\usepackage{relsize}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\hypersetup{urlcolor = blue}
+
+%\graphicspath{{../figures/}}
+%\usepackage{tikz} 
+%\usetikzlibrary{arrows,calc,patterns,positioning,shapes,decorations.markings} 
+%\usetikzlibrary{decorations.pathmorphing} 
+
+\newcommand{\eqit}[1]{\textrm{\textit{#1}}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\src}[1]{\texttt{#1}}
+\newcommand{\rmsc}[1]{\textrm{\textsc{#1}}}
+
+\title{Multiple Group Models \& Measurement Invariance}
+\subtitle{Theory Construction and Statistical Modeling}
+\author{Kyle M. Lang}
+\institute{Department of Methodology \& Statistics\\Utrecht University}
+\date{}
+
+\begin{document}
+
+<<setup, include = FALSE, cache = FALSE>>=
+set.seed(235711)
+
+dataDir <- "../data/"
+
+library(knitr)
+library(ggplot2)
+library(MASS)
+library(DAAG)
+library(xtable)
+library(MLmetrics)
+library(dplyr)
+library(mvtnorm)
+library(lavaan)
+library(tidySEM)
+library(psych)
+library(Hmisc)
+library(lavaanPlot)
+library(ggsci)
+
+source("../../../code/supportFunctions.R")
+
+options(width = 80)
+opts_chunk$set(size = "footnotesize",
+               fig.align = "center",
+               fig.path = "figure/multiple_group-",
+               message = FALSE,
+               comment = "")
+knit_theme$set('edit-kwrite')
+@
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[t,plain]
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Acknowledgement}
+
+  I have adapted much of the material in this lecture from material prepared by 
+  \href{https://www.uu.nl/staff/RMKuiper}{\color{uured}Rebecca Kuiper} for the 
+  \href{https://utrechtsummerschool.nl/}{\color{uured}UU Summer School} course
+  \href{https://utrechtsummerschool.nl/courses/social-sciences/structural-equation-modeling-in-r-using-lavaan-e-learning-course}{\color{uured}Structural Equation Modeling in R with lavaan}.
+  
+  \vb
+  
+  \begin{itemize}
+    \item You can find the original slides \href{https://github.com/kylelang/lavaan-e-learning/blob/main/3_multiple_groups/Lecture\%203\%20-\%20Slides/Slides_Muligroup_and_MeasInvar.pdf}{\color{uured}here}.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\section{Multiple Group Models}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Multiple Group Models}
+
+  Multiple group models allow us to simultaneously run subgroup analyses.
+  \vc
+  \begin{enumerate}
+    \item Fit group-specific models to subsets of the data.
+      \vc
+    \item Constrain parameters across groups to test for between-group differences.
+  \end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Example}
+
+  To fix ideas, let's start with an example of multiple group path analysis.
+  \vc
+  \begin{itemize}
+    \item Outcome: \src{sw}
+      \begin{itemize}
+        \item The extent to which adolescent participants provide socially 
+          desirable responses.
+      \end{itemize}
+      \vc
+    \item Predictors: \src{overt}, \src{covert}
+      \begin{itemize}
+        \item The level of overt and covert antisocial behavior exhibited by 
+          the participants.
+      \end{itemize}
+      \vc
+    \item Group: \src{sex}
+      \begin{itemize}
+        \item Biological sex of the participants
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+library(dplyr)
+library(lavaan)
+
+## Read in the data:
+dat1 <- read.table("../data/popular_regr.txt",
+                   na.strings = c("-99", "-999"),
+                   header = TRUE) %>%
+mutate(sex = factor(gender, labels = c("male", "female"))) %>%
+filter(!is.na(sex))
+
+## Define the model syntax:
+mod1 <- 'sw ~ 1 + overt + covert'
+
+## Fit the model:
+fit1 <- sem(mod1, data = dat1, group = "sex")
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example} 
+
+<<>>=
+partSummary(fit1, 1:4)
+@
+
+\newpage
+
+<<>>=
+partSummary(fit1, 8:11)
+@
+
+\newpage
+
+<<>>=
+partSummary(fit1, 13:16)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Between-Group Comparisons}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing Nested Models}
+
+  We usually fit multiple group models to test for between-group differences in
+  the model parameters.
+  \begin{itemize}
+    \item To compare parameters across groups, we need to label the parameters.
+  \end{itemize}
+
+<<>>=
+## Define the model syntax with parameter labels:
+mod1 <- '
+sw ~ c("b0m", "b0f") * 1 + 
+     c("b1m", "b1f") * overt + 
+     c("b2m", "b2f") * covert
+'
+
+## Fit the model:
+fit1 <- sem(mod1, data = dat1, group = "sex")
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Comparing Nested Models}
+
+<<>>=
+partSummary(fit1, 1:4)
+@
+
+\newpage
+
+<<>>=
+partSummary(fit1, 8:11)
+@
+
+\newpage
+
+<<>>=
+partSummary(fit1, 13:16)
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing Nested Models}
+
+  We use nested model tests to evaluate between-group differences.
+  \begin{itemize}
+    \item $\Delta \chi^2 = \chi^2_0 - \chi^2_1$
+    \item $\Delta \chi^2 \sim \chi^2 \left( df_0 - df_1 \right)$
+  \end{itemize}
+
+  \vb
+
+  Hypotheses
+  \begin{itemize}
+    \item $H_0$: Unconstrained Model Fit = Constrained Model Fit
+    \item $H_1$: Unconstrained Model Fit $\neq$ Constrained Model Fit
+  \end{itemize}
+
+  \vb
+
+  Large p-value
+  \begin{itemize}
+    \item No significant difference between the model fits
+    \item No evidence that the coefficients differ across groups 
+  \end{itemize}
+  
+  \vb
+
+  Small p-value
+  \begin{itemize}
+    \item Significant difference between the model fits
+    \item Evidence that the parameter differs across groups
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing Nested Models}
+
+<<>>=
+## Test equality of regression slopes:
+lavTestWald(fit1, constraints = 'b1m == b1f; b2m == b2f')
+@ 
+
+Technically, the above is a multiparameter Wald test.
+  \begin{itemize}
+    \item The multivariate generalization of the \emph{Student's} t-test
+    \item Equivalent to a $\Delta \chi^2$ test
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing Nested Models}
+
+We can also fit the restricted model manually.
+  \begin{itemize}
+    \item Give parameters the same label to constrain them to equality.
+  \end{itemize}
+  
+<<>>=
+## Define the restricted model syntax:
+mod0 <- '
+sw ~ c("b0m", "b0f") * 1 + 
+     c("b1", "b1") * overt + 
+     c("b2", "b2") * covert
+'
+
+## Fit the model:
+fit0 <- sem(mod0, data = dat1, group = "sex")
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing nested models}
+
+<<>>=
+partSummary(fit0, 1:4)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Comparing nested models}
+
+<<>>=
+partSummary(fit0, 8:11)
+@
+
+\newpage
+
+<<>>=
+partSummary(fit0, 13:16)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Comparing Nested Models}
+
+<<>>=
+## Test equality of regression slopes:
+lavTestLRT(fit0, fit1)
+@ 
+
+This one is a true $\Delta \chi^2$ test.
+\begin{itemize}
+  \item Also known as a \emph{likelihood ratio test}
+\end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\sectionslide{Measurement Invariance}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Measurement Invariance}
+
+  When fitting multiple group models with latent factors, we need to establish
+  \emph{measurement invariance} across groups.
+  \vb
+  \begin{itemize}
+    \item Construct validity:
+      \begin{itemize}
+        \item Is the model measuring the same thing in both (all) groups?
+      \end{itemize}
+      \vb
+    \item Can we make a fair comparison between groups?
+      \begin{itemize}
+        \item Did the groups understand the questions in the same way? 
+      \end{itemize}
+      \vb
+    \item Same latent score should result in the same observed scores.
+      \begin{itemize}
+        \item Equal slopes (factor loadings)
+        \item Equal intercepts (item means)
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Measurement Invariance}
+
+  \begin{figure}
+    \includegraphics[width = \linewidth]{../figures/mi_intuition.png}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{Visualizing Measurement Invariance}
+
+<<echo = FALSE, out.width = "75%", fig.asp = 0.8>>=
+## Create some toy data:
+x  <- seq(0, 10, length.out = 101)
+y0 <- 4 + x
+
+dat <- data.frame(x = rep(x, 3),
+  y0 = rep(y0, 3),
+  y1 = c(y0 - 2, y0, y0 + 1.5),
+  y2 = c(4 + 0.5 * x, y0, 4 + 1.75 * x),
+  y3 = c(y0, y0, y0 - 2),
+  y4 = c(y0 + 1, y0, 3 + 0.5 * x),
+  Group = factor(rep(c("BE", "DE", "NL"), each = length(y0)))
+)
+
+## Basic plot w/o any grouping:
+p0 <- ggplot(dat, aes(x, y0)) + 
+  scale_x_continuous(breaks = 0:10) +
+  coord_cartesian(ylim = c(0, max(dat$y0)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  theme_classic() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score")
+p0
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "75%", fig.asp = 0.8>>=
+p0 + geom_line(linewidth = 1, color = pal_jama()(2)[2]) 
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Invariant measurement:
+p1 <- ggplot(dat, aes(x, y0, linetype = Group, color = Group)) + 
+  scale_x_continuous(breaks = 0:10) +
+  coord_cartesian(ylim = c(0, max(dat$y0)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  geom_line(linewidth = 1.5) +
+  theme_classic() +
+  scale_color_jama() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score") +
+  guides(linetype = "none")
+p1
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Weak holds, Strong violated:
+p2 <- ggplot(dat, aes(x, y1, color = Group)) + 
+  scale_x_continuous(breaks = 0:10) +
+  coord_cartesian(ylim = c(0, max(dat$y1)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  geom_line(linewidth = 1) +
+  theme_classic() +
+  scale_color_jama() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score")
+p2
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Weak violated
+p3 <- ggplot(dat, aes(x, y2, color = Group)) + 
+  scale_x_continuous(breaks = 0:10) +
+  coord_cartesian(ylim = c(0, max(dat$y2)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  geom_line(linewidth = 1) +
+  theme_classic() +
+  scale_color_jama() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score")
+p3
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+dat1 <- filter(dat, x == 5)
+dat2 <- filter(dat, x == 6)
+dat3 <- data.frame(dat1[3:5],
+                   dat2[3:5],
+                   Group = dat1$Group)
+
+p2.1 <- p2 + geom_vline(xintercept = 5, linetype = 2)
+p2.1
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{Effects of Violations}
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Effects on levels:
+p2.1 + geom_segment(data = dat1,
+  mapping = aes(x = 0, xend = x, y = y1, yend = y1),
+  linetype = 3,
+  linewidth = 0.75)
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Effects on changes:
+p2 + geom_vline(xintercept = c(5, 6), linetype = 2) + 
+  geom_segment(data = dat1,
+               mapping = aes(x = 0, xend = x, y = y1, yend = y1),
+               linetype = 3) +
+  geom_segment(data = dat2,
+               mapping = aes(x = 0, xend = x, y = y1, yend = y1),
+               linetype = 3) +
+  geom_errorbar(data = dat3,
+                mapping = aes(x = 0.5, ymin = y1, ymax = y1.1),
+                width = 0.1,
+                linewidth = 1)
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Effect on levels:
+p3.1 <- p3 + geom_vline(xintercept = 5, linetype = 2)
+p3.1
+
+p3.1 + geom_segment(data = dat1,
+  mapping = aes(x = 0, xend = x, y = y2, yend = y2),
+  linetype = 3,
+  linewidth = 0.75)
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Effect on changes:
+p3 + geom_vline(xintercept = c(5, 6), linetype = 2) +
+  geom_segment(data = dat1,
+               mapping = aes(x = 0, xend = x, y = y2, yend = y2),
+               linetype = 3) +
+  geom_segment(data = dat2,
+               mapping = aes(x = 0, xend = x, y = y2, yend = y2),
+               linetype = 3) +
+  geom_errorbar(data = dat3,
+                mapping = aes(x = 0.5, ymin = y2, ymax = y2.1),
+                width = 0.1,
+                linewidth = 1)
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Measurement Invariance Procedure}
+
+  We establish measurement invariance by sequentially testing more restrictive
+  models.
+  \vc
+  \begin{enumerate}
+    \item Test model separately for each group (\textbf{configural invariance}).
+      \begin{itemize}
+        \item The measurement models must fit the data in all groups.
+      \end{itemize}
+      \vb
+    \item Test equality of loadings across groups (\textbf{metric/weak invariance}).
+      \begin{itemize}
+        \item Must be equal to compare linear associations between groups.
+      \end{itemize}
+      \vb
+    \item Test equality of intercepts across groups (\textbf{scalar/strong invariance}).
+      \begin{itemize}
+        \item Must be equal to compare means across groups.
+      \end{itemize}
+      \vb
+    \item Test equality of measurement error variances (\textbf{strict invariance}).
+      \begin{itemize}
+        \item Controversial
+        \item Generally considered to be too restrictive
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Testing MI with \pkg{lavaan}}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Example}
+
+  \begin{figure}
+    \includegraphics[width = 0.8\textwidth]{../figures/SAPI.png}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+## Read in the data:
+sapi <- read.table("../data/sapi.txt",
+                   header = TRUE, 
+                   na.strings = "-999") %>%
+mutate(sex = factor(Gender, labels = c("male", "female"))) %>%
+filter(!is.na(sex))
+
+## Define the model syntax:
+cfaMod <- '
+having_fun  =~ Q77 + Q84 + Q196 
+being_liked =~ Q44 + Q63 + Q98
+'
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+## Fit the models:
+configFit <- cfa(cfaMod, 
+                 data = sapi, 
+                 std.lv = TRUE, 
+                 group = "sex", 
+                 missing = "FIML")
+
+weakFit <- cfa(cfaMod, 
+               data = sapi, 
+               std.lv = TRUE, 
+               group = "sex", 
+               group.equal = "loadings",
+               missing = "FIML")
+
+strongFit <- cfa(cfaMod, 
+                 data = sapi, 
+                 std.lv = TRUE, 
+                 group = "sex", 
+                 group.equal = c("loadings", "intercepts"),
+                 missing = "FIML")
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example}
+
+  The \src{compareFit()} function from the \pkg{semTools} package runs several
+  different model comparison tests.
+
+<<eval = FALSE>>=
+library(semTools)
+compareFit(configFit, weakFit, strongFit) %>% summary()
+@ 
+
+<<echo = FALSE>>=
+library(semTools)
+compareFit(configFit, weakFit, strongFit) %>%
+  summary() %>%
+  capture.output() -> 
+    tmp
+
+x <- grep("Model Fit Indices", tmp) - 1
+
+head(tmp, x) %>% cat(sep = "\n")
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example}
+
+<<echo = FALSE>>=
+tail(tmp, -x) %>% cat(sep = "\n")
+@
+
+Metric/Weak invariance holds.
+\begin{itemize}
+  \item The weakly invariant model fits just as well as the configurally
+    invariant model.
+\end{itemize}
+
+Scalar/Strong invariance holds.
+\begin{itemize}
+  \item The strongly invariant model fits just as well as the weakly invariant
+    model.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{What if invariance fails?}
+
+  Configural Invariance
+  \begin{itemize}
+    \item The within-group measurement models don't hold (for some groups).
+  \end{itemize}
+  
+  \vb
+  
+  Weak Invariance
+  \begin{itemize}
+    \item The model defines valid constructs in each group.
+    \item We cannot make any comparisons across groups.
+  \end{itemize}
+  
+  \vb
+  
+  Strong Invariance
+  \begin{itemize}
+    \item We can compare linear associations across groups.
+    \item We cannot compare means across groups.
+  \end{itemize}
+  
+  \vb
+  
+  Strict Invariance
+  \begin{itemize}
+    \item Doesn't matter
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Partial Invariance}
+
+  When weak or strong invariance fail, we can sometimes establish satisfactory
+  \emph{partial invariance}.
+  \vc 
+  \begin{itemize}
+    \item Free the fewest possible number of constraints.
+      \vc
+    \item Try to achieve good fit without freeing \emph{too many} constraints.
+      \vc
+    \item We can claim that the measurement models are comparable enough.
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{Visualizing Partial Invariance}
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Partial strong invariance:
+p4 <- ggplot(dat, aes(x, y3, color = Group, linetype = Group)) + 
+  scale_x_continuous(breaks = 0:10) + 
+  coord_cartesian(ylim = c(0, max(dat$y3)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  geom_line(linewidth = 1.25) +
+  theme_classic() +
+  scale_color_jama() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score") +
+  guides(linetype = "none")
+p4
+@
+
+\pagebreak
+
+<<echo = FALSE, out.width = "80%", fig.asp = 0.75>>=
+## Partial weak invariance:
+p5 <- ggplot(dat, aes(x, y4, color = Group)) +
+  scale_x_continuous(breaks = 0:10) + 
+  coord_cartesian(ylim = c(0, max(dat$y4)),
+                  xlim = c(0, 10),
+                  expand = FALSE) +
+  geom_line(linewidth = 1) +
+  theme_classic() +
+  scale_color_jama() +
+  xlab("Latent Factor Level") +
+  ylab("Observed Item Score")
+p5
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\sectionslide{Moderation via Multiple Group SEM}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Multiple Group SEM for Moderation}
+  
+  When our moderator is a categorical variable, we can use multiple group 
+  CFA/SEM to test for moderation.
+  \va
+  \begin{itemize}
+    \item Categorical moderators define groups.
+      \vb
+    \item Significant moderation with categorical moderators implies
+      between-group differences in the focal effect.
+      \vb
+    \item We can directly test these hypotheses with multiple group SEM.
+  \end{itemize}
+  
+\end{frame}
+
+\watermarkoff %%%------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+  We must first establish measurement invariance.
+
+<<>>=
+## Read the data and subset to only high school and college graduates:
+bfi <- readRDS("../data/bfiData2.rds") %>% 
+    filter(educ %in% c("highSchool", "college"))
+
+## Specify the (configurally invariance) measurement model:
+mod0 <- '
+agree =~ A1 + A2 + A3 + A4 + A5
+open  =~ O1 + O2 + O3 + O4 + O5
+'
+
+## Estimate the unrestricted model:
+out0 <- cfa(mod0, data = bfi, std.lv = TRUE, group = "educ")
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile, allowframebreaks]{Example}
+  
+<<>>=
+### Fit the configurally invariant model:
+configFit <- cfa(mod0, data = bfi, std.lv = TRUE, group = "educ")
+
+## Fit the weakly invariant model:
+weakFit <- cfa(mod0,
+               data = bfi,
+               std.lv = TRUE,
+               group = "educ",
+               group.equal = "loadings")
+
+## Fit the strongly invariant model:
+strongFit <- cfa(mod0, 
+                 data = bfi,
+                 std.lv = TRUE,
+                 group = "educ",
+                 group.equal = c("loadings", "intercepts")
+                 )
+@
+
+\pagebreak
+
+<<eval = FALSE>>=
+compareFit(configFit, weakFit, strongFit) %>% summary()
+@
+
+<<echo = FALSE>>=
+compareFit(configFit, weakFit, strongFit) %>%
+  summary() %>%
+  capture.output() -> 
+    tmp
+
+x <- grep("Model Fit Indices", tmp) - 1
+
+head(tmp, x) %>% cat(sep = "\n")
+@
+
+\pagebreak
+
+<<echo = FALSE>>=
+tail(tmp, -x) %>% cat(sep = "\n")
+@
+
+Invariance doesn't really hold here, but we'll move forward for the sake of
+pedagogical demonstration.
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile, allowframebreaks]{Example}
+
+  Specifying (unconstrained) structural parameters models moderation of those
+  parameters by the grouping factor.
+  \begin{itemize}
+    \item Each group get's their own estimate of the structural effects.
+  \end{itemize}
+
+<<>>=
+## Specify a structural model:
+mod3 <- '
+agree =~ A1 + A2 + A3 + A4 + A5
+open  =~ O1 + O2 + O3 + O4 + O5
+
+agree ~ open  
+'
+
+## Estimate the model with strong invariance constraints:
+out3 <- sem(mod3, 
+            data = bfi, 
+            std.lv = TRUE, 
+            group = "educ", 
+            group.equal = c("loadings", "intercepts")
+            )
+@
+
+\pagebreak
+
+Each group gets their own slope estimate.
+
+<<>>=
+partSummary(out3, c(8, 10, 14, 16))
+@ 
+
+\pagebreak
+
+To test for moderation, we constrain the focal effects to be equal across groups 
+  and conduct a model comparison test.
+
+<<>>=
+## Specify the restricted model:
+mod4 <- '
+agree =~ A1 + A2 + A3 + A4 + A5
+open  =~ O1 + O2 + O3 + O4 + O5
+
+agree ~ c(beta, beta) * open  
+'
+
+## Estimate the model:
+out4 <- sem(mod4, 
+            data = bfi, 
+            std.lv = TRUE, 
+            group = "educ", 
+            group.equal = c("loadings", "intercepts")
+            )
+@ 
+
+\pagebreak
+
+Now, the slopes are equal in both groups.
+
+<<>>=
+partSummary(out4, c(8, 10, 14, 16))
+@ 
+
+\pagebreak
+
+We can use a $\Delta \chi^2$ test to test for moderation.
+\begin{itemize}
+  \item A significant loss of fit would imply moderation.
+\end{itemize}
+
+<<>>=
+## Do a chi-squared difference test for moderation:
+anova(out3, out4)
+@ 
+
+In this case, we don't have evidence of moderation.
+
+\pagebreak
+
+We could also fit an analogous model using OLS regression.
+
+<<warning = FALSE>>=
+readRDS("../data/bfiData1.rds") %>% 
+    filter(educ %in% c("highSchool", "college")) %$%
+    lm(agree ~ open * educ) %>%
+    partSummary(-(1:2))
+@ 
+
+\end{frame}
+
+\watermarkon %%%-------------------------------------------------------------%%%
+
+\begin{frame}{Probing Multiple Group Moderation}
+  
+  Testing moderation with multiple group SEM has several advantages.
+  \va
+  \begin{itemize}
+    \item Remove measurement error from the estimates
+      \vb
+    \item Test measurement invariance
+      \vb
+    \item All simple effects are directly estimated in the unrestricted model
+  \end{itemize}
+  
+\end{frame}
+
+\watermarkoff %%%------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Simple Slopes \& Intercepts}
+ 
+<<echo = FALSE>>=
+## Check the simple slopes and intercepts:
+partSummary(out3, c(8, 10, 11, 14, 16, 17), c(1:9, 20, 22:31, 42))
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\end{document}

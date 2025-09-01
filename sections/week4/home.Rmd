@@ -1,0 +1,626 @@
+## At-Home Exercises
+
+```{r, include = FALSE}
+library(kableExtra)
+library(haven)
+```
+
+In these exercises, you will attempt to replicate some of the analyses from the 
+second reading for this week:
+
+Kestilä, E. (2006). Is there demand for radical right populism in the Finnish 
+electorate? *Scandinavian Political Studies 29*(3), 169--191. 
+ 
+The data for this practical were collected during the first round of the 
+European Social Survey (ESS). The ESS is a repeated cross-sectional survey
+administered in 32 European countries. The first wave was collected in 2002, and 
+two new waves have been collected each year since. You can find more info and 
+access the data at <https://www.europeansocialsurvey.org>. 
+
+The data we will analyze for this practical are contained in the file named 
+[*ESSround1-a.sav*][ess_a]. This file contains data for all respondents, but
+only includes those variables that you will need to complete the following
+exercises. 
+
+---
+
+###
+
+Load the *ESSround1-a.sav* dataset into R.
+
+- Inspect the data after loading to make sure everything went well.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+## Load the 'haven' package:
+library(haven)
+library(tidySEM)
+
+## Read the 'ESSround1-a.sav' data into a data frame called 'ess': 
+ess <- read_spss("ESSround1-a.sav")
+
+## Inspect the result:
+dim(ess)
+head(ess)
+descriptives(ess)
+```
+
+```{r, echo = FALSE}
+library(haven)
+library(tidySEM)
+
+dataDir <- "../../../../data/"
+ess <- read_spss(paste0(dataDir, "ESSround1-a.sav"))
+
+## Inspect the result:
+dim(ess)
+head(ess)
+descriptives(ess)
+```
+
+</details>
+
+<details>
+  <summary><b>Click here for a description of the variables.</b></summary>
+
+```{r, results = "asis", echo = FALSE}
+desc <- c(
+  "Title of dataset",
+  "ESS round",
+  "Edition",
+  "Production date",
+  "Country",
+  "Respondent's identification number",
+  "Trust in the legal system",
+  "Trust in the police",
+  "Trust in the United Nations",
+  "Trust in the European Parliament",
+  "Trust in country's parliament",
+  "State of health services in country nowadays",
+  "State of education in country nowadays",
+  "How satisfied with present state of economy in country",
+  "How satisfied with the national government",
+  "How satisfied with the way democracy works in country",
+  "Politicians interested in votes rather than peoples opinions",
+  "Politicians in general care what people like respondent think",
+  "Trust in politicians",
+  "Allow many/few immigrants of same race/ethnic group as majority",
+  "Allow many/few immigrants of different race/ethnic group from majority",
+  "Allow many/few immigrants from richer countries in Europe",
+  "Allow many/few immigrants from poorer countries in Europe",
+  "Allow many/few immigrants from richer countries outside Europe",
+  "Allow many/few immigrants from poorer countries outside Europe",
+  "Qualification for immigration: christian background",
+  "Qualification for immigration: be white",
+  "Average wages/salaries generally brought down by immigrants",
+  "Immigrants harm economic prospects of the poor more than the rich",
+  "Immigrants take jobs away in country or create new jobs",
+  "Taxes and services: immigrants take out more than they put in or less",
+  "Immigration bad or good for country's economy",
+  "Country's cultural life undermined or enriched by immigrants",
+  "Immigrants make country worse or better place to live",
+  "Immigrants make country's crime problems worse or better",
+  "Richer countries should be responsible for accepting people from poorer countries",
+  "Better for a country if almost everyone share customs and traditions",
+  "Better for a country if a variety of different religions",
+  "Country has more than its fair share of people applying refugee status",
+  "People applying refugee status allowed to work while cases considered",
+  "Government should be generous judging applications for refugee status",
+  "Most refugee applicants not in real fear of persecution own countries",
+  "Financial support to refugee applicants while cases considered",
+  "Granted refugees should be entitled to bring close family members",
+  "Gender",
+  "Year of birth",
+  "Highest level of education",
+  "Years of full-time education completed",
+  "How interested in politics",
+  "Placement on left right scale"
+  )
+
+data.frame(Variable = names(ess), Description = desc) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+</details>
+
+---
+
+One thing you might notice when inspecting the `ess` data is that most of the 
+variables are stored as *labelled vectors*. When loading SPSS data, **haven** 
+will use these labelled vectors to preserve the metadata associated with SPSS 
+scale variables (i.e., variable labels and value labels).
+
+While it's good to have this metadata available, we want to analyze these items
+as numeric variables and factors, so the value labels are only going to make our
+lives harder. Thankfully, the **labelled** package contains many routines for 
+manipulating labelled vectors.
+
+We'll deal with the numeric variables in just a bit, but our first task will be
+to covert grouping variables to factors.
+
+---
+
+###
+
+Convert the `cntry`, `gndr`, `edulvl`, and `polintr` variables into factors.
+
+- Use the `as_factor()` function to do the conversion.
+- Convert `edulvl` and `polintr` to ordered factors.
+
+<details>
+  <summary>Click to see code</summary>
+
+```{r}
+library(dplyr)
+
+ess <- mutate(ess,
+              country = as_factor(cntry),
+              sex = as_factor(gndr),
+              edulvl = as_factor(edulvl, ordered = TRUE),
+              polintr = as_factor(polintr, ordered = TRUE)
+              )
+```
+
+</details>
+
+---
+
+The `ess` dataset contains much more information than Kestilä (2006) used. 
+Kestilä only analyzed data from the following ten countries:
+
+- Austria
+- Belgium
+- Denmark
+- Finland
+- France
+- Germany
+- Italy
+- Netherlands
+- Norway
+- Sweden
+
+So, our next task is to subset the data to only the relevant population.  
+
+When we apply logical subsetting, we can select rows from a dataset based on
+logical conditions. In this case, we want to select only rows from the 10
+countries listed above.
+
+---
+
+###
+
+Subset the data to include only the 10 countries analyzed by Kestilä (2006).
+
+- Inspect the subsetted data to check that everything went well.
+
+*Hints:* 
+
+- Use the `%in%` operator to create a logical vector that indicates which
+  elements of the `cntry` variable are *in* the set of target counties.
+- Use the `droplevels()` levels function to clean up empty factor levels.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, echo = TRUE}
+## Create a character vector naming the target countries:
+targets <- c("Austria", 
+             "Belgium", 
+             "Denmark", 
+             "Finland", 
+             "France", 
+             "Germany", 
+             "Italy", 
+             "Netherlands", 
+             "Norway", 
+             "Sweden")
+
+## Select only those rows that come from a target country:
+ess <- filter(ess, country %in% targets) %>% # Subset rows
+  droplevels()                               # Drop empty factor levels
+
+## Inspect the result:
+dim(ess)
+table(ess$country)
+```
+
+</details>
+
+---
+
+In keeping with common practice, we will treat ordinal Likert-type rating scales
+with five or more levels as continuous. Since some R routines will treat labelled
+vectors as discrete variables, we can make things easier for ourselves by 
+converting all the labelled vectors in our data to numeric vectors.
+
+We can use the `labelled::remove_val_labels()` function to strip the value
+labels and convert all of the labelled vectors to numeric vectors.
+
+---
+
+###
+
+Convert the remaining labelled vectors to numeric vectors.
+
+<details>
+  <summary>Click to see code</summary>
+
+```{r}
+## If necessary, install the labelled package:
+# install.packages("labelled", repos = "https://cloud.r-project.org")
+
+## Load the labelled package:
+library(labelled)
+
+## Strip the value labels:
+ess <- remove_val_labels(ess)
+
+## Check the effects:
+str(ess)
+descriptives(ess)
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+Note that the numeric variables are now simple numeric vectors, but the
+variable labels have been retained as column attributes (which is probably
+useful). If we want to completely nuke the labelling information, we can use the 
+`labelled::remove_labels()` function to do so.
+
+  </details>
+</details>
+
+---
+
+In addition to screening with summary statistics, we can also visualize the
+variables' distributions. You have already created a few such visualizations 
+for single variables. Now, we will use a few tricks to efficiently plot each
+of our target variables.
+
+The first step in this process will be to convert the interesting part of our 
+data from "wide format" (one column per variable) into "long format" (one column 
+of variable names, one column of data values). The `pivot_longer()` function 
+from the `tidyr` package provides a convenient way to execute this conversion.
+
+---
+
+###
+
+Use `tidyr::pivot_longer()` to create a long-formatted data frame from the 
+target variables in `ess`.
+
+- The target variables are all columns from `trstlgl` to `rfgbfml`.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Load the tidyr package:
+library(tidyr)
+
+## Convert the target variables into a long-formatted data frame:
+ess_plot <- pivot_longer(ess,
+                         cols = trstlgl:rfgbfml, # Which columns to convert
+                         names_to = "variable",  # Name for the new grouping variable
+                         values_to = "value")    # Name for the column of stacked values
+```
+
+</details>
+
+---
+
+The next step in the process will be to plot the variables using `ggplot()`. In
+the above code, I've named the new grouping variable `variable` and the new
+stacked data variable `value`. So, to create one plot for each (original,
+wide-format) variable, we will use the `facet_wrap()` function to 
+*facet* the plots of `value` on the `variable` column (i.e., create a separate
+conditional plot of `value` for each unique value in `variable`).
+
+---
+
+###
+
+Use `ggplot()` with an appropriate *geom* (e.g., `geom_histogram()`, 
+`geom_density()`, `geom_boxplot()`) and `facet_wrap()` to visualize each of the 
+target variables. 
+
+*Hint:* To implement the faceting, simply add 
+`facet_wrap(~ variable, scales = "free_x")` to the end of your `ggplot()` call
+(obviously, replacing "variable" with whatever you named the grouping variable
+in your `pivot_longer()` call).
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(ggplot2)
+
+ggplot(ess_plot, aes(x = value)) + 
+  geom_histogram() +                        # Create a histogram
+  facet_wrap(~ variable, scales = "free_x") # Facet on 'variable'
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+    
+Notice that the variables are actually discrete (i.e., each variable takes
+only a few integer values). However, most variables look relatively normal
+despite being categorical. So, we'll bend the rules a bit and analyze these
+variables as continuous.
+
+It also looks like there's something weird going on with `qfimchr` and `qfimwht`.
+More on that below.
+
+  </details>
+</details>
+
+---
+
+###
+
+Check the descriptives for the target variables again. 
+
+- Do you see any remaining issues?
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+select(ess, trstlgl:rfgbfml) %>% descriptives()
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+  
+The variables `qfimchr` and `qfimwht` both contain values that fall outside the
+expected range for our survey responses: 77, 88, and 99. In SPSS, these were
+labeled as "Refusal" "Don't know" and "No answer" respectively, and would not
+have contributed to the analysis. 
+
+  </details>
+</details>
+
+---
+
+###
+
+Correct any remaining issues you found above.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+ess <- ess %>%
+  mutate(across(c(qfimchr, qfimwht), na_if, 77)) %>% 
+  mutate(across(c(qfimchr, qfimwht), na_if, 88)) %>%
+  mutate(across(c(qfimchr, qfimwht), na_if, 99))
+
+  ## Check the results:
+  select(ess, trstlgl:rfgbfml) %>% descriptives()
+```
+
+  <details>
+    <summary>Click to show explanation</summary>
+
+Here, we need to tell R that these values should be considered missing, or `NA`.
+Otherwise they will contribute the numeric value to the analysis, as though
+someone had provided an answer of 77 on a 10-point scale.
+
+  </details>
+</details>
+
+---
+
+We've done quite a bit of data processing, and we'll continue to use these data
+for several future practicals, so it would be a good idea to save the processed
+dataset for later use. When saving data that you plan to analyze in R, you will
+usually want to use the *R Data Set* (RDS) format.
+
+Datasets saved in RDS format retain all of their attributes and formatting (e.g.,
+factor are still factors, missing values are coded as `NA`, etc.). So, you
+don't have to redo any data processing before future analyses.
+
+---
+
+###
+
+Use the `saveRDS()` function to save the processed dataset.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+## Save the processed data:
+saveRDS(ess, "ess_round1.rds")
+```
+
+```{r, echo = FALSE}
+saveRDS(ess, paste0(dataDir, "ess_round1.rds"))
+```
+
+</details>
+
+---
+
+Now, we're ready to run the analyses and see if we can replicate the Kestilä 
+(2006) results. 
+
+---
+
+### {#run_pca}
+
+Run two principal component analyses (PCA): one for *trust in politics*, one for 
+*attitudes towards immigration*.
+
+- Use the `principal()` function from the `psych` package.
+- Use exactly the same specifications as Kestilä (2006) concerning the estimation 
+method, rotation, number of components extracted, etc. 
+
+*Hints:* 
+
+- Remember that you can view the help file for `psych::principal()` by running 
+`?psych::principal` or, if the `psych` package already loaded, simply running 
+`?principal`.
+- When you print the output from `psych::principal()`, you can use the `cut` 
+option to hide any factor loadings smaller than a given threshold. 
+    - You could consider hiding any loadings smaller than those reported by 
+    Kestilä (2006) to make the output easier to interpret.
+
+
+<details>
+  <summary>Click to show code</summary>
+
+#### Trust in politics {-}
+
+Kestilä extracted three components with VARIMAX rotation. 
+
+```{r}
+## Load the psych package:
+library(psych)
+
+## Run the PCA:
+pca_trust <- select(ess, trstlgl:trstplt) %>% 
+  principal(nfactors = 3, rotate = "varimax")
+
+## Print the results:
+print(pca_trust, cut = 0.3, digits = 3)
+```
+
+---
+
+#### Attitudes toward immigration {-}
+
+Kestilä extracted five components with VARIMAX rotation.
+
+```{r}
+pca_att <- select(ess, imsmetn:rfgbfml) %>%
+  principal(nfactors = 5, rotate = "varimax")
+
+print(pca_att, cut = 0.3, digits = 3)
+```
+
+</details>
+
+---
+
+*Feature engineering* (i.e., creating new variables by combining and/or 
+transforming existing variables) is one of the most common applications of PCA.
+PCA is a *dimension reduction* technique that distills the most salient 
+information from a set of variables into a (smaller) set of component scores. 
+Hence, PCA can be a good way of creating aggregate items (analogous to weighted 
+scale scores) when the data are not collected with validated scales.
+
+Principal component scores are automatically generated when we run the PCA. If 
+we want to use these scores in subsequent analyses (e.g., as predictors in a 
+regression model), we usually add them to our dataset as additional columns.
+
+---
+
+### {#pcScores}
+
+Add the component scores produced by the analyses you ran above to 
+the `ess` data frame. 
+
+- Give each component score an informative name, based on your interpretation 
+of the factor loading matrix 
+    - I.e., What hypothetical construct do you think each component represents 
+    given the items that load onto it? 
+
+*Hints:*
+
+- You can use the `data.frame()` function to join multiple objects into a single 
+data frame.
+- You can use the `colnames()` function to assign column names to a matrix or 
+data frame.
+
+**1. Extract the component scores**
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Save the component scores in stand-alone matrices: 
+trust_scores <- pca_trust$scores
+att_scores <- pca_att$scores
+
+## Inspect the result:
+head(trust_scores)
+summary(trust_scores)
+head(att_scores)
+summary(att_scores)
+```
+
+  <details>
+    <summary>Click for explanation </summary>
+
+The object produced by `psych::principal()` is simply list, and the component
+scores are already stored therein. So, to extract the component scores, we
+simply use the `$` operator to extract them.  
+
+  </details>
+</details>
+
+---
+
+**2. Name the component scores**
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+## Check names (note the order):
+colnames(trust_scores)
+colnames(att_scores)
+
+## Give informative names:
+colnames(trust_scores) <- c("Trust_Institutions", 
+                            "Satisfaction",
+                            "Trust_Politicians")
+colnames(att_scores) <- c("Quantity", 
+                          "Effects", 
+                          "Refugees", 
+                          "Diversity", 
+                          "Economic")
+```
+
+</details>
+
+---
+
+**3. Add the component scores to the dataset**
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+# Add the component scores to the 'ess' data:
+ess <- data.frame(ess, trust_scores, att_scores)
+```
+
+</details>
+
+---
+
+###
+
+Were you able to replicate the results of Kestilä (2006)? 
+
+<details>
+  <summary>Click for explanation</summary>
+  
+Yes, more-or-less. Although the exact estimates differ somewhat, the general 
+pattern of factor loadings in Kestilä (2006) matches what we found here.
+
+</details>
+
+---
+
+End of At-Home Exercises
+
+---
+
+[ess_a]: https://surfdrive.surf.nl/files/index.php/s/nBQr1jnl8cwQLor/download

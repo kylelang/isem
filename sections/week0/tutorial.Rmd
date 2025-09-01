@@ -1,0 +1,670 @@
+# R Tutorial {-}
+
+Welcome to the world of R! This chapter provides a tutorial based on "R: How to 
+get started" by [Ihnwhi Heo](https://www.linkedin.com/in/ihnwhi-heo/), 
+[Duco Veen](https://www.ducoveen.com/), and 
+[Rens van de Schoot](https://www.rensvandeschoot.com/).
+
+- If you already have a good deal of R experience, and you don't see anything new in this tutorial, feel free to skip this chapter.
+- If you haven't worked with R before, I strongly encourage you to spend some time 
+carefully working through this tutorial. The content of this chapter will go a 
+long way towards familiarizing you with the basic R commands that you will need 
+to use at the beginning of the course.
+
+<!----------------------------------------------------------------------------->
+
+## Who R you?
+
+R is a piece of free software for statistical computation and graphics. R is 
+also fully open-source, which means anyone (even you!) can improve, develop, and 
+contribute to R
+
+-	You can find the official manual from the R Core Team here: 
+[An introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
+
+R itself looks a bit old-fashioned and tedious:
+
+![](images/tut_R.jpg)
+
+<!----------------------------------------------------------------------------->
+
+## RStudio
+
+Thankfully, we have a great user interface for R called RStudio!
+
+-	RStudio helps you use and learn R more easily.
+-	Although you are interacting with RStudio, you are still using R.
+    - Don't ever write something like, "We conducted all analysis with RStudio..."
+-	For this course, all tutorials and practicals will use  RStudio.
+
+---
+
+### No ‘pane’, no gain!
+
+When you open RStudio, the screen should look something like the following image. 
+You will notice that the window is divided into ‘panes’ (a pane is a division of 
+a window).
+
+![](images/tut_panes.jpg)
+
+Before we explain these three panes, I want you to add another, which you will 
+see if you open an R script. An R script is simply a plain-text file wherein you
+will write the R code that executes your analyses. When you open an R script (or 
+create a new one, which is really the same thing), a fourth pane appears.
+
+---
+
+### Create a new R script
+
+To create a new R script, Click the icon with a plus sign on the paper 
+(highlighted below by the red square).
+
+![](images/tut_new_file.png)
+
+
+When you click this icon, a new script is generated and appears in a fourth pane 
+on the upper left side of the screen (if you're using the default layout).
+
+- Note that this script is not yet saved anywhere. If you close this script 
+without saving, you will lose all its  contents.
+
+![](images/tut_panes2.jpg)
+
+The four panes help organize your workflow. Rstudio is an *integrated development 
+environment* (IDE) that is meant to integrate all of the tasks you may need to 
+do for any R-based analysis, programming, or development. Hence, in RStudio, the 
+intended workflow will have you do everything in one window, and the four panes 
+make this workflow more efficient (in theory, at least).
+
+---
+
+### What do the four panes do?
+
+Note that the following descriptions apply to the default layout. You can change 
+the orientation and content of the panes (although you must always have four).
+
+-	*Source Pane*: Located in the top left quadrant. 
+    - This pane is also called the "Editor", because this is where we edit scripts. 
+    - We will usually type our code in the source pane.
+-	*Console Pane*: Located in the bottom left quadrant. 
+    - This pane is for direct communication with R. 
+    - We can type commands here that are *immediately* evaluated (whereas the
+    commands in a script are only evaluated when we explicitly run them). 
+    - Furthermore, all output from the R commands that we run (either via the 
+    console or a script) is printed in the console pane.
+
+The two panes on the right side of the window contain various tabs. Two of these 
+tabs are especially useful.
+
+- *Environment Tab*: Located in the upper right quadrant 
+    - The environment tab contains all the ‘objects’ currently loaded in your 
+      R session. 
+    - You can always check what objects are loaded under the environment tab. 
+    - The 'environment' is also called the 'workspace'
+- *Plots Tab*: Located in the lower right quadrant
+    - The plots tab shows any graphs and figures we draw via R commands. 
+    - If you zoom by clicking the magnifying glass icon, you can see enlarged 
+      versions of the plots.
+
+<!----------------------------------------------------------------------------->
+
+## RStudio projects
+
+To keep all your work organized, you can use an **RStudio Project**.
+
+One advantage of using RStudio projects is that the project directory is 
+automatically set as the working directory. 
+
+- If you save your data in the directory that contains the *".Rproj"* file, you 
+will can load the data without specifying the file path.
+
+---
+
+### Starting a new project in Rstudio
+ 
+In Rstudio, click on the *New project* button:
+
+![](images/tut_new_proj.png)
+
+1. In the pop-up dialog, click *New Directory*.
+1. Click *New Project*.
+1. Type the desired directory name in the dialog box 
+   - Give a meaningful name, e.g., "TCSM_Course".
+   - Use the *Browse* button if you need to change the location of the directory 
+   that you will use to store this project. 
+
+<!----------------------------------------------------------------------------->
+
+## Loading data
+
+Statistical analysis cannot happen without data. In R, you can load data in 
+various ways. Let’s go over a couple of these.
+
+- To complete the following exercise, first download the [`LifeSat.sav` data][LifeSat].
+
+---
+
+### Via clicky-box options
+
+1. Click through the following menu options: *File* > *Import Dataset*
+1. Choose the type of dataset. 
+   - For this exercise, the data are stored as an SPSS .sav file. 
+   - Thus, select the *From SPSS* option.
+
+You may encounter an *Install Required Packages* pop-up dialog with a message 
+that asks you whether you want to install the `haven` package. 
+
+<center>
+![](images/tut_packages.jpg)
+</center>
+
+A package is an a piece of add-on software for R.
+
+- To do most analyses, you will need some packages above-and-beyond the Base R 
+software.
+- In this case, `haven` contains functions that allow R to read SPSS data files.
+-	Click ‘Yes’ to install the package.
+
+At this point, the *Import Statistical Data* pop-up dialog should appear.
+
+1. Provide the location of your data file in the *File/URL* field.
+   - You can type the file path directly.
+   - You can also click *Browse* to find the file via a GUI interface.
+   
+You should now see your data in the *Data Preview* area.
+
+-	In the *Import Options* section, you can set the name and format of your data 
+file.
+
+All of your your selections are being translated to the R-code required to load 
+your file. 
+
+- In the *Code Preview* area, the steps required to load the data with your 
+selected options are expressed in terms of code.
+
+Finally, click *Import* at the lower right side of the window to load your data.
+
+![](images/tut_load_data.gif)
+
+---
+
+### Via R code
+
+Of course, we don't have to use tedious clicky-box processes. Once you get more 
+familiar with R, it will be much easier to load data with R code.
+
+-	For this exercise, we will use the `read.spss()` function from the `foreign` 
+package.
+
+Copy the following code into an R-script.
+
+- Note that this code assumes you have saved your data in the *working directory* 
+(this is the project directory if you're using an R project).
+- Otherwise, you will need to specify the file path to your data file as the 
+first argument.
+
+```{r, echo = FALSE, eval = TRUE}
+library(foreign)
+
+LifeSat <- read.spss(paste0(dataDir, "LifeSat.sav"), 
+                     to.data.frame = TRUE, 
+                     use.value.labels = FALSE)
+```
+
+```{r, echo = TRUE, eval = FALSE}
+library(foreign)
+
+LifeSat <- read.spss("LifeSat.sav", 
+                     to.data.frame    = TRUE, 
+                     use.value.labels = FALSE)
+```
+
+To run the code:
+
+1. Place your cursor on the first line of code.
+1. Press the *Ctrl/Cmd* + *Enter* keys together.
+
+The code should now be evaluated by R, and R will tell you the result of its 
+actions in the console pane.
+
+---
+
+#### Data frames
+
+When we read data into R, the data are most often stored as a special type of 
+object called a *data frame*. 
+
+- Data frames are the preferred way to handle data in R.
+- Data frames can hold variables with different types (e.g., a numeric 
+depression rating, a categorical grouping factor representing employment status, 
+and a character string recording the response to an open-ended question).
+- The option `to.data.frame = TRUE` in the `read.spss()` call above loads the
+data into a data frame.
+
+---
+
+### From Excel files
+
+We can also load data that are stored in Excel files. One way to do so is via 
+the `readxl` package. 
+
+```{r, eval = FALSE}
+## Load the package:
+library(readxl)
+
+## Read the first sheet of 'LifeSat.xlsx' into 'LifeSat':
+LifeSat <- read_excel("LifeSat.xlsx", sheet = 1)
+```
+
+<!----------------------------------------------------------------------------->
+
+## Exploring data via R functions
+
+If you look a bit more closely at the R code that we used to load the data, 
+you will see two special commands: `library()` and `read.spss()`. 
+
+- These commands are called *functions*.
+   - Any R command that is written as a name followed by parentheses, e.g., 
+   `mean()`, is a function.
+- Functions are the driving force behind all R-based data analysis.
+   - Functions tell R to perform a specific (potentially very complicated) task.
+   - Rather than having to write out along sequence of commands every time we 
+   want to do some task, we can simply call the appropriate function.
+   
+When using functions, you need to provide appropriate inputs to specify the 
+behavior of the function and give the function data on which to operate. 
+
+- These inputs are called *function arguments*. 
+
+Let’s explore three new functions and their arguments. These functions can help 
+us understand our data.
+
+---
+
+### `head()`
+
+Our data comprise many rows. We can use the `head()` function to inspect the 
+first several rows.
+
+-	To use the `head()` function, you only need to provide one argument: The name 
+of the dataset.
+
+```{r}
+## Inspect the first several rows
+head(LifeSat)
+```
+
+“Wait, what is the hash tag (#) doing there?” 
+
+- Don’t be surprised. The hash tag creates a "comment". I.e., a bit of text that 
+will not be evaluated by R. 
+   - Comments let us write notes to explain what a particular piece of code does. 
+   - Comments are doubly useful.
+       - They can help others understand your code.
+       - They can also help you remember what the code does after some time away.
+	
+Copy the preceding code into your R script and run it. 
+
+- If all went well, R should now show the first six rows of the dataset in the 
+console.
+
+---
+
+### `str()` {#str}
+
+We frequently want to know something about the types of variables in a dataset. 
+
+- For example, if you want to run an analysis of variance (ANOVA), the 
+independent variable(s) should be categorical.
+   - In R, these variables would be represented by a special type of variable 
+   called a *factor*.
+   - Before running our analysis, we should check if are data satisfy this 
+   requirement.
+
+We can use the `str()` function to get some information about the structure of 
+an R object (*str* is an abbreviation of *structure*). 
+
+- To run the `str()` function, you only need to provide one argument: the name 
+of the dataset.
+
+```{r}
+## Inspect the structure of the dataset
+str(LifeSat)
+```
+
+According to the output printed to the console, the `LifeSat` dataset is a data
+frame consisting of `r nrow(LifeSat)` observations of `r ncol(LifeSat)` variables. 
+
+- I.e., our dataset has `r nrow(LifeSat)` rows and `r ncol(LifeSat)` columns.
+
+We also get information about the contents of each column.
+
+-	For the fist column, we see `$ LifSat  : num  13 18 19 24 24 24 30 33 33 33 ...` 
+    - The `LifSat` variable is numeric (abbreviated as *num*).
+    - `r LifeSat$LifSat[1]` is the value in the first row, 
+    `r LifeSat$LifSat[2]` is the value in the second row, 
+    `r LifeSat$LifSat[3]` is the value in the third row, and so on.
+
+---
+
+### `summary()`
+
+We can get the descriptive statistics of the variables in a dataset with the 
+`summary()` function. 
+
+- Again, we only need to provide one argument: the name of the dataset. 
+
+```{r}
+summary(LifeSat)
+```
+
+Run the above code and check the output in the console. 
+
+- You should see descriptive statistics for each variable in the dataset. 
+- E.g., for `LifSat`, the minimum value is `r min(LifeSat$LifSat) %>% round(2)`, 
+the median is `r median(LifeSat$LifSat) %>% round(2)`, and the mean is 
+`r mean(LifeSat$LifSat) %>% round(2)`.
+
+<!----------------------------------------------------------------------------->
+
+## Plotting data {#tutorialPlotting}
+
+It is almost always a good idea to visualize your data before you dive into a 
+full statistical analysis. For example, you may like to know something about the 
+nature of the relationship between two specific variables, the distribution of 
+some set of values, etc.
+
+- In this section, we will create three basic plots of our data. 
+- When we create these plots, the figures will appear in the plots tab in the 
+lower right quadrant of the RStudio window.
+
+---
+
+### R packages and `ggplot2`
+
+We will use the `ggplot2` package for plotting. This package is not part of the 
+Base R installation. So, you must install `ggplot2` yourself (you should have 
+already done so in Section \@ref(installPackages)).
+
+- You only need to install an R package once.
+    - R packages are just small software programs, so they must be installed 
+    just like any other piece of software.
+    - After installing, the package is accessible on your computer but not yet 
+    available for use in your current R session.
+        - You must first load the package.
+- You need to load the package every time you want to use it in a new R session.
+    - After loading, the package contents (i.e., functions, help files, datasets)
+    are initialized in memory and ready to use in your current R session.
+    - Loading a package is more-or-less equivalent to 'opening' a software 
+    program by clicking on its desktop icon.
+
+Run the following code to load the `ggplot2` package.
+
+```{r}
+library(ggplot2)
+```
+
+---
+
+### Histogram
+
+We can use a histogram to visualize how the values of a continuous variable are 
+distributed.
+
+```{r, fig.align = "center"}
+## Use the 'LifeSat' data to create the plot
+## Use the 'LifeSat$LifSat' variable to define the X-axis
+ggplot(data = LifeSat, aes(x = LifSat)) +
+  geom_histogram() # Create a histogram from the data/variable defined above
+```
+
+---
+
+### Boxplot
+
+A boxplot provides another useful visualization of a continuous variable's
+distribution. We can also use boxplots to detect outliers.
+
+```{r, fig.align = "center"}
+## Same data/variable setup as above:
+ggplot(data = LifeSat, aes(x = LifSat)) +
+  geom_boxplot() # Create a boxplot
+```
+
+---
+
+### Scatterplot
+
+A scatterplot provides a visual representation of the relationship between two 
+variables. 
+
+- Since we are now plotting two variables, we need to define a `y` variable in 
+addition to the`x` variable specified in the previous examples.
+
+```{r, fig.align = "center"}
+## Add the 'age' variable on the Y-axis:
+ggplot(data = LifeSat, aes(x = LifSat, y = age)) +
+  geom_point() # Create a scatterplot
+```
+
+<!---------------------------------------------------------------------------->
+
+## Manipulating Data
+
+---
+
+### Data types
+
+Recall the output of the `str()` function. One piece of information contained 
+therein is the type of data stored in each column of our dataset. 
+
+- There a different abbreviations signifying different types of data.
+
+```{r, echo = FALSE}
+data.frame(
+  Abbreviation = c("num", "chr", "log", "factor"),
+  Type = c("Numeric", "Character", "Logical", "Factor"),
+  Description = c("All values are numbers (e.g., 1.02)",
+                  "All values are words",
+                  "Boolean flags: TRUE or FALSE",
+                  "A special type of object with labels to represent the levels of a categorical variable")
+) %>% knitr::kable()
+```
+
+---
+
+### Factors
+
+Factors are a special type of data object that R uses to represent categorical 
+variables.
+
+- A factor is stored internally as a vector of integers where each group is 
+represented by a different number.
+- The groups also get descriptive labels.
+- R knows that a factor is not numeric and will treat any factor as a nominal 
+grouping variable for anlaysis.
+
+In the output from the `str()` function in \@ref(str), we see that the `gender` 
+variable is stored as a numeric variable.
+
+- You can confirm by running either of the following commands.
+
+```{r}
+is.numeric(LifeSat$gender)
+class(LifeSat$gender)
+```
+
+The `gender` variable is a binary grouping variable, so it should be stored as a 
+factor.
+
+- To convert `gender` to a factor, we can use the `factor()` function.
+
+```{r}
+## Convert 'gender' to a factor:
+LifeSat$gender <- factor(LifeSat$gender)
+
+## Check the results:
+is.numeric(LifeSat$gender)
+class(LifeSat$gender)
+str(LifeSat$gender)
+```
+
+We now see that `gender` has been converted to a factor with the levels "1" and
+"2". We don't have to settle for meaningless numeric labels, though.
+
+- We can assign meaningful value labels by providing an appropriate input for 
+the `labels` argument.
+
+```{r}
+## Create a factor with meaningful labels:
+LifeSat$gender <- factor(LifeSat$gender, labels = c("Female", "Male"))
+
+## Check the results:
+str(LifeSat$gender)
+```
+
+---
+
+### Subsetting: Extracting one variable
+
+When working with data frames, we can extract a single variable (i.e., column) 
+from the data using the dollar sign operator, `$`. As shown in the example below.
+
+```{r}
+# Extract the 'LifSat' variable from 'LifeSat':
+LifeSat$LifSat
+```
+
+In the above code, we ask R to extract the column named `LifSat` from the data 
+frame named `LifeSat`.
+
+- The result will be returned as another special type of object: a *vector*.
+
+---
+
+### Subsetting: Extracting rows and columns
+
+We can also extract rectangular subsets of a data frame using the following 
+convention: `my_data_frame[row_numbers, column_numbers]`. 
+
+```{r}
+## Extract the first four rows of the first two columns:
+LifeSat[1:4, 1:2]
+```
+
+By leaving either rows or columns empty, we get all rows or columns:
+
+```{r}
+## Extract all rows of first two columns:
+LifeSat[ , 1:2]
+```
+
+
+```{r}
+## Extract all columns of first two rows:
+LifeSat[1:2, ]
+```
+
+We can refer to the columns by name, too:
+
+```{r}
+LifeSat[1:2, c("age", "educ")]
+```
+
+---
+
+### Subsetting based on logical conditions {#logicalSubsetting}
+
+We can also select rows or columns that satisfy logical conditions.
+
+- In the following code, we select only the rows for which `LifeSat$age` is 
+greater than 70.
+
+```{r}
+LifeSat[LifeSat$age > 70, ]
+```
+
+This approach works for any valid logical expression that will flag rows (or 
+columns).
+
+- Below, we select only the males and save the subset as a new object, 
+`LifeSat_male`.
+
+```{r}
+LifeSat_male <- LifeSat[LifeSat$gender == "Male", ]
+str(LifeSat_male)
+```
+
+---
+
+### Changing cell values
+
+We can easily overwrite values in a dataset using the same type of subsetting 
+operations shown above in combination with the assignment operator, `<-`.
+
+- The following code will extract the 5*th* entry in the `LifSat` variable.
+
+```{r}
+LifeSat[5, "LifSat"]
+```
+
+Actually, it's not really accurate to say that the above code "extracts" any value.
+
+- The above command creates a new temporary object containing only the relevant 
+value and prints the contents of that object to the console.
+- All the subsetting examples above (other than the selection of all males) have 
+done something similar.
+
+Rather than thinking about the `[]` or `$` selection operators as ways of 
+extracting pieces of a data object, it's more appropriate to think about these 
+operators as selecting, highlight, activating, nominating (or some other such 
+concept) the referenced elements.
+
+- Once the elements are so selected, we can also overwrite their original values.
+- We only need to assign new values to the subset.
+
+To demonstrate, let's overwrite the value selected above with `10`.
+
+```{r}
+## Overwrite the 5th 'LifSat' value:
+LifeSat[5, "LifSat"] <- 10
+
+## Check the result:
+LifeSat[5, "LifSat"]
+```
+
+<!----------------------------------------------------------------------------->
+
+## Getting Help
+
+As you start to apply the techniques described in this guide, you will soon have
+questions that the guide does not answer. This section describes a few tips on 
+how to get help answering these questions.
+
+1. Every function in R has documentation (i.e., a help file). To see this file 
+in RStudio, select the name of the function in your script, and press F1, or run 
+the command `?` followed by the name of the function (e.g., `?aov`).
+    - The second option works outside of RStudio, too.
+1. If you get stuck, start with **Google**. 
+    - Typically, adding “R” to a search is enough to return relevant results (e.g., 
+    "exploratory factor analysis R"). 
+    - Google is particularly useful for error messages. If you get an error 
+    message that you don't understand, try googling it. Someone else has almost
+    certainly been confused by the same message in the past, and there will be 
+    help somewhere on the web. 
+    - If the error message isn’t in English, run `Sys.setenv(LANGUAGE = "en")` 
+    and re-run the code that produced the error (you’re more likely to find help 
+    for English error messages.)
+1. If Google doesn’t help, try [stackoverflow](https://stackoverflow.com). 
+    - Before posting your question, spend some time searching the site for an 
+    existing answer (active contributors really hate it when you ask a question 
+    that has already been answered on the site).
+    - Including \[R] in your search string restricts your search to questions 
+    and answers that use R.
+1. Lastly, if you find errors (or typos!) in this guide's text or R syntax, feel 
+free to contact me ([Kyle Lang](mailto:k.m.lang@uu.nl)).
+
+<!----------------------------------------------------------------------------->
+
+[LifeSat]: https://surfdrive.surf.nl/files/index.php/s/odvDwcQNiUCj0rN/download
+

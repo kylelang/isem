@@ -1,0 +1,17 @@
+## Extra Resources
+
+The [UCLA Statistical Consulting Group](https://stats.oarc.ucla.edu/) has create
+an excellent tutorial on CFA with **lavaan**. If you're still struggling with
+CFA or implementing CFA in **lavaan**, check out the UCLA tutorial (embedded below).
+
+- You can access the tutorial on the UCLA site via [this link](https://stats.oarc.ucla.edu/r/seminars/rcfa/).
+
+---
+
+<iframe width="100%" 
+        height="800"
+        src="https://stats.oarc.ucla.edu/r/seminars/rcfa/"
+        title="UCLA Lavaan Tutorial"
+        frameborder="0" 
+        allowfullscreen>
+</iframe>

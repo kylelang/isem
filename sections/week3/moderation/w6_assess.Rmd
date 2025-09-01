@@ -1,0 +1,21 @@
+## Formative Assessment
+
+A formative assessment helps you judge your progress in the course and helps you 
+address any blind spots in your understanding of the material. 
+
+- This assessment does not contribute to your course grade.
+- If you get a question wrong, you will receive a hint on how to improve your 
+understanding of the material.
+
+Ideally, you should complete this assessment  *after* you have watched the 
+lecture recording, but *before* the lecture meeting. 
+
+- This way, if you discover gaps in your understanding, we can discuss any 
+topics that need more attention during the lecture meeting.
+
+---
+
+```{r results = "asis", echo = FALSE}
+source(paste0(quizDir, "formative.R"))
+questionnaire(paste0(quizDir, "formative6.csv"))
+```

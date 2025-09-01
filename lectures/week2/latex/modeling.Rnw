@@ -1,0 +1,989 @@
+%%% Title:    TCSM Lecture 2: Statistical Modeling & Path Analysis
+%%% Author:   Kyle M. Lang
+%%% Created:  2017-05-19
+%%% Modified: 2023-08-19
+
+\documentclass[10pt]{beamer}
+\usetheme{Utrecht}
+
+\usepackage{graphicx}
+\usepackage[natbibapa]{apacite}
+\usepackage[libertine]{newtxmath}
+\usepackage{fancybox}
+\usepackage{booktabs}
+\usepackage{relsize}
+
+\newcommand{\eqit}[1]{\textrm{\textit{#1}}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\src}[1]{\texttt{#1}}
+\newcommand{\rmsc}[1]{\textrm{\textsc{#1}}}
+\newcommand{\R}{\textsf{R}}
+
+\title{Statistical Modeling \& Path Analysis}
+\subtitle{Theory Construction and Statistical Modeling}
+\author{Kyle M. Lang}
+\institute{Department of Methodology \& Statistics\\Utrecht University}
+\date{}
+
+\begin{document}
+
+<<setup, include = FALSE, tidy = TRUE>>=
+set.seed(235711)
+
+library(knitr)
+library(ggplot2)
+library(plyr)
+
+source("../../../code/supportFunctions.R")
+
+options(width = 60)
+opts_chunk$set(size = 'footnotesize', fig.align = 'center')
+knit_theme$set('edit-kwrite')
+
+lightBlue <- rgb(0, 137, 191, max = 255)
+midBlue   <- rgb(0, 131, 183, max = 255)
+darkBlue  <- rgb(0, 128, 179, max = 255)
+deepGold  <- rgb(184, 138, 45, max = 255)
+lightGold <- rgb(195, 146, 48, max = 255)
+@
+
+
+\begin{frame}[t,plain]
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\section{Flavors of Statistical Analysis}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{Motivating Example}
+
+  Imagine you are working for an F1 team. You're job is to use data from past 
+  seasons to optimize the baseline setup of your team's car.
+  \va
+  \begin{itemize}
+    \item Suppose you have two candidate setups that you want to compare.
+      \va
+    \item For each setup, you have 100 past lap times.
+      \va
+    \item How do you distill those 200 lap times into a succinct decision between 
+      the two setups?
+  \end{itemize}
+
+  \pagebreak
+
+  Suppose I tell you that the mean lap time for Setup A is 118 seconds and the 
+  mean lap time for Setup B is 110 seconds.
+  \va
+  \begin{itemize}
+    \item Can you confidently recommend Setup B?
+      \va
+    \item What caveats might you consider?
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Motivating Example}
+
+  Suppose I tell you that the standard deviation for the times under Setup A is
+  7 seconds and the standard deviation for the times under Setup B is 5 seconds.
+  \va
+  \begin{itemize}
+    \item How would you incorporate this new information into your decision?
+  \end{itemize}
+  \va
+  \pause
+  Suppose, instead, that the standard deviation of times under Setup A is 35 
+  seconds and the standard deviation under setup B is 25 seconds.
+  \va
+  \begin{itemize}
+    \item How should you adjust your appraisal of the setups' relative benefits?
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Statistical Reasoning}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Reasoning}
+
+  The preceding example calls for \emph{statistical reasoning}.
+  \va
+  \begin{itemize}
+    \item The foundation of all good statistical analyses is a deliberate,
+      careful, and thorough consideration of uncertainty.
+      \va
+    \item In the previous example, the mean lap time for Setup A is clearly longer
+      than the mean lap time for Setup B.
+      \va
+    \item If the times are highly variable, with respect to the size of the mean
+      difference, we may not care much about the mean difference.
+      \va
+    \item The purpose of statistics is to systematize the way that we account
+      for uncertainty when making data-based decisions.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Probability Distributions}
+
+  Statisticians (and anyone who uses statistics) quantify uncertainty using
+  probability distributions.
+  \va
+  \begin{itemize}
+    \item Probability distributions quantify how likely it is to observe each 
+      possible value of some probabilistic entity.
+      \va
+    \item Probability distributions are re-scaled frequency distributions.
+      \va
+    \item We can build up the intuition of a probability density by beginning with
+      a histogram.
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Probability Distributions}
+
+<<echo = FALSE, cache = TRUE>>=
+n      <- 1e5
+myBins <- c(10, 25, 50, 100)
+
+dat1 <- data.frame(x = rep(rnorm(n), length(myBins)),
+                   y = rep(myBins, each = n)
+)
+@
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+
+<<echo = FALSE, cache = TRUE, out.width = '\\linewidth'>>=
+p1 <- ggplot(dat1, aes(x = x)) + theme_classic() +
+coord_cartesian(xlim = c(-4, 4))
+
+geomList <- mapply(function(x, b) geom_histogram(data = x,
+                                                 bins = b,
+                                                 col = "white",
+                                                 fill = midBlue),
+                   dlply(dat1, .(y)),
+                   b = myBins
+)
+
+labs <- c("10"  = "10 Bins",
+          "25"  = "25 Bins",
+          "50"  = "50 Bins",
+          "100" = "100 Bins")
+
+p1 + geomList +
+  facet_wrap(~y, scales = "free_y", labeller = as_labeller(labs)) +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        text = element_text(size = 16, family = "Courier"))
+@
+
+  \end{column}
+  \begin{column}{0.5\textwidth}
+
+<<echo = FALSE, cache = TRUE>>=
+
+x <- seq(-4.0, 4.0, 0.001)
+
+dat2 <- data.frame(X = x, density = dnorm(x))
+
+p3 <- ggplot(dat2, aes(x = X, y = density)) + theme_classic() +
+  coord_cartesian(xlim = c(-4, 4))
+
+p4 <- p3 + geom_area(fill = midBlue) +
+  theme(text = element_text(size = 16, family = "Courier"))
+
+p4
+@
+
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Reasoning with Distributions}
+
+  We will gain insight by conceptualizing our example problem in terms of the 
+  underlying distributions of lap times.
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+<<echo = FALSE, cache = TRUE>>=
+x    <- seq(90, 145, length.out = 10000)
+dat4 <- data.frame(x  = x,
+                   yA = dnorm(x, 118, 7),
+                   yB = dnorm(x, 110, 5)
+)
+
+p5 <- ggplot(data = dat4) + coord_cartesian(xlim = c(90, 145)) + theme_classic()
+p6 <- p5 + geom_area(mapping = aes(x = x, y = yA),
+                     fill = "red")
+p7 <- p6 + geom_area(mapping = aes(x = x, y = yB),
+                     alpha = 0.80,
+                     fill = "blue")
+
+p7 + labs(title = "Instance 1 Visualized", y = "density", x = "Lap Time") +
+  theme(text = element_text(size = 16, family = "Courier"),
+        plot.title = element_text(size = 20, face = "bold", hjust = 0.5)
+  )
+@
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+<<echo = FALSE, cache = TRUE>>=
+x    <- seq(-20, 260, length.out = 10000)
+dat5 <- data.frame(x  = x,
+                   yA = dnorm(x, 118, 35),
+                   yB = dnorm(x, 110, 25)
+)
+
+p8 <- ggplot(data = dat5) + 
+  coord_cartesian(xlim = c(-20, 260)) + 
+  theme_classic()
+p9 <- p8 + geom_area(mapping = aes(x = x, y = yA), fill = "red")
+p10 <- p9 + geom_area(mapping = aes(x = x, y = yB), alpha = 0.80, fill = "blue")
+
+p10 + labs(title = "Instance 2 Visualized", y = "density", x = "Lap Time") +
+  theme(text = element_text(size = 16, family = "Courier"),
+        plot.title = element_text(size = 20, face = "bold", hjust = 0.5)
+  )
+@
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\subsection{Statistical Testing}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Testing}
+
+  In practice, we may want to distill the information in the preceding plots 
+  into a simple statistic so we can make a judgment.
+  \vb
+  \begin{itemize}
+    \item One way to distill this information and control for uncertainty when
+      generating knowledge is through statistical testing.
+      \vc
+      \begin{itemize}
+        \item When we conduct statistical tests, we define a \emph{test statistic}
+          by weighting the estimated effect by the precision of the estimate.
+      \end{itemize}
+      \vc
+    \item One of the most common test statistics, \emph{Student's t-test}, 
+      follows this pattern:
+  \end{itemize}
+  \begin{align*}
+    t = \frac{\textit{Estimate} - \textit{Null-Hypothesized Value}}
+    {\textit{Variability}}
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Testing}
+
+  To test the nil-null hypothesis of a zero mean difference, we define the
+  t-statistic as follows:
+  \begin{align*}
+    t = \frac{\left(\bar{X}_A - \bar{X}_B\right) - 0}{\sqrt{S^2_{A - B} 
+    \left(n_A^{-1} + n_B^{-1} \right)}}
+  \end{align*}
+  where
+  \begin{align*}
+    \textit{Estimate} = \bar{X}_A - \bar{X}_B
+  \end{align*}
+  and
+  \begin{align*}
+    \textit{Variability} &= \sqrt{S^2_{A - B} \left(n_A^{-1} + n_B^{-1} \right)}\\
+    &= \sqrt{\frac{(n_A - 1) S^2_A + (n_B - 1) S^2_B}
+    {n_A + n_B - 2} \left(\frac{1}{n_A} + \frac{1}{n_B}
+    \right)}
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Testing}
+
+  Applying the preceding formula to the first instantiation of our example
+  problem produces:
+  \begin{align*}
+    t &= \frac{118 - 110 - 0}{\sqrt{\frac{(100 - 1) 7^2 + (100 - 1) 5^2}{100 +
+    100 - 2} \left( \frac{1}{100} + \frac{1}{100} \right)}}\\
+    &\approx \frac{8}{0.86}\\
+    &\approx 9.30
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Testing}
+
+  If we consider the second instantiation of our example problem, the effect
+  does not change, but our measure of variability does:
+  \begin{align*}
+    V &= \sqrt{\frac{(100 - 1) \red{35}^2 + (100 - 1) \red{25}^2}{100 + 100 - 2}
+    \left( \frac{1}{100} + \frac{1}{100} \right)}\\
+    &\approx 4.30
+  \end{align*}
+  As a results, our test statistic changes to reflect our decreased certainty:
+  \begin{align*}
+    t \approx \frac{8}{4.30} \approx 1.86
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Statistical Modeling}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Statistical Modeling}
+
+  Statistical testing is a very useful tool, but it quickly reaches a limit.
+  \vb
+  \begin{itemize}
+    \item In experimental contexts (with successful random assignment) real-world 
+      ``messiness'' is controlled through random assignment.
+      \vc
+      \begin{itemize}
+        \item Researchers working with messy observational data, usually don't
+          have questions that lend themselves to rigorous testing.
+      \end{itemize}
+      \vb
+    \item Unless embedded in a larger model, statistical tests can only answer
+      simple yes/no questions about single parameters.
+      \vc
+      \begin{itemize}
+        \item Researchers studying complex processes need more elaborate means of
+          representing the phenomena under study.
+      \end{itemize}
+  \end{itemize}
+  \va
+  Such situations call for \emph{statistical modeling}.
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{What is a Statistical Model?}
+
+  A statistical model is a mathematical representation of the thing we're trying
+  to study.
+  \begin{itemize}
+    \item We can basically model anything.
+      \begin{itemize}
+      \item Theoretical process
+      \item Social or physical system
+      \item Natural phenomenon
+      \end{itemize}
+      \vb
+    \item The model succinctly describes whatever system is being analyzed.
+      \begin{itemize}
+        \item The model is an abstraction of reality.
+        \item We only include the \emph{interesting} parts of the process.
+      \end{itemize}
+      \vb
+    \item For our purposes, a statistical model is a probability distribution
+      that describes the possible ways our focal system can "behave".
+      \begin{itemize}
+        \item Such model are a rigorous, unambiguous quantification of a 
+          theory.
+        \item We can evaluate theories by comparing models.
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Statistical Modeling}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      To apply a modeling approach to our example problem we consider the 
+      combined distribution of lap times.
+      \va
+      \begin{itemize}
+        \item The model we construct will explain variation in lap times  based on 
+          interesting features.
+          \va
+        \item In this simple case, the only feature we consider is the type of 
+          setup.
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+<<echo = FALSE, cache = TRUE>>=
+xA <- scale(rnorm(100)) * 7 + 118
+xB <- scale(rnorm(100)) * 5 + 110
+
+dat6 <- data.frame(time             = c(xA, xB), 
+                   setup            = rep(c("A", "B"), each = 100), 
+                   stringsAsFactors = TRUE)
+
+p14 <- ggplot(data = dat6, mapping = aes(x = time)) +
+  theme_classic() +
+  theme(text = element_text(size = 16, family = "Courier"))
+
+p14 + geom_density() + xlim(c(85, 145))
+@
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{Modeling our Example}
+
+<<echo = FALSE>>=
+exData       <- dat6
+exData$setup <- relevel(exData$setup, ref = "B")
+
+lmOut <- lm(time ~ setup, data = exData)
+
+b0 <- round(coef(lmOut)[1])
+b1 <- round(coef(lmOut)[2])
+@ 
+
+Let's say we're willing to assume that the (conditional) distribution of lap
+times is normal.
+\begin{align*}
+  Y_{time} \sim \text{N}\left(\mu, \sigma^2\right)
+\end{align*}
+
+To get the same answer as our statistical test, we model the mean of the distribution of 
+lap times, $\mu$, using a single grouping factor.
+\begin{align*}
+  \mu &= \beta_0 + \beta_1 X_{setup}\\[5pt]
+  Y_{time} &\sim \text{N} \left( \beta_0 + \beta_1 X_{setup}, \sigma^2 \right)
+\end{align*}
+
+\pagebreak
+
+Since we're mostly interested in describing the mean lap time, we can express the above differently:
+\begin{align*}
+  Y_{time} &= \beta_0 + \beta_1 X_{setup} + \varepsilon\\[5pt]
+  \varepsilon &\sim \text{N}\left(0, \sigma^2\right)
+\end{align*}
+
+After we fit this model to a sample, the parameters $\beta_0$ and $\beta_1$ 
+are replaced by estimated statistics.
+\begin{align*}
+  \hat{Y}_{time} &= \hat{\beta}_0 + \hat{\beta}_1 X_{setup}\\[5pt]
+  &= \Sexpr{b0} + \Sexpr{b1} X_{setup}
+\end{align*}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Modeling our Example}
+
+  We can easily fit this model in R:
+
+<<>>=
+lmOut <- lm(time ~ setup, data = exData)
+
+partSummary(lmOut, -c(1, 2))
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Two Modeling Traditions}
+
+  \citet{breiman:2001} defines two cultures of statistical modeling:
+  \vc
+  \begin{itemize}
+    \item Data models \& Algorithmic models
+      \vc
+    \item Our definition of \emph{statistical models} matches Breiman's 
+      definition of \emph{data models}.
+  \end{itemize}
+  \pause
+  \vb
+  Both approaches have strengths and weaknesses.
+  \vc
+  \begin{itemize}
+    \item Data models tend to support a priori hypothesis testing more easily.
+      \vc
+    \item Data models also tend to provide more interpretable results.
+      \vc
+    \item Algorithmic models are currently preferred in cutting edge
+      prediction/classification applications.  
+      \vc
+    \item Many models can be viewed as data models or algorithmic models,
+      depending on how they're used.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Characteristics of Models}
+
+  \rmsc{Data Models}
+  \begin{itemize}
+    \item Data models are built from probability distributions.
+      \begin{itemize}
+        \item Data models are modular.
+      \end{itemize}
+      \vc
+    \item Data models encode our hypothesized understanding of the system we're 
+      exploring.
+      \begin{itemize}
+        \item Data models are constructed in a ``top-down'', theory-driven way.
+      \end{itemize}
+  \end{itemize}
+
+  \pause
+  \vb
+
+  \rmsc{Algorithmic Models}
+  \begin{itemize}
+    \item Algorithmic models do not have to be built from probability
+      distributions.
+      \begin{itemize}
+        \item Often, they are based on a set of decision rules (i.e., an algorithm).
+      \end{itemize}
+      \vc
+    \item Algorithmic models begin with an objective (i.e., a problem to solve)
+      and seek the optimal solution, given the data.
+      \begin{itemize}
+        \item They are built in a ``bottom-up'', data-driven way.
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Data Modeling Example}
+
+  Suppose we believe the following:
+  \vc
+  \begin{enumerate}
+    \item BMI is positively associated with disease progression in diabetic 
+      patients after controlling for age and average blood pressure.
+      \vc
+    \item After controlling for age and average blood pressure, the effect of BMI 
+      on disease progression is different for men and women.
+  \end{enumerate}
+  \vb
+  We can represent these beliefs with a moderated regression model:
+  \begin{align*}
+    Y_{prog} = \beta_0 + \beta_1 X_{BMI} + \beta_2 X_{sex} + \beta_3 X_{age} + \beta_4 X_{BP} + \beta_5 X_{BMI} X_{sex} + \varepsilon
+  \end{align*}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Data Modeling Example}
+
+  We can use R to fit our model to some patient data:
+
+<<>>=
+## Load the data:
+dataDir  <- "../data/"
+diabetes <- readRDS(paste0(dataDir, "diabetes.rds"))
+
+## Fit the regression model:
+fit <- lm(progress ~ bmi * sex + age + bp, data = diabetes)
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Data Modeling Example}
+
+<<>>=
+partSummary(fit, -c(1, 2))
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Data Modeling Example}
+
+  We can do a simple slopes analysis to test the group-specific effects of BMI 
+  on disease progression:
+
+<<include = FALSE>>=
+library(rockchalk)
+
+psOut <- plotSlopes(fit, plotx = "bmi", modx = "sex")
+tsOut <- testSlopes(psOut)
+@ 
+
+
+<<eval = FALSE>>=
+library(rockchalk)
+
+psOut <- plotSlopes(fit, plotx = "bmi", modx = "sex")
+tsOut <- testSlopes(psOut)
+@ 
+
+<<>>=
+tsOut$hypotests[ , -1]
+@ 
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Data Modeling Example}
+
+  We can also visualize the simple slopes:
+
+<<echo = FALSE, out.width = '6.5cm'>>=
+plotSlopes(fit, plotx = "bmi", modx = "sex")
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Algorithmic Modeling Example}
+
+  Suppose we want to find the best predictors of disease progression among the
+  variables contained in our dataset:
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \item Age
+        \item BMI
+        \item Blood Pressure
+        \item Blood Glucose
+        \item Sex
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.4\textwidth}
+
+      \begin{itemize}
+        \item Total Cholesterol
+        \item LDL Cholesterol
+        \item HDL Cholesterol
+        \item Triglycerides
+        \item Lamorigine 
+      \end{itemize}
+
+    \end{column}
+  \end{columns}
+  \va
+  We could try \emph{best-subset selection}.
+  \vc
+  \begin{itemize}
+    \item Fit a series of regression models wherein disease progression is
+      predicted by all possible subsets of X variables.
+      \vc
+    \item Choose the set of X variables that minimizes the prediction error.
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile]{Algorithmic Modeling Example}
+
+<<>>=
+library(leaps)
+
+## Save the predictor variables' names:
+xNames <- grep(pattern = "progress", 
+               x       = colnames(diabetes), 
+               invert  = TRUE, 
+               value   = TRUE)
+
+## Train the models:
+fit <- regsubsets(x     = progress ~ ., 
+                  data  = diabetes, 
+                  nvmax = ncol(diabetes) - 1)
+
+## Summarize the results:
+sum <- summary(fit)
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Algorithmic Modeling Example}
+
+<<>>=
+sum$outmat
+@ 
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Algorithmic Modeling Example}
+
+<<>>=
+## Variables selected by BIC:
+xNames[with(sum, which[which.min(bic), -1])]
+
+## Variables selected by Adjusted R^2:
+xNames[with(sum, which[which.max(adjr2), -1])]
+
+## Variables selected by Mallow's Cp:
+xNames[with(sum, which[which.min(cp), -1])]
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Prediction \& Estimation}
+
+  There are two other common objectives of statistical analyses.
+  \begin{enumerate}
+    \item Prediction/Classification
+    \item Estimation
+  \end{enumerate}
+
+  \vb
+
+  \emph{Prediction/Classification} involves building a model to "guess" future 
+  values of some outcome.
+  \begin{itemize}
+    \item Weather forecasting
+    \item Predicting the winner of an election
+    \item Financial projections
+  \end{itemize}
+
+  \vb
+
+  \emph{Estimation} focuses on getting the most accurate possible estimate of some 
+  real-world quantity.
+  \begin{itemize}
+    \item The number of refugees in a country
+    \item The rates of obesity in a certain population
+    \item The number of traffic accidents in a given area
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Formal Modeling}
+
+  \citet{smaldino:2017} distinguishes between two ways in which we can translate 
+  theories into models.
+
+  \vb
+
+  \rmsc{Verbal Model}
+  \begin{itemize}
+    \item Vague description of the theory or phenomenon
+    \item Does not describe the theory with enough rigor/specificity to define
+      a single, unambiguous representation
+    \item Could describe multiple phenomena equally well
+  \end{itemize}
+
+  \vb
+
+  \rmsc{Formal Model}
+  \begin{itemize}
+    \item Rigorously defines all the important aspects of a system
+    \item Implies only one representation of the phenomenon
+    \item Can be used to rule-out potential theories by comparing models
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\sectionslide{Path Analysis}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Path Analysis}
+
+  Suppose we have the following theory about diabetic patients.
+  \vc
+  \begin{itemize}
+    \item A patient's age and sex affect their blood pressure and blood
+      glucose levels.
+      \vc
+    \item After accounting for age and sex, blood pressure and blood glucose 
+      levels retain some residual correlation.
+      \vc
+    \item Age and sex are not correlated.
+  \end{itemize}
+  \vb
+  This theory implies two correlated outcome variables.
+  \vc
+  \begin{itemize}
+    \item We cannot model this theory with univariate regression models.
+  \end{itemize}
+  \vb 
+  This is a prime case for \emph{path analysis}.
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Path Diagram}
+
+  \begin{figure}
+    \includegraphics[width = 0.8\textwidth]{../figures/path_model1.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+\begin{frame}{Path Diagram}
+
+  \begin{figure}
+    \includegraphics[width = 0.8\textwidth]{../figures/path_model2.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Estimating the Model}
+
+<<message = FALSE>>=
+library(dplyr)
+library(lavaan)
+
+mod1 <- '
+## Define the structural relations:
+bp + glu ~ age + male
+
+## Do not allow the input variables to covary:
+age ~~ 0 * male
+'
+
+out <- diabetes %>% 
+  mutate(male = ifelse(sex == "male", 1, 0)) %>% 
+  sem(mod1, data = ., fixed.x = FALSE)
+@
+
+\pagebreak
+
+<<>>=
+partSummary(out, 7)
+@
+
+\pagebreak
+
+<<>>=
+partSummary(out, 8:10)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Visualizing the Fitted Model}
+
+<<echo = FALSE, message = FALSE, out.width = "65%">>=
+library(tidySEM)
+
+p <- prepare_graph(out,
+                   rect_width = 1,
+                   rect_height = 1,
+                   variance_diameter = 0.5,
+                   text_size = 6,
+                   layout = matrix(c("age", "male", "bp", "glu"), ncol = 2)
+) 
+
+e <- edges(p)
+
+e[2, 6] <- "left"
+e[6, 5:6] <- "right"
+
+edges(p) <- e
+
+plot(p)
+@
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Teaser}
+
+  Suppose we have the following theory about student performance.
+  \vb
+  \begin{itemize}
+    \item A students age affects their spatial reasoning ability.
+      \vb
+    \item The effect of age on spatial reasoning ability is partially mediated
+      by mathematical ability.
+      \vb
+    \item We can measure spatial reasoning ability and mathematical ability with 
+      five-item tests.
+  \end{itemize}
+  \vb
+  We could translate this theory into the following \emph{structural equation
+  model}.
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Teaser}
+
+  \begin{figure}
+    \includegraphics[width = \textwidth]{../figures/mediation_sem.pdf}
+  \end{figure} 
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{References}
+
+  \bibliographystyle{apacite}
+  \bibliography{../../../bibtex/tcsm.bib}
+
+\end{frame}
+
+\end{document}
+

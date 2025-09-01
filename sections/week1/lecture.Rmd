@@ -1,0 +1,33 @@
+## Lecture
+
+This week, you will learn the basics of R and RStudio. Rather than re-inventing 
+the proverbial wheel, we're linked to existing resources developed by 
+[R-Ladies Sydney](https://rladiessydney.org/).
+
+### Recordings
+
+**Tour of RStudio**
+
+```{r, echo = FALSE}
+knitr::include_url("https://www.youtube.com/embed/kfcX5DEMAp4?si=0ltPTZxQuV9GD9tn")
+```
+
+$$\vb$$
+
+**R Packages**
+
+```{r, echo = FALSE}
+knitr::include_url("https://www.youtube.com/embed/v6VygIgvoZU?si=2R6tBEzkiLzVGxyl")
+```
+$$\vb$$
+
+**Data I/0**
+
+```{r, echo = FALSE}
+knitr::include_url("https://www.youtube.com/embed/2MVolYETR5Q?si=JZfDmrNqtYW8xtsf")
+```
+
+### Slides
+
+You can access the accompanying resources on the R-Ladies Sydney website 
+[here](https://rladiessydney.org/courses/ryouwithme/01-basicbasics-0/).

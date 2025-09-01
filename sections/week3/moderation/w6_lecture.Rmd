@@ -1,0 +1,16 @@
+## Lecture
+
+```{r, echo = FALSE}
+knitr::include_url("https://www.youtube.com/embed/Oyqxchbci6o")
+```
+
+[Download slides](pdf/tcsm_week_6.pdf)
+
+As with mediation, researchers often posit theories involving moderation. 
+Moderation implies that the effect of X on Y depends on another variable, Z. For 
+instance, the effect of feedback (X) on performance (Y) may depend on age (Z). 
+Older children might process feedback more effectively than younger children. 
+Hence, the feedback is more effective for older children than for younger 
+children, and the effect of feedback on performance is stronger for older 
+children than for younger children. In such a case, we would say that age 
+*moderates* the effect of feedback on performance. 

@@ -1,0 +1,62 @@
+## Lecture
+
+In this lecture, we will begin by discussing the \emph{statistical modeling} 
+paradigm and contextualizing statistical modeling relative to other ways that we 
+can conduct statistical analyses. We will conclude with an introduction to 
+*path analysis*.
+
+### Recordings
+
+#### Statistical Reasoning {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/nH-4ND_Ao1M?si=FKi7XcbIh0rYYhqc"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+#### Statistical Modeling {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/53a05z5FpH4?si=rcJqQF7a4tCJkkTt"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+#### Path Analysis {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/eESVMmF9cEc?si=YdrsMqkGbY3eqiTG"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+<!-- ![](https://i.gifer.com/Ek.gif) -->
+
+### Slides
+
+You can download the lectures slides [here](pdf/modeling.pdf)

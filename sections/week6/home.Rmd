@@ -1,0 +1,316 @@
+## At-Home Exercises
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+This week, we'll take another look at the Kestilä (2006) results. During this
+practical, you will conduct an SEM to replicate the regression analysis of the
+Finnish data that you conducted in the [Week 4 In-Class Exercises](in-class-exercises-3.html).
+
+---
+
+###
+
+Load the Finnish subsample of ESS data.
+
+- The relevant data are contained in the [*ess_finland.rds*][fin_data] file.
+   - These are the processed Finnish subsample data from the Week 4 exercises.
+
+*Note:* Unless otherwise noted, all the following analyses use these data.
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r, echo = FALSE}
+dataDir <- "../../../../data/"
+codeDir <- "../../code/"
+
+source(paste0(codeDir, "supportFunctions.R"))
+
+ess_fin <- readRDS(paste0(dataDir, "ess_finland.rds"))
+```
+
+```{r, eval = FALSE}
+ess_fin <- readRDS("ess_finland.rds")
+```
+
+</details>
+
+---
+
+We need to do a little data processing before we can fit the regression model.
+At the moment, `lavaan` will not automatically convert a factor variable into
+dummy codes. So, we need to create explicit dummy codes for the two factors
+we'll use as predictors in our regression analysis: *sex*  and *political
+orientation*.  
+
+---
+
+###
+
+Convert the *sex* and *political interest* factors into dummy codes.
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r}
+library(dplyr)
+
+## Create a dummy codes by broadcasting a logical test on the factor levels:
+ess_fin <- mutate(ess_fin,
+                  female = ifelse(sex == "Female", 1, 0),
+                  hi_pol_interest = ifelse(polintr_bin == "High Interest", 1, 0)
+                  )
+
+## Check the results:
+with(ess_fin, table(dummy = female, factor = sex))
+with(ess_fin, table(dummy = hi_pol_interest, factor = polintr_bin))
+```
+  <details>
+    <summary>Click for explanation</summary>
+
+In R, we have several ways of converting a factor into an appropriate set of 
+dummy codes.
+
+- We could use the `dplyr::recode()` function as we did last week.
+- We can use the `model.matrix()` function to define a design matrix based on 
+the inherent contrast attribute of the factor.
+    - Missing data will cause problems here.
+- We can us `as.numeric()` to revert the factor to its underlying numeric 
+representation {Male = 1, Female = 2} and use arithmetic to convert {1, 2} 
+$\rightarrow$ {0, 1}.
+
+When our factor only has two levels, though, the `ifelse()` function is the 
+simplest way.
+
+  </details>
+</details>
+
+---
+
+We are now ready to estimate our latent regression model. Specifically, we want
+to combine the three OLS regression models that you ran in \@ref(efaRegression)
+into a single SEM that we will estimate in `lavaan`.
+
+The following path diagram shows the intended theoretical model.
+
+<!------------------------------------------------------------------------------
+\[
+Y_{trust\_inst} = \beta_1 X_{age} + \beta_2 X_{female} + \beta_3 X_{edu\_years} +
+                  \beta_4 X_{hi\_pol\_interest} + \beta_5 X_{lrscale} + 
+                  \varepsilon_Y
+\]
+------------------------------------------------------------------------------->
+
+```{r echo = FALSE}
+library(semPlot)
+
+mod_sem <- '
+## Define the latent DVs:
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
+satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
+politicians  =~ pltinvt + pltcare + trstplt
+
+## Specify the structural relations:
+institutions +
+satisfaction +
+politicians ~ female + age + eduyrs + hi_pol_interest + lrscale
+'
+
+sem(mod_sem, data = ess_fin, fixed.x = FALSE) %>%
+  semPaths(layout = "tree2",
+           rotation = 2,
+           residuals = FALSE,
+           sizeMan = 10,
+           sizeMan2 = 3,
+           sizeLat = 15,
+           sizeLat2 = 8,
+           curve = 2,
+           esize = 1,
+           asize = 2,
+           cardinal = "manifest",
+           nCharNodes = 0)
+```
+
+Although the variances are not included in this path diagram, all variables in
+the model (including the observed predictor variables) are random.
+
+---
+
+###
+
+Define the `lavaan` model syntax for the SEM shown above.
+
+- Use the definition of the `institutions`, `satsifaction`, and `politicians`
+  factors from \@ref(cfaSyntax) to define the DVs.
+- Covary the three latent factors.
+- Covary the five predictors.
+
+<details>
+<summary>Click to show code</summary>
+
+```{r}
+mod_sem <- '
+## Define the latent DVs:
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
+satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
+politicians  =~ pltinvt + pltcare + trstplt
+
+## Specify the structural relations:
+institutions ~ female + age + eduyrs + hi_pol_interest + lrscale
+satisfaction ~ female + age + eduyrs + hi_pol_interest + lrscale
+politicians  ~ female + age + eduyrs + hi_pol_interest + lrscale
+'
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+- We simply need to add a line defining the latent regression paths to our old
+  CFA syntax.
+- We don't need to specify the covariances in the syntax. We can use options in
+  the `sem()` function to request those estimates.
+
+  </details>
+</details>
+
+---
+
+###
+
+Estimate the SEM, and summarize the results.
+
+- Fit the model to the processed Finnish subsample from above.
+- Estimate the model using `lavaan::sem()`.
+- Request the standardized parameter estimates with the summary.
+- Request the $R^2$ estimates with the summary.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(lavaan)
+
+## Fit the SEM:
+fit_sem <- sem(mod_sem, data = ess_fin, fixed.x = FALSE)
+
+## Summarize the results:
+summary(fit_sem, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+The `fixed.x = FALSE` argument tells **lavaan** to model the predictors as random
+variables. By default, **lavaan** will covary any random predictor variables. So,
+we don't need to make any other changes to the usual procedure.
+
+  </details>
+</details>
+
+---
+
+###
+
+Finally, we will rerun the latent regression model from above as a path model 
+with the factor scores from \@ref(factorScores) acting as the DVs.
+
+- Rerun the above SEM as a path model wherein the EFA-derived *Trust in 
+  Institutions*, *Satisfaction with Political Systems*, and *Trust in Politicians*
+  factor scores act as the DVs.
+   - Request the standardized parameter estimates with the summary.
+   - Request the $R^2$ estimates with the summary.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Define the model syntax for the path analysis:
+mod_pa <- '
+trust_inst ~ female + age + eduyrs + hi_pol_interest + lrscale
+satisfy    ~ female + age + eduyrs + hi_pol_interest + lrscale
+trust_pol  ~ female + age + eduyrs + hi_pol_interest + lrscale
+'
+
+## Estimate the path model:
+fit_pa <- sem(mod_pa, data = ess_fin, fixed.x = FALSE)
+
+## Summarize the results:
+summary(fit_pa, standardized = TRUE, rsquare = TRUE)
+```
+
+  <details>
+    <summary>Click to show explanation</summary>
+
+We don't so anything particularly special here. We simply rerun our latent 
+regression as a path analysis with the EFA-derived factor scores as the DVs.
+
+  </details>
+</details>
+
+---
+
+###
+
+Compare the results from the path analysis to the SEM-based results.
+
+- Does it matter whether we use a latent variable or a factor score to define 
+the DV?
+
+*Hint:* When comparing parameter estimates, use the fully standardized estimates 
+(i.e., the values in the column labeled `Std.all`).
+
+<details>
+  <summary>Click to show code</summary>
+
+*Note:* The "supportFunction.R" script that we source below isn't a necessary
+part of the solution. This script defines a bunch of convenience functions. One
+of these functions, `partSummary()`, allows us to print selected pieces of the 
+model summary.
+
+```{r, eval = FALSE}
+## Source a script of convenience function definitions:
+source("supportFunctions.R")
+```
+
+```{r}
+## View the regression estimates from the SEM:
+partSummary(fit_sem, 8, standardized = TRUE)
+
+## View the regression estimates from the path analysis:
+partSummary(fit_pa, 7, standardized = TRUE)
+
+## View the R-squared estimates from the SEM:
+partSummary(fit_sem, 11, rsquare = TRUE)
+
+## View the R-squared estimates from the SEM:
+partSummary(fit_pa, 10, rsquare = TRUE)
+```
+
+```{r, eval = FALSE, echo = FALSE}
+r2_sem <- summary(fit_sem, rsquare = TRUE)$pe %>% 
+  filter(op == "r2", rhs == "institutions") %>% 
+  select(est) %>% 
+  as.numeric()
+r2_pa <- inspect(fit_pa, "r2")
+```
+
+  <details>
+    <summary>Click for explanation</summary>
+
+It certainly looks like the way we define the DV has a meaningful impact. The 
+patterns of significance differ between the two sets of regression slopes, and
+the $R^2$ values are larger for the *Institutions* and *Satisfaction* factors in
+the SEM, and the $R^2$ for the *Politicians* factor is higher in the path analysis.
+
+  </details>
+</details>
+
+---
+
+End of At-Home Exercises
+
+---
+
+[fin_data]: https://surfdrive.surf.nl/files/index.php/s/rN8FuscpJTLsB4h/download

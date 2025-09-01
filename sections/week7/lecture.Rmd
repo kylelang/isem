@@ -1,0 +1,80 @@
+## Lecture
+
+In this lecture, we will explore how you can incorporate grouping factors into
+your CFA and SEM analyses. We'll cover three general topics:
+
+1. The multiple group modeling framework
+1. Measurement invariance testing
+1. Using multiple group models to test for moderation
+
+### Recordings
+
+#### Multiple Group Models {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/_R9ThW-5gWw?si=ZoFrXpYIgE5YVsym"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+#### Measurement Invariance {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/SMZZLpE9ZSY?si=7qdvNbyZdcRegsqI"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+#### Measurement Invariance Examples {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/5FVIjAYmmC8?si=-PgqVzDCytXePe5S"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+#### Moderation by Group {-}
+
+<iframe width = "560"
+        height = "315"
+        src = "https://www.youtube.com/embed/t0MnaFO3dTM?si=gaMRyFHOkLm22pqn"
+        frameborder = "0"
+        allow = "accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share"
+        allowfullscreen>
+</iframe>
+
+<!-- ![](https://i.gifer.com/Z58I.gif) -->
+
+### Slides
+
+You can download the lecture slides [here](pdf/multiple_group.pdf)

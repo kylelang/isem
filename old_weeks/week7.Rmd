@@ -1,0 +1,43 @@
+# Full SEM
+
+```{r week7_global_options, include = FALSE}
+library(dplyr)
+
+dataDir  <- "../../../data/"
+quizDir  <- "../assess/"
+partDir  <- "sections/"
+imageDir <- "images/"
+codeDir  <- "../code/"
+```
+
+This week, you will focus on integrating all of the disparate methods we've
+covered so far into full-fledged *structural equation models*. We don't have much
+in the way of new material. The only additional content for this week is a final 
+set of [At-Home Exercises](at-home-exercises-5.html).
+
+**Lecture content**
+
+This week, we have no new lecture content. This week's lecture meeting will be
+an open Q&A session wherein you can ask any questions you have about combining
+factor analysis and path modeling in full SEM.
+
+**Homework before the practical**
+
+Complete the [At-Home Exercises](at-home-exercises-5.html). 
+
+**Practical content**
+
+There are no In-Class Exercises this week, but the instructors will still be
+available. So, you have a few options for how to use this practical session. 
+
+- Ask questions about the At-Home Exercises
+- Clear up any residual confusion or problems from previous practical exercises
+- Work with your group on Assignment 2
+- Ask R-related questions about Assignment 2
+    - Keep in mind that it is up to the instructors how much assistance they 
+    will offer for assignment questions
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
+knitr::knit_child(paste0(partDir, "w7_home.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+```

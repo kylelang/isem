@@ -1,0 +1,39 @@
+# CFA
+
+```{r week5_global_options, include = FALSE}
+source("code/chapter_setup.R")
+partDir <- paste0(partDir0, "week5/")
+```
+
+This week, we will introduce *confirmatory factor analysis* (CFA) and discuss 
+how it differs from EFA. Furthermore, we will revisit the ideas of model fit, 
+model complexity, and model identification. 
+
+**Homework before the lecture**
+
+1. Watch the [Lecture Recording](lecture-4.html) for this week.
+1. Complete the [Reading](reading-4.html) for this week, and answer the 
+associated reading questions.
+
+**Homework before the practical**
+
+Complete the [At-Home Exercises](at-home-exercises-4.html). 
+
+**Practical content**
+
+During the practical you will work on the [In-Class Exercises](in-class-exercises-4.html).
+ 
+**Extra resources**
+
+If you're still struggling with some of the content after working through the
+above materials, head over to the [Extra Resources](extra-resources.html) page
+and take a look at the embedded tutorial.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
+knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir0, "lecture-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "extra.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+```

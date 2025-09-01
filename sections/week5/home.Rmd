@@ -1,0 +1,329 @@
+## At-Home Exercises
+
+This week, we will wrap up our re-analysis of the Kestilä (2006) results. During 
+this practical, you will conduct a CFA of the *Trust in Politics* items and 
+compare the results to those obtained from your previous EFA- and PCA-based 
+replications of Kestilä (2006).
+
+---
+
+###
+
+Load the ESS data.
+
+- The relevant data are contained in the [*ess_round1.rds*][ess_data] file.
+    - This file is in R Data Set (RDS) format.
+    - The dataset is already stored as a data frame with the processing and 
+    cleaning that you should have done for previous practicals completed.
+
+<details>
+  <summary>Click to show code</summary>
+  
+```{r, echo = FALSE}
+dataDir <- "../../../../data/"
+
+ess <- readRDS(paste0(dataDir, "ess_round1.rds"))
+```
+
+```{r, eval = FALSE}
+ess <- readRDS("ess_round1.rds")
+```
+
+</details>
+
+---
+
+Although you may have settled on any number of EFA solutions during the 
+[Week 4 In-Class Exercises](in-class-exercises-3.html), we are going to base the 
+following CFA on a three-factor model of *Trust in Politics* similar to the 
+original PCA results from Kestilä (2006).
+
+*Note:* Unless otherwise specified, all following questions refer to the *Trust 
+in Politics* items. We will not consider the *Attitudes toward Immigration* 
+items in these exercises.
+
+---
+
+### {#cfaSyntax}
+
+Define the `lavaan` model syntax for the CFA implied by the three-factor EFA 
+solution you found in the Week 4 In-Class Exercises.
+
+- Covary the three latent factors.
+- Do not specify any mean structure.
+- Save this model syntax as an object in your environment.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_3f <- '
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
+satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
+politicians  =~ pltinvt + pltcare + trstplt
+'
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+We don't have to specify the latent covariances in the model syntax, we can tell 
+`lavaan` to estimate all latent covariances when we fit the model.
+
+  </details>
+</details>
+
+---
+
+###
+
+Estimate the CFA model you defined above, and summarize the results.
+
+- Use the `lavaan::cfa()` function to estimate the model.
+- Use the default settings for the `cfa()` function.
+- Request the model fit statistics with the summary by supplying the 
+`fit.measures = TRUE` argument to `summary()`.
+- Request the standardized parameter estimates with the summary by supplying the 
+`standardized = TRUE` argument to `summary()`.
+
+Check the results, and answer the following questions:
+
+- Does the model fit the data well?
+- How are the latent variances and covariances specified when using the default 
+settings?
+- How is the model identified when using the default settings?
+
+<details>
+  <summary>Click the code</summary>
+
+```{r}
+## Load the lavaan package:
+library(lavaan)
+
+## Estimate the CFA model:
+fit_3f <- cfa(mod_3f, data = ess)
+
+## Summarize the fitted model:
+summary(fit_3f, fit.measures = TRUE, standardized = TRUE)
+```
+<details>
+  <summary>Click for explanation</summary>
+
+No, the model does not seem to fit the data well.
+
+- The SRMR looks good, but one good looking fit statistic is not enough.
+- The RMSEA, TLI, and CFI are all in the "unacceptable" range.
+- The $\chi^2$ is highly significant, but we don't care.
+
+The `cfa()` function is just a wrapper for the `lavaan()` function with several 
+options set at the defaults you would want for a standard CFA. 
+
+- By default:
+    - All latent variances and covariances are freely estimated (due to the 
+    argument `auto.cov.lv.x = TRUE`)
+    - The model is identified by fixing the first factor loading of each factor 
+    to 1 (due to the argument `auto.fix.first = TRUE`)
+
+To see a full list of the (many) options you can specify to tweak the behavior
+of `lavaan` estimation functions run `?lavOptions`.
+
+  </details>
+</details>
+
+---
+
+Now, we will consider a couple of alternative factor structures for the *Trust 
+in Politics* CFA. First, we will go extremely simple by estimating a one-factor 
+model wherein all *Trust* items are explained by a single latent variable.
+
+---
+
+###
+
+Define the `lavaan` model syntax for a one-factor model of the *Trust* items.
+
+- Save this syntax as an object in your environment.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_1f <- '
+political_trust =~ 
+  trstlgl +
+  trstplc +
+  trstun +
+  trstep +
+  trstprl +
+  stfhlth +
+  stfedu  +
+  stfeco +
+  stfgov +
+  stfdem +
+  pltinvt +
+  pltcare +
+  trstplt
+'
+```
+
+</details>
+
+---
+
+###
+
+Estimate the one-factor model, and summarize the results.
+
+- Does this model appear to fit better or worse than the three-factor model?
+
+*Note:* You can use the `lavaan::fitMeasures()` function to extract only the
+model fit information from a fitted `lavaan` object.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Estimate the one factor model:
+fit_1f <- cfa(mod_1f, data = ess)
+
+## Summarize the results:
+summary(fit_1f, fit.measures = TRUE)
+
+## Compare fit statistics:
+fitMeasures(fit_3f)
+fitMeasures(fit_1f)
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+The one-factor model definitely seems to fit worse than the three-factor model.
+
+  </details>
+</details>
+
+---
+
+A second order CFA model is another way of representing the latent structure 
+underlying a set of items. As you read in Byrne (2005), however, the second 
+order CFA is only appropriate in certain circumstances.
+
+---
+
+###
+
+Given the CFA results above, would a second order CFA be appropriate for the 
+*Trust* data? Why or why not?
+
+<details>
+  <summary>Click for explanation</summary>
+
+Yes, a second order CFA model is a theoretically appropriate representation of 
+the *Trust* items. 
+
+- The first order latent variables in the three-factor model are all 
+significantly correlated.
+- The first order latent variables in the three-factor model seem to tap 
+different aspects of some single underlying construct. 
+
+</details>
+
+---
+
+###
+
+Define the `lavaan` model syntax for a second-order CFA model of the *Trust* items.
+
+- Use the three factors defined in \@ref(cfaSyntax) as the first order factors.
+
+ <details>
+  <summary>Click to show code</summary>
+
+```{r}
+mod_2nd <- '
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
+satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
+politicians  =~ pltinvt + pltcare + trstplt
+
+trust =~ politicians + satisfaction + institutions
+'
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+To define the second order factor, we use the same syntactic conventions that we
+employ to define a first order factor. The only differences is that the 
+"indicators" of the second order factor (i.e., the variables listed on the RHS 
+of the `=~` operator) are previously defined first order latent variables.
+
+  </details>
+</details>
+
+---
+
+###
+
+Estimate the second order CFA model, and summarize the results.
+
+- Does this model fit better or worse than the three-factor model?
+- Is this model more or less complex than the three-factor model?
+    - What information can you use to quantify this difference in complexity?
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+fit_2nd <- cfa(mod_2nd, data = ess)
+summary(fit_2nd, fit.measures = TRUE, standardized = TRUE)
+
+## Compare fit between the first and second order models:
+fitMeasures(fit_3f)
+fitMeasures(fit_2nd)
+```
+
+<details>
+  <summary>Click for explanation</summary>
+
+We don't have to do anything special here. We can estimate and summarize the 
+second order CFA exactly as we did the first order CFA.
+
+---
+
+You should quickly notice something strange about the model fit statistics 
+compared above. If you don't see it, consider the following:
+
+```{r}
+fitMeasures(fit_3f) - fitMeasures(fit_2nd)
+```
+
+The two models produce identical fit statistics! We also see that the degrees of 
+freedom are identical between the two models. Hence, the two models have equal
+complexity.
+
+This result taps into a critical idea in statistical modeling, namely, *model 
+equivalency*. It turns out the two models we're comparing here are *equivalent* 
+in the sense that they are statistically indistinguishable representations of 
+the data.
+
+Since this is a very important idea, I want to spend some time discussing it in 
+person. So, spend some time between now and the Week 6 lecture session thinking 
+about the implications of this model equivalence. Specifically, consider the 
+following questions:
+
+- What do we mean when we say that these two models are *equivalent*?
+- How is it possible for these two models to be *equivalent* when one contains 
+an additional latent variable?
+- Why are the degrees of freedom equal for these two models?
+- Why are the fit statistics equal for these two models?
+
+We'll take some time to discuss these ideas in the Week 6 lecture session.
+
+  </details>
+</details>
+
+---
+
+End of At-Home Exercises
+
+---

@@ -1,0 +1,718 @@
+## In-Class Exercises
+
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+library(lavaan)
+library(semTools)
+library(dplyr)
+library(magrittr)
+```
+
+As in the At-Home Exercises, these exercises are based on the following paper.
+
+[
+Metha, A., Chen, E, Mulvenon, S., and Dode, I. (1998). A theoretical model of 
+suicide risk. *Archives of Suicide Research, 4*, 115--133.
+](https://doi.org/10.1080/13811119808260442)
+
+We will now pick-up where we left off with the At-Home Exercises.
+
+---
+
+### 
+
+Load the *suicide_risk.rds* dataset.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r, echo = FALSE}
+suicide <- readRDS(paste0(dataDir, "suicide_risk.rds"))
+```
+
+```{r, eval = FALSE}
+suicide <- readRDS("suicide_risk.rds")
+```
+
+</details>
+
+---
+
+According to Metha et al (1998), the process of suicide risk is more complicated 
+than what we modeling in the At-Home Exercises. On page 117--118 the authors 
+summarize their expectations in five hypotheses. These hypotheses imply a path
+model that describes how the four continuous predictors relate to *suicide risk*. 
+
+---
+
+### {#ieSyntax1}
+
+Write the **lavaan** model syntax for the path model implied by the hypotheses
+of Metha et al (1998). 
+
+- Leave *sex* out of the model for now. 
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+mod <- '
+suirisk ~ depression + b * hopeless + subabuse
+hopeless ~ a * depression + selfesteem
+selfesteem ~ depression
+
+ie := a*b
+'
+```
+
+</details>
+
+---
+
+###
+
+Use `lavaan::sem()` to estimate the model.
+
+- Does the model fit well?
+- Are the hypothesized effects significant?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r fit1, cache = TRUE}
+library(lavaan)
+
+## First fit without bootstrapping to check model adequacy:
+fit <- sem(mod, data = suicide)
+summary(fit, fit.measures = TRUE)
+
+## Now bootstrap to get appropriate test of indirect effect:
+set.seed(235711)
+fit_boot <- sem(mod, data = suicide, se = "boot", bootstrap = 1000)
+```
+
+```{r, echo = FALSE}
+tmp <- fitMeasures(fit, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+```
+
+The model fits the data well 
+($\chi^2[`r tmp[2]`] = `r tmp[1] %>% round(2)`$, 
+$p = `r tmp[3] %>% round(3)`$,
+$\textit{CFI} = `r tmp[4] %>% round(3)`$,
+$\textit{TLI} = `r tmp[5] %>% round(3)`$,
+$\textit{RMSEA} = `r tmp[6] %>% round(3)`$,
+$\textit{SRMR} = `r tmp[7] %>% round(3)`$), and all but the second hypothesis 
+are supported.
+
+```{r, echo = FALSE}
+tmp <- summary(fit)$pe %>% filter(op == "~")
+
+h1 <- tmp %>% filter(lhs == "suirisk", rhs == "depression")
+h1a <- tmp %>% filter(label == "a")
+h1b <- tmp %>% filter(label == "b")
+
+h3 <- tmp %>% filter(lhs == "selfesteem", rhs == "depression")
+h4 <- tmp %>% filter(lhs == "hopeless", rhs == "selfesteem")
+h5 <- tmp %>% filter(lhs == "suirisk", rhs == "subabuse")
+
+ie <- summary(fit_boot, ci = TRUE)$pe %>% filter(label == "ie")
+```
+
+- H1: The direct effect of *depression* on *suicide risk* is significant 
+($\beta = `r h1$est %>% round(3)`$,
+$z = `r h1$z %>% round(2)`$,
+$p < 0.001$).
+- H2: The indirect effect of *depression* on *suicide risk* through 
+*hopelessness* is not significant 
+($\hat{\textit{IE}} = `r ie$est %>% round(3)`$,
+$95\%~CI = [`r ie$ci.lower %>% round(3)`; ~ `r ie$ci.upper %>% round(3)`]$).
+    - *Depression* significantly predicts *hopelessness*, after controlling for 
+    *self-esteem* 
+    ($\beta = `r h1a$est %>% round(3)`$,
+    $z = `r h1a$z %>% round(2)`$,
+    $p < 0.001$).
+    - *Hopelessness* does not significantly predict *suicide risk*, after 
+    controlling for *depression* and *substance abuse* 
+    ($\beta = `r h1b$est %>% round(3)`$,
+    $z = `r h1b$z %>% round(2)`$,
+    $p = `r h1b$p %>% round(3)`$).
+- H3: *Depression* significantly predicts decreases in *self-esteem* 
+($\beta = `r h3$est %>% round(3)`$,
+$z = `r h3$z %>% round(2)`$,
+$p < 0.001$).
+- H4: *Self-esteem* significantly predicts *hopelessness* 
+($\beta = `r h4$est %>% round(3)`$,
+$z = `r h4$z %>% round(2)`$,
+$p < 0.001$).
+- H5: *Substance abuse* significantly predicts *suicide risk*, after controlling
+for *depression* and *hopelessness* 
+($\beta = `r h5$est %>% round(3)`$,
+$z = `r h5$z %>% round(2)`$,
+$p < 0.001$).
+
+</details>
+
+---
+
+After failing to support H2, Metha et al (1998) modified there model based on 
+post hoc analyses. They made two changes to the model structure:
+
+1. Added a path from *hopelessness* to *substance abuse*.
+1. Removed the path from *hopelessness* to *suicide risk*.
+
+---
+
+### 
+
+Modify the model syntax from \@ref(ieSyntax1) to reflect the post hoc 
+modifications described above.
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+mod <- '
+suirisk ~ depression + subabuse
+hopeless ~ depression + selfesteem
+subabuse ~ hopeless
+selfesteem ~ depression
+'
+```
+
+</details>
+
+---
+
+### {#modifiedModel}
+
+Use `lavaan::sem()` to estimate the modified model.
+
+- Does the model fit well?
+- Are the structural paths significant?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+## First fit without bootstrapping to check model adequacy:
+fit <- sem(mod, data = suicide)
+summary(fit, fit.measures = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- fitMeasures(fit, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+```
+
+Yes, the modified model also fits the data well 
+($\chi^2[`r tmp[2]`] = `r tmp[1] %>% round(2)`$, 
+$p = `r tmp[3] %>% round(3)`$,
+$\textit{CFI} = `r tmp[4] %>% round(3)`$,
+$\textit{TLI} = `r tmp[5] %>% round(3)`$,
+$\textit{RMSEA} = `r tmp[6] %>% round(3)`$,
+$\textit{SRMR} = `r tmp[7] %>% round(3)`$), and all structural paths are now 
+statistically significant.
+
+</details>
+
+---
+
+Although the modified model seems to be a good representation of the data, the
+original and modified models imply substantially different theoretical processes.
+Think about what the two models say regarding the process by which *depression* 
+influences *suicide risk* and the role that *hopelessness* and *substance abuse*
+play therein. We will discuss these ideas in the plenary lecture session.
+
+---
+
+Sex-based differences were a key component of the Metha et al (1998) analysis.
+In the original paper, *sex* was conceptualized as a moderator, and the
+differences induced thereby were evaluated by analyzing the male and female
+subsamples separately.
+
+As a general rule, subsample analysis is rarely advisable (especially in SEM). 
+We hypothesize moderation by *sex*, but the subsample analysis only allows us to
+infer this moderation indirectly through qualitative comparisons of the 
+sex-specific estimates. We will be much better off directly modeling the influence
+of *sex* by specifying a multiple-group model.
+
+In **lavaan**, we can easily estimate any model as an unrestricted multiple-group
+model by adding the `group = "grouping_variable_name"` to the fitting function.
+You can find a tutorial at <https://lavaan.ugent.be/tutorial/groups.html>.
+
+---
+
+### {#fullMgModel}
+
+Re-estimate the model from \@ref(modifiedModel) as a multiple-group model with 
+`sex` as the grouping factor.
+
+- Specify the same model structure in each group.
+- Do not place any between-group constraints on the estimates.
+- Does the model fit well?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+fit <- sem(mod, data = suicide, group = "sex")
+summary(fit, fit.measures = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- fitMeasures(fit, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+```
+
+Yes, the model fits the data well 
+($\chi^2[`r tmp[2]`] = `r tmp[1] %>% round(2)`$, 
+$p = `r tmp[3] %>% round(3)`$,
+$\textit{CFI} = `r tmp[4] %>% round(3)`$,
+$\textit{TLI} = `r tmp[5] %>% round(3)`$,
+$\textit{RMSEA} = `r tmp[6] %>% round(3)`$,
+$\textit{SRMR} = `r tmp[7] %>% round(3)`$)
+
+</details>
+
+---
+
+###
+
+Qualitatively compare the effects in each group. Do you notice any salient 
+differences?
+
+*Hint:* The standardized estimates are probably useful here. 
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+summary(fit, standardized = TRUE)
+```
+
+```{r, echo = FALSE}
+tmp <- summary(fit, standardized = TRUE)$pe %>% 
+  filter(op == "~", rhs == "depression", lhs %in% c("suirisk", "selfesteem"))
+
+b1m <- tmp %>% filter(lhs == "suirisk", group == 1) %>% select("std.all") %>% as.numeric()
+b1f <- tmp %>% filter(lhs == "suirisk", group == 2) %>% select("std.all") %>% as.numeric()
+
+b2m <- tmp %>% filter(lhs == "selfesteem", group == 1) %>% select("std.all") %>% as.numeric()
+b2f <- tmp %>% filter(lhs == "selfesteem", group == 2) %>% select("std.all") %>% as.numeric()
+```
+
+The direct effect of *depression* on *suicide risk* and the effect of 
+*depression* on *self esteem* both seem to be quite a bit stronger for males 
+($\beta_{SR} = `r b1m %>% round(3)`$, $\beta_{SE} = `r b2m %>% round(3)`$) 
+than females
+($\beta_{SR} = `r b1f %>% round(3)`$, $\beta_{SE} = `r b2f %>% round(3)`$).
+
+</details>
+
+---
+
+###
+
+Qualitatively compare the $R^2$ for *suicide risk* in the two groups. What do 
+you conclude?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+## Extract just the R-Squared estimates with the inspect() function:
+inspect(fit, "r2")
+```
+
+```{r, echo = FALSE}
+tmp <- inspect(fit, "r2")
+```
+
+The $R^2$ for males (`r tmp$male["suirisk"] %>% round(3)`) is larger than the 
+$R^2$ for females (`r tmp$female["suirisk"] %>% round(3)`). Hence, the model 
+better explains suicide risk for males than it does for females.
+
+</details>
+
+---
+
+To test the moderating influence of the grouping variable, we need to test for
+significant differences between the group-specific estimates of the structural 
+paths. If a path differs significantly between the two groups, we conclude that 
+the grouping factor *moderates* that path.
+
+We can conceptualize these test in two general ways.
+
+1. An omnibus test: Does group affect any of the structural paths?
+1. Path-specific tests: Does group affect an individual path?
+
+To implement an omnibus test for moderation by group, we simply need to compare 
+the fit of the full, unrestricted model (such as the one we estimated in 
+\@ref(fullMgModel)) to the fit of a restricted model wherein each structural 
+path is constrained to be equal in both groups.
+
+The `group.equal` argument in **lavaan** fitting functions makes this process 
+very easy.
+
+---
+
+###
+
+Conduct an omnibus test to see if *sex* moderates any of the paths in the model 
+from \@ref(fullMgModel).
+
+- Does *sex* have a significant, overall moderating influence on the model?
+
+*Hints:*
+
+- Check the documentation for `sem()` to see how you need to specify the 
+`group.equal` argument.
+- You can use the `anova()` function to compare the full and restricted models.
+
+<details>
+  <summary>Click for explanation</summary>
+
+First, estimate the restricted model.
+
+```{r}
+fit_res <- sem(mod, 
+               data = suicide,
+               group = "sex",
+               group.equal = "regressions")
+
+## Summarize the results to check that everything went well:
+summary(fit_res, fit.measures = TRUE)
+```
+
+OK, that looks good. The regression paths are constrained to be equal across 
+groups. Now, we need to compare the full and restricted models to see if we've
+lost a significant amount of model fit through the constraints.
+
+```{r}
+anova(fit, fit_res)
+```
+
+```{r, echo = FALSE}
+tmp <- anova(fit, fit_res)[2, ]
+
+chi <- tmp["Chisq diff"] %>% as.numeric()
+df <- tmp["Df diff"] %>% as.numeric()
+```
+  
+  
+The $\Delta \chi^2$ test tells us that we have lost a significant level of fit by 
+constraining the paths to equality across groups 
+($\Delta \chi^2[`r df`] = `r chi %>% round(2)`$, $p < 0.001$). 
+Hence, we can infer overall moderation by *sex*.
+
+</details>
+
+---
+
+Finding significant omnibus moderation is interesting, but we probably want to 
+know which paths, in particular, show significant sex-based differences. Hence,
+we need to test for path-specific moderation.
+
+We have several options when it comes to implementing such tests. One obvious
+idea would be to specify a restricted model that constrains only one path to 
+equality and conduct the same type of $\Delta \chi^2$ test that we used for the 
+omnibus test. While this approach will certainly work, we would have to specify
+and estimate a separate restricted model for every path that we wanted to test.
+Thankfully, we have a couple simpler alternatives.
+
+The most direct approach entails the following steps:
+
+1. Label the relevant parameters
+1. Define new parameters that represent the differences between the 
+group-specific versions of whatever parameters we want to test
+1. Estimate the model and evaluate the path-specific moderation by the 
+significance tests for these difference parameters
+
+---
+
+### 
+
+Define the **lavaan** model syntax that uses the approach described above to 
+test if *sex* moderates the following effects
+
+1. *Depression* $\rightarrow$ *Suicide Risk*
+1. *Substance Abuse* $\rightarrow$ *Suicide Risk*
+1. *Hopelessness* $\rightarrow$ *Substance Abuse*
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+mod <- '
+suirisk ~ c(m1, f1) * depression + c(m2, f2) * subabuse
+hopeless ~ depression + selfesteem
+subabuse ~ c(m3, f3) * hopeless
+selfesteem ~ depression
+
+d1 := m1 - f1
+d2 := m2 - f2
+d3 := m3 - f3
+'
+```
+
+</details>
+
+---
+
+### {#modTest1}
+
+Estimate the model defined above.
+
+- Does *sex* moderate these three focal effects?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+fit <- sem(mod, data = suicide, group = "sex")
+summary(fit)
+```
+
+```{r, echo = FALSE}
+tmp <- summary(fit)$pe %>% filter(label %in% paste0("d", 1:3))
+
+d1 <- tmp[1, ]
+d2 <- tmp[2, ]
+d3 <- tmp[3, ]
+```
+
+- *Sex* significantly moderates the effect of *depression* on *suicide risk* 
+($\beta = `r d1$est %>% round(3)`$,
+$z = `r d1$z %>% round(2)`$,
+$p = `r d1$p %>% round(3)`$) 
+such that males have significantly stronger associations.
+- *Sex* also moderates the effect of *hopelessness* on *substance abuse* 
+($\beta = `r d3$est %>% round(3)`$,
+$z = `r d3$z %>% round(2)`$,
+$p = `r d3$p %>% round(3)`$) 
+such that males have significantly weaker associations.
+- *Sex* does not moderate the effect of *substance abuse* on *suicide risk* 
+($\beta = `r d2$est %>% round(3)`$,
+$z = `r d2$z %>% round(2)`$,
+$p = `r d2$p %>% round(3)`$).
+
+</details>
+
+---
+
+We can also conduct analogous tests without explicitly defining the parameter 
+differences as new parameters. To do so, we use the `lavaan::lavTestWald()` 
+function and the following procedure.
+
+1. Label the relevant paths
+1. Estimate the model
+1. Submit the fitted model object and a syntax segment defining the desired 
+constraint(s) to `lavTestWald()`.
+
+This approach is nice when we have already estimated the model with the paths 
+labeled but no difference parameters defined. In such situations, we can do our
+tests without rewriting the model syntax and re-estimating the model.
+
+---
+
+###
+
+Use `lavTestWald()` to test for moderation in the same three paths that you
+tested in \@ref(modTest1).
+
+- What are your conclusions?
+- Are the results the same as what you get when defining difference parameters?
+
+*Hints:* 
+
+- You do not need to re-specify your model syntax; you can use the fitted model 
+from \@ref(modTest1) as input to `lavTestWald()`.
+- To get tests of moderation for individual paths, you need to run `lavTestWald()` 
+with a single parameter constraint specified.
+    - You will need to call `lavTestWald()` three times to replicate the results 
+    from \@ref(modTest1).
+    
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+## Depression -> Suicide Risk:
+lavTestWald(fit, constraints = 'm1 == f1')
+
+## Substance Abuse -> Suicide Risk:
+lavTestWald(fit, constraints = 'm2 == f2')
+
+## Hopelessness -> Substance Abuse:
+lavTestWald(fit, constraints = 'm3 == f3')
+```
+
+This approach produces the same inference as the defined parameters approach. In
+fact the p-values are identical across the two approaches, and the test 
+statistics produced by `lavTestWald()` are equal to the square of those produced 
+by the defined parameters approach.
+
+- This latter equivalence arises because the test statistic in the summarized 
+`sem()` output is a Z statistic while the test statistic in the `lavTestWald()` 
+output is a $\chi^2$ statistic.
+
+</details>
+
+---
+
+Notice that although Metha et al (1998) only hypothesize a single indirect effect,
+their model implies several potential indirect effects. Further notice that the
+original model and the modified model imply different sets of indirect effects.
+
+---
+
+### {#ieList}
+
+List the potential indirect effects implied by the original and modified models 
+from Metha et al (1998).
+
+<details>
+  <summary>Click for explanation</summary>
+
+***Original:***
+
+1. *Depression* $\rightarrow$ *Self-Esteem* $\rightarrow$ *Hopelessness* $\rightarrow$ *Suicide Risk*
+1. *Depression* $\rightarrow$ *Hopelessness* $\rightarrow$ *Suicide Risk*
+1. *Self-Esteem* $\rightarrow$ *Hopelessness* $\rightarrow$ *Suicide Risk*
+
+***Modified:***
+
+1. *Depression* $\rightarrow$ *Self-Esteem* $\rightarrow$ *Hopelessness* $\rightarrow$ *Substance Abuse* $\rightarrow$ *Suicide Risk*
+1. *Depression* $\rightarrow$ *Hopelessness* $\rightarrow$ *Substance Abuse* $\rightarrow$ *Suicide Risk*
+1. *Self-Esteem* $\rightarrow$ *Hopelessness* $\rightarrow$ *Substance Abuse* $\rightarrow$ *Suicide Risk*
+
+</details>
+
+---
+
+An indirect effect is defined by the product of some set of regression paths.
+These underlying regression paths can be moderated by a grouping factor, so 
+indirect effects can also be moderated by grouping factors. Such a process is
+called *moderated mediation* because some moderator variable influences the 
+indirect effects. In our case, we want to know if *sex* influences the indirect 
+effects listed above such that males and females show different indirect effects.
+
+We can use the same logic that we applied to test the moderating influence of 
+*sex* on individual regression paths to for moderation of the indirect effects.
+
+There is one caveat to this generalization, though. The validity of the Wald test
+implemented by the `lavTestWald()` function depends on the tested parameters 
+having normal sampling distributions. The sampling distributions for indirect 
+effects are not normal, so we should not use the `lavTestWald()` approach to 
+evaluate moderation of the indirect effects. Rather, we should use the defined
+parameter approach in combination with bootstrapping.
+
+---
+
+### {#ieFreeSyntax}
+
+Modify the syntax for the modified model (i.e., the model estimated in 
+\@ref(fullMgModel)) to specify sex-specific versions of the the potential 
+indirect effects you listed in \@ref(ieList).
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+mod <- '
+suirisk ~ depression + c(sr_saM, sr_saF) * subabuse
+hopeless ~ c(h_dM, h_dF) * depression + c(h_seM, h_seF) * selfesteem
+subabuse ~ c(sa_hM, sa_hF) * hopeless
+selfesteem ~ c(se_dM, se_dF) * depression
+
+## Indirect Effects:
+ie1_m := se_dM * h_seM * sa_hM * sr_saM
+ie2_m := h_dM * sa_hM * sr_saM
+ie3_m := h_seM * sa_hM * sr_saM
+
+ie1_f := se_dF * h_seF * sa_hF * sr_saF
+ie2_f := h_dF * sa_hF * sr_saF
+ie3_f := h_seF * sa_hF * sr_saF
+'
+```
+
+</details>
+
+---
+
+###
+
+Estimate the model defined in \@ref(ieFreeSyntax).
+
+- Use bootstrapping to evaluate the indirect effects.
+- Are the indirect effects significant?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r ie_free_boot, cache = TRUE}
+set.seed(235711)
+out <- sem(mod, data = suicide, group = "sex", se = "boot", bootstrap = 1000)
+summary(out, ci = TRUE)
+```
+
+None of the 95% bootstrapped CIs for the indirect effects contain zero, so all 
+three indirect effects are significant in both groups.
+
+</details>
+
+---
+
+### {#ieTestSyntax}
+
+Modify the model syntax from \@ref(ieFreeSyntax) to include the difference 
+parameters necessary for testing the moderating influence of *sex* on the indirect
+effects.
+
+<details>
+  <summary>Click for explanation</summary>
+
+Rather than re-typing the previous syntax, I'll use the `paste()` function to
+add on only the new lines.
+
+```{r}
+## Add the new parameter definitions to the existing syntax:
+mod <- paste(mod, 
+'
+ie_diff1 := ie1_m - ie1_f
+ie_diff2 := ie2_m - ie2_f
+ie_diff3 := ie3_m - ie3_f
+',
+sep = '\n')
+
+## Check the results:
+cat(mod)
+```
+
+</details>
+
+---
+
+###
+
+Estimate the model defined in \@ref(ieTestSyntax).
+
+- Use bootstrapping to evaluate moderation of the indirect effects.
+- Does *sex* moderate the indirect effects?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r ie_test_boot, cache = TRUE}
+set.seed(235711)
+out <- sem(mod, data = suicide, group = "sex", se = "boot", bootstrap = 1000)
+summary(out, ci = TRUE)
+```
+
+All three 95% bootstrapped CIs for the difference parameters contain zero, so 
+*sex* does not moderate any of the indirect effects.
+
+</details>
+
+---
+
+End of In-Class Exercises
+
+---
+

@@ -1,0 +1,21 @@
+```{r, include = FALSE}
+library(dplyr)
+library(foreign)
+
+dataDir  <- "../../../data/"
+imageDir <- "../images/"
+partDir  <- "sections/"
+```
+
+<!--
+\Sexpr{knit_child("w0_setup.Rmd", quiet = TRUE) %>% cat(sep = "\n")}
+\Sepxr{knit_child("w0_basics.Rmd", quiet = TRUE) %>% cat(sep = "\n")}
+\Sexpr{knit_child("w0_tutorial.Rmd", quiet = TRUE) %>% cat(sep = "\n")}
+-->
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
+knitr::knit_child(paste0(partDir, "w0_setup.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+knitr::knit_child(paste0(partDir, "w0_tutorial.Rmd"), quiet = TRUE) %>% 
+  cat(sep = "\n")
+```

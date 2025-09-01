@@ -1,0 +1,39 @@
+## R caching/autosaving stuff:
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+rsconnect
+
+## Bookdown build stuff:
+_publish.R
+_book
+_bookdown_files
+
+## Data files:
+*.sav
+*.xls
+*.xlsx
+*.RData
+
+## latexmk debris:
+*.tex
+*.aux
+*.log
+*.out
+*.nav
+*.snm
+*.toc
+*.vrb
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+
+## KnitR caches for lecture slides:
+/lectures/**/cache/
+/lectures/**/figure/
+
+## Undo any accidental exclusion of the lecture slides:
+!pdf/*.pdf
+!docs/pdf/*.pdf

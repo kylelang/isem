@@ -1,0 +1,427 @@
+%%% Title:    TCSM: Full SEM
+%%% Author:   Kyle M. Lang
+%%% Created:  2016-XX-XX
+%%% Modified: 2023-10-10
+
+\documentclass[10pt]{beamer}
+\usetheme{Utrecht}
+
+\usepackage{graphicx}
+\usepackage[natbibapa]{apacite}
+\usepackage[libertine]{newtxmath}
+\usepackage{fancybox}
+\usepackage{booktabs}
+\usepackage{relsize}
+
+\newcommand{\eqit}[1]{\textrm{\textit{#1}}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\src}[1]{\texttt{#1}}
+\newcommand{\rmsc}[1]{\textrm{\textsc{#1}}}
+
+\title{Full Structural Equation Modeling}
+\subtitle{Theory Construction and Statistical Modeling}
+\author{Kyle M. Lang}
+\institute{Department of Methodology \& Statistics\\Utrecht University}
+\date{}
+
+\begin{document}
+
+<<setup, include = FALSE, cache = FALSE>>=
+set.seed(235711)
+
+dataDir <- "../data/"
+
+library(knitr)
+library(ggplot2)
+library(MASS)
+library(DAAG)
+library(xtable)
+library(MLmetrics)
+library(dplyr)
+library(mvtnorm)
+library(lavaan)
+
+source("../../../code/supportFunctions.R")
+
+options(width = 80)
+opts_chunk$set(size = "footnotesize",
+               fig.align = "center",
+               fig.path = "figure/sem-",
+               message = FALSE,
+               comment = "")
+knit_theme$set('edit-kwrite')
+@
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[t,plain]
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\section{Structural Equation Modeling}
+
+\watermarkoff %%%------------------------------------------------------------%%%
+
+\begin{frame}{Full SEM}
+
+  A full structural equation model (SEM) simply combines path analysis and CFA.
+  \vb
+  \begin{itemize}
+    \item SEM allows us to model complicated structural relations among latent
+      variables.
+  \end{itemize}
+  \vb
+  Let's consider a simple, three-factor CFA model.
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{../figures/3_factor_cfa.pdf}
+  \end{figure}
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}{CFA $\rightarrow$ SEM}
+
+  We first evaluate the validity of the measurement model via CFA.
+  \vb
+  \begin{itemize}
+    \item We then convert the CFA to an SEM by converting some covariances to latent
+      regression paths.
+  \end{itemize}
+
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{../figures/simple_sem_diagram.pdf}
+  \end{figure}
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\subsection{Measurement Model}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{CFA Example}
+
+<<cache = TRUE>>=
+## Load the lavaan package and some data:
+library(lavaan)
+data(bfi, package = "psych")
+
+## Specify the CFA model:
+cfaMod <- '
+extra =~ E1 + E2 + E3 + E4 + E5
+open  =~ O1 + O2 + O3 + O4 + O5
+neuro =~ N1 + N2 + N3 + N4 + N5
+'
+
+## Estimate the model:
+cfaOut <- cfa(cfaMod, data = bfi, missing = "fiml", std.lv = TRUE)
+
+## Check the fit:
+fitMeasures(cfaOut, 
+            c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr")
+)
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{CFA Example}
+
+<<>>=
+partSummary(cfaOut, 7)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{CFA Example}
+
+<<>>=
+partSummary(cfaOut, 8)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{CFA Example}
+
+<<>>=
+partSummary(cfaOut, 9)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{CFA Example}
+
+<<>>=
+partSummary(cfaOut, 10)
+@
+
+<<eval = FALSE, include = FALSE>>=
+library(tidySEM)
+lavaanPlot(model = cfaOut)
+l0 <- rbind(
+            c(
+              rep(NA, 2),
+              "open",
+              rep(NA, 4),
+              "extra",
+              rep(NA, 4),
+              "neuro",
+              rep(NA, 2)
+              ),
+            paste0(rep(c("O", "E", "N"), each = 5), 
+                   rep(1:5, 3)
+            )
+)
+
+g0 <- prepare_graph(cfaOut, layout = l0)
+
+e0 <- get_edges(cfaOut)
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\subsection{Structural Model}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{SEM Example}
+
+<<cache = TRUE>>=
+## Add structural paths:
+semMod <- '
+extra =~ E1 + E2 + E3 + E4 + E5
+open  =~ O1 + O2 + O3 + O4 + O5
+neuro =~ N1 + N2 + N3 + N4 + N5
+
+neuro ~ extra + open
+'
+
+## Estimate the model:
+semOut <- sem(semMod, data = bfi, missing = "fiml", std.lv = TRUE)
+
+## Check the fit:
+fitMeasures(semOut, 
+            c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr")
+)
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{SEM Example}
+
+<<>>=
+partSummary(semOut, 7)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{SEM Example}
+
+<<>>=
+partSummary(semOut, 8:9)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{SEM Example}
+
+<<>>=
+partSummary(semOut, 10)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{SEM Example}
+
+<<>>=
+partSummary(semOut, 11)
+@ 
+
+\end{frame}
+
+\watermarkon %%%-------------------------------------------------------------%%%
+
+\begin{frame}{Why SEM?}
+
+  With SEM we get to model the types of complex relations we can specify via path
+  models while leveraging all the strengths of latent variables.
+  \vb
+  \begin{itemize}
+    \item Multiple-group SEM models moderation by group.
+      \vc
+      \begin{itemize}
+        \item The latent variables give us the ability to evaluate measurement
+          invariance across groups.
+          \vc
+        \item We'll see more of these ideas in the next lecture.
+      \end{itemize}
+      \vc
+    \item Path analysis and SEM lend themselves especially well to mediation
+      analysis and conditional process analysis.
+  \end{itemize}
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\sectionslide{Mediation with SEM}
+
+\watermarkoff %%%------------------------------------------------------------%%%
+
+\begin{frame}{Boring Model}
+
+  In Week 3, all of our models looked something like:
+
+  \begin{figure}
+    \includegraphics[width=0.7\textwidth]{../figures/simpleMediationPathDiagram.pdf}
+  \end{figure}
+
+  But there is no reason that we need to restrict ourselves to observed variables.
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}{Better Model}
+
+  We can (and should) test for indirect effects using full SEMs such as:
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{../figures/semMedDiagram.pdf}
+  \end{figure}
+
+  Measurement error can be a big problem for mediation analysis, so latent 
+  variable modeling is highly recommended.
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<cache = TRUE>>=
+dat1 <- readRDS("../data/adamsKlpsData.rds") %>% select(-merit, -policy)
+
+## Specify the CFA model:
+mod5.1 <- '
+merit  =~ meritP1 + meritP2 + meritP3
+policy =~ policyP1 + policyP2 + policyP3
+'
+
+## Fit the CFA and check model:
+out5.1 <- cfa(mod5.1, data = dat1, std.lv = TRUE)
+
+## Check model fit:
+fitMeasures(out5.1, 
+            c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr")
+)
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+partSummary(out5.1, 7)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+partSummary(out5.1, 8:9)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<boot10, cache = TRUE, warning = FALSE>>=
+## Specify the structural model:
+mod5.2 <- '
+merit  =~ meritP1 + meritP2 + meritP3
+policy =~ policyP1 + policyP2 + policyP3
+
+policy ~ b*merit + polAffil
+merit  ~ a*polAffil
+
+ab := a*b
+'
+
+## Fit the structural model and test the indirect effect:
+out5.2 <- 
+  sem(mod5.2, data = dat1, std.lv = TRUE, se = "boot", bootstrap = 5000)
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+partSummary(out5.2, 7:8)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+partSummary(out5.2, 9:10)
+@ 
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\begin{frame}[fragile]{Example}
+
+<<>>=
+parameterEstimates(out5.2) %>%
+  select(c("label", "est", "ci.lower", "ci.upper")) %>%
+  filter(label != "")
+@
+
+\end{frame}
+
+%%%--------------------------------------------------------------------------%%%
+
+\end{document}

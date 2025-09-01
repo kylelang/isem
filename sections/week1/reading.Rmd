@@ -1,0 +1,14 @@
+## Reading
+
+There is no official reading this week. 
+
+- If you'd like to deepen your dive into R, feel free to check out Hadley 
+  Wickham's excellent book [*R for Data Science*](https://r4ds.hadley.nz/).
+- Otherwise, you may want to get a jump-start on the
+  [At-Home Exercises](at-home-exercises.html) for this week.
+
+$$\va$$
+
+<p align = "center">
+![](https://i.gifer.com/JXA0.gif)
+</p>

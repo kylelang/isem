@@ -1,0 +1,30 @@
+# Full SEM
+
+```{r week6_global_options, include = FALSE}
+source("code/chapter_setup.R")
+partDir <- paste0(partDir0, "week6/")
+```
+
+This week, we will focus on integrating all of the disparate methods we've
+covered so far into full-fledged *structural equation models*.
+
+**Homework before the lecture**
+
+1. Watch the [Lecture Recording](lecture-5.html) for this week.
+1. Complete the [Reading](reading-5.html) for this week, and answer the 
+associated reading questions.
+
+**Homework before the practical**
+
+Complete the [At-Home Exercises](at-home-exercises-5.html). 
+
+**Practical content**
+
+During the practical you will work on the [In-Class Exercises](in-class-exercises-5.html).
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
+knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+```

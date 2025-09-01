@@ -1,0 +1,843 @@
+## In-Class Exercises
+
+```{r include = FALSE}
+opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
+dataDir <- "../../../../data/"
+```
+
+During this practical, you will work through some exercises meant to expand your
+statistical reasoning skills and improve your understanding of linear models.
+
+For this exercise, having some familiarity with regression will be helpful. If
+you feel like you need to refresh your knowledge in this area, consider the
+resources listed in the [Background knowledge](#background) section.
+
+**Data:**
+
+You will use the following dataset for these exercises.
+
+- [Sesam.sav](https://surfdrive.surf.nl/files/index.php/s/93FzuSnGidunEVA/download?path=%2F&files=Sesam.sav)
+
+--------------------------------------------------------------------------------
+
+### Data Exploration
+
+--------------------------------------------------------------------------------
+
+Open the file "Sesam.sav"
+
+```{r, eval = FALSE}
+# Load `dplyr` for data processing:
+library(dplyr)
+
+# Load the `haven` library for reading in SPSS files:
+library(haven)
+
+## Load the 'Sesam.sav' data
+## Use haven::zap_formats() to remove SPSS attributes
+sesam <- read_sav(file = "Sesam.sav") %>% zap_formats()
+```
+
+```{r, echo = FALSE}
+library(dplyr)
+library(haven)
+sesam <- read_sav(paste0(dataDir, "Sesam.sav")) %>% zap_formats()
+```
+
+--------------------------------------------------------------------------------
+
+This file is part of a larger dataset that evaluates the impact of the first
+year of the Sesame Street television series. Sesame Street is mainly concerned
+with teaching preschool related skills to children in the 3--5 year age range.
+
+The following variables will be used in this exercise:
+
+- **age**: measured in months
+- **prelet**: knowledge of letters before watching Sesame Street (range 0--58)
+- **prenumb**: knowledge of numbers before watching Sesame Street (range
+  0--54)
+- **prerelat**: knowledge of size/amount/position relationships before
+  watching Sesame Street (range 0--17)
+- **peabody**: vocabulary maturity before watching Sesame Street (range
+  20--120)
+- **postnumb**: knowledge of numbers after a year of Sesame Street (range
+  0--54)
+
+*Note*: Unless stated otherwise, the following questions refer to the `sesam`
+data and the above variables.
+
+--------------------------------------------------------------------------------
+
+#### 
+
+What is the type of each variable?
+
+*Hint:* The output of the `str()` function should be helpful here.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+## Examine the data structure:
+str(sesam)
+```
+
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+  All variables are numeric. `str()` uses the abbreviation "num" to indicate a
+  numeric vector.
+  
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+- What is the average age in the sample?
+- What is the age range (youngest and oldest child)?
+
+*Hint:* Use `tidySEM::descriptives()`
+
+<details>
+
+<summary>Click to show code</summary>
+
+As in the take home exercises, you can use the `descriptives()` function from
+the `tidySEM` package to describe the data:
+
+```{r}
+library(tidySEM)
+
+descriptives(sesam)
+```
+
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+  We can get the average age from the "mean" column in the table (
+  `r round(mean(sesam$age), 1)`), and the age range from the columns "min" and
+  "max", (`r round(min(sesam$age), 1)` and `r round(max(sesam$age), 1)`
+  respectively.)
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+#### {#changeScore}
+
+- What is the average gain in knowledge of numbers?
+- What is the standard deviation of this gain?
+
+*Hints:*
+
+- You will need to compute the gain and save the change score as a new object.
+- You can then use the base-R functions mean() and sd() to do the
+  calculations.
+
+<details>
+
+<summary>Click to show code</summary>
+
+Create a new variable that represents the difference between pre- and post-test
+scores on knowledge of numbers:
+
+```{r}
+sesam <- mutate(sesam, ndif = postnumb - prenumb)
+```
+
+Compute the mean and SD of the change score:
+
+```{r}
+sesam %>% summarise(mean(ndif), sd(ndif))
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+- Create an appropriate visualization of the gain scores you computed in 
+  \@ref(changeScore).
+- Justify your choice of visualization.
+
+*Hint:* Recall the visualizations for continuous variables covered in the
+[Week 1 In-Class Exercises](https://kylemlang.com/r-primers/class.html).
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+library(ggplot2)
+
+## Create an empty baseline plot object:
+p <- ggplot(sesam, aes(x = ndif))
+
+## Add some appropriate geoms:
+p + geom_histogram()
+p + geom_density()
+p + geom_boxplot()
+```
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+  Because the gain score is numeric, we should use something appropriate for
+  showing the distribution of a continuous variable. In this case, we can use
+  either a density plot, or a histogram (remember from the lecture, this is
+  like a density plot, but binned).
+    
+  We can also use a box plot, which can be a concise way to display a lot of
+  information about a variable in a little less space.
+  
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+- Create a visualization that provides information about the bivariate
+  relationship between the pre- and post-test number knowledge.
+- Justify your choice of visualization.
+- Describe the relationship based on what you see in your visualization.
+
+*Hint:* Again, some of the visualizations covered in the
+[Week 1 In-Class Exercises](https://kylemlang.com/r-primers/class.html) may be
+useful.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+## Create a scatterplot of the pre- and post-test number knowledge
+ggplot(sesam, aes(x = prenumb, y = postnumb)) +
+  geom_point()
+```
+
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+  A scatterplot is a good tool for showing patterns in the way that two
+  continuous variables relate to each other. From it, we can quickly gather
+  information about whether a relationship exists, its direction, its
+  strength, how much variation there is, and whether or not a relationship
+  might be non-linear.
+  
+  Based on this scatterplot, we see a positive relationship between the prior
+  knowledge of numbers and the knowledge of numbers at the end of the study.
+  Children who started with a higher level of numeracy also ended with a 
+  higher level of numeracy. 
+    
+  There is a considerable amount of variance in the relationship. Not every
+  child increases their numeracy between pre-test and post-test. Children show
+  differing amounts of increase. 
+  
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+### Linear Modeling
+
+--------------------------------------------------------------------------------
+
+#### 
+
+Are there significant, bivariate associations between *postnumb* and the
+following variables?
+
+- *age*
+- *prelet*
+- *prenumb*
+- *prerelat*
+- *peabody*
+
+Use Pearson correlations to answer this question.
+
+- You do not need to check the assumptions here (though you would in real life).
+
+*Hint:* The base-R `cor.test()` function and the `corr.test()` function from the
+`psych` package will both conduct hypothesis tests for a correlation
+coefficients (the base-R `cor()` function only computes the coefficients).
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+library(psych)
+
+## Test the correlations using psych::corr.test():
+sesam %>%
+  select(postnumb, age, prelet, prenumb, prerelat, peabody) %>%
+  corr.test()
+
+## OR ##
+
+library(magrittr)
+
+## Test the correlations using multiple cor.test() calls:
+sesam %$% cor.test(postnumb, age)
+sesam %$% cor.test(postnumb, prelet)
+sesam %$% cor.test(postnumb, prenumb)
+sesam %$% cor.test(postnumb, prerelat)
+sesam %$% cor.test(postnumb, peabody)
+```
+
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+  Yes, based on the p-values (remember that 0 here really means very small,
+  making it less than .05), we would say that there are significant
+  correlations between postnumb and all other variables in the data. (In fact,
+  all variables in the data are significantly correlated with one another.)
+  
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+#### {#reg1}
+
+Do *age* and *prenumb* explain a significant proportion of the variance in
+*postnumb*?
+
+- What statistic did you use to justify your conclusion?
+- Interpret the model fit.
+- Use the `lm()` function to fit your model.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+lmOut <- lm(postnumb ~ age + prenumb, data = sesam)
+summary(lmOut)
+```
+
+```{r, include = FALSE}
+s <- summary(lmOut)
+
+r2 <- s$r.squared %>% round(3)
+f <- s$fstatistic
+df1 <- f[2]
+df2 <- f[3]
+f <- f[1] %>% round(3)
+```
+
+  <details>
+
+  <summary>Click for explanation</summary>
+  - Yes, *age* and *prenumb* explain a significant amount of variability in
+    *postnumb* ($R^2 = `r r2`$, $F[`r df1`, `r df2`] = `r f`$, $p < 0.001$).
+  - We use the F statistic for the overall test of model fit to support this
+    conclusion.
+  - The variables *age* and *prenumb* together explain `r 100 * r2`% of the
+    variability in *postnumb*.
+
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Write the null and alternative hypotheses tested for in \@ref(reg1).
+
+<details>
+
+<summary>Click for explanation</summary>
+
+Since we are testing for explained variance, our hypotheses concern the $R^2$.
+
+$$
+\begin{align*}
+H_0: R^2 = 0\\
+H_1: R^2 > 0
+\end{align*}
+$$
+
+Note that this is a directional hypotheses because the $R^2$ cannot be negative.
+
+</details>
+
+--------------------------------------------------------------------------------
+
+#### {#syntax1}
+
+Define the model syntax to estimate the model from \@ref(reg1) as a path
+analysis using `lavaan`.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+mod <- 'postnumb ~ 1 + age + prenumb'
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+#### {#path1}
+
+Estimate the path analytic model you defined above.
+
+- Use the `lavaan::sem()` function to estimate the model.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+library(lavaan)
+
+lavOut1 <- sem(mod, data = sesam)
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Summarize the fitted model you estimated above.
+
+- Use the `summary()` function to summarize the model.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+summary(lavOut1)
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+In OLS regression, the predictor variables are usually treated as fixed and do
+not covary. We can easily relax this assumption in path analysis.
+
+--------------------------------------------------------------------------------
+
+####
+
+Re-estimate the path analytic model you defined in \@ref(syntax1).
+
+- Specify the predictors as random, correlated variables.
+  
+*Hint:* You can make the predictors random in, at least, two ways:
+    
+1. Modify the model syntax to specify the correlation between `age` and 
+   `prenumb`.
+1. Add `fixed.x = FALSE` to your `sem()` call.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+lavOut2 <- sem(mod, data = sesam, fixed.x = FALSE)
+
+## OR ##
+
+mod <- '
+postnumb ~ 1 + age + prenumb
+age ~~ prenumb
+'
+
+lavOut2 <- sem(mod, data = sesam)
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Summarize the fitted model you estimated above.
+
+- Compare the results to those from the OLS regression in \@ref(reg1) and the
+  path model in \@ref(path1).
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+summary(lavOut2)
+summary(lavOut1)
+summary(lmOut)
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Consider the path model below.
+
+- How many regression coefficients are estimated in this model?
+- How many variances are estimated?
+- How many covariances are estimated?
+
+```{r, echo = FALSE}
+mod <- "
+postnumb ~ prerelat + prelet + prenumb
+prerelat ~ age
+prelet ~ age
+prenumb ~ age
+"
+
+res <- lavaan::sem(mod, data = sesam)
+
+prepare_graph(res,
+  layout = get_layout("",    "prerelat", "",
+                      "age", "prelet",   "postnumb",
+                      "",    "prenumb",  "",
+    rows = 3
+  ),
+  angle = 1,
+  curvature = 60) %>% 
+  if_edges({show == TRUE}, {label = NA}) %>% 
+  if_edges({to == "postnumb" & op == "~"}, {connect_to = c("top", "left", "bottom")}) %>%
+  if_edges({to == "postnumb" & op == "~~"}, {connect_to = "right"; connect_from = "right"}) %>% 
+  plot()
+
+```
+
+<details>
+  
+<summary>Click for explanation</summary>
+
+- Six regression coefficients (red)
+- Four (residual) variances (blue)
+- No covariances
+
+```{r, echo = FALSE}
+  mod <- "
+  postnumb ~ prerelat + prelet + prenumb
+  prerelat ~ age
+  prelet ~ age
+  prenumb ~ age
+  "
+  
+res <- lavaan::sem(mod, data = sesam)
+prepare_graph(res,
+              layout = get_layout("",    "prerelat", "",
+                                  "age", "prelet",   "postnumb",
+                                  "",    "prenumb",  "",
+                                  rows = 3
+              ),
+              angle = 1,
+              curvature = 60) %>% 
+  if_edges({show == TRUE}, {label = NA}) %>% 
+  if_edges({to == "postnumb" & op == "~"}, {connect_to = c("top", "left", "bottom")}) %>%
+  if_edges({to == "postnumb" & op == "~~"}, {connect_to = "right"; connect_from = "right"}) %>% 
+  color_reg("red") %>%
+  color_var("blue") %>%
+  edit_nodes({
+    color <- "black"
+  }) %>%
+  #if_nodes(condition = {
+  #  name == "age"
+  #}, expr = {
+  #  color <- "orange"
+  #}) %>% 
+  plot(p)
+```
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Consider a multiple regression analysis with three continuous independent
+variables: scores on tests of language, history, and logic, and one continuous
+dependent variable: score on a math test. We want to know if scores on the
+language, history, and logic tests can predict the math test score.
+
+- Sketch a path model that you could use to answer this question
+- How many regression parameters are there?
+- How many variances could you estimate?
+- How many covariances could you estimate?
+
+--------------------------------------------------------------------------------
+
+### Categorical IVs
+
+--------------------------------------------------------------------------------
+
+Load the `Drivers.sav` data.
+
+```{r, eval = FALSE}
+# Read the data into a data frame named 'drivers':
+drivers <- read_sav("Drivers.sav") %>%
+  as_factor() # This preserves the SPSS labels for nominal variables
+```
+
+```{r, echo = FALSE}
+drivers <- read_sav(paste0(dataDir, "Drivers.sav")) %>%
+  as_factor()
+```
+
+--------------------------------------------------------------------------------
+
+In this section, we will evaluate the following research question:
+
+    Does talking on the phone interfere with people's driving skills?
+
+These data come from an experiment. The *condition* variable represents the
+three experimental conditions:
+
+- Hand-held phone
+- Hands-free phone
+- Control (no phone)
+
+We will use *condition* as the IV in our models. The DV, *RT*, represents the
+participant's reaction time (in milliseconds) during a driving simulation.
+
+--------------------------------------------------------------------------------
+
+####
+
+Use the package `ggplot2` to create a density plot for the variable *RT*. 
+
+-   What concept are we representing with this plot? 
+
+*Hint:* Consider the lap times example from 
+[the statistical modeling section](#statistical-modeling) of Lecture 2.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+ggplot(drivers, aes(x = RT)) +
+  geom_density()
+```
+ 
+  <details>
+ 
+  <summary>Click for explanation</summary>
+ 
+  This shows the distribution of all the combined reaction times from drivers
+  in all three categories. 
+ 
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Modify this density plot by mapping the variable *condition* from your data to
+the `fill` aesthetic in `ggplot`.
+
+- What is the difference between this plot and the previous plot? 
+- Do you think there is evidence for differences between the groups?
+- How might we test this by fitting a model to our sample?
+
+<details>
+
+<summary>Click to show code</summary>
+
+*Hint*: To modify the transparency of the densities, use the aesthetic `alpha`.
+
+```{r}
+ggplot(drivers, aes(x = RT, fill = condition)) +
+  geom_density(alpha = .5)
+```
+ 
+  <details>
+ 
+  <summary>Click for explanation</summary>
+ 
+  This figure models the conditional distribution of reaction time, where the
+  type of cell phone usage is the grouping factor. 
+ 
+  Things you can look at to visually assess whether the three groups differ are
+  the amount of overlap of the distributions, how much distance there is between
+  the individual means, and whether the combined distribution is much different
+  than the conditional distributions.
+
+  If we are willing to assume that these conditional distributions are normally
+  distributed and have equivalent variances, we could use a linear model with 
+  dummy-coded predictors. 
+ 
+  </details>
+ 
+</details>
+
+--------------------------------------------------------------------------------
+
+#### Aside: ANOVA vs. Linear Regression {.unnumbered}
+
+As you may know, the mathematical model underlying ANOVA is just a linear
+regression model with nominal IVs. So, in terms of the underlying statistical
+models, there is no difference between ANOVA and regression; the differences lie
+in the focus of the analysis.
+
+- ANOVA is really a type of statistical test wherein we are testing hypotheses
+  about the effects of some set of nominal grouping factors on some continuous
+  outcome.
+
+    - When doing an ANOVA, we usually don't interact directly with the
+      parameter estimates from the underlying model.
+
+- Regression is a type of statistical model (i.e., a way to represent a
+  univariate distribution with a conditional mean and fixed variance).
+
+    - When we do a regression analysis, we primarily focus on the estimated
+      parameters of the underling linear model.
+
+When doing ANOVA in R, we estimate the model exactly as we would for linear
+regression; we simply summarize the results differently.
+
+- If you want to summarize your model in terms of the *sums of squares* table
+  you usually see when running an ANOVA, you can supply your fitted `lm` object
+  to the `anova()` function.
+
+This is a statistical modeling course, not a statistical testing course, so we 
+will not consider ANOVA any further.
+
+--------------------------------------------------------------------------------
+
+#### {#reg2}
+
+Estimate a linear model that will answer the research question stated in the 
+beginning of this section.
+
+- Use `lm()` to estimate the model.
+- Summarize the fitted model and use the results to answer the research question.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+library(magrittr)
+
+lmOut <- drivers %>%
+  mutate(condition = relevel(condition, ref = "control")) %$%
+  lm(RT ~ condition)
+
+summary(lmOut)
+anova(lmOut)
+```
+
+  <details>
+  
+  <summary>Click for explanation</summary>
+  
+```{r, include = FALSE}
+  tmp <- anova(lmOut)
+  
+  f <- tmp[1, 4] %>% round(2)
+  df1 <- tmp[1, 1]
+  df2 <- tmp[2, 1]
+  p <- tmp[1, 5] %>% round(3)
+```
+  
+  The effect of *condition* on *RT* is nonsignificant
+  ($F[`r df1`, `r df2`] = `r f`$, $p = `r p`$). Therefore, based on these
+  results, we do not have evidence for an effect of mobile phone usage on
+  driving performance.
+  </details>
+
+</details>
+
+--------------------------------------------------------------------------------
+
+####
+
+Use **lavaan** to estimate the model from \@ref(reg2) as a path model.
+
+*Hint*: **lavaan** won't let us use factors for our categorical predictors. So,
+you will need to create your own dummy codes.
+
+<details>
+
+<summary>Click to show code</summary>
+
+```{r}
+## Specify the model syntax:
+mod <- 'RT ~ 1 + HH + HF'
+
+## Dummy code the factor variable:
+drivers2 <- mutate(drivers,
+                   ## Create dummy code for "hand-held" condition:
+                   HH = ifelse(condition == "hand-held", 1, 0),
+                   ## Create dummy code for "hands-free" condition:
+                   HF = ifelse(condition == "hands-free", 1, 0)
+                   )
+
+## Estimate the path model:
+lavOut <- sem(mod, data = drivers2)
+
+## Summarize the results:
+summary(lavOut)
+```
+
+Alternatively, we can combine the data processing and model estimation into a
+single pipeline, as shown below. 
+
+- This type of combined approach might be preferable if we do not want to
+  permanently add the dummy codes to the `drivers` dataset.
+- The multi-step approach shown above would be better if we were going to reuse
+  the dummy codes in subsequent analyses.
+
+```{r}
+lavOut2 <- drivers %>%
+  mutate(HH = ifelse(condition == "hand-held", 1, 0),
+         HF = ifelse(condition == "hands-free", 1, 0)
+         ) %>%
+  sem(mod, data = .) # Estimate the model
+
+## Do the two approaches produce the same results?
+all.equal(
+  parameterEstimates(lavOut), 
+  parameterEstimates(lavOut2)
+  )
+
+all.equal(
+  fitMeasures(lavOut), 
+  fitMeasures(lavOut2)
+  )
+```
+
+At this point, we haven't covered the tools you need to conduct the ANOVA-style 
+tests with path models. So, you can't yet answer the research question with the
+above model.
+
+- When we discuss model comparisons, you'll get the missing tools.
+
+</details>
+
+--------------------------------------------------------------------------------
+
+End of In-Class Exercises
+
+--------------------------------------------------------------------------------

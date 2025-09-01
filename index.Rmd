@@ -1,0 +1,250 @@
+--- 
+title: "Theory Construction and Statistical Modeling"
+author: "Kyle M. Lang"
+date: "Last updated: `r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+\newcommand{\va}{\\[12pt]}
+\newcommand{\vb}{\\[6pt]}
+\newcommand{\vc}{\\[3pt]}
+\newcommand{\vx}[1]{\\[#1pt]}
+
+```{r global_options, include = FALSE}
+library(knitr)
+library(dplyr)
+
+opts_chunk$set(warning = FALSE, message = FALSE)
+
+dataDir  <- "../../data/"
+```
+
+# Course Information {-}
+
+In order to test a theory, we must express the theory as a statistical model and 
+then test this model on quantitative (numeric) data. In this course we will use 
+datasets from different disciplines within the social sciences (educational 
+sciences, psychology, and sociology) to explain and illustrate theories and 
+practices that are used in all social science disciplines to statistically model 
+social science theories.
+
+This course uses existing tutorial datasets to practice the process of 
+translating verbal theories into testable statistical models. If you are 
+interested in the methods of acquiring high quality data to test your own theory, 
+we recommend following the course *Conducting a Survey* which is taught from 
+November to January.
+
+Most information about the course is available in this GitBook. Course-related 
+communication will be through <https://uu.blackboard.com> (Log in with your 
+student ID and password).
+
+<!----------------------------------------------------------------------------->
+
+## Acknowledgement {-}
+
+This course was originally developed by 
+[dr. Caspar van Lissa](https://www.tilburguniversity.edu/staff/c-j-vanlissa). 
+I ([dr. Kyle M. Lang](https://www.kylemlang.com)) have modified Caspar's original 
+materials and take full responsibility for any errors or inaccuracies introduced 
+through these modifications. Credit for any particularly effective piece of 
+pedagogy should probably go to Caspar.
+
+- You can view the original version of this course 
+[here](https://github.com/cjvanlissa/TCSM) on Caspar's GitHub page.
+
+<!----------------------------------------------------------------------------->
+
+## Instructors {-}
+
+**Coordinator:**
+
+[dr. Kyle M. Lang](https://www.kylemlang.com)
+
+**Lectures:**
+
+[dr. Kyle M. Lang](https://www.kylemlang.com)
+
+**Practicals:**
+
+[Rianne Kraakman](https://www.uu.nl/staff/amkraakman)
+
+[Daniëlle Remmerswaal](https://www.uu.nl/staff/DMRemmerswaal)
+
+[Danielle McCool](https://www.uu.nl/staff/DMMcCool)
+
+<!----------------------------------------------------------------------------->
+
+## Course overview {-}
+
+This course comprises three parts:
+
+1. *Path analysis*: You will learn how to estimate complex path models of observed 
+   variables (e.g., linked linear regressions) as structural equation models.
+1. *Factor analysis*: You will learn different ways of defining and estimating
+   latent (unobserved) constructs.
+1. *Full structural equation modeling*: You will combine the first two topics to 
+   estimate path models describing the associations among latent constructs.
+
+Each of these three themes will be evaluated with a separate assignment. 
+
+- The first two assignments will be graded on a pass/fail basis. 
+- Your course grade will be based on your third assignment grade.
+
+<!----------------------------------------------------------------------------->
+
+## Schedule {-}
+
+```{r print_schedule, echo = FALSE}
+options(knitr.kable.NA = "")
+
+readxl::read_excel("data/schedule.xlsx") %>%
+  knitr::kable(col.names = c("Course Week",
+                             "Calendar Week",
+                             "Lecture/Practical Topic",
+                             "Workgroup Activity",
+                             "Assignment Deadline")
+  )
+```
+
+*NOTE:* The schedule (including topics covered and assignment deadlines) is
+subject to change at the instructors' discretion.
+
+<!----------------------------------------------------------------------------->
+
+## Learning goals {-}
+
+In this course you will learn how to translate a social scientific theory into a 
+statistical model, how to analyze your data with these models, and how to 
+interpret and report your results following APA standards.
+
+After completing the course, you will be able to:
+
+1. Translate a verbal theory into a conceptual model, and translate a conceptual 
+model into a statistical model.
+1. Independently analyze data using the free, open-source statistical software R.
+1. Apply a *latent variable model* to a real-life problem wherein the observed 
+variables are only indirect indicators of an unobserved construct.
+1. Use a *path model* to represent the hypothesized causal relations among
+several variables, including relationships such as mediation and moderation.
+1. Explain to a fellow student how *structural equation modeling* combines 
+latent variable models with path models and the benefits of doing so.
+1. Reflect critically on the decisions involved in defining and estimating
+structural equation models.
+
+<!----------------------------------------------------------------------------->
+
+## Resources {-}
+
+---
+
+### Literature {-}
+
+**You do not need a separate book for this course!** 
+
+Most of the information is contained within this GitBook and the course readings 
+(which you will be able to access via links in this GitBook). 
+
+All literature is freely available online, as long as you are logging in from 
+within the UU-domain (i.e., from the UU campus or through an appropriate VPN). 
+All readings are linked in this GitBook via either direct download links or DOIs. 
+
+If you run into any trouble accessing a given article, searching for the title 
+using [Google Scholar][gs] or the [University Library][uu_lib] will probably due 
+the trick.
+
+---
+
+### Software {-}
+
+You will do all of your statistical analyses with the statistical programming 
+language/environment [R][r] and the add-on package [`lavaan`][lavaan].
+
+- If you want to expand your learning, you can follow this optional 
+[`lavaan` tutorial](https://lavaan.ugent.be/tutorial/). 
+
+<!----------------------------------------------------------------------------->
+
+## Reading questions {-}
+
+Along with every article, we will provide reading questions. You will not be 
+graded on the reading questions, but it is important to prepare the reading 
+questions before every lecture. The reading questions serve several important 
+purposes:
+
+-	Provide relevant background knowledge for the lecture
+-	Help you recognize and understand the key terms and concepts
+-	Make you aware of important publications that shaped the field
+- Help you extract the relevant insights from the literature
+
+<!----------------------------------------------------------------------------->
+
+## Weekly preparation {-}
+
+Before every class meeting (both lectures and practicals) you need to do the 
+assigned homework (delineated in the GitBook chapter for that week). This course 
+follows a *flipped classroom* procedure, so you must complete the weekly homework 
+to meaningfully participate in, and benefit from, the class meetings.
+
+---
+
+### Background knowledge {- #background}
+
+We assume you have basic knowledge about multivariate statistics before entering 
+this course. You do not need any prior experience working with R. If you wish to 
+refresh your knowledge, we recommend the chapters on ANOVA, multiple regression,
+and exploratory factor analysis from Field’s [*Discovering Statistics using R*][field]. 
+
+If you cannot access the Field book, many other introductory statistics textbooks 
+cover these topics equally well. So, use whatever you have lying around from 
+past statistics courses. You could also try one of the following open-access options:
+
+- [*Applied Statistics with R*][stats_with_r]
+- [*Introduction to Modern Statistics*][modern_stats]
+- [*Introduction to Statistical Learning*][isl]
+
+<!----------------------------------------------------------------------------->
+
+## Evaluation {-}
+
+Your grade for the course is based on a “portfolio” composed of the three 
+take-home assignments:
+
+1. Path modeling 
+    - Deadline: **Wednesday 2024-10-02 at 23:59**
+    - Group assignment
+    - Pass/Fail
+
+1. Confirmatory factor analysis
+    - Deadline: **Wednesday 2024-10-16 at 23:59**
+    - Group assignment
+    - Pass/Fail 
+
+1. Full structural equation modeling 
+    - Deadline: **Sunday 2024-11-03 at 23:59**
+    - Individual assignment
+    - Comprises your entire numeric course grade
+
+**The specifics of the assignments will be explicated in the 
+[Assignments](assignments.html) chapter of this GitBook**
+
+<!----------------------------------------------------------------------------->
+
+## Attendance {-}
+
+Attendance is not mandatory, but we strongly encourage you to attend all lectures 
+and practicals. In our experience, students who actively participate tend to pass 
+the course, whereas those who do not participate tend to drop out or fail. The 
+lectures and practicals build on each other, so, in the unfortunate event that 
+you have to miss a class meeting, please make sure you have caught up with the 
+material before the next session.
+
+<!----------------------------------------------------------------------------->
+
+[gs]: https://scholar.google.com/
+[uu_lib]: https://www.uu.nl/en/university-library
+[r]: https://www.r-project.org/
+[lavaan]: https://www.lavaan.ugent.be/
+[field]: https://www.discoveringstatistics.com/books/discovering-statistics-using-r/
+[stats_with_r]: https://book.stat420.org/
+[modern_stats]: https://openintro-ims.netlify.app/
+[isl]: https://www.statlearning.com
