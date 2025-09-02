@@ -1,15 +1,15 @@
 ## At-Home Exercises
 
-This week is all about gaining familiarity with R and RStudio. We'll be using 
-material from the introductory tutorials that were previously available as 
-*Posit Primers*. These exercises work through some basic elements of data
-visualization and statistical programming in R. Although you should already have
-R working, this week's practical exercises don't require that you have R
-installed on your system.
+This week is all about gaining familiarity with R and RStudio. We'll be using material from the introductory tutorials
+that were previously available as *Posit Primers*. These exercises work through some basic elements of data
+visualization and statistical programming in R. Although you should already have R working, this week's practical
+exercises don't require that you have R installed on your system.
 
-You can access the At-Home Exercises via the following link.
+You can access the At-Home Exercises via the following links.
 
-- [Link to At-Home Exercises](https://kylemlang.com/r-primers/home.html)
+- <a href="https://openstatprog.com/first-steps/index.html" target="_blank">Part 1: First Steps in R</a>
+- <a href="https://openstatprog.com/data-types/index.html" target="_blank">Part 2: R Data Types</a>
+- <a href="https://kylemlang.com/r-primers/home.html" target="_blank">Part 2: Visualization Basics</a>
 
 <!------------------------------------------------------------------------------
 

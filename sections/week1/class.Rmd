@@ -1,13 +1,12 @@
 ## In-Class Exercises
 
-In this week's practical, we'll go a little further into what's possible with R.
-Don't worry if you cannot remember everything in these primers---they're only
-meant to familiarize you with what is possible and to get you some experience
+In this week's practical, we'll go a little further into what's possible with R. Don't worry if you cannot remember
+everything in these primers---they're only meant to familiarize you with what is possible and to get you some experience
 interacting with R and RStudio.
 
 You can access the In-Class Exercises via the following link.
 
-- [Link to In-Class Exercises](https://kylemlang.com/r-primers/class.html)
+- <a href="https://kylemlang.com/r-primers/class.html" target="_blank">Link to In-Class Exercises</a>
 
 <!------------------------------------------------------------------------------
 
