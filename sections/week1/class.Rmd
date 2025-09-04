@@ -4,9 +4,10 @@ In this week's practical, we'll go a little further into what's possible with R.
 everything in these primers---they're only meant to familiarize you with what is possible and to get you some experience
 interacting with R and RStudio.
 
-You can access the In-Class Exercises via the following link.
+You can access the two parts of this week's In-Class Exercises via the following links.
 
-- <a href="https://kylemlang.com/r-primers/class.html" target="_blank">Link to In-Class Exercises</a>
+- <a href="https://www.kylemlang.com/isem-r-primers/visualization.html" target="_blank">Part 1: Data Visualization</a>
+- <a href="https://www.kylemlang.com/isem-r-primers/transformation.html" target="_blank">Part 2: Data Transformation</a>
 
 <!------------------------------------------------------------------------------
 
@@ -157,8 +158,8 @@ in this course.
 
 ### Recap {-}
 
-Hopefully, after completing the practical exercises for this week, you feel more
-comfortable using R's basic functionality.
+Hopefully, after completing the practical exercises for this week, you feel more comfortable using R's basic
+functionality.
 
 Here's a brief description of the functions covered in this week's practical exercises:
 
