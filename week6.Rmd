@@ -1,9 +1,9 @@
 # Fall Break
 
-No class this week.
+No class this week. We're currently indisposed, but we'll be back next week.
 
 <p align = "center">
-  ![](https://i.gifer.com/X5NY.gif)
+  ![](https://i.gifer.com/X5NY.gif){width=90%}
 </p>
 
 <!-- <p align = "center"> -->

@@ -5,12 +5,11 @@ opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
 dataDir <- "data"
 ```
 
-During this practical, you will work through some exercises meant to expand your
-statistical reasoning skills and improve your understanding of linear models.
+During this practical, you will work through some exercises meant to expand your statistical reasoning skills and
+improve your understanding of linear models.
 
-For this exercise, having some familiarity with regression will be helpful. If
-you feel like you need to refresh your knowledge in this area, consider the
-resources listed in the [Background knowledge](#background) section.
+For this exercise, having some familiarity with regression will be helpful. If you feel like you need to refresh your
+knowledge in this area, consider the resources listed in the [background knowledge](#background) section.
 
 ### Setup
 
@@ -87,23 +86,22 @@ sesam <- read_sav(here::here(dataDir, "Sesam.sav")) |> zap_formats()
 ------------------------------------------------------------------------------------------------------------------------
 
 This file is part of a larger dataset that evaluates the impact of the first year of the Sesame Street television
-  series. Sesame Street is mainly concerned with teaching preschool related skills to children in the 3--5 year age
-  range.
+series. Sesame Street is mainly concerned with teaching preschool related skills to children in the 3--5 year age range.
 
-The following variables will be used in this exercise:
+The following variables will be used in these exercises:
 
-- **age**: measured in months
-- **prelet**: knowledge of letters before watching Sesame Street (range 0--58)
-- **prenumb**: knowledge of numbers before watching Sesame Street (range 0--54)
-- **prerelat**: knowledge of size/amount/position relationships before watching Sesame Street (range 0--17)
-- **peabody**: vocabulary maturity before watching Sesame Street (range 20--120)
-- **postnumb**: knowledge of numbers after a year of Sesame Street (range 0--54)
+- **age**: Ages measured in months
+- **prelet**: Knowledge of letters before watching Sesame Street (range: 0--58)
+- **prenumb**: Knowledge of numbers before watching Sesame Street (range: 0--54)
+- **prerelat**: Knowledge of size/amount/position relationships before watching Sesame Street (range: 0--17)
+- **peabody**: Vocabulary maturity before watching Sesame Street (range: 20--120)
+- **postnumb**: Knowledge of numbers after a year of watching Sesame Street (range: 0--54)
 
 *Note*: Unless stated otherwise, the following questions refer to the `sesam` data and the above variables.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### 
+####
 
 What is the type of each variable?
 
@@ -149,8 +147,8 @@ descriptives(sesam)
   <details>
     <summary>Click for explanation</summary>
   
-  We can get the average age from the "mean" column in the table ( `r round(mean(sesam$age), 1)`), and the age range
-  from the columns "min" and "max", (`r round(min(sesam$age), 1)` and `r round(max(sesam$age), 1)` respectively.)
+  We can get the average age from the "mean" column in the table (`r round(mean(sesam$age), 1)`), and the age range
+  from the columns "min" and "max", (`r round(min(sesam$age), 1)` and `r round(max(sesam$age), 1)`, respectively.)
 
   </details>
 </details>
@@ -165,7 +163,7 @@ descriptives(sesam)
 *Hints:*
 
 - You will need to compute the gain and save the change score as a new object.
-- You can then use the base-R functions mean() and sd() to do the calculations.
+- You can then use the base-R functions `mean()` and `sd()` to do the calculations.
 
 <details>
   <summary>Click to show code</summary>
@@ -192,7 +190,7 @@ sesam |> summarise(mean(ndif), sd(ndif))
 - Justify your choice of visualization.
 
 *Hint:* Recall the visualizations for continuous variables covered in the
-[Week 1 In-Class Exercises](https://kylemlang.com/r-primers/class.html).
+[Week 1 In-Class Exercises](in-class-exercises.html)
 
 <details>
   <summary>Click to show code</summary>
@@ -230,8 +228,8 @@ p + geom_boxplot()
 number knowledge.
 - Justify your choice of visualization. Describe the relationship based on what you see in your visualization.
 
-*Hint:* Again, some of the visualizations covered in the
-[Week 1 In-Class Exercises](https://kylemlang.com/r-primers/class.html) may be useful.
+*Hint:* Again, some of the visualizations covered in the [Week 1 In-Class Exercises](in-class-exercises.html) may be
+useful.
 
 <details>
   <summary>Click to show code</summary>
@@ -244,18 +242,18 @@ ggplot(sesam, aes(x = prenumb, y = postnumb)) +
 
   <details>
     <summary>Click for explanation</summary>
-  
+
   A scatterplot is a good tool for showing patterns in the way that two continuous variables relate to each other. From
   it, we can quickly gather information about whether a relationship exists, its direction, its strength, how much
   variation there is, and whether or not a relationship might be non-linear.
-  
+
   Based on this scatterplot, we see a positive relationship between the prior knowledge of numbers and the knowledge of
   numbers at the end of the study. Children who started with a higher level of numeracy also ended with a higher level
-  of numeracy. 
-    
+  of numeracy.
+
   There is a considerable amount of variance in the relationship. Not every child increases their numeracy between
-  pre-test and post-test. Children show differing amounts of increase. 
-  
+  pre-test and post-test. Children show differing amounts of increase.
+
   </details>
 </details>
 

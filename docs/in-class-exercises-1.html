@@ -353,11 +353,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="in-class-exercises-1" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> In-Class Exercises<a href="in-class-exercises-1.html#in-class-exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>During this practical, you will work through some exercises meant to expand your
-statistical reasoning skills and improve your understanding of linear models.</p>
-<p>For this exercise, having some familiarity with regression will be helpful. If
-you feel like you need to refresh your knowledge in this area, consider the
-resources listed in the <a href="weekly-preparation.html#background">Background knowledge</a> section.</p>
+<p>During this practical, you will work through some exercises meant to expand your statistical reasoning skills and
+improve your understanding of linear models.</p>
+<p>For this exercise, having some familiarity with regression will be helpful. If you feel like you need to refresh your
+knowledge in this area, consider the resources listed in the <a href="weekly-preparation.html#background">background knowledge</a> section.</p>
 <div id="setup-1" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Setup<a href="in-class-exercises-1.html#setup-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Data:</strong></p>
@@ -427,16 +426,15 @@ Click to show code
 <span id="cb18-9"><a href="in-class-exercises-1.html#cb18-9" tabindex="-1"></a>sesam <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="at">file =</span> <span class="st">&quot;Sesam.sav&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">zap_formats</span>()</span></code></pre></div>
 <hr />
 <p>This file is part of a larger dataset that evaluates the impact of the first year of the Sesame Street television
-series. Sesame Street is mainly concerned with teaching preschool related skills to children in the 3–5 year age
-range.</p>
-<p>The following variables will be used in this exercise:</p>
+series. Sesame Street is mainly concerned with teaching preschool related skills to children in the 3–5 year age range.</p>
+<p>The following variables will be used in these exercises:</p>
 <ul>
-<li><strong>age</strong>: measured in months</li>
-<li><strong>prelet</strong>: knowledge of letters before watching Sesame Street (range 0–58)</li>
-<li><strong>prenumb</strong>: knowledge of numbers before watching Sesame Street (range 0–54)</li>
-<li><strong>prerelat</strong>: knowledge of size/amount/position relationships before watching Sesame Street (range 0–17)</li>
-<li><strong>peabody</strong>: vocabulary maturity before watching Sesame Street (range 20–120)</li>
-<li><strong>postnumb</strong>: knowledge of numbers after a year of Sesame Street (range 0–54)</li>
+<li><strong>age</strong>: Ages measured in months</li>
+<li><strong>prelet</strong>: Knowledge of letters before watching Sesame Street (range: 0–58)</li>
+<li><strong>prenumb</strong>: Knowledge of numbers before watching Sesame Street (range: 0–54)</li>
+<li><strong>prerelat</strong>: Knowledge of size/amount/position relationships before watching Sesame Street (range: 0–17)</li>
+<li><strong>peabody</strong>: Vocabulary maturity before watching Sesame Street (range: 20–120)</li>
+<li><strong>postnumb</strong>: Knowledge of numbers after a year of watching Sesame Street (range: 0–54)</li>
 </ul>
 <p><em>Note</em>: Unless stated otherwise, the following questions refer to the <code>sesam</code> data and the above variables.</p>
 <hr />
@@ -494,8 +492,8 @@ data:</p>
 <summary>
 Click for explanation
 </summary>
-<p>We can get the average age from the “mean” column in the table ( 51.5), and the age range
-from the columns “min” and “max”, (34 and 69 respectively.)</p>
+<p>We can get the average age from the “mean” column in the table (51.5), and the age range
+from the columns “min” and “max”, (34 and 69, respectively.)</p>
 </details>
 </details>
 <hr />
@@ -509,7 +507,7 @@ from the columns “min” and “max”, (34 and 69 respectively.)</p>
 <p><em>Hints:</em></p>
 <ul>
 <li>You will need to compute the gain and save the change score as a new object.</li>
-<li>You can then use the base-R functions mean() and sd() to do the calculations.</li>
+<li>You can then use the base-R functions <code>mean()</code> and <code>sd()</code> to do the calculations.</li>
 </ul>
 <details>
 <summary>
@@ -534,7 +532,7 @@ Click to show code
 <li>Justify your choice of visualization.</li>
 </ul>
 <p><em>Hint:</em> Recall the visualizations for continuous variables covered in the
-<a href="https://kylemlang.com/r-primers/class.html">Week 1 In-Class Exercises</a>.</p>
+<a href="in-class-exercises.html">Week 1 In-Class Exercises</a></p>
 <details>
 <summary>
 Click to show code
@@ -571,8 +569,8 @@ less space.</p>
 number knowledge.</li>
 <li>Justify your choice of visualization. Describe the relationship based on what you see in your visualization.</li>
 </ul>
-<p><em>Hint:</em> Again, some of the visualizations covered in the
-<a href="https://kylemlang.com/r-primers/class.html">Week 1 In-Class Exercises</a> may be useful.</p>
+<p><em>Hint:</em> Again, some of the visualizations covered in the <a href="in-class-exercises.html">Week 1 In-Class Exercises</a> may be
+useful.</p>
 <details>
 <summary>
 Click to show code

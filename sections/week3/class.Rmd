@@ -304,11 +304,11 @@ agg <- tmp |> filter(label == "ie_agg")
     <summary>Click for explanation</summary>
     
 The IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial Behavior* is significant
-($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
-$Z = `r pro$z |> round(2)`$, $p = `r (pro$p / 2) |> round(3)`$),
-as is the analogous IE through *Aggressive Behavior* 
-($\hat{\textit{IE}} = `r agg$est |> round(3)`$,
-$Z = `r agg$z |> round(2)`$, $p = `r (agg$p / 2) |> round(3)`$).
+$(\hat{\textit{IE}} = `r pro$est |> round(3)`$,
+$Z = `r pro$z |> round(2)`$, $p = `r (pro$p / 2) |> round(3)`)$,
+as is the analogous IE through *Aggressive Behavior*
+$(\hat{\textit{IE}} = `r agg$est |> round(3)`$,
+$Z = `r agg$z |> round(2)`$, $p = `r (agg$p / 2) |> round(3)`)$.
 Though, this latter effect is just barely significant at the $\alpha = 0.05$ level.
 
   </details>
@@ -366,13 +366,13 @@ agg <- tmp |> filter(label == "ie_agg")
 ```
 
 As with the normal-theory tests, the hypothesized IE of *Peer Attachment* on *Self Esteem* was significant
-($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
+$(\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
 $Z = `r pro$z |> round(2)`$,
-$p = `r (pro$p / 2) |> round(3)`$),
+$p = `r (pro$p / 2) |> round(3)`)$,
 but the IE of *Aggressive Behavior* has crossed into nonsignificant territory
-($\hat{\textit{IE}} = `r agg$est |> round(3)`$, 
+$(\hat{\textit{IE}} = `r agg$est |> round(3)`$, 
 $Z = `r agg$z |> round(2)`$,
-$p = `r (agg$p / 2) |> round(3)`$).
+$p = `r (agg$p / 2) |> round(3)`)$.
 
 *Note:* Bootstrapping is a stochastic method, so each run can provide different results. Since the indirect effect of
 aggressive behavior is so close to the critical value, you may come to a different conclusions vis-á-vis statistical
@@ -442,11 +442,11 @@ When evaluating a directional hypothesis with a CI, we only consider one of the 
 
 As with the previous tests, the IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial Behavior* is
 significant 
-($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
-$95\% ~ CI = [`r pro$ci.lower |> round(3)`; \infty]$),
+$(\hat{\textit{IE}} = `r pro$est |> round(3)`$,
+$95\% ~ CI = [`r pro$ci.lower |> round(3)`; \infty])$,
 as is the analogous IE through *Aggressive Behavior*
-($\hat{\textit{IE}} = `r agg$est |> round(3)`$, 
-$95\% ~ CI = [-\infty; `r agg$ci.upper |> round(3)`]$).
+$(\hat{\textit{IE}} = `r agg$est |> round(3)`$,
+$95\% ~ CI = [-\infty; `r agg$ci.upper |> round(3)`])$.
 
   </details>
 </details>

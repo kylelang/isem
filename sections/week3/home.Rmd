@@ -304,7 +304,7 @@ pa <- tmp |> filter(label == "ie")
 ```
 
 The IE of *Peer Attachment* on *Self Esteem* through *Empathy* is statistically significant
-($\hat{\textit{IE}} = `r pa$est |> round(3)`$, $Z = `r pa$z |> round(2)`$, $p = `r (pa$p / 2) |> round(3)`$).
+$(\hat{\textit{IE}} = `r pa$est |> round(3)`$, $Z = `r pa$z |> round(2)`$, $p = `r (pa$p / 2) |> round(3)`)$.
   
 *Note:* The p-value above doesn't match the output because we're testing a directional hypothesis, but **lavaan**
 conducts two-tailed tests for the model parameters.
@@ -392,23 +392,23 @@ cPeer[1, "est"] |> class()
 
 According to the Sobel-style test, after controlling for *peer attachment*, the indirect effect of *parental attachment*
 on *self-esteem* was nonsignificant
-($\hat{\textit{IE}} = `r ieParent[1, "est"] |> round(3)`$,
+$(\hat{\textit{IE}} = `r ieParent[1, "est"] |> round(3)`$,
 $Z = `r ieParent[1, "z"] |> round(2)`$,
-$p = `r ieParent[1, "pvalue"] |> round(3)`$), 
+$p = `r ieParent[1, "pvalue"] |> round(3)`)$, 
 whereas the analogous direct effect was significant
-($\hat{\beta} = `r cParent[1, "est"] |> round(3)`$,
+$(\hat{\beta} = `r cParent[1, "est"] |> round(3)`$,
 $Z = `r cParent[1, "z"] |> round(2)`$,
-$p < 0.001$).
+$p < 0.001)$.
 
 On the other hand, after controlling for *parental attachment*, the indirect effect of *peer attachment* on
 *self-esteem* was statistically significant
-($\hat{\textit{IE}} = `r iePeer[1, "est"] |> round(3)`$,
+$(\hat{\textit{IE}} = `r iePeer[1, "est"] |> round(3)`$,
 $Z = `r iePeer[1, "z"] |> round(2)`$,
-$p = `r iePeer[1, "pvalue"] |> round(3)`$),
+$p = `r iePeer[1, "pvalue"] |> round(3)`)$,
 but the direct effect was nonsignificant
-($\hat{\beta} = `r cPeer[1, "est"] |> round(3)`$,
+$(\hat{\beta} = `r cPeer[1, "est"] |> round(3)`$,
 $Z = `r cPeer[1, "z"] |> round(2)`$,
-$p = `r cPeer[1, "pvalue"] |> round(3)`$).
+$p = `r cPeer[1, "pvalue"] |> round(3)`)$.
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -768,5 +768,3 @@ p2
 ------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
-
-------------------------------------------------------------------------------------------------------------------------
