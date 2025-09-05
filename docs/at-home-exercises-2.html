@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.3 At-Home Exercises | Introduction to Structural Equation Modeling</title>
+  <meta name="description" content="3.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  
+  
+  
+
+<meta name="author" content="Kyle M. Lang" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reading-2.html"/>
+<link rel="next" href="in-class-exercises-2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">TCSM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Information</a>
+<ul>
+<li class="chapter" data-level="" data-path="acknowledgement.html"><a href="acknowledgement.html"><i class="fa fa-check"></i>Acknowledgement</a></li>
+<li class="chapter" data-level="" data-path="instructors.html"><a href="instructors.html"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="course-overview.html"><a href="course-overview.html"><i class="fa fa-check"></i>Course overview</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="learning-goals.html"><a href="learning-goals.html"><i class="fa fa-check"></i>Learning goals</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i>Resources</a>
+<ul>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#literature"><i class="fa fa-check"></i>Literature</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#software"><i class="fa fa-check"></i>Software</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="reading-questions.html"><a href="reading-questions.html"><i class="fa fa-check"></i>Reading questions</a></li>
+<li class="chapter" data-level="" data-path="weekly-preparation.html"><a href="weekly-preparation.html"><i class="fa fa-check"></i>Weekly preparation</a>
+<ul>
+<li class="chapter" data-level="" data-path="weekly-preparation.html"><a href="weekly-preparation.html#background"><i class="fa fa-check"></i>Background knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="evaluation.html"><a href="evaluation.html"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="attendance.html"><a href="attendance.html"><i class="fa fa-check"></i>Attendance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1_components.html"><a href="a1_components.html"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1_components.html"><a href="a1_components.html#evaluation-1"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a1_components.html"><a href="a1_components.html#submission"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="a2_worksheet.html"><a href="a2_worksheet.html"><i class="fa fa-check"></i>Assignment 2: Confirmatory Factor Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="a2_worksheet.html"><a href="a2_worksheet.html#evaluation-2"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a2_worksheet.html"><a href="a2_worksheet.html#submission-1"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="a3_components.html"><a href="a3_components.html"><i class="fa fa-check"></i>Assignment 3: Full Structural Equation Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="a3_components.html"><a href="a3_components.html#evaluation-3"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a3_components.html"><a href="a3_components.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html"><i class="fa fa-check"></i>Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#coping-with-covid"><i class="fa fa-check"></i>Coping with Covid</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#feminist-perspectives-scale"><i class="fa fa-check"></i>Feminist Perspectives Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#hypersensitive-narcissism-scale-dirty-dozen"><i class="fa fa-check"></i>Hypersensitive Narcissism Scale &amp; Dirty Dozen</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#kentucky-inventory-of-mindfulness-skills"><i class="fa fa-check"></i>Kentucky Inventory of Mindfulness Skills</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#depression-anxiety-stress-scale"><i class="fa fa-check"></i>Depression Anxiety Stress Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#nomophobia"><i class="fa fa-check"></i>Nomophobia</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#recycled-water-acceptance"><i class="fa fa-check"></i>Recycled Water Acceptance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-3"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
+<ul>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#collaboration"><i class="fa fa-check"></i>Collaboration</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#academic-integrity"><i class="fa fa-check"></i>Academic integrity</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#using-ai-tools"><i class="fa fa-check"></i>Using AI tools</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#strict-stuff"><i class="fa fa-check"></i>Strict stuff</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html"><i class="fa fa-check"></i>Installing software</a>
+<ul>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-rstudio"><i class="fa fa-check"></i>Installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="course-data.html"><a href="course-data.html"><i class="fa fa-check"></i>Course Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="note-on-data-updates.html"><a href="note-on-data-updates.html"><i class="fa fa-check"></i>Note on Data Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="lecture.html"><a href="lecture.html"><i class="fa fa-check"></i><b>1.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="lecture.html"><a href="lecture.html#recordings"><i class="fa fa-check"></i><b>1.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="1.1.2" data-path="lecture.html"><a href="lecture.html#slides"><i class="fa fa-check"></i><b>1.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading.html"><a href="reading.html"><i class="fa fa-check"></i><b>1.2</b> Reading</a></li>
+<li class="chapter" data-level="1.3" data-path="at-home-exercises.html"><a href="at-home-exercises.html"><i class="fa fa-check"></i><b>1.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="1.4" data-path="in-class-exercises.html"><a href="in-class-exercises.html"><i class="fa fa-check"></i><b>1.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="" data-path="in-class-exercises.html"><a href="in-class-exercises.html#recap"><i class="fa fa-check"></i>Recap</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="statistical-modeling-path-analysis.html"><a href="statistical-modeling-path-analysis.html"><i class="fa fa-check"></i><b>2</b> Statistical Modeling &amp; Path Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="lecture-1.html"><a href="lecture-1.html"><i class="fa fa-check"></i><b>2.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="lecture-1.html"><a href="lecture-1.html#recordings-1"><i class="fa fa-check"></i><b>2.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="2.1.2" data-path="lecture-1.html"><a href="lecture-1.html#slides-1"><i class="fa fa-check"></i><b>2.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="reading-1.html"><a href="reading-1.html"><i class="fa fa-check"></i><b>2.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#reference"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#questions"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#suggested-reading-optional"><i class="fa fa-check"></i>Suggested Reading (Optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html"><i class="fa fa-check"></i><b>2.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#setup"><i class="fa fa-check"></i><b>2.3.1</b> Setup</a></li>
+<li class="chapter" data-level="2.3.2" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section"><i class="fa fa-check"></i><b>2.3.2</b> </a></li>
+<li class="chapter" data-level="2.3.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-1"><i class="fa fa-check"></i><b>2.3.3</b> </a></li>
+<li class="chapter" data-level="2.3.4" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr1"><i class="fa fa-check"></i><b>2.3.4</b> </a></li>
+<li class="chapter" data-level="2.3.5" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr2"><i class="fa fa-check"></i><b>2.3.5</b> </a></li>
+<li class="chapter" data-level="2.3.6" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr3"><i class="fa fa-check"></i><b>2.3.6</b> </a></li>
+<li class="chapter" data-level="2.3.7" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#mlr"><i class="fa fa-check"></i><b>2.3.7</b> </a></li>
+<li class="chapter" data-level="2.3.8" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-2"><i class="fa fa-check"></i><b>2.3.8</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html"><i class="fa fa-check"></i><b>2.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#setup-1"><i class="fa fa-check"></i><b>2.4.1</b> Setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#data-exploration"><i class="fa fa-check"></i><b>2.4.2</b> Data Exploration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#linear-modeling"><i class="fa fa-check"></i><b>2.4.3</b> Linear Modeling</a></li>
+<li class="chapter" data-level="2.4.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#categorical-ivs"><i class="fa fa-check"></i><b>2.4.4</b> Categorical IVs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mediation-moderation.html"><a href="mediation-moderation.html"><i class="fa fa-check"></i><b>3</b> Mediation &amp; Moderation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture-2.html"><a href="lecture-2.html"><i class="fa fa-check"></i><b>3.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="lecture-2.html"><a href="lecture-2.html#recordings-2"><i class="fa fa-check"></i><b>3.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="3.1.2" data-path="lecture-2.html"><a href="lecture-2.html#slides-2"><i class="fa fa-check"></i><b>3.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="reading-2.html"><a href="reading-2.html"><i class="fa fa-check"></i><b>3.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-1"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-1"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-2"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-2"><i class="fa fa-check"></i>Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html"><i class="fa fa-check"></i><b>3.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#setup-2"><i class="fa fa-check"></i><b>3.3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.3.2" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#mediation"><i class="fa fa-check"></i><b>3.3.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#moderation"><i class="fa fa-check"></i><b>3.3.3</b> Moderation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html"><i class="fa fa-check"></i><b>3.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#setup-3"><i class="fa fa-check"></i><b>3.4.1</b> Setup</a></li>
+<li class="chapter" data-level="3.4.2" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#mediation-1"><i class="fa fa-check"></i><b>3.4.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#moderation-1"><i class="fa fa-check"></i><b>3.4.3</b> Moderation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cfa-i.html"><a href="cfa-i.html"><i class="fa fa-check"></i><b>4</b> CFA I</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture-3.html"><a href="lecture-3.html"><i class="fa fa-check"></i><b>4.1</b> Lecture</a></li>
+<li class="chapter" data-level="4.2" data-path="reading-3.html"><a href="reading-3.html"><i class="fa fa-check"></i><b>4.2</b> Reading</a></li>
+<li class="chapter" data-level="4.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html"><i class="fa fa-check"></i><b>4.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html"><i class="fa fa-check"></i><b>4.4</b> In-Class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cfa-ii.html"><a href="cfa-ii.html"><i class="fa fa-check"></i><b>5</b> CFA II</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="lecture-4.html"><a href="lecture-4.html"><i class="fa fa-check"></i><b>5.1</b> Lecture</a></li>
+<li class="chapter" data-level="5.2" data-path="reading-4.html"><a href="reading-4.html"><i class="fa fa-check"></i><b>5.2</b> Reading</a></li>
+<li class="chapter" data-level="5.3" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html"><i class="fa fa-check"></i><b>5.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="5.4" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html"><i class="fa fa-check"></i><b>5.4</b> In-Class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fall-break.html"><a href="fall-break.html"><i class="fa fa-check"></i><b>6</b> Fall Break</a></li>
+<li class="chapter" data-level="7" data-path="full-sem.html"><a href="full-sem.html"><i class="fa fa-check"></i><b>7</b> Full SEM</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture-5.html"><a href="lecture-5.html"><i class="fa fa-check"></i><b>7.1</b> Lecture</a></li>
+<li class="chapter" data-level="7.2" data-path="reading-5.html"><a href="reading-5.html"><i class="fa fa-check"></i><b>7.2</b> Reading</a></li>
+<li class="chapter" data-level="7.3" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html"><i class="fa fa-check"></i><b>7.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="7.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html"><i class="fa fa-check"></i><b>7.4</b> In-Class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-group-models.html"><a href="multiple-group-models.html"><i class="fa fa-check"></i><b>8</b> Multiple Group Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lecture-6.html"><a href="lecture-6.html"><i class="fa fa-check"></i><b>8.1</b> Lecture</a></li>
+<li class="chapter" data-level="8.2" data-path="reading-6.html"><a href="reading-6.html"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html"><i class="fa fa-check"></i><b>8.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html"><i class="fa fa-check"></i><b>8.4</b> In-Class Exercises</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Structural Equation Modeling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="at-home-exercises-2" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> At-Home Exercises<a href="at-home-exercises-2.html#at-home-exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<div id="setup-2" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Setup<a href="at-home-exercises-2.html#setup-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Data:</strong></p>
+<p>You will need two datasets to complete the following exercises.</p>
+<ul>
+<li><a href="https://surfdrive.surf.nl/files/index.php/s/iA7Pjomr6BM6D6c">SelfEsteem</a></li>
+<li><a href="https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M">Sesam2</a></li>
+</ul>
+<p><strong>Packages:</strong></p>
+<p>You will also need to install the <strong>forcats</strong> package.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">forcats</td>
+<td align="left">A handy tidyverse package for manipulating categorical data</td>
+</tr>
+</tbody>
+</table>
+<p>Use the <code>install.packages()</code> function to install <strong>forcats</strong>.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="at-home-exercises-2.html#cb65-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;forcats&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="mediation" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Mediation<a href="at-home-exercises-2.html#mediation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>In the first part of this practical, we will analyze the data contained in <em>SelfEsteem.sav</em>. These data comprise 143
+observations of the following variables.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<ul>
+<li><em>case</em>: Participant ID number</li>
+<li><em>ParAtt</em>: Parental Attachment</li>
+<li><em>PeerAtt</em>: Peer Attachment</li>
+<li><em>Emp</em>: Empathy</li>
+<li><em>ProSoc</em>: Prosocial behavior</li>
+<li><em>Aggr</em>: Aggression</li>
+<li><em>SelfEst</em>: Self-esteem</li>
+</ul>
+<hr />
+<div id="section-17" class="section level4" number="3.3.2.1">
+<h4><span class="header-section-number">3.3.2.1</span> </h4>
+<p>Load the <em>SelfEsteem.sav</em> data.</p>
+<p><em>Note</em>: Unless otherwise specified, all analyses in Section <a href="at-home-exercises-2.html#mediation">3.3.2</a> apply to these data.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="at-home-exercises-2.html#cb66-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb66-2"><a href="at-home-exercises-2.html#cb66-2" tabindex="-1"></a>seData <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;SelfEsteem.sav&quot;</span>)</span></code></pre></div>
+</details>
+<hr />
+<p>Suppose we are interested in the (indirect) effect of peer attachment on self-esteem, and whether empathy has a
+mediating effect on this relationship.</p>
+<p>We might generate the following hypotheses:</p>
+<ol style="list-style-type: decimal">
+<li>Better peer relationships promote higher self esteem</li>
+<li>This effect is mediated by a student’s empathy levels, where better peer relationships increase empathy, and higher
+levels of empathy lead to higher self-esteem.</li>
+</ol>
+<p>To evaluate these hypotheses, we will use <strong>lavaan</strong> to estimate a path model.</p>
+<hr />
+</div>
+<div id="section-18" class="section level4" number="3.3.2.2">
+<h4><span class="header-section-number">3.3.2.2</span> </h4>
+<p>Draw a path model (on paper) that can be used to test the above hypotheses.</p>
+<ul>
+<li>Label the input (X), outcome (Y), and mediator/intermediary (M).</li>
+<li>Label the paths a, b, and c’.</li>
+</ul>
+<p><em>Hint:</em> Refer back to the <a href="lecture-2.html#mediation-basics">Mediation Basics</a> lecture if you need help here.</p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<img src="isem_files/figure-html/unnamed-chunk-141-1.png" width="672" />
+</details>
+<hr />
+</div>
+<div id="w3hsyntax" class="section level4" number="3.3.2.3">
+<h4><span class="header-section-number">3.3.2.3</span> </h4>
+<p>Specify the lavaan model syntax implied by the path diagram shown above.</p>
+<ul>
+<li>Save the resulting character string as an object in your environment.</li>
+</ul>
+<p><em>Hint:</em> Refer back to the example in which opinions of systematic racism mediate the relationship between political
+affiliation and support for affirmative action policies from the <a href="lecture-2.html#mediation-testing">Mediation Testing</a> lecture this
+week.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="at-home-exercises-2.html#cb67-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb67-2"><a href="at-home-exercises-2.html#cb67-2" tabindex="-1"></a><span class="st">## Equation for outcome:</span></span>
+<span id="cb67-3"><a href="at-home-exercises-2.html#cb67-3" tabindex="-1"></a><span class="st">SelfEst ~ Emp + PeerAtt</span></span>
+<span id="cb67-4"><a href="at-home-exercises-2.html#cb67-4" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="at-home-exercises-2.html#cb67-5" tabindex="-1"></a><span class="st">## Equation for the mediator:</span></span>
+<span id="cb67-6"><a href="at-home-exercises-2.html#cb67-6" tabindex="-1"></a><span class="st">Emp ~ PeerAtt</span></span>
+<span id="cb67-7"><a href="at-home-exercises-2.html#cb67-7" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-19" class="section level4" number="3.3.2.4">
+<h4><span class="header-section-number">3.3.2.4</span> </h4>
+<p>Use the <code>lavaan::sem()</code> function to estimate the model defined in <a href="at-home-exercises-2.html#w3hsyntax">3.3.2.3</a>.</p>
+<ul>
+<li>Use the default settings in <code>sem()</code>.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="at-home-exercises-2.html#cb68-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb68-2"><a href="at-home-exercises-2.html#cb68-2" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> seData)</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-20" class="section level4" number="3.3.2.5">
+<h4><span class="header-section-number">3.3.2.5</span> </h4>
+<p>Explore the summary of the fitted model.</p>
+<ul>
+<li>Which numbers correspond to the a, b, and c’ paths?</li>
+<li>Interpret these paths.</li>
+<li>Do the direction of the effects seem to align with our hypothesis?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="at-home-exercises-2.html#cb69-1" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                         5
+## 
+##   Number of observations                           143
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   SelfEst ~                                           
+##     Emp               0.234    0.091    2.568    0.010
+##     PeerAtt           0.174    0.088    1.968    0.049
+##   Emp ~                                               
+##     PeerAtt           0.349    0.076    4.628    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .SelfEst           0.934    0.110    8.456    0.000
+##    .Emp               0.785    0.093    8.456    0.000</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The results show estimates of the <em>a</em> path (<code>Emp ~ PeerAtt</code>), the <em>b</em> path (<code>SelfEst ~ Emp</code>), and the <em>c’</em> path
+(<code>SelfEst ~ PeerAtt</code>).</p>
+<p>All three of these effects are positive and significant, including the direct effect of <code>PeerAtt</code> on <code>SelfEst</code>
+(<span class="math inline">\(\beta = 0.174\)</span>,
+<span class="math inline">\(Z = 1.97\)</span>,
+<span class="math inline">\(p = 0.025\)</span>),
+and the parts of the indirect effect made up by the effect of <code>PeerAtt</code> on <code>Emp</code>
+(<span class="math inline">\(\beta = 0.349\)</span>,
+<span class="math inline">\(Z = 4.63\)</span>,
+<span class="math inline">\(p = 0\)</span>),
+and <code>Emp</code> on <code>SelfEst</code>
+(<span class="math inline">\(\beta = 0.234\)</span>,
+<span class="math inline">\(Z = 2.57\)</span>,
+<span class="math inline">\(p = 0.005\)</span>).</p>
+<p>We can see that the direction of the effects seems to support of our hypotheses, but without taking the next steps to
+investigate the indirect effect, we should be hesitant to say more.</p>
+</details>
+</details>
+<hr />
+<p>Remember that an indirect effect (IE) is the product of multiple regression slopes. Therefore, to estimate an IE, we
+must define this product in our model syntax. In <strong>lavaan</strong>, we define the new IE parameter in two steps.</p>
+<ol style="list-style-type: decimal">
+<li>Label the relevant regression paths.</li>
+<li>Use the labels to define a new parameter that represent the desired IE.</li>
+</ol>
+<p>We can define new parameters in lavaan model syntax via the <code>:=</code> operator. The <strong>lavaan</strong> website contains a tutorial on
+this procedure: <a href="http://lavaan.ugent.be/tutorial/mediation.html" class="uri">http://lavaan.ugent.be/tutorial/mediation.html</a></p>
+<hr />
+</div>
+<div id="section-21" class="section level4" number="3.3.2.6">
+<h4><span class="header-section-number">3.3.2.6</span> </h4>
+<p>Use the procedure described above to modify the model syntax from <a href="at-home-exercises-2.html#w3hsyntax">3.3.2.3</a> by adding the definition of the
+hypothesized IE from <code>PeerAtt</code> to <code>SelfEst</code>.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="at-home-exercises-2.html#cb71-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb71-2"><a href="at-home-exercises-2.html#cb71-2" tabindex="-1"></a><span class="st">## Equation for outcome:</span></span>
+<span id="cb71-3"><a href="at-home-exercises-2.html#cb71-3" tabindex="-1"></a><span class="st">SelfEst ~ b * Emp + PeerAtt</span></span>
+<span id="cb71-4"><a href="at-home-exercises-2.html#cb71-4" tabindex="-1"></a></span>
+<span id="cb71-5"><a href="at-home-exercises-2.html#cb71-5" tabindex="-1"></a><span class="st">## Equation for mediator:</span></span>
+<span id="cb71-6"><a href="at-home-exercises-2.html#cb71-6" tabindex="-1"></a><span class="st">Emp ~ a * PeerAtt</span></span>
+<span id="cb71-7"><a href="at-home-exercises-2.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="at-home-exercises-2.html#cb71-8" tabindex="-1"></a><span class="st">## Indirect effect:</span></span>
+<span id="cb71-9"><a href="at-home-exercises-2.html#cb71-9" tabindex="-1"></a><span class="st">ie := a * b </span></span>
+<span id="cb71-10"><a href="at-home-exercises-2.html#cb71-10" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>Notice that I only label the parameters that I will use to define the IE. You are free to label any parameter that you
+like, but I choose the to label only the minimally sufficient set to avoid cluttering the code/output.</p>
+</details>
+</details>
+<hr />
+</div>
+<div id="section-22" class="section level4" number="3.3.2.7">
+<h4><span class="header-section-number">3.3.2.7</span> </h4>
+<p>Use <code>lavaan::sem()</code> to estimate the model with the IEs defined.</p>
+<ul>
+<li>Use the default settings for <code>sem()</code>.</li>
+<li>Is the hypothesized IE significant according to the default tests?</li>
+</ul>
+<p><em>Hint:</em> Refer to the <a href="lecture-2.html#mediation-testing">Mediation Testing</a> lecture</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="at-home-exercises-2.html#cb72-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> seData)</span>
+<span id="cb72-2"><a href="at-home-exercises-2.html#cb72-2" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                         5
+## 
+##   Number of observations                           143
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   SelfEst ~                                           
+##     Emp        (b)    0.234    0.091    2.568    0.010
+##     PeerAtt           0.174    0.088    1.968    0.049
+##   Emp ~                                               
+##     PeerAtt    (a)    0.349    0.076    4.628    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .SelfEst           0.934    0.110    8.456    0.000
+##    .Emp               0.785    0.093    8.456    0.000
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     ie                0.082    0.036    2.245    0.025</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The IE of <em>Peer Attachment</em> on <em>Self Esteem</em> through <em>Empathy</em> is statistically significant
+<span class="math inline">\((\hat{\textit{IE}} = 0.082\)</span>, <span class="math inline">\(Z = 2.25\)</span>, <span class="math inline">\(p = 0.012)\)</span>.</p>
+<p><em>Note:</em> The p-value above doesn’t match the output because we’re testing a directional hypothesis, but <strong>lavaan</strong>
+conducts two-tailed tests for the model parameters.</p>
+</details>
+</details>
+<hr />
+<p>As we learned in the lecture, the above test of the indirect effect is equivalent to Sobel’s Z test (which we don’t
+really want). An appropriate, robust test of the indirect effect requires bootstrapping, which we will do later this
+week as part of the in-class exercises.</p>
+<hr />
+<p>For now, we’ll add another input variable to our model: <em>parental attachment</em>.</p>
+<p>We will use this model to evaluate the following research questions:</p>
+<ol style="list-style-type: decimal">
+<li>Is there a direct effect of <em>parental attachment</em> on <em>self-esteem</em>, after controlling for <em>peer attachment</em> and
+<em>empathy</em>?</li>
+<li>Is there a direct effect of <em>peer attachment</em> on <em>self-esteem</em>, after controlling for <em>parental attachment</em> and
+<em>empathy</em>?</li>
+<li>Is the effect of <em>parental attachment</em> on <em>self-esteem</em> mediated by <em>empathy</em>, after controlling for <em>peer
+attachment</em>?</li>
+<li>Is the effect of <em>peer attachment</em> on <em>self-esteem</em> mediated by <em>empathy</em>, after controlling for <em>parental
+attachment</em>?</li>
+</ol>
+<hr />
+</div>
+<div id="section-23" class="section level4" number="3.3.2.8">
+<h4><span class="header-section-number">3.3.2.8</span> </h4>
+<p>Run the path model needed to test the research questions listed above.</p>
+<ul>
+<li>Specify the lavaan model syntax implied by the research questions.
+<ul>
+<li>Allow <em>peer attachment</em> and <em>parental attachment</em> to covary.</li>
+<li>Define two new parameters to represent the hypothesized indirect effects.</li>
+</ul></li>
+<li>Estimate the model using <code>lavaan::sem()</code>.
+<ul>
+<li>Use the default settings in <code>sem()</code>.</li>
+</ul></li>
+<li>Investigate the model summary.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="at-home-exercises-2.html#cb74-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb74-2"><a href="at-home-exercises-2.html#cb74-2" tabindex="-1"></a><span class="st">## Equation for outcome:</span></span>
+<span id="cb74-3"><a href="at-home-exercises-2.html#cb74-3" tabindex="-1"></a><span class="st">SelfEst ~ b * Emp + c1 * ParAtt + c2 * PeerAtt</span></span>
+<span id="cb74-4"><a href="at-home-exercises-2.html#cb74-4" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="at-home-exercises-2.html#cb74-5" tabindex="-1"></a><span class="st">## Equation for mediator:</span></span>
+<span id="cb74-6"><a href="at-home-exercises-2.html#cb74-6" tabindex="-1"></a><span class="st">Emp ~ a1 * ParAtt + a2 * PeerAtt</span></span>
+<span id="cb74-7"><a href="at-home-exercises-2.html#cb74-7" tabindex="-1"></a></span>
+<span id="cb74-8"><a href="at-home-exercises-2.html#cb74-8" tabindex="-1"></a><span class="st">## Covariance:</span></span>
+<span id="cb74-9"><a href="at-home-exercises-2.html#cb74-9" tabindex="-1"></a><span class="st">ParAtt ~~ PeerAtt</span></span>
+<span id="cb74-10"><a href="at-home-exercises-2.html#cb74-10" tabindex="-1"></a></span>
+<span id="cb74-11"><a href="at-home-exercises-2.html#cb74-11" tabindex="-1"></a><span class="st">ie_ParAtt  := a1 * b</span></span>
+<span id="cb74-12"><a href="at-home-exercises-2.html#cb74-12" tabindex="-1"></a><span class="st">ie_PeerAtt := a2 * b</span></span>
+<span id="cb74-13"><a href="at-home-exercises-2.html#cb74-13" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb74-14"><a href="at-home-exercises-2.html#cb74-14" tabindex="-1"></a></span>
+<span id="cb74-15"><a href="at-home-exercises-2.html#cb74-15" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> seData)</span>
+<span id="cb74-16"><a href="at-home-exercises-2.html#cb74-16" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 16 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        10
+## 
+##   Number of observations                           143
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   SelfEst ~                                           
+##     Emp        (b)    0.206    0.088    2.357    0.018
+##     ParAtt    (c1)    0.287    0.078    3.650    0.000
+##     PeerAtt   (c2)    0.024    0.094    0.252    0.801
+##   Emp ~                                               
+##     ParAtt    (a1)    0.078    0.075    1.045    0.296
+##     PeerAtt   (a2)    0.306    0.086    3.557    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   ParAtt ~~                                           
+##     PeerAtt           0.537    0.103    5.215    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .SelfEst           0.854    0.101    8.456    0.000
+##    .Emp               0.779    0.092    8.456    0.000
+##     ParAtt            1.277    0.151    8.456    0.000
+##     PeerAtt           0.963    0.114    8.456    0.000
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     ie_ParAtt         0.016    0.017    0.956    0.339
+##     ie_PeerAtt        0.063    0.032    1.965    0.049</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-24" class="section level4" number="3.3.2.9">
+<h4><span class="header-section-number">3.3.2.9</span> </h4>
+<p>What can we say about the two indirect effects? Can we say that empathy mediates both paths?</p>
+<details>
+<summary>
+Click to show explanation
+</summary>
+<p>According to the Sobel-style test, after controlling for <em>peer attachment</em>, the indirect effect of <em>parental attachment</em>
+on <em>self-esteem</em> was nonsignificant
+<span class="math inline">\((\hat{\textit{IE}} = 0.016\)</span>,
+<span class="math inline">\(Z = 0.96\)</span>,
+<span class="math inline">\(p = 0.339)\)</span>,
+whereas the analogous direct effect was significant
+<span class="math inline">\((\hat{\beta} = 0.287\)</span>,
+<span class="math inline">\(Z = 3.65\)</span>,
+<span class="math inline">\(p &lt; 0.001)\)</span>.</p>
+<p>On the other hand, after controlling for <em>parental attachment</em>, the indirect effect of <em>peer attachment</em> on
+<em>self-esteem</em> was statistically significant
+<span class="math inline">\((\hat{\textit{IE}} = 0.063\)</span>,
+<span class="math inline">\(Z = 1.96\)</span>,
+<span class="math inline">\(p = 0.049)\)</span>,
+but the direct effect was nonsignificant
+<span class="math inline">\((\hat{\beta} = 0.024\)</span>,
+<span class="math inline">\(Z = 0.25\)</span>,
+<span class="math inline">\(p = 0.801)\)</span>.</p>
+<hr />
+</div>
+</div>
+<div id="moderation" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Moderation<a href="at-home-exercises-2.html#moderation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>Remember that moderation attempts to describe <em>when</em> one variable influences another. For the home exercise, we’ll go
+back to the Sesame Street data we worked with for the in-class exercises last week.</p>
+<hr />
+<div id="section-25" class="section level4" number="3.3.3.1">
+<h4><span class="header-section-number">3.3.3.1</span> </h4>
+<p>Load the <code>Sesam2.sav</code> data.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<ul>
+<li><em>NOTE:</em> Unless otherwise specified, all analyses in Section <a href="at-home-exercises-2.html#moderation">3.3.3</a> use these data.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="at-home-exercises-2.html#cb76-1" tabindex="-1"></a><span class="co"># Read the data into an object called &#39;sesam2&#39;:</span></span>
+<span id="cb76-2"><a href="at-home-exercises-2.html#cb76-2" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Sesam2.sav&quot;</span>)</span></code></pre></div>
+</details>
+<hr />
+<p><code>VIEWCAT</code> is a nominal grouping variable, but it is represented as a numeric variable in the <code>sesam2</code> data. The levels
+represent the following frequencies of Sesame Street viewership of the children in the data:</p>
+<ul>
+<li><code>VIEWCAT = 1</code>: Rarely/Never</li>
+<li><code>VIEWCAT = 2</code>: 2–3 times a week</li>
+<li><code>VIEWCAT = 3</code>: 4–5 times a week</li>
+<li><code>VIEWCAT = 4</code>: &gt; 5 times a week</li>
+</ul>
+<hr />
+</div>
+<div id="section-26" class="section level4" number="3.3.3.2">
+<h4><span class="header-section-number">3.3.3.2</span> </h4>
+<p>Convert <em>VIEWCAT</em> into a factor.</p>
+<ul>
+<li>Make sure that <code>VIEWCAT = 1</code> is the reference group.</li>
+</ul>
+<p><em>Hints:</em></p>
+<ul>
+<li>You can identify the reference group with the <code>levels()</code> or <code>contrasts()</code> functions.
+<ul>
+<li>The reference group is the group labelled with the first level printed by <code>levels()</code>.</li>
+<li>When you run <code>contrasts()</code>, you will see a pattern matrix that defines a certain dummy coding scheme. The reference
+group is the group that has zeros in each column of this matrix.</li>
+</ul></li>
+<li>If you need to change the reference group, you can use the <code>relevel()</code> function.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="at-home-exercises-2.html#cb77-1" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb77-2"><a href="at-home-exercises-2.html#cb77-2" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="at-home-exercises-2.html#cb77-3" tabindex="-1"></a><span class="do">## Convert &#39;VIEWCAT&#39; to a factor:</span></span>
+<span id="cb77-4"><a href="at-home-exercises-2.html#cb77-4" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span></span>
+<span id="cb77-5"><a href="at-home-exercises-2.html#cb77-5" tabindex="-1"></a>  sesam2 <span class="sc">|&gt;</span></span>
+<span id="cb77-6"><a href="at-home-exercises-2.html#cb77-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">VIEWCAT =</span> <span class="fu">factor</span>(VIEWCAT))</span>
+<span id="cb77-7"><a href="at-home-exercises-2.html#cb77-7" tabindex="-1"></a></span>
+<span id="cb77-8"><a href="at-home-exercises-2.html#cb77-8" tabindex="-1"></a><span class="do">## Optionally specify the labels</span></span>
+<span id="cb77-9"><a href="at-home-exercises-2.html#cb77-9" tabindex="-1"></a><span class="co"># sesam2 &lt;-</span></span>
+<span id="cb77-10"><a href="at-home-exercises-2.html#cb77-10" tabindex="-1"></a><span class="co">#   sesam2 |&gt;</span></span>
+<span id="cb77-11"><a href="at-home-exercises-2.html#cb77-11" tabindex="-1"></a><span class="co">#   mutate(VIEWCAT = factor(VIEWCAT,</span></span>
+<span id="cb77-12"><a href="at-home-exercises-2.html#cb77-12" tabindex="-1"></a><span class="co">#                           levels = c(1, 2, 3, 4),</span></span>
+<span id="cb77-13"><a href="at-home-exercises-2.html#cb77-13" tabindex="-1"></a><span class="co">#                           labels = c(&quot;Rarely/never&quot;,</span></span>
+<span id="cb77-14"><a href="at-home-exercises-2.html#cb77-14" tabindex="-1"></a><span class="co">#                                      &quot;2-3 times per week&quot;,</span></span>
+<span id="cb77-15"><a href="at-home-exercises-2.html#cb77-15" tabindex="-1"></a><span class="co">#                                      &quot;4-5 times per week&quot;,</span></span>
+<span id="cb77-16"><a href="at-home-exercises-2.html#cb77-16" tabindex="-1"></a><span class="co">#                                      &quot;&gt; 5 times per week&quot;)))</span></span>
+<span id="cb77-17"><a href="at-home-exercises-2.html#cb77-17" tabindex="-1"></a></span>
+<span id="cb77-18"><a href="at-home-exercises-2.html#cb77-18" tabindex="-1"></a><span class="do">## Check the reference group:</span></span>
+<span id="cb77-19"><a href="at-home-exercises-2.html#cb77-19" tabindex="-1"></a><span class="fu">levels</span>(sesam2<span class="sc">$</span>VIEWCAT)</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot;</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="at-home-exercises-2.html#cb79-1" tabindex="-1"></a><span class="fu">contrasts</span>(sesam2<span class="sc">$</span>VIEWCAT)</span></code></pre></div>
+<pre><code>##   2 3 4
+## 1 0 0 0
+## 2 1 0 0
+## 3 0 1 0
+## 4 0 0 1</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="at-home-exercises-2.html#cb81-1" tabindex="-1"></a><span class="do">## If necessary, relevel</span></span>
+<span id="cb81-2"><a href="at-home-exercises-2.html#cb81-2" tabindex="-1"></a><span class="co"># sesam &lt;-</span></span>
+<span id="cb81-3"><a href="at-home-exercises-2.html#cb81-3" tabindex="-1"></a><span class="co">#   sesam2 |&gt;</span></span>
+<span id="cb81-4"><a href="at-home-exercises-2.html#cb81-4" tabindex="-1"></a><span class="co">#   mutate(VIEWCAT = relevel(VIEWCAT, 1))</span></span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="w3hreg2" class="section level4" number="3.3.3.3">
+<h4><span class="header-section-number">3.3.3.3</span> </h4>
+<p>Use <code>lm()</code> to estimate a multiple regression model wherein <em>VIEWCAT</em> predicts <em>POSTNUMB</em>.</p>
+<ul>
+<li>Summarize the model.</li>
+<li>Interpret the estimates.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="at-home-exercises-2.html#cb82-1" tabindex="-1"></a>lmOut <span class="ot">&lt;-</span> <span class="fu">lm</span>(POSTNUMB <span class="sc">~</span> VIEWCAT, <span class="at">data =</span> sesam2)</span>
+<span id="cb82-2"><a href="at-home-exercises-2.html#cb82-2" tabindex="-1"></a><span class="fu">summary</span>(lmOut)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = POSTNUMB ~ VIEWCAT, data = sesam2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -25.474  -7.942   0.240   8.526  25.240 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   18.760      2.316   8.102 8.95e-14 ***
+## VIEWCAT2       9.331      2.900   3.218  0.00154 ** 
+## VIEWCAT3      14.714      2.777   5.298 3.49e-07 ***
+## VIEWCAT4      18.032      2.809   6.419 1.24e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.58 on 175 degrees of freedom
+## Multiple R-squared:  0.2102, Adjusted R-squared:  0.1967 
+## F-statistic: 15.53 on 3 and 175 DF,  p-value: 5.337e-09</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>Viewing category explains a statistically significant proportion of the variance in the post-test score of numbers
+learned (<span class="math inline">\(R^2 = 0.21\)</span>, <span class="math inline">\(F(3, 175) = 15.53\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>).</p>
+<p>Kids who never or rarely watched Sesame Street had an average score of 18.76 on the post-test. Kids with weekly
+viewing habits of 2–3, 4–5, or 5+ times per week all had significantly higher scores on the post-test than kids who
+never or rarely watched Sesame Street
+(2–3: <span class="math inline">\(\hat{\beta} = 9.33\)</span>, <span class="math inline">\(t = 3.22\)</span>, <span class="math inline">\(p = 0.002\)</span>;
+4–5: <span class="math inline">\(\hat{\beta} = 14.71\)</span>, <span class="math inline">\(t = 5.3\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>;
+5+: <span class="math inline">\(\hat{\beta} = 18.03\)</span>, <span class="math inline">\(t = 6.42\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>).</p>
+</details>
+</details>
+<hr />
+<p>If we compare the box plot, kernel density plot, and model output below, the relationships between the regression
+coefficient estimates for the viewing categories and the group means should be evident.</p>
+<p><img src="isem_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="section-27" class="section level4" number="3.3.3.4">
+<h4><span class="header-section-number">3.3.3.4</span> </h4>
+<p>Use <code>ggplot()</code> to make a scatterplot with <em>AGE</em> on the x-axis and <em>POSTNUMB</em> on the y-axis.</p>
+<ul>
+<li>Color the points according to the their <em>VIEWCAT</em> level.</li>
+<li>Save the plot object to a variable in your environment.</li>
+</ul>
+<p><em>Hint:</em> You can map color to the levels of a variable on your dataset by assigning the variable names to the <code>color</code>
+argument of the <code>aes()</code> function in <code>ggplot()</code>.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="at-home-exercises-2.html#cb84-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb84-2"><a href="at-home-exercises-2.html#cb84-2" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="at-home-exercises-2.html#cb84-3" tabindex="-1"></a><span class="do">## Add aes(..., color = VIEWCAT) to get different colors for each group:</span></span>
+<span id="cb84-4"><a href="at-home-exercises-2.html#cb84-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sesam2, <span class="fu">aes</span>(<span class="at">x =</span> AGE, <span class="at">y =</span> POSTNUMB, <span class="at">color =</span> VIEWCAT)) <span class="sc">+</span></span>
+<span id="cb84-5"><a href="at-home-exercises-2.html#cb84-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="co"># Add points for scatterplot</span></span>
+<span id="cb84-6"><a href="at-home-exercises-2.html#cb84-6" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="at-home-exercises-2.html#cb84-7" tabindex="-1"></a><span class="do">## Print the plot stored as &#39;p&#39;:</span></span>
+<span id="cb84-8"><a href="at-home-exercises-2.html#cb84-8" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="isem_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
+<p>We assigned the global color aesthetic to the <em>VIEWCAT</em> variable, so the points are colored based on their group.</p>
+</details>
+<hr />
+</div>
+<div id="section-28" class="section level4" number="3.3.3.5">
+<h4><span class="header-section-number">3.3.3.5</span> </h4>
+<p>Add linear regression lines for each group to the above scatterplot.</p>
+<p><em>Hints:</em></p>
+<ul>
+<li>You can add regression lines with <code>ggplot2::geom_smooth()</code>
+<ul>
+<li>To get linear regression lines, set the argument <code>method = "lm"</code></li>
+<li>To omit error envelopes, set the argument <code>se = FALSE</code></li>
+</ul></li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="at-home-exercises-2.html#cb85-1" tabindex="-1"></a><span class="do">## Add OLS best-fit lines:</span></span>
+<span id="cb85-2"><a href="at-home-exercises-2.html#cb85-2" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="isem_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<p>The global color aesthetic assignment from above carries through to any additional plot elements that we add, including
+the regression lines. So, we also get a separate regression line for each <em>VIEWCAT</em> group.</p>
+</details>
+<hr />
+</div>
+<div id="section-29" class="section level4" number="3.3.3.6">
+<h4><span class="header-section-number">3.3.3.6</span> </h4>
+<p>How would you interpret the pattern of regression lines above?</p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>All the lines show a positive slope, so post-test number recognition appears to increase along with increasing age. The
+lines are not parallel, though. So <em>VIEWCAT</em> may be moderating the effect of <em>AGE</em> on <em>POSTNUMB</em>.</p>
+</details>
+<hr />
+<p>Based on the figure we just created, we may want to test for moderation in our regression model. To do so, we need to
+add an interaction between <em>AGE</em> and <em>VIEWCAT</em>. The <em>VIEWCAT</em> factor is represented by
+3 dummy codes in our model, though. So when we interact <em>AGE</em> and <em>VIEWCAT</em>, we
+will create 3 interaction terms.</p>
+<p>To test the overall moderating influence of <em>VIEWCAT</em>, we need to conduct a multiparameter hypothesis test of all
+3 interaction terms. One way that we can go about implementing such a test is through a hierarchical regression
+analysis entailing three steps:</p>
+<ol style="list-style-type: decimal">
+<li>Estimate the additive model wherein we regress <em>POSTNUMB</em> onto <em>AGE</em> and <em>VIEWCAT</em> without any interaction.</li>
+<li>Estimate the moderated model by adding the interaction between <em>AGE</em> and <em>VIEWCAT</em> into the additive model.</li>
+<li>Conduct a <span class="math inline">\(\Delta R^2\)</span> test to compare the fit of the two models.</li>
+</ol>
+<hr />
+</div>
+<div id="w3hhReg" class="section level4" number="3.3.3.7">
+<h4><span class="header-section-number">3.3.3.7</span> </h4>
+<p>Conduct the hierarchical regression analysis described above.</p>
+<ul>
+<li>Does <em>VIEWCAT</em> significantly moderate the effect of <em>AGE</em> on <em>POSTNUMB</em>?</li>
+<li>Provide statistical justification for your conclusion.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="at-home-exercises-2.html#cb86-1" tabindex="-1"></a><span class="do">## Estimate the additive model a view the results:</span></span>
+<span id="cb86-2"><a href="at-home-exercises-2.html#cb86-2" tabindex="-1"></a>results_add <span class="ot">&lt;-</span> <span class="fu">lm</span>(POSTNUMB <span class="sc">~</span> VIEWCAT <span class="sc">+</span> AGE, <span class="at">data =</span> sesam2)</span>
+<span id="cb86-3"><a href="at-home-exercises-2.html#cb86-3" tabindex="-1"></a><span class="fu">summary</span>(results_add)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = POSTNUMB ~ VIEWCAT + AGE, data = sesam2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -23.680  -8.003  -0.070   8.464  22.635 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -10.1056     6.5091  -1.553  0.12235    
+## VIEWCAT2      9.1453     2.7390   3.339  0.00103 ** 
+## VIEWCAT3     13.8602     2.6294   5.271 3.98e-07 ***
+## VIEWCAT4     16.9215     2.6636   6.353 1.79e-09 ***
+## AGE           0.5750     0.1221   4.708 5.08e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.94 on 174 degrees of freedom
+## Multiple R-squared:  0.2995, Adjusted R-squared:  0.2834 
+## F-statistic:  18.6 on 4 and 174 DF,  p-value: 9.642e-13</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="at-home-exercises-2.html#cb88-1" tabindex="-1"></a><span class="do">## Estimate the moderated model and view the results:</span></span>
+<span id="cb88-2"><a href="at-home-exercises-2.html#cb88-2" tabindex="-1"></a>results_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(POSTNUMB <span class="sc">~</span> VIEWCAT <span class="sc">*</span> AGE, <span class="at">data =</span> sesam2)</span>
+<span id="cb88-3"><a href="at-home-exercises-2.html#cb88-3" tabindex="-1"></a><span class="fu">summary</span>(results_mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = POSTNUMB ~ VIEWCAT * AGE, data = sesam2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -23.8371  -8.2387   0.6158   8.7988  22.5611 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  -18.7211    15.5883  -1.201   0.2314  
+## VIEWCAT2       9.9741    20.6227   0.484   0.6293  
+## VIEWCAT3      23.5825    19.3591   1.218   0.2248  
+## VIEWCAT4      34.3969    19.3600   1.777   0.0774 .
+## AGE            0.7466     0.3074   2.429   0.0162 *
+## VIEWCAT2:AGE  -0.0175     0.4060  -0.043   0.9657  
+## VIEWCAT3:AGE  -0.1930     0.3782  -0.510   0.6104  
+## VIEWCAT4:AGE  -0.3416     0.3770  -0.906   0.3663  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.99 on 171 degrees of freedom
+## Multiple R-squared:  0.3046, Adjusted R-squared:  0.2762 
+## F-statistic:  10.7 on 7 and 171 DF,  p-value: 3.79e-11</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="at-home-exercises-2.html#cb90-1" tabindex="-1"></a><span class="do">## Test for moderation:</span></span>
+<span id="cb90-2"><a href="at-home-exercises-2.html#cb90-2" tabindex="-1"></a><span class="fu">anova</span>(results_add, results_mod)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Res.Df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["RSS"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Df"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Sum of Sq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["F"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"174","2":"20806.26","3":"NA","4":"NA","5":"NA","6":"NA","_rn_":"1"},{"1":"171","2":"20653.50","3":"3","4":"152.7625","5":"0.4215975","6":"0.7377438","_rn_":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p><em>VIEWCAT</em> does not significantly moderate the effect of <em>AGE</em> on <em>POSTNUMB</em>
+(<span class="math inline">\(F[3, 171] = 0.422\)</span>, <span class="math inline">\(p = 0.738\)</span>).</p>
+</details>
+</details>
+<hr />
+</div>
+<div id="section-30" class="section level4" number="3.3.3.8">
+<h4><span class="header-section-number">3.3.3.8</span> </h4>
+<p>Sketch the analytic path diagrams for the additive and moderated models you estimated in <a href="at-home-exercises-2.html#w3hhReg">3.3.3.7</a> (on paper).</p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p><strong>Additive Model</strong></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p><strong>Moderated Model</strong></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+</details>
+<hr />
+<p>End of At-Home Exercises</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>These data were simulated from the covariance matrix provided in Laible, D.
+J., Carlo, G., &amp; Roesch, S. C. (2004). Pathways to self-esteem in late adolescence: The role of parent and peer
+attachment, empathy, and social behaviours. Journal of adolescence, 27(6), 703-716.<a href="at-home-exercises-2.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>These data are from the very interesting study: Ball, S., &amp; Bogatz, G. A. (1970). A Summary
+of the Major Findings in” The First Year of Sesame Street: An Evaluation”.<a href="at-home-exercises-2.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="in-class-exercises-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": false,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "search": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
