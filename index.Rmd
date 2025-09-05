@@ -172,8 +172,8 @@ homework to meaningfully participate in, and benefit from, the class meetings.
 ### Background knowledge {- #background}
 
 We assume you have basic knowledge about multivariate statistics before entering this course. You do not need any prior
-experience working with R. If you wish to refresh your knowledge, we recommend the chapters on ANOVA, multiple
-regression, and exploratory factor analysis from Field’s [*Discovering Statistics using R*][field]. 
+experience working with R. If you wish to refresh your knowledge, Andy Field’s [*Discovering Statistics using R*][field]
+is quite a popular and well-respected introductory stats book. 
 
 If you cannot access the Field book, many other introductory statistics textbooks cover these topics equally well. So,
 use whatever you have lying around from past statistics courses. You could also try one of the following open-access
@@ -216,7 +216,7 @@ meeting, please make sure you have caught up with the material before the next s
 [uu_lib]: https://www.uu.nl/en/university-library
 [r]: https://www.r-project.org/
 [lavaan]: https://www.lavaan.ugent.be/
-[field]: https://www.discoveringstatistics.com/books/discovering-statistics-using-r/
+[field]: https://profandyfield.com/discoverse/dsur/
 [stats_with_r]: https://book.stat420.org/
 [modern_stats]: https://openintro-ims.netlify.app/
 [isl]: https://www.statlearning.com
