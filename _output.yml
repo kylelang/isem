@@ -5,7 +5,7 @@ bookdown::gitbook:
   config: 
     toc:
       before: |
-        <li><a href="./index.html">TCSM</a></li>
+        <li><a href="./index.html">Introduction to SEM</a></li>
       collapse: section
       search: yes
     download: null

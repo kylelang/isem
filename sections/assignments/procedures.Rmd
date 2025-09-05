@@ -1,0 +1,104 @@
+## Procedures {-}
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Formatting {- #formatting}
+
+Your assignment submissions must follow certain formatting guidelines. Failing to correctly format your submissions can
+impact your grade.
+
+#### Report {-}
+
+You must submit your Assignment 1 & 2 reports in PDF format.
+
+- Each report must include the following information:
+    - The names of all assignment authors (i.e., all group members for Assignment 1, your name for Assignment 2).
+    - The Assignment Group number (only for Assignment 1).
+
+Your reports should include appendicies containing the lavaan syntax used to estimate each model include in the
+respective report.
+
+- Include only the lavaan syntax string and the call to the estimation function used to fit the model (e.g., `cfa()`,
+`sem()`, `lavaan()`).
+
+For example, the following snippets would be appropriate.
+
+```{r, eval = FALSE}
+cfaMod <- '
+f1 =~ a1 + a2 + a3
+f2 =~ b1 + b2 + b3
+'
+
+cfaOut <- cfa(cfaMod, data = dat1, std.lv = TRUE)
+```
+
+```{r, eval = FALSE}
+semMod <- '
+f1 =~ a1 + a2 + a3
+f2 =~ b1 + b2 + b3
+
+f1 ~ f2 + x
+'
+
+semOut <- sem(semMod, data = dat1, std.lv = TRUE)
+```
+
+The snippet below, however, contains additional unecessary commands related to data ingest/processing and summarizing
+the model.
+
+```{r, eval = FALSE}
+dat0 <- readRDS("../data/dataset.rds")
+dat1 <- rename(dat0, x = foo, y = bar, z = baz)
+
+pathMod <- 'foo ~ bar + baz'
+pathOut <- sem(pathOut, data = dat1)
+
+summary(pathOut)
+```
+
+#### Syntax File {- #analysis_script}
+
+You must also submit an executable script containing the code used for your analyses.
+
+- If you used [**KnitR**][knitr] to embed your analysis code in your report, you may submit the source code that
+generates your report (i.e., an RMD [R Markdown], QMD [Quarto], or RNW [LaTeX] file).
+- Otherwise, submit a standard R script.
+
+Clean the script before submitting.
+
+- Remove extraneous/redundant code and comments.
+   - Only include the code for analyses that appear in your report.
+   - Include code for data processing/clean/wrangling.
+- Order the commands to match your final analysis.
+   - E.g., Data ingest $\rightarrow$ Data processing $\rightarrow$ Descriptive analysis $\rightarrow$ Modeling
+   $\rightarrow$ Processing results $\rightarrow$ Post-hoc analysis
+   - In theory, I should be able to source your script (i.e., run the entire script in "batch mode") to reproduce your
+   results.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Length {-}
+
+You may use as many words as necessary to adequately explain yourself, but concision and parsimony are encouraged. Note
+that the assignments are **not** intended to be full-blown research papers! The focus should be on the definition of
+your model, how this model relates to theory (introduction), and what you have learned from your estimated model
+(discussion).
+
+For both assignments, you should be able to get the job done in fewer than 10 pages of text (excluding title page,
+figures, appendices, and references).
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Submission {-}
+
+You will submit your reports through Brightspace.
+
+- Each assignment has a corresponding item in the "Assignments" section of the Brightspace page through which you will
+submit your reports.
+- For Assignment 1, you may only submit one report per group.
+   - Designate one group member to submit the report.
+   - The grade for this submission will apply to all group members.
+- If something goes wrong with the submission, or you notice a mistake (before the deadline) that you want to correct,
+you may upload a new version of your report. 
+   - We will grade the final submitted version.
+- The submissions will be screened with *TurnItIn* to check for plagarism.

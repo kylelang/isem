@@ -1,0 +1,41 @@
+## Data {- #data_options}
+
+Below, you can find links to a few suitable datasets that you can use for the assignments.
+
+- You *must* use one of the following datasets. You may not choose your own data from the wild.
+
+### Coping with Covid {-} 
+
+- [Dataset][covid_data]
+- [Codebook][covid_codebook]
+- [Pre-Registration][covid_reg]
+
+### Feminist Perspectives Scale {-}
+
+- [Dataset][fem_data]
+- [Article][fem_paper]
+
+### Hypersensitive Narcissism Scale & Dirty Dozen {-}
+
+- [Dataset][hsns_dd_data]
+- [HSNS Article][hsns_paper]
+- [DD Article][dd_paper]
+
+### Kentucky Inventory of Mindfulness Skills {-}
+
+- [Dataset][kims_data]
+- [Article][kims_paper]
+
+### Depression Anxiety Stress Scale {-}
+
+- [Dataset][dass_data]
+- [DASS Information][dass_info]
+
+### Nomophobia {-}
+
+- [Dataset][nomophobia_data]
+
+### Recycled Water Acceptance {-}
+
+- [Dataset][rwa_data]
+- [Article][rwa_paper]

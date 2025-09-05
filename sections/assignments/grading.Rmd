@@ -1,0 +1,98 @@
+## Grading {-}
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Group Assignments {-}
+
+Assignment 1 is simply graded as pass/fail. To pass, you must:
+
+1. Make a reasonable effort to complete all required work
+   - Include all required components listed [above](#a1_components) in your A1 report
+1. Demonstrate a satisfactory ability to apply path analysis
+   - Does your work demonstrate that you understand what you're doing?
+      - Mindlessly implementing a sequence of memorized actions is not sufficient.
+   - Does your report show that you understand what you've done, why you've done it, and the implications of your results?
+   - Can we understand your analysis and results after reading your report?
+1. Submit your assignment before the deadline
+
+Otherwise, you will fail the assignment.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Individual Assignment {-}
+
+Assignment 2 will be fully graded on the usual 10-point scale. We will follow the procedure described below to compute
+your A2 grade.
+
+- Each report starts with a baseline grade of 7.
+- We will evaluate the quality of your work to adjust your grade above or below this baseline.
+   - As we read through the report, we add credit (e.g., 0.1 points, 0.25 points, 0.5 points) for each “good” aspect
+   that demonstrates above-average understanding or effort.
+   - Likewise, we deduct credit for each “bad” aspect that indicates below-average understanding or effort.
+
+So, if your report aligns with a satisfactory (but not exceptional) level of understanding and effort, your grade will
+be 7. Your mark will be higher, however, to the extent that you can demonstrate more-than-satisfactory levels of mastery
+and/or effort. Likewise, your grade will be lower if you do not meet expectations. Importantly, the added and deducted
+credit will be assigned independently,  so the additional points you get for good aspects can counteract any points you
+may lose for negative aspects.
+
+- The adjustment points will be allocated according to the extent to which your submission addresses the required
+components listed [above](#a2_components).
+- The [evaluation matrix](assets/assignments/a2_guidelines.pdf) gives an indication of how these points will be
+apportioned.
+
+Assuming your group passes the first assignment, your final course grade will simply be your Assignment 2 grade.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Resits {-}
+
+You must get a "pass" for Assignment 1 and score at least 5.5 on Assignment 2 to pass the course. If you fail either of
+the assignments, you will have the opportunity to resit the failed assignment(s).
+
+#### Procedure {-}
+
+The resit procedure is very simple. You revise the failed assignment, and your score on the revised submission will
+replace your failing grade (assuming a better grade for the revision).
+
+Take note of the following points.
+
+- The same submission deadline applies to both resit assignments. You are, of course, free to submit your resits early.
+- You must resit each failed assignment. If, for example, you failed both A1 and A2, you must revise both A1 and A2 and
+submit both revisions before the deadline.
+- You must complete the A1 resit in your original groups. If some group members have dropped the course, complete the A1
+resit with the remaining group members.
+- You must complete the A2 resit individually.
+- Your revised grade for A2 cannot be higher than 6.
+- Submit your resit assignments through Brightspace.
+
+#### Grading Standards {-}
+
+Your resit score will not be a simple additive transformation of your original score. We will not grade the resits by
+comparing your original report to your resit and checking if you corrected "enough" issues to have produced a passing
+score in the context of the original report. Such an approach would be the educational testing equivalent of HARKing.
+So, if you score a 5 on your original submission, for example, and you correct two big issues (the absence of which
+would have implied a passing score in the original report), you can still fail the resit.
+
+The resits are your second chance to demonstrate mastery of the relevant concepts (i.e., path analysis, latent variable
+modeling). If your corrections bring the report up to a level that seems to suggest that you "know what you are doing",
+you will pass. If your report still suggests fundamental misunderstandings (or is otherwise substantially deficient),
+you will not pass. A passing grade in this course is supposed to show that you can use lavaan to conduct a sensible path
+analysis, CFA, and SEM, not that you can hack some haggard instructor's goofy evaluation scheme.
+
+I don't want any of you to fail this course. I derive no pleasure from your suffering. Anyway, from a purely selfish
+perspective, failing grades make much more work for the instructors than passing grades do. That being said, I do want
+the degree you earn from UU to be a meaningful marker of the skills and knowledge that your study program is meant to
+impart. So, if you did not achieve the learning goals for this course, you should not pass the course, even though
+that's an unpleasant outcome for all parties.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Example Assignment {-}
+
+You can find an example of a good submission (for an older version of Assignment 2)
+[here](assets/assignments/a1_example.pdf).
+
+This example is not perfect (no paper ever is), and several points could be improved. That being said, this submission
+exemplifies what we're looking for in your project reports. So, following the spirit of this example would earn you a
+high grade.

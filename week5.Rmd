@@ -20,10 +20,14 @@ Complete the [At-Home Exercises](at-home-exercises-4.html).
 
 During the practical you will work on the [In-Class Exercises](in-class-exercises-4.html).
  
+<!----------------------------------------------------------------------------------------------------------------------
+
 **Extra resources**
 
 If you're still struggling with some of the content after working through the above materials, head over to the
 [Extra Resources](extra-resources.html) page and take a look at the embedded tutorial.
+
+----------------------------------------------------------------------------------------------------------------------->
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
 # knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")

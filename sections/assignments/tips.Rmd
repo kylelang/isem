@@ -1,0 +1,194 @@
+## Elaboration & Tips {-}
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Progression {- #progression}
+
+The two assignments are meant to build upon one another. So, you should plan on analyzing the same dataset for both
+assignments and choose a theoretical model that will satisfy the requirements of both assignments. To facilitate this
+progression, consider the following points.
+
+- For A2, your theoretical model must include two or more latent constructs. At least one of the latent constructs must
+act as in IV in your model.
+   - When specifying your model for A1, ensure that you use at least two scale scores constructed from three or more
+   items each.
+   - Make sure to include at least one of these scale scores as an IV.
+   - In A2, you can use latent variables to represent these scales scores.
+- We will not cover methods for estimating latent variables from categorical items.
+   - When specifying the latent constructs/scale scores in your model, do not use nominal items and try to avoid ordinal
+   items with fewer than five levels.
+- We will not cover methods for latent variable interactions.
+   - When specifying your theoretical model in A1, do not include any interactions involving scale scores (i.e.,
+   variables that will be latent constructs in A2).
+   - *EXCEPTION:* You may specify an interaction between a scale score/latent construct and a nominal grouping variable
+   (e.g., sex, nationality, ethnicity).
+      - You will learn how to test this type of hypothesis via multiple-group SEM in [Week 8](multiple-group-models.html).
+
+#### Recycling Prior Work {-}
+
+Since A2 builds on A1, you'll inevitably find yourself in the position of needing to document exactly the same things
+across assignments. In such circumstances, you'll undoubtedly be wondering if you can reuse some of your previous
+writing. 
+
+Yes. You're free to reuse parts of your reports across all three assignments. There are some minor caveats to this
+statement, however.
+
+- When reusing prior work, make sure to address any feedback that you received on that work.
+   - Uncorrected mistakes in copied passages will incur especially harsh penalties in the [grading process](grading.html).
+- Make sure to update any recycled passages to suit the most recent analyses.
+   - A path diagram from A1 won't be valid for A2.
+   - A description of your theoretical model from A1 that refers to "scale scores", won't be valid for A2.
+- Don't keep irrelevant parts of past assignments.
+   - Your grade will be penalized for including extraneous information.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Theoretical Model & Research Question {- #rq}
+
+You need to provide some justification for your model and research question, but not too much. Only provide enough to
+justification to demonstrate that you've actually conceptualized and estimated a theoretically plausible statistical
+model (as opposed to randomly combining variables until **lavaan** returns a pretty picture).
+
+- You have several ways to show that your model is plausible.
+   - Use common-sense arguments.
+   - Reference (a small number of) published papers.
+   - Replicate an existing model/research question.
+- Don't provide a rigorous literature-supported theoretical motivation.
+   - You don't have the time to conduct a thorough literature review, and we don't have the time to read such reviews
+   when grading.
+   - Literature review is not one of the learning goals for this course, so you cannot get "bonus points" for an
+   extensive literature review.
+
+You are free to test any plausible model that meets the size requirements.
+
+- You can derive your own model/research question or you can replicate a published analysis.
+
+#### Model Specifications {-}
+
+We will not cover methods for modeling categorical outcome variables. So, use only continuous variables as outcomes.
+
+- DVs in path models and the structural parts of SEMs
+- Observed indicators of latent factors in CFA/SEM
+
+*NOTE:* You may treat ordinal items with five or more levesl as continuous, for the purposes of these assignments.
+
+We will not cover methods for latent variable interactions.
+
+- Don't specify a theoretical model that requires an interaction involving a latent construct.
+
+There is one exception to the above prohibition. If the moderator is an observed grouping variable, you can estimate the
+model as a multiple-group model. We'll cover these methods in [Week 8](multiple-group-models.html).
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Assumptions {- #model_assumptions}
+
+You need to show that you're thinking about the assumptions and their impact on your results, but you don't need to run
+thorough model diagnostics. Indeed, the task of checking assumptions isn't nearly as straight forward in path analysis,
+CFA, and SEM as it is in linear regression modeling. You won't be able to directly apply the methods you have learned
+for regression diagnostics, for example. 
+
+Since all of our models are estimated with normal-theory maximum likelihood, the fundamental assumption of all the
+models we'll consider in this course boils down to the following.
+
+> All random variables in my model are i.i.d. multivariate normally distributed. 
+
+So, you can get by with basic data screening and checking the observed random variables in your model (i.e., all
+variables other than fixed predictors) for normality. 
+
+- Since checking for multivariate normality is a bit tricky, we'll only ask you to evaluate univariate normality.
+- You should do these evaluations via graphical means (e.g., Normal QQ-Plots).
+
+To summarize, we're looking for the following.
+
+#### Data {-}
+
+- Consider whether the measurement level of your data matches the assumptions of your model.
+- Check your variables for univariate outliers.
+   - If you find any outliers, either treat them in some way or explain why you are retaining them for the analysis.
+- Check for missing data.
+   - For the purposes of the assignment, you can use complete case analysis to work around the missing data.
+   - If you're up for more of a challenge, feel free to try multiple imputation or full information maximum likelihood.
+
+#### Model {-}
+
+- Evaluate the univariate normality of any random, observed variables in your model.
+  - E.g., DVs in path models, observed IVs modeled as random variables, indicators of latent factors
+  - If you fit a multiple-group model for Assignment 2, do this evaluation within groups.
+  - Use graphical tools to evaluate the normality assumption.
+     - Normal QQ-Plots
+     - Histograms
+     - Kernel Density Plots
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Reporting Standards {- #reporting_standards}
+
+What do we mean by reporting your results "in a suitable format"? Basically, put some effort into making your results
+readable, and don't include a bunch of superfluous information. Part of demonstrating that you understand the analysis
+is showing that you know which pieces of output convey the important information.
+
+- Tabulate your results; don't directly copy the R output into your report.
+- Don't include everything **lavaan** gives you.
+- Include only the output needed to understand your results and support your conclusions.
+
+The purpose of statistical data analysis is to provide empirical evidence for or against some theory/hypothesis/model.
+Therefore, the way you document your analysis and report your results must serve this basic purpose, first and foremost. 
+
+- Support any potentially refutable claims with appropriate statistics from your analysis or a suitable citation.
+- Not every statement needs supporting evidence.
+   - Scientific laws
+   - Physical constants
+   - Logical (in the technical sense) implications of irrefutable antecedents
+   - Your own opinions (assuming you're not trying to pass them off as facts)
+
+The next three subsections cover some specific considerations for reporting common classes of statistical results.
+
+#### Significance Tests {-}
+
+Any claim of a significant effect must be supported by relevant statistical evidence.
+
+- Match your test to your hypothesis
+   - Directional hypothesis $\Rightarrow$ one-tailed test
+   - Hypothesis of any non-zero effect $\Rightarrow$ two-tailed test
+- For any test of an estimated parameter (e.g., mean, mean difference, regression coefficient, covariance), report the
+parameter estimate.
+- When using a test statistic (e.g., $t$, $z$, $F$, $\chi^2$) to conduct the test, report:
+   - The estimated test statistic
+   - The degrees of freedom for the test statistic
+   - The p-value for the test statistic
+      - When $p \ge 0.001$, report the computed p-value rounded to three decimal places.
+      - Otherwise, report the p-value as $p < 0.001$.
+- When using a confidence interval to conduct the test:
+   - Clearly indicate the confidence level used to define the interval
+   - For directional hypotheses/one-tailed tests, only report the relevant interval bound, and report the other bound as
+   $\pm \infty$.
+- When using $\chi^2$ difference tests for significance testing, report
+   - The $\Delta \chi^2$ statistic
+   - The $\Delta \mathit{df}$
+   - The p-value for the $\Delta \chi^2$
+
+#### Model Fit {- #fit_reporting}
+
+Judging model fit is always a subjective process. The key to success is providing multiple pieces of convergent evidence
+to support the claimed degree of fit.
+
+- Always report the $\chi^2$, its degrees of freedom, and the associated p-value.
+   - Don't interpret the $\chi^2$: it's testing an uninteresting hypothsis that we don't expect to hold.
+- Report at least two additional, non-redundant fit indices (i.e., indices that quantify fit in different ways).
+   - If you don't have a particular preference, I'd recommend CFI, RMSEA (and its 90% CI), and SRMR
+
+#### Parameter Estimates {- #parameter_reporting}
+
+Obviously, you need to report any parameter estimates that directly represent some component of your theory (e.g.,
+regression coefficients that quantify linear associations implied by your theory). You also need to report the
+significance tests for these parameters.
+
+When evaluating a measurement model, a few key parameter matrices come into play. In addition to showing that your CFA
+model adequately fits the data, you should report the following parameter estimates:
+
+- Latent variances and covariances
+- Factor loadings
+- Residual variances
+
+If your CFA includes a mean structure, you should also report any estimated latent means and item intercepts.
