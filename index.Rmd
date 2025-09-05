@@ -12,11 +12,8 @@ site: bookdown::bookdown_site
 
 ```{r global_options, include = FALSE}
 library(knitr)
-library(dplyr)
 
 opts_chunk$set(warning = FALSE, message = FALSE)
-
-dataDir  <- "../../data/"
 ```
 
 # Course Information {-}
@@ -31,9 +28,9 @@ statistical models. If you are interested in the methods of acquiring high quali
 recommend following the course *Conducting a Survey* which is taught from November to January.
 
 Most information about the course is available in this GitBook. Course-related communication will be through
-<https://uu.blackboard.com> (Log in with your student ID and password).
+<https://uu.brightspace.com> (Log in with your student ID and password).
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Acknowledgement {-}
 
@@ -44,7 +41,7 @@ pedagogy should probably go to Caspar.
 
 - You can view the original version of this course [here](https://github.com/cjvanlissa/TCSM) on Caspar's GitHub page.
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Instructors {-}
 
@@ -62,7 +59,7 @@ pedagogy should probably go to Caspar.
 
 [dr. Noémi Schuurman](https://www.nkschuurman.com/)
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Course overview {-}
 
@@ -76,18 +73,21 @@ This course comprises three parts:
 
 Your mastery of these themes will be evaluated with a two data analysis assignments. 
 
-- The first assignment (covering path analysis) will be graded on a pass/fail basis. 
-- Your course grade will be based on your second assignment grade.
-   - The second assignment covers latent variable modeling.
+1. The first assignment covers path analysis.
+   - You will complete this assignment in a group of three students.
+   - This assignment will be graded on a pass/fail basis. 
+1. The second assignment covers latent variable modeling.
+   - This is an individual assignment.
+   - Your course grade will be based on your second assignment grade.
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Schedule {-}
 
 ```{r print_schedule, echo = FALSE}
 options(knitr.kable.NA = "")
 
-readxl::read_excel("data/schedule.xlsx") %>%
+readxl::read_excel(here::here("assets", "schedule.xlsx")) |>
   knitr::kable(col.names = c("Course Week",
                              "Calendar Week",
                              "Lecture/Practical Topic",
@@ -99,7 +99,7 @@ readxl::read_excel("data/schedule.xlsx") %>%
 *NOTE:* The schedule (including topics covered and assignment deadlines) is subject to change at the instructors'
 discretion.
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Learning goals {-}
 
@@ -118,7 +118,7 @@ After completing the course, you will be able to:
    the benefits of doing so.
 1. Reflect critically on the decisions involved in defining and estimating structural equation models.
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Resources {-}
 
@@ -147,7 +147,7 @@ package [`lavaan`][lavaan].
 - If you want to expand your learning, you can follow this optional [`lavaan`
 tutorial](https://lavaan.ugent.be/tutorial/). 
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Reading questions {-}
 
@@ -159,7 +159,7 @@ important to prepare the reading questions before every lecture. The reading que
 -	Make you aware of important publications that shaped the field
 - Help you extract the relevant insights from the literature
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Weekly preparation {-}
 
@@ -183,7 +183,7 @@ options:
 - [*Introduction to Modern Statistics*][modern_stats]
 - [*Introduction to Statistical Learning*][isl]
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Evaluation {-}
 
@@ -201,7 +201,7 @@ Your grade for the course is based on a “portfolio” composed of the two data
 
 **The specifics of the assignments will be explicated in the [Assignments](assignments.html) chapter of this GitBook**
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## Attendance {-}
 
@@ -210,7 +210,7 @@ students who actively participate tend to pass the course, whereas those who do 
 fail. The lectures and practicals build on each other, so, in the unfortunate event that you have to miss a class
 meeting, please make sure you have caught up with the material before the next session.
 
-<!----------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 [gs]: https://scholar.google.com/
 [uu_lib]: https://www.uu.nl/en/university-library

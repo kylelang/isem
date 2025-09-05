@@ -1,3 +1,9 @@
 ## In-Class Exercises
 
 ***Coming soon to a GitBook near you!***
+
+We're still writing this page. Almost there...only a few more lines to go...
+
+<p align="center">
+  ![](https://i.gifer.com/NyoI.gif){width=80%}
+</p>

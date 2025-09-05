@@ -1,8 +1,16 @@
+base
+methods
 colorout
+datasets
+utils
+grDevices
+graphics
+stats
 knitr
-dplyr
 foreign
+dplyr
 png
+grid
 haven
 tidySEM
 ggplot2
@@ -11,4 +19,4 @@ magrittr
 lavaan
 forcats
 gridExtra
-semTools
+rockchalk

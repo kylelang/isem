@@ -2,17 +2,56 @@
 
 ```{r include = FALSE}
 opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
-dataDir <- "../../../../data/"
-
+dataDir <- "data"
 ```
 
-Load the `LifeSat.sav` data. 
+### Setup
+
+To complete the following exercises, you'll need to install the packages described in the following table.
+
+```{r, echo = FALSE}
+data.frame(
+  Package = c(
+    "haven",
+    "tidySEM"
+  ),
+  Description = c(
+    "Loading data from SPSS '.sav' files",
+    "Plotting and tabulating the output of SEM-models"
+  )
+) |> 
+  knitr::kable()
+```
+
+Use the `install.packages()` function to install these packages.
+
+<details>
+  <summary>Click for explanation</summary>
+
+1. Open RStudio
+1. Inside RStudio, find the window named **Console** on left side of the screen.
+3. Copy the following code into the console and hit `Enter`/`Return` to run the command.
+
+```{r, eval = FALSE}
+install.packages(c("haven", "tidySEM"), dependencies = TRUE)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the `haven::read_spss()` function to load the `LifeSat.sav` data. 
 
 ```{r, echo = FALSE}
 library(dplyr)
 library(haven)
-LifeSat <- read_spss(paste0(dataDir, "LifeSat.sav"))
+LifeSat <- read_spss(here::here(dataDir, "LifeSat.sav"))
 ```
+
+<details>
+  <summary>Click for explanation</summary>
 
 ```{r, eval = FALSE}
 library(dplyr)
@@ -21,12 +60,13 @@ library(haven)
 LifeSat <- read_spss("LifeSat.sav") 
 ```
 
----
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Make a table of descriptive statistics for the variables: `LifSat`, `educ`, 
-`ChildSup`, `SpouSup`, and `age`. 
+Make a table of descriptive statistics for the variables: `LifSat`, `educ`, `ChildSup`, `SpouSup`, and `age`. 
 
 - What is the average age in the sample? 
 - What is the range (youngest and oldest child)? 
@@ -36,8 +76,7 @@ Make a table of descriptive statistics for the variables: `LifSat`, `educ`,
 <details>
   <summary>Click for explanation</summary>
 
-- The package `tidySEM` contains the `descriptives()` function for computing 
-descriptive statistics. 
+- The package `tidySEM` contains the `descriptives()` function for computing descriptive statistics. 
 - The `describe()` function in the `psych` package is a good alternative.
 
 ```{r}
@@ -47,12 +86,11 @@ descriptives(LifeSat[ , c("LifSat", "educ", "ChildSup", "SpouSup", "age")])
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#slr1}
 
-Run a simple linear regression with `LifSat` as the dependent variable and 
-`educ` as the independent variable.
+Run a simple linear regression with `LifSat` as the dependent variable and `educ` as the independent variable.
 
 *Hints:*
 
@@ -69,7 +107,7 @@ summary(results)
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#slr2}
 
@@ -84,12 +122,11 @@ summary(results)
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#slr3}
 
-Repeat the analysis from \@ref(slr1) and \@ref(slr2) with `ChildSup` as the 
-independent variable. 
+Repeat the analysis from \@ref(slr1) and \@ref(slr2) with `ChildSup` as the independent variable. 
 
 <details>
   <summary>Click for explanation</summary>
@@ -100,15 +137,14 @@ summary(results)
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#mlr}
 
-Run a multiple linear regression with `LifSat` as the dependent variable and 
-`educ`, `age`, and `ChildSup` as the independent variables. 
+Run a multiple linear regression with `LifSat` as the dependent variable and `educ`, `age`, and `ChildSup` as the
+independent variables. 
 
-*Hint:* You can use the `+` sign to add multiple variables to the right hand
-side (RHS) of your model formula.
+*Hint:* You can use the `+` sign to add multiple variables to the right hand side (RHS) of your model formula.
 
 <details>
   <summary>Click for explanation</summary>
@@ -119,19 +155,17 @@ summary(results)
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### 
 
-Compare the results from \@ref(mlr) with those from \@ref(slr1), \@ref(slr2), 
-and \@ref(slr3).
+Compare the results from \@ref(mlr) with those from \@ref(slr1), \@ref(slr2), and \@ref(slr3).
 
-- What do you notice when you compare the estimated slopes for each of the three 
-predictors in the multiple regression model with the corresponding estimates 
-from the simple regression models? 
+- What do you notice when you compare the estimated slopes for each of the three predictors in the multiple regression
+model with the corresponding estimates from the simple regression models? 
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------

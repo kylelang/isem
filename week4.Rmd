@@ -22,10 +22,14 @@ Complete the [At-Home Exercises](at-home-exercises-3.html).
 During the practical you will work on the [In-Class Exercises](in-class-exercises-3.html).
  
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
-knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-# knit_child(paste0(partDir0, "lecture-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "extra.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+# knit_child(paste0(partDir, "extra.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+
+knit_child(paste0(partDir0, "lecture-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir0, "reading-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir0, "home-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(paste0(partDir0, "class-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 ```

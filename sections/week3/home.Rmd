@@ -1,26 +1,58 @@
 ## At-Home Exercises
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
+### Setup
+
+**Data:**
+
+You will need two datasets to complete the following exercises.
+
+- [SelfEsteem](https://surfdrive.surf.nl/files/index.php/s/iA7Pjomr6BM6D6c)
+- [Sesam2](https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M)
+
+**Packages:**
+
+You will also need to install the **forcats** package.
+
+```{r, echo = FALSE}
+data.frame(
+  Package = "forcats",
+  Description = "A handy tidyverse package for manipulating categorical data"
+) |>
+  knitr::kable()
+```
+
+Use the `install.packages()` function to install **forcats**.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+install.packages("forcats", dependencies = TRUE)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 ### Mediation {#mediation}
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
 ```{r include = FALSE}
 library(haven)
 library(lavaan)
 library(dplyr)
 
-dataDir <- "../../../../data/"
-seData <- read_sav(paste0(dataDir, "SelfEsteem.sav"))
+dataDir <- "data"
+seData <- read_sav(here::here(dataDir, "SelfEsteem.sav"))
 ```
 
-In the first part of this practical, we will analyze the data contained in 
-*SelfEsteem.sav*. These data comprise 143 observations of the following
-variables.^[These data were simulated from the covariance matrix provided in
-Laible, D. J., Carlo, G., & Roesch, S. C. (2004). Pathways to self-esteem in 
-late adolescence: The role of parent and peer attachment, empathy, and social 
-behaviours. Journal of adolescence, 27(6), 703-716.] 
+In the first part of this practical, we will analyze the data contained in *SelfEsteem.sav*. These data comprise 143
+observations of the following variables.^[These data were simulated from the covariance matrix provided in Laible, D.
+J., Carlo, G., & Roesch, S. C. (2004). Pathways to self-esteem in late adolescence: The role of parent and peer
+attachment, empathy, and social behaviours. Journal of adolescence, 27(6), 703-716.] 
 
 - *case*: Participant ID number
 - *ParAtt*: Parental Attachment
@@ -30,14 +62,13 @@ behaviours. Journal of adolescence, 27(6), 703-716.]
 - *Aggr*: Aggression
 - *SelfEst*: Self-esteem
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
 Load the *SelfEsteem.sav* data.
 
-*Note*: Unless otherwise specified, all analyses in Section \@ref(mediation) 
-apply to these data.
+*Note*: Unless otherwise specified, all analyses in Section \@ref(mediation) apply to these data.
 
 <details>
   <summary>Click to show code</summary>
@@ -49,21 +80,20 @@ seData <- read_sav("SelfEsteem.sav")
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Suppose we are interested in the (indirect) effect of peer attachment on
-self-esteem, and whether empathy has a mediating effect on this relationship.
+Suppose we are interested in the (indirect) effect of peer attachment on self-esteem, and whether empathy has a
+mediating effect on this relationship.
 
 We might generate the following hypotheses:
 
 1. Better peer relationships promote higher self esteem
-1. This effect is mediated by a student's empathy levels, where better peer
-   relationships increase empathy, and higher levels of empathy lead to higher
-   self-esteem.
+1. This effect is mediated by a student's empathy levels, where better peer relationships increase empathy, and higher
+   levels of empathy lead to higher self-esteem.
   
 To evaluate these hypotheses, we will use **lavaan** to estimate a path model.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -72,8 +102,7 @@ Draw a path model (on paper) that can be used to test the above hypotheses.
 - Label the input (X), outcome (Y), and mediator/intermediary (M).
 - Label the paths a, b, and c'.
   
-*Hint:* Refer back to the [Mediation Basics](#mediation-basics) lecture if you
-need help here.
+*Hint:* Refer back to the [Mediation Basics](#mediation-basics) lecture if you need help here.
 
 <details>
   <summary>Click for explanation</summary>
@@ -89,25 +118,25 @@ Emp ~ PeerAtt
 
 library(tidySEM)
 fit <- sem(data = seData, model = mod)
-fit %>% 
+fit |> 
   prepare_graph(
     layout = get_layout(
       NA, "Emp", NA,
       "PeerAtt", NA, "SelfEst", rows = 2
     ),
     angle = 60
-  ) %>% 
+  ) |> 
   edit_edges({
     label <- c('b', 'c\'', "a", NA, NA, NA)
-  }) %>%
+  }) |>
   edit_nodes({
     label <- c("M: Emp", "X: PeerAtt", "Y: SelfEst")
-  }) %>% 
+  }) |> 
   plot()
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3hsyntax}
 
@@ -115,9 +144,9 @@ Specify the lavaan model syntax implied by the path diagram shown above.
 
 - Save the resulting character string as an object in your environment.
 
-*Hint:* Refer back to the example in which opinions of systematic racism mediate
-the relationship between political affiliation and support for affirmative
-action policies from the [Mediation Testing](#mediation-testing) lecture this week.
+*Hint:* Refer back to the example in which opinions of systematic racism mediate the relationship between political
+affiliation and support for affirmative action policies from the [Mediation Testing](#mediation-testing) lecture this
+week.
 
 <details>
   <summary>Click to show code</summary>
@@ -134,7 +163,7 @@ Emp ~ PeerAtt
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
@@ -152,7 +181,7 @@ out <- sem(mod, data = seData)
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -175,54 +204,50 @@ summary(out)
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out)
 
-peer_c <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "PeerAtt")
-emp_b  <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "Emp")
-peer_a <- tmp %>% filter(lhs == "Emp", op == "~", rhs == "PeerAtt")
+peer_c <- tmp |> filter(lhs == "SelfEst", op == "~", rhs == "PeerAtt")
+emp_b  <- tmp |> filter(lhs == "SelfEst", op == "~", rhs == "Emp")
+peer_a <- tmp |> filter(lhs == "Emp", op == "~", rhs == "PeerAtt")
 ```
 
-The results show estimates of the *a* path (`Emp ~ PeerAtt`), the *b* path 
-(`SelfEst ~ Emp`), and the *c'* path (`SelfEst ~ PeerAtt`).
+The results show estimates of the *a* path (`Emp ~ PeerAtt`), the *b* path (`SelfEst ~ Emp`), and the *c'* path
+(`SelfEst ~ PeerAtt`).
 
-All three of these effects are positive and significant, including the direct 
-effect of `PeerAtt` on `SelfEst`
-($\beta = `r peer_c$est %>% round(3)`$,
-$Z = `r peer_c$z %>% round(2)`$,
-$p = `r (peer_c$p / 2) %>% round(3)`$),
-and the parts of the indirect effect made up by the effect of `PeerAtt` on
-`Emp`
-($\beta = `r peer_a$est %>% round(3)`$,
-$Z = `r peer_a$z %>% round(2)`$,
-$p = `r (peer_a$p / 2) %>% round(3)`$),
+All three of these effects are positive and significant, including the direct effect of `PeerAtt` on `SelfEst`
+($\beta = `r peer_c$est |> round(3)`$,
+$Z = `r peer_c$z |> round(2)`$,
+$p = `r (peer_c$p / 2) |> round(3)`$),
+and the parts of the indirect effect made up by the effect of `PeerAtt` on `Emp`
+($\beta = `r peer_a$est |> round(3)`$,
+$Z = `r peer_a$z |> round(2)`$,
+$p = `r (peer_a$p / 2) |> round(3)`$),
 and `Emp` on `SelfEst`
-($\beta = `r emp_b$est %>% round(3)`$,
-$Z = `r emp_b$z %>% round(2)`$,
-$p = `r (emp_b$p / 2) %>% round(3)`$).
+($\beta = `r emp_b$est |> round(3)`$,
+$Z = `r emp_b$z |> round(2)`$,
+$p = `r (emp_b$p / 2) |> round(3)`$).
 
-We can see that the direction of the effects seems to support of our
-hypotheses, but without taking the next steps to investigate the indirect
-effect, we should be hesitant to say more. 
+We can see that the direction of the effects seems to support of our hypotheses, but without taking the next steps to
+investigate the indirect effect, we should be hesitant to say more. 
   
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Remember that an indirect effect (IE) is the product of multiple regression 
-slopes. Therefore, to estimate an IE, we must define this product in our model
-syntax. In **lavaan**, we define the new IE parameter in two steps. 
+Remember that an indirect effect (IE) is the product of multiple regression slopes. Therefore, to estimate an IE, we
+must define this product in our model syntax. In **lavaan**, we define the new IE parameter in two steps. 
 
 1. Label the relevant regression paths.
 1. Use the labels to define a new parameter that represent the desired IE.
 
-We can define new parameters in lavaan model syntax via the `:=` operator. The 
-**lavaan** website contains a tutorial on this procedure: <http://lavaan.ugent.be/tutorial/mediation.html>
+We can define new parameters in lavaan model syntax via the `:=` operator. The **lavaan** website contains a tutorial on
+this procedure: <http://lavaan.ugent.be/tutorial/mediation.html>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Use the procedure described above to modify the model syntax from \@ref(w3hsyntax) 
-by adding the definition of the hypothesized IE from `PeerAtt` to `SelfEst`.
+Use the procedure described above to modify the model syntax from \@ref(w3hsyntax) by adding the definition of the
+hypothesized IE from `PeerAtt` to `SelfEst`.
 
 <details>
   <summary>Click to show code</summary>
@@ -244,14 +269,13 @@ ie := a * b
   <details>
     <summary>Click for explanation</summary>
     
-Notice that I only label the parameters that I will use to define the IE. You 
-are free to label any parameter that you like, but I choose the to label only 
-the minimally sufficient set to avoid cluttering the code/output.
+Notice that I only label the parameters that I will use to define the IE. You are free to label any parameter that you
+like, but I choose the to label only the minimally sufficient set to avoid cluttering the code/output.
   
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
@@ -276,43 +300,40 @@ summary(out)
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out)
 
-pa <- tmp %>% filter(label == "ie")
+pa <- tmp |> filter(label == "ie")
 ```
 
-The IE of *Peer Attachment* on *Self Esteem* through *Empathy* is statistically 
-significant ($\hat{\textit{IE}} = `r pa$est %>% round(3)`$, 
-$Z = `r pa$z %>% round(2)`$, $p = `r (pa$p / 2) %>% round(3)`$).
+The IE of *Peer Attachment* on *Self Esteem* through *Empathy* is statistically significant
+($\hat{\textit{IE}} = `r pa$est |> round(3)`$, $Z = `r pa$z |> round(2)`$, $p = `r (pa$p / 2) |> round(3)`$).
   
-*Note:* The p-value above doesn't match the output because we're testing a 
-directional hypothesis, but **lavaan** conducts two-tailed tests for the model
-parameters.
+*Note:* The p-value above doesn't match the output because we're testing a directional hypothesis, but **lavaan**
+conducts two-tailed tests for the model parameters.
   
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-As we learned in the lecture, the above test of the indirect effect is equivalent
-to Sobel's Z test (which we don't really want). An appropriate, robust test of 
-the indirect effect requires bootstrapping, which we will do later this week as
-part of the in-class exercises. 
+As we learned in the lecture, the above test of the indirect effect is equivalent to Sobel's Z test (which we don't
+really want). An appropriate, robust test of the indirect effect requires bootstrapping, which we will do later this
+week as part of the in-class exercises. 
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 For now, we'll add another input variable to our model: *parental attachment*.
 
 We will use this model to evaluate the following research questions:
 
-1. Is there a direct effect of *parental attachment* on *self-esteem*, after
-   controlling for *peer attachment* and *empathy*?
-1. Is there a direct effect of *peer attachment* on *self-esteem*, after
-   controlling for *parental attachment* and *empathy*?
-1. Is the effect of *parental attachment* on *self-esteem* mediated by *empathy*,
-   after controlling for *peer attachment*?
-1. Is the effect of *peer attachment* on *self-esteem* mediated by *empathy*,
-   after controlling for *parental attachment*?
+1. Is there a direct effect of *parental attachment* on *self-esteem*, after controlling for *peer attachment* and
+   *empathy*?
+1. Is there a direct effect of *peer attachment* on *self-esteem*, after controlling for *parental attachment* and
+   *empathy*?
+1. Is the effect of *parental attachment* on *self-esteem* mediated by *empathy*, after controlling for *peer
+   attachment*?
+1. Is the effect of *peer attachment* on *self-esteem* mediated by *empathy*, after controlling for *parental
+   attachment*?
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -349,12 +370,11 @@ summary(out)
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-What can we say about the two indirect effects? Can we say that empathy mediates
-both paths?
+What can we say about the two indirect effects? Can we say that empathy mediates both paths?
 
 <details>
   <summary>Click to show explanation</summary>
@@ -367,47 +387,46 @@ iePeer <- filter(tmp, label == "ie_PeerAtt")
 cParent <- filter(tmp, label == "c1")
 cPeer <- filter(tmp, label == "c2")
 
-cPeer[1, "est"] %>% class()
+cPeer[1, "est"] |> class()
 ```
 
-According to the Sobel-style test, after controlling for *peer attachment*,
-the indirect effect of *parental attachment* on *self-esteem* was nonsignificant
-($\hat{\textit{IE}} = `r ieParent[1, "est"] %>% round(3)`$,
-$Z = `r ieParent[1, "z"] %>% round(2)`$,
-$p = `r ieParent[1, "pvalue"] %>% round(3)`$), whereas the analogous direct effect 
-was significant ($\hat{\beta} = `r cParent[1, "est"] %>% round(3)`$,
-$Z = `r cParent[1, "z"] %>% round(2)`$,
+According to the Sobel-style test, after controlling for *peer attachment*, the indirect effect of *parental attachment*
+on *self-esteem* was nonsignificant
+($\hat{\textit{IE}} = `r ieParent[1, "est"] |> round(3)`$,
+$Z = `r ieParent[1, "z"] |> round(2)`$,
+$p = `r ieParent[1, "pvalue"] |> round(3)`$), 
+whereas the analogous direct effect was significant
+($\hat{\beta} = `r cParent[1, "est"] |> round(3)`$,
+$Z = `r cParent[1, "z"] |> round(2)`$,
 $p < 0.001$).
 
-On the other hand, after controlling for *parental attachment*, the indirect
-effect of *peer attachment* on  *self-esteem* was statistically significant
-($\hat{\textit{IE}} = `r iePeer[1, "est"] %>% round(3)`$,
-$Z = `r iePeer[1, "z"] %>% round(2)`$,
-$p = `r iePeer[1, "pvalue"] %>% round(3)`$), but the direct effect was nonsignificant
-($\hat{\beta} = `r cPeer[1, "est"] %>% round(3)`$,
-$Z = `r cPeer[1, "z"] %>% round(2)`$,
-$p = `r cPeer[1, "pvalue"] %>% round(3)`$).
+On the other hand, after controlling for *parental attachment*, the indirect effect of *peer attachment* on
+*self-esteem* was statistically significant
+($\hat{\textit{IE}} = `r iePeer[1, "est"] |> round(3)`$,
+$Z = `r iePeer[1, "z"] |> round(2)`$,
+$p = `r iePeer[1, "pvalue"] |> round(3)`$),
+but the direct effect was nonsignificant
+($\hat{\beta} = `r cPeer[1, "est"] |> round(3)`$,
+$Z = `r cPeer[1, "z"] |> round(2)`$,
+$p = `r cPeer[1, "pvalue"] |> round(3)`$).
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### Moderation {#moderation}
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Remember that moderation attempts to describe *when* one variable influences
-another. For the home exercise, we'll go back to the Sesame Street data we
-worked with for the in-class exercises last week.
+Remember that moderation attempts to describe *when* one variable influences another. For the home exercise, we'll go
+back to the Sesame Street data we worked with for the in-class exercises last week.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Load the `Sesam2.sav` data.^[These data are from the very interesting study:
-Ball, S., & Bogatz, G. A. (1970). A Summary of the Major Findings in" The First
-Year of Sesame Street: An Evaluation".]
+Load the `Sesam2.sav` data.^[These data are from the very interesting study: Ball, S., & Bogatz, G. A. (1970). A Summary
+of the Major Findings in" The First Year of Sesame Street: An Evaluation".]
 
-- *NOTE:* Unless otherwise specified, all analyses in Section \@ref(moderation)
-  use these data.
+- *NOTE:* Unless otherwise specified, all analyses in Section \@ref(moderation) use these data.
 
 <details>
   <summary>Click to show code</summary>
@@ -418,23 +437,22 @@ sesam2 <- read_sav("Sesam2.sav")
 ```
 
 ```{r, echo = FALSE}
-sesam2 <- read_sav(paste0(dataDir, "Sesam2.sav"))
+sesam2 <- read_sav(here::here(dataDir, "Sesam2.sav"))
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-`VIEWCAT` is a nominal grouping variable, but it is represented as a numeric
-variable in the `sesam2` data. The levels represent the following frequencies of
-Sesame Street viewership of the children in the data:
+`VIEWCAT` is a nominal grouping variable, but it is represented as a numeric variable in the `sesam2` data. The levels
+represent the following frequencies of Sesame Street viewership of the children in the data:
 
 - `VIEWCAT = 1`: Rarely/Never
 - `VIEWCAT = 2`: 2--3 times a week
 - `VIEWCAT = 3`: 4--5 times a week
 - `VIEWCAT = 4`: \> 5 times a week
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -444,15 +462,11 @@ Convert *VIEWCAT* into a factor.
 
 *Hints:*
 
-- You can identify the reference group with the `levels()` or `contrasts()`
-  functions.
-  - The reference group is the group labelled with the first level printed by
-    `levels()`.
-  - When you run `contrasts()`, you will see a pattern matrix that defines a
-    certain dummy coding scheme. The reference group is the group that has zeros
-    in each column of this matrix.
-- If you need to change the reference group, you can use the `relevel()`
-  function.
+- You can identify the reference group with the `levels()` or `contrasts()` functions.
+  - The reference group is the group labelled with the first level printed by `levels()`.
+  - When you run `contrasts()`, you will see a pattern matrix that defines a certain dummy coding scheme. The reference
+  group is the group that has zeros in each column of this matrix.
+- If you need to change the reference group, you can use the `relevel()` function.
 
 <details>
   <summary>Click to show code</summary>
@@ -462,12 +476,12 @@ library(forcats)
 
 ## Convert 'VIEWCAT' to a factor:
 sesam2 <-
-  sesam2 %>%
+  sesam2 |>
   mutate(VIEWCAT = factor(VIEWCAT))
 
 ## Optionally specify the labels
 # sesam2 <-
-#   sesam2 %>%
+#   sesam2 |>
 #   mutate(VIEWCAT = factor(VIEWCAT,
 #                           levels = c(1, 2, 3, 4),
 #                           labels = c("Rarely/never",
@@ -481,18 +495,17 @@ contrasts(sesam2$VIEWCAT)
 
 ## If necessary, relevel
 # sesam <-
-#   sesam2 %>%
+#   sesam2 |>
 #   mutate(VIEWCAT = relevel(VIEWCAT, 1))
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3hreg2}
 
-Use `lm()` to estimate a multiple regression model wherein *VIEWCAT* predicts
-*POSTNUMB*.
+Use `lm()` to estimate a multiple regression model wherein *VIEWCAT* predicts *POSTNUMB*.
 
 - Summarize the model.
 - Interpret the estimates.
@@ -514,40 +527,28 @@ srf <- round(summary(lmOut)$fstatistic, 2)
 
 cf <- summary(lmOut)$coef
 
-b <- cf[ , 1] %>% round(2)
-t <- cf[ , 3] %>% round(2)
-p <- cf[ , 4] %>% round(3)
+b <- cf[ , 1] |> round(2)
+t <- cf[ , 3] |> round(2)
+p <- cf[ , 4] |> round(3)
 ```
 
-Viewing category explains a statistically significant proportion of the 
-variance in the post-test score of numbers learned ($R^2 = `r srr`$, 
-$F(`r srf[2]`, `r srf[3]`) = `r srf[1]`$, 
-$p < 0.001$).
+Viewing category explains a statistically significant proportion of the variance in the post-test score of numbers
+learned ($R^2 = `r srr`$, $F(`r srf[2]`, `r srf[3]`) = `r srf[1]`$, $p < 0.001$).
   
-Kids who never or rarely watched Sesame Street had an average score of
-`r b[1]` on the post-test. Kids with weekly viewing habits of 2--3, 4--5, or
-5+ times per week all had significantly higher scores on the post-test than 
-kids who never or rarely watched Sesame Street (2--3: 
-$\hat{\beta} = `r b[2]`$, 
-$t = `r t[2]`$,
-$p = `r p[2]`$;
-4--5:
-$\hat{\beta} = `r b[3]`$, 
-$t = `r t[3]`$,
-$p < 0.001$;
-5+:
-$\hat{\beta} = `r b[4]`$, 
-$t = `r t[4]`$,
-$p < 0.001$).
-  
+Kids who never or rarely watched Sesame Street had an average score of `r b[1]` on the post-test. Kids with weekly
+viewing habits of 2--3, 4--5, or 5+ times per week all had significantly higher scores on the post-test than kids who
+never or rarely watched Sesame Street
+(2--3: $\hat{\beta} = `r b[2]`$, $t = `r t[2]`$, $p = `r p[2]`$;
+4--5: $\hat{\beta} = `r b[3]`$, $t = `r t[3]`$, $p < 0.001$;
+5+: $\hat{\beta} = `r b[4]`$, $t = `r t[4]`$, $p < 0.001$).
+
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-If we compare the box plot, kernel density plot, and model output below, the 
-relationships between the regression coefficient estimates for the viewing
-categories and the group means should be evident.
+If we compare the box plot, kernel density plot, and model output below, the relationships between the regression
+coefficient estimates for the viewing categories and the group means should be evident.
 
 ```{r, echo = FALSE}
 library(gridExtra)
@@ -558,27 +559,25 @@ p1 <- ggplot(sesam2, aes(x = VIEWCAT, y = POSTNUMB, color = VIEWCAT)) +
 p2 <- ggplot(sesam2) +
   geom_density(aes(x = POSTNUMB, fill = VIEWCAT), alpha = .5) +
   theme_minimal()
-p3 <- lmOut %>%
-  summary() %>%
-  broom::tidy() %>%
-  mutate_if(is.numeric, round, 2) %>%
+p3 <- lmOut |>
+  summary() |>
+  broom::tidy() |>
+  mutate_if(is.numeric, round, 2) |>
   tableGrob()
 grid.arrange(arrangeGrob(p1, p2, ncol = 2), p3)
 ```
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Use `ggplot()` to make a scatterplot with *AGE* on the x-axis and *POSTNUMB* on
-the y-axis.
+Use `ggplot()` to make a scatterplot with *AGE* on the x-axis and *POSTNUMB* on the y-axis.
 
 - Color the points according to the their *VIEWCAT* level.
 - Save the plot object to a variable in your environment.
 
-*Hint:* You can map color to the levels of a variable on your dataset by
-assigning the variable names to the `color` argument of the `aes()` function in
-`ggplot()`.
+*Hint:* You can map color to the levels of a variable on your dataset by assigning the variable names to the `color`
+argument of the `aes()` function in `ggplot()`.
 
 <details>
   <summary>Click to show code</summary>
@@ -594,12 +593,11 @@ p <- ggplot(sesam2, aes(x = AGE, y = POSTNUMB, color = VIEWCAT)) +
 p
 ```
 
-We assigned the global color aesthetic to the *VIEWCAT* variable, so the points
-are colored based on their group.
+We assigned the global color aesthetic to the *VIEWCAT* variable, so the points are colored based on their group.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
@@ -608,8 +606,8 @@ Add linear regression lines for each group to the above scatterplot.
 *Hints:*
 
 - You can add regression lines with `ggplot2::geom_smooth()`
-    - To get linear regression lines, set the argument `method = "lm"`
-    - To omit error envelopes, set the argument `se = FALSE`
+   - To get linear regression lines, set the argument `method = "lm"`
+   - To omit error envelopes, set the argument `se = FALSE`
 
 <details>
   <summary>Click to show code</summary>
@@ -619,13 +617,12 @@ Add linear regression lines for each group to the above scatterplot.
 p + geom_smooth(method = "lm", se = FALSE)
 ```
 
-The global color aesthetic assignment from above carries through to any
-additional plot elements that we add, including the regression lines. So, we
-also get a separate regression line for each *VIEWCAT* group.
+The global color aesthetic assignment from above carries through to any additional plot elements that we add, including
+the regression lines. So, we also get a separate regression line for each *VIEWCAT* group.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
@@ -634,32 +631,27 @@ How would you interpret the pattern of regression lines above?
 <details>
   <summary>Click for explanation</summary>
 
-All the lines show a positive slope, so post-test number recognition appears to
-increase along with increasing age. The lines are not parallel, though. So
-*VIEWCAT* may be moderating the effect of *AGE* on *POSTNUMB*.
+All the lines show a positive slope, so post-test number recognition appears to increase along with increasing age. The
+lines are not parallel, though. So *VIEWCAT* may be moderating the effect of *AGE* on *POSTNUMB*.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Based on the figure we just created, we may want to test for moderation in our
-regression model. To do so, we need to add an interaction between *AGE* and
-*VIEWCAT*. The *VIEWCAT* factor is represented by
-`r (nDum <- nlevels(sesam2$VIEWCAT) - 1)` dummy codes in our model, though. So 
-when we interact *AGE* and *VIEWCAT*, we will create `r nDum` interaction terms.
+Based on the figure we just created, we may want to test for moderation in our regression model. To do so, we need to
+add an interaction between *AGE* and *VIEWCAT*. The *VIEWCAT* factor is represented by
+`r (nDum <- nlevels(sesam2$VIEWCAT) - 1)` dummy codes in our model, though. So when we interact *AGE* and *VIEWCAT*, we
+will create `r nDum` interaction terms.
 
-To test the overall moderating influence of *VIEWCAT*, we need to conduct a
-multiparameter hypothesis test of all `r nDum` interaction terms. One way that
-we can go about implementing such a test is through a hierarchical regression
+To test the overall moderating influence of *VIEWCAT*, we need to conduct a multiparameter hypothesis test of all
+`r nDum` interaction terms. One way that we can go about implementing such a test is through a hierarchical regression
 analysis entailing three steps:
 
-1. Estimate the additive model wherein we regress *POSTNUMB* onto *AGE* and
-   *VIEWCAT* without any interaction.
-1. Estimate the moderated model by adding the interaction between *AGE* and
-   *VIEWCAT* into the additive model.
+1. Estimate the additive model wherein we regress *POSTNUMB* onto *AGE* and *VIEWCAT* without any interaction.
+1. Estimate the moderated model by adding the interaction between *AGE* and *VIEWCAT* into the additive model.
 1. Conduct a $\Delta R^2$ test to compare the fit of the two models.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3hhReg}
 
@@ -690,10 +682,10 @@ anova(results_add, results_mod)
 ```{r, include = FALSE}
   tmp <- anova(results_add, results_mod)
   
-  f   <- tmp[2, 5] %>% round(3)
+  f   <- tmp[2, 5] |> round(3)
   df1 <- tmp[2, 3]
   df2 <- tmp[2, 1]
-  p   <- tmp[2, 6] %>% round(3)
+  p   <- tmp[2, 6] |> round(3)
 ```
   
 *VIEWCAT* does not significantly moderate the effect of *AGE* on *POSTNUMB*
@@ -702,12 +694,11 @@ anova(results_add, results_mod)
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
-Sketch the analytic path diagrams for the additive and moderated models you
-estimated in \@ref(w3hhReg) (on paper).
+Sketch the analytic path diagrams for the additive and moderated models you estimated in \@ref(w3hhReg) (on paper).
 
 <details>
   <summary>Click for explanation</summary>
@@ -726,10 +717,10 @@ p1 <- prepare_graph(res,
     rows = 2
   ),
   angle = 180
-) %>%
+) |>
   edit_edges({
     label <- NA
-  }) %>%
+  }) |>
   plot()
 
 set.seed(6)
@@ -753,10 +744,10 @@ p2 <- prepare_graph(res,
   angle = 60,
   rect_width = 3,
   spacing_y = 1.5
-) %>%
+) |>
   edit_edges({
     label <- NA
-  }) %>%
+  }) |>
   plot()
 ```
 
@@ -774,6 +765,8 @@ p2
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
+
+------------------------------------------------------------------------------------------------------------------------

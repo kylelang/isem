@@ -2,6 +2,16 @@
 
 ***Coming soon to a GitBook near you!***
 
+We're still working on this page. Somehow, the balance doesn't feel quite right...
+
 <p align = "center">
-![](https://i.gifer.com/EniQ.gif)
+![](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjFoeHZ4cGVwZG5zbjZ2ejQxODd4MGt5ZXJ5enc3N2F0ODBrcHY5ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7xtYIJFfF6bPW/giphy.gif){width=100%}
 </p>
+
+<!-- <p align = "center"> -->
+<!-- ![](https://i.gifer.com/XOsX.gif){width=100%} -->
+<!-- </p> -->
+
+<!-- <p align = "center"> -->
+<!-- ![](https://i.gifer.com/EniQ.gif){width=100%} -->
+<!-- </p> -->

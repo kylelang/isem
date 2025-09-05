@@ -1,44 +1,38 @@
 # Software Setup {-}
 
-This chapter will help you prepare for the course by showing how to install R 
-and RStudio on your computer. If you're already using R, there may be nothing 
-new for you here. That being said, you should look over this chapter to ensure
+This chapter will help you prepare for the course by showing how to install R and RStudio on your computer. If you're
+already using R, there may be nothing new for you here. That being said, you should look over this chapter to ensure
 that your current setup will be compatible with the course requirements.
 
-If you have never used R before, this chapter is essential! The information is 
-this chapter will be crucial for getting your computer ready for the course.
+If you have never used R before, this chapter is essential! The information is this chapter will be crucial for getting
+your computer ready for the course.
 
-![](images/chap2.jpg)
+![](assets/images/chap2.jpg)
 
 ## Typographic Conventions {-}
 
-Throughout this GitBook, we (try to) use a consistent set of typographic 
-conventions:
+Throughout this GitBook, we (try to) use a consistent set of typographic conventions:
 
-- Functions are typeset in a code font, and the name of the function is always 
-followed by parentheses
+- Functions are typeset in a code font, and the name of the function is always followed by parentheses.
     - E.g., `sum()`, `mean()`
-- Other R objects (e.g., data objects, function arguments) are in also typeset
-in a code font but without parentheses
-    - E.g., `seTE`, `method.tau` 
-- Sometimes, we’ll use the package name followed by two colons (`::`, the 
-so-called *scope-resolution operator), like `lavaan::sem()`. This command is 
-valid R code and will run if you copy it into your R console. The `lavaan::` 
-part of the command tells R that we want to use the `sem()` from the `lavaan` 
-package.
+- Other R objects (e.g., data objects, function arguments) are in also typeset in a code font but without parentheses.
+    - E.g., `seTE`, `method.tau`
+- Sometimes, we’ll use the package name followed by two colons (`::`, the so-called *scope-resolution operator), like
+  `lavaan::sem()`. This command is valid R code and will run if you copy it into your R console. The `lavaan::` part of
+  the command tells R that we want to use the `sem()` from the `lavaan` package.
 
 <!----------------------------------------------------------------------------->
 
 ## Installing software {-}
 
-Before we start the course, we have to install three things:
+Before we start the course, we have to install two crucial pieces of software:
 
 - **R**: A free program for statistical programming
 - **RStudio**: An integrated development environment (IDE) which makes it easier 
 to work with R. 
-- Several **packages**: Separate pieces of 'add-on' software for R with 
-functions to do specific analyses. Packages also include documentation describing 
-how to use their functions and sample data.
+
+You will also need several **R packages**: Separate pieces of 'add-on' software for R with functions to do specific
+analyses. But we'll install any necessary packages when we first need to use them.
 
 ---
 
@@ -46,11 +40,11 @@ how to use their functions and sample data.
 
 The latest version of R is available [here](https://cran.r-project.org).
 
-- Click the appropriate link for your operating system and follow the 
-instructions for installing the latest stable release.
+- Click the appropriate link for your operating system and follow the instructions for installing the latest stable
+release.
 - Depending on which OS you select, you may be given an option to install 
-different components (e.g., *base*, *contrib*, *Rtools*). For this course, you 
-will only need the *base* package. 
+different components (e.g., *base*, *contrib*, *Rtools*).
+   - For this course, you will only need the *base* package. 
 
 ---
 
@@ -59,13 +53,12 @@ will only need the *base* package.
 ```{r, echo = FALSE, fig.width = 3, fig.height = 2}
 library(png)
 library(grid)
-img <- readPNG(paste0(imageDir, "rstudiologo.png"))
+img <- readPNG(here::here("assets", "images", "rstudiologo.png"))
 grid.raster(img)
 ```
 
-Download the Free Desktop version of RStudio from the 
-[download page](https://www.rstudio.com/products/rstudio/download/) of the 
-[RStudio website](https://www.rstudio.com/).
+Download the Free Desktop version of RStudio from the [download page](https://www.rstudio.com/products/rstudio/download/)
+of the [Posit website](https://www.posit.co/).
 
 ---
 

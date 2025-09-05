@@ -7,19 +7,58 @@ library(tidySEM)
 library(dplyr)
 library(rockchalk)
 
-dataDir <- "../../../../data/"
-seData <- read_sav(paste0(dataDir, "SelfEsteem.sav"))
+dataDir <- "data"
+seData <- read_sav(here::here(dataDir, "SelfEsteem.sav"))
 ```
 
----
+### Setup
+
+**Data:**
+
+You will use the following dataset for these exercises.
+
+- [SelfEsteem](https://surfdrive.surf.nl/files/index.php/s/iA7Pjomr6BM6D6c)
+- [Outlook](https://surfdrive.surf.nl/files/index.php/s/n1BWVuQz8Vm7avl)
+
+------------------------------------------------------------------------------------------------------------------------
+
+**Packages:**
+
+To complete these exercises, you will need to install the packages described below.
+
+```{r, echo = FALSE}
+data.frame(
+  Package = c(
+    "rockchalk",
+    "semTools"
+  ),
+  Description = c(
+    "Probing interactions, Post-hoc analysis of moderated effects",
+    "Probing interactions, Comparing models, Establishing measurement invariance across groups"
+  )
+) |>
+  knitr::kable()
+```
+
+Use the `install.packages()` function to install these packages.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+install.packages(c("rockchalk", "semTools"), dependencies = TRUE)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 ### Mediation
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-In this practical, we'll go back to the data from the at-home exercises,
-*SelfEsteem.sav*. Recall that these data comprise 143 observations of the
-following variables. 
+In this practical, we'll go back to the data from the at-home exercises, *SelfEsteem.sav*. Recall that these data
+comprise 143 observations of the following variables. 
 
 - *case*: Participant ID number
 - *ParAtt*: Parental Attachment
@@ -29,12 +68,11 @@ following variables.
 - *Aggr*: Aggression
 - *SelfEst*: Self-esteem
 
-When we last worked with the data, we built a model with one mediator (*Emp*),
-creating indirect effects between our predictors *ParAtt* and *PeerAtt*, and our
-outcome variable *SelfEst*. Below, you will estimate a more complex, 
+When we last worked with the data, we built a model with one mediator (*Emp*), creating indirect effects between our
+predictors *ParAtt* and *PeerAtt*, and our outcome variable *SelfEst*. Below, you will estimate a more complex,
 multiple-mediator model.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
@@ -49,27 +87,23 @@ seData <- read_sav("SelfEsteem.sav")
 ```
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-For this analysis, we are interested in the (indirect) effects of parental and 
-peer attachment on self-esteem. Furthermore, we want to evaluate the mediating 
-roles of empathy and social behavior (i.e., prosocial behavior and aggression).
+For this analysis, we are interested in the (indirect) effects of parental and peer attachment on self-esteem.
+Furthermore, we want to evaluate the mediating roles of empathy and social behavior (i.e., prosocial behavior and
+aggression).
 
 Specifically, we have the following hypotheses.
 
-1. Better peer relationships will promote higher self-esteem via a three-step 
-indirect process.
+1. Better peer relationships will promote higher self-esteem via a three-step indirect process.
     a. Better peer relationships will increase empathy levels.
-    a. Higher empathy will increase prosocial behavior and decrease aggressive 
-    behavior.
-    a. More prosocial behaviors and less aggressive behavior will both produce 
-    higher self-esteem.
+    a. Higher empathy will increase prosocial behavior and decrease aggressive behavior.
+    a. More prosocial behaviors and less aggressive behavior will both produce higher self-esteem.
 1. Better relationships with parents directly increase self-esteem.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-To evaluate these hypotheses, we will use **lavaan** to estimate the following 
-multiple mediator model as a path model. 
+To evaluate these hypotheses, we will use **lavaan** to estimate the following multiple mediator model as a path model. 
 
 ```{r, echo = FALSE}
 modex <-
@@ -103,22 +137,22 @@ prepare_graph(out,
               angle = 0,
               spacing_x = 2,
               text_size = 3,
-              rect_height = 1.5) %>% 
+              rect_height = 1.5) |> 
   if_nodes(condition = {shape == "rect"},
-           expr = {label = c("Aggressive\nBehavior\nM22", "Empathy\nM1", "Parent\nAttachment\nX1", "Peer\nAttachment\nX2", "Prosocial\nBehavior\nM21", "Self Esteem\nY")}) %>% 
+           expr = {label = c("Aggressive\nBehavior\nM22", "Empathy\nM1", "Parent\nAttachment\nX1", "Peer\nAttachment\nX2", "Prosocial\nBehavior\nM21", "Self Esteem\nY")}) |> 
   edit_edges({
     label <- NA
-  }) %>%
+  }) |>
   all_cov({
     arrow <- "both"
-  }) %>% 
-  hide_var() %>% 
+  }) |> 
+  hide_var() |> 
   plot()  
 ```
 
 <!-- ![](images/week5_home_full_model.png) -->
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3csyntax}
 
@@ -149,7 +183,7 @@ ParAtt ~~ PeerAtt
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3cfit}
 
@@ -169,12 +203,11 @@ summary(out)
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
-Considering the parameter estimates from \@ref(w3cfit), what can you say about
-the hypotheses? 
+Considering the parameter estimates from \@ref(w3cfit), what can you say about the hypotheses? 
 
 <details>
   <summary>Click for explanation</summary>
@@ -182,44 +215,42 @@ the hypotheses?
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out)
 
-parent <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "ParAtt") 
-peer   <- tmp %>% filter(lhs == "SelfEst", op == "~", rhs == "PeerAtt") 
+parent <- tmp |> filter(lhs == "SelfEst", op == "~", rhs == "ParAtt") 
+peer   <- tmp |> filter(lhs == "SelfEst", op == "~", rhs == "PeerAtt") 
 ```
 
-Notice that all of the hypotheses stated above are explicitly directional. Hence,
-when evaluating the significance of the structural paths that speak to these
-hypotheses, we should use one-tailed tests. We cannot ask **lavaan** to return 
-one-tailed p-values, but we have no need to do so. We can simply divide the 
-two-tailed p-values in half.
+Notice that all of the hypotheses stated above are explicitly directional. Hence, when evaluating the significance of
+the structural paths that speak to these hypotheses, we should use one-tailed tests. We cannot ask **lavaan** to return
+one-tailed p-values, but we have no need to do so. We can simply divide the two-tailed p-values in half.
 
 The significant direct effect of `ParAtt` on `SelfEst` 
-($\beta = `r parent$est %>% round(3)`$, 
-$Z = `r parent$z %>% round(2)`$,
-$p = `r (parent$p / 2) %>% round(3)`$) and the lack of a significant direct 
-effect of `PeerAtt` on `SelfEst` ($\beta = `r peer$est %>% round(3)`$, 
-$Z = `r peer$z %>% round(3)`$,
-$p = `r (peer$p / 2) %>% round(3)`$) align with our hypotheses.
+($\beta = `r parent$est |> round(3)`$, 
+$Z = `r parent$z |> round(2)`$,
+$p = `r (parent$p / 2) |> round(3)`$)
+and the lack of a significant direct effect of `PeerAtt` on `SelfEst`
+($\beta = `r peer$est |> round(3)`$, 
+$Z = `r peer$z |> round(3)`$,
+$p = `r (peer$p / 2) |> round(3)`$)
+align with our hypotheses.
 
-The remaining patterns of individual estimates also seem to conform to the 
-hypotheses (e.g., all of the individual paths comprising the indirect effects of 
-`PeerAtt` on `SelfEst` are significant). We cannot make any firm conclusions 
-until we actually estimate and test the indirect effects, though.
+The remaining patterns of individual estimates also seem to conform to the hypotheses (e.g., all of the individual paths
+comprising the indirect effects of `PeerAtt` on `SelfEst` are significant). We cannot make any firm conclusions until we
+actually estimate and test the indirect effects, though.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Modify the model syntax from \@ref(w3csyntax) by adding definitions of the two
-hypothesized IEs from `PeerAtt` to `SelfEst`.
+Modify the model syntax from \@ref(w3csyntax) by adding definitions of the two hypothesized IEs from `PeerAtt` to
+`SelfEst`.
 
 <details>
   <summary>Click to show code</summary>
 
-You can use any labeling scheme that makes sense to you, but I recommend adopting
-some kind of systematic rule. Here, I will label the individual estimates in 
-terms of the short variable names used in the path diagram above. 
+You can use any labeling scheme that makes sense to you, but I recommend adopting some kind of systematic rule. Here, I
+will label the individual estimates in terms of the short variable names used in the path diagram above. 
 
 ```{r}
 mod <- '
@@ -245,7 +276,7 @@ ie_agg := m1_x2 * m22_m1 * y_m22
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3ctest}
 
@@ -265,57 +296,50 @@ summary(out)
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out)
 
-pro <- tmp %>% filter(label == "ie_pro")
-agg <- tmp %>% filter(label == "ie_agg")
+pro <- tmp |> filter(label == "ie_pro")
+agg <- tmp |> filter(label == "ie_agg")
 ```
   
   <details>
     <summary>Click for explanation</summary>
     
-The IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial 
-Behavior* is significant ($\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
-$Z = `r pro$z %>% round(2)`$, $p = `r (pro$p / 2) %>% round(3)`$), as is the 
-analogous IE through *Aggressive Behavior* 
-($\hat{\textit{IE}} = `r agg$est %>% round(3)`$,
-$Z = `r agg$z %>% round(2)`$, $p = `r (agg$p / 2) %>% round(3)`$). Though,
-this latter effect is just barely significant at the $\alpha = 0.05$ level.
+The IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial Behavior* is significant
+($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
+$Z = `r pro$z |> round(2)`$, $p = `r (pro$p / 2) |> round(3)`$),
+as is the analogous IE through *Aggressive Behavior* 
+($\hat{\textit{IE}} = `r agg$est |> round(3)`$,
+$Z = `r agg$z |> round(2)`$, $p = `r (agg$p / 2) |> round(3)`$).
+Though, this latter effect is just barely significant at the $\alpha = 0.05$ level.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The tests we used to evaluate the significance of the IEs in \@ref(w3ctest) are 
-flawed because they assume normal sampling distributions for the IEs. However 
-the IEs are defined as products of multiple, normally distributed, regression 
-slopes. So the IEs themselves cannot be normally distributed (at least in finite
-samples), and the results of the normal-theory significance tests may be 
-misleading. 
+The tests we used to evaluate the significance of the IEs in \@ref(w3ctest) are flawed because they assume normal
+sampling distributions for the IEs. However the IEs are defined as products of multiple, normally distributed,
+regression slopes. So the IEs themselves cannot be normally distributed (at least in finite samples), and the results of
+the normal-theory significance tests may be misleading. 
 
-To get an accurate test of the IEs, we should use *bootstrapping* to generate an 
-empirical sampling distribution for each IE. In **lavaan**, we implement 
-bootstrapping by specifying the `se = "bootstrap"` option in the fitting 
-function (i.e., the `cfa()` or `sem()` function) and specifying the number of 
-bootstrap samples via the `bootstrap` option. 
+To get an accurate test of the IEs, we should use *bootstrapping* to generate an empirical sampling distribution for
+each IE. In **lavaan**, we implement bootstrapping by specifying the `se = "bootstrap"` option in the fitting function
+(i.e., the `cfa()` or `sem()` function) and specifying the number of bootstrap samples via the `bootstrap` option. 
 
 ***Workflow Tip*** 
 
-To draw reliable conclusions from bootstrapped results, we need many 
-bootstrap samples (i.e., B > 1000), but we must estimate the full model for each 
-of these samples, so the estimation can take a long time. To avoid too much 
-frustration, you should first estimate the model without bootstrapping to make 
-sure everything is specified correctly. Only after you are certain that your 
-code is correct do you want to run the full bootstrapped version.
+To draw reliable conclusions from bootstrapped results, we need many bootstrap samples (i.e., B > 1000), but we must
+estimate the full model for each of these samples, so the estimation can take a long time. To avoid too much
+frustration, you should first estimate the model without bootstrapping to make sure everything is specified correctly.
+Only after you are certain that your code is correct do you want to run the full bootstrapped version.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#w3cboot}
 
 Re-estimate the model from \@ref(w3ctest) using 1000 bootstrap samples.
 
 - Other than the `se` and `bootstrap` options, use the defaults.
-- Are the hypothesized IEs significant according to the bootstrap-based test
-statistics?
+- Are the hypothesized IEs significant according to the bootstrap-based test statistics?
 
 <details>
   <summary>Click to show code</summary>
@@ -337,46 +361,40 @@ summary(out_boot)
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out_boot)
 
-pro <- tmp %>% filter(label == "ie_pro")
-agg <- tmp %>% filter(label == "ie_agg")
+pro <- tmp |> filter(label == "ie_pro")
+agg <- tmp |> filter(label == "ie_agg")
 ```
 
-As with the normal-theory tests, the hypothesized IE of *Peer Attachment* on
-*Self Esteem* was significant ($\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
-$Z = `r pro$z %>% round(2)`$,
-$p = `r (pro$p / 2) %>% round(3)`$), but the IE of *Aggressive Behavior* has
-crossed into nonsignificant territory
-($\hat{\textit{IE}} = `r agg$est %>% round(3)`$, 
-$Z = `r agg$z %>% round(2)`$,
-$p = `r (agg$p / 2) %>% round(3)`$).
+As with the normal-theory tests, the hypothesized IE of *Peer Attachment* on *Self Esteem* was significant
+($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
+$Z = `r pro$z |> round(2)`$,
+$p = `r (pro$p / 2) |> round(3)`$),
+but the IE of *Aggressive Behavior* has crossed into nonsignificant territory
+($\hat{\textit{IE}} = `r agg$est |> round(3)`$, 
+$Z = `r agg$z |> round(2)`$,
+$p = `r (agg$p / 2) |> round(3)`$).
 
-*Note:* Bootstrapping is a stochastic method, so each run can provide different
-results. Since the indirect effect of aggressive behavior is so close to the 
-critical value, you may come to a different conclusions vis-á-vis statistical
-significance if you run this analysis with a different random number seed or a 
-different number of bootstrap samples.
+*Note:* Bootstrapping is a stochastic method, so each run can provide different results. Since the indirect effect of
+aggressive behavior is so close to the critical value, you may come to a different conclusions vis-á-vis statistical
+significance if you run this analysis with a different random number seed or a different number of bootstrap samples.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-When you use the `summary()` function to summarize the bootstrapped model from 
-\@ref(w3cboot), the output will probably look pretty much the same as it did in 
-\@ref(w3ctest), but it's not. The standard errors and test statistics in the 
-bootstrapped summary are derived from empirical sampling distributions, whereas 
-these values are based on an assumed normal sampling distribution in
-\@ref(w3ctest).
+When you use the `summary()` function to summarize the bootstrapped model from \@ref(w3cboot), the output will probably
+look pretty much the same as it did in \@ref(w3ctest), but it's not. The standard errors and test statistics in the
+bootstrapped summary are derived from empirical sampling distributions, whereas these values are based on an assumed
+normal sampling distribution in \@ref(w3ctest).
 
-The standard method of testing IEs with bootstrapping is to compute confidence 
-intervals (CIs) from the empirical sampling distribution of the IEs. In
-**lavaan**, we can compute basic (percentile, 95%) CIs by adding the `ci = TRUE`
-option to the `summary()` function. To evaluate our directional hypotheses at an 
-$\alpha = 0.05$ level, however, we need to compute 90% CIs. We can get more 
-control over the summary statistics (include the CIs) with the 
+The standard method of testing IEs with bootstrapping is to compute confidence intervals (CIs) from the empirical
+sampling distribution of the IEs. In **lavaan**, we can compute basic (percentile, 95%) CIs by adding the `ci = TRUE`
+option to the `summary()` function. To evaluate our directional hypotheses at an $\alpha = 0.05$ level, however, we need
+to compute 90% CIs. We can get more control over the summary statistics (include the CIs) with the
 `parameterEstimates()` function. 
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -391,12 +409,11 @@ Check the documentation for `lavaan::parameterEstimates()`.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Use the `parameterEstimates()` function to compute bootstrapped CIs for the 
-hypothesized IEs.
+Use the `parameterEstimates()` function to compute bootstrapped CIs for the hypothesized IEs.
 
 - Compute percentile CIs.
 - Are the IEs significant according to the bootstrapped CIs?
@@ -414,107 +431,93 @@ parameterEstimates(out_boot, ci = TRUE, level = 0.9)
 ```{r, include = FALSE}
 tmp <- parameterEstimates(out_boot, ci = TRUE, level = 0.9)
 
-pro <- tmp %>% filter(label == "ie_pro")
-agg <- tmp %>% filter(label == "ie_agg")
+pro <- tmp |> filter(label == "ie_pro")
+agg <- tmp |> filter(label == "ie_agg")
 ```
 
-When evaluating a directional hypothesis with a CI, we only consider one of the
-interval's boundaries. 
+When evaluating a directional hypothesis with a CI, we only consider one of the interval's boundaries. 
 
-- For a hypothesized positive effect, we check only if the lower boundary is
-  greater than zero. 
-- For a hypothesized negative effect, we check if the upper boundary is less 
-  than zero.
+- For a hypothesized positive effect, we check only if the lower boundary is greater than zero. 
+- For a hypothesized negative effect, we check if the upper boundary is less than zero.
 
-As with the previous tests, the IE of *Peer Attachment* on *Self Esteem*
-through *Empathy* and *Prosocial Behavior* is significant 
-($\hat{\textit{IE}} = `r pro$est %>% round(3)`$, 
-$95\% ~ CI = [`r pro$ci.lower %>% round(3)`; \infty]$), as is the analogous IE 
-through *Aggressive Behavior* ($\hat{\textit{IE}} = `r agg$est %>% round(3)`$, 
-$95\% ~ CI = [-\infty; `r agg$ci.upper %>% round(3)`]$).
+As with the previous tests, the IE of *Peer Attachment* on *Self Esteem* through *Empathy* and *Prosocial Behavior* is
+significant 
+($\hat{\textit{IE}} = `r pro$est |> round(3)`$, 
+$95\% ~ CI = [`r pro$ci.lower |> round(3)`; \infty]$),
+as is the analogous IE through *Aggressive Behavior*
+($\hat{\textit{IE}} = `r agg$est |> round(3)`$, 
+$95\% ~ CI = [-\infty; `r agg$ci.upper |> round(3)`]$).
 
   </details>
-    
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Based on the analyses you've conducted here, what do you conclude vis-à-vis the 
-original hypotheses?
+Based on the analyses you've conducted here, what do you conclude vis-à-vis the original hypotheses?
 
 <details>
   <summary>Click for explanation</summary>
 
-Both hypothesized indirect effects between *Peer Attachment* and *Self Esteem*
-were supported in that the IE through *Empathy* and *Prosocial Behavior* as well
-as the IE through *Empathy* and *Aggressive Behavior* were both significant. The
-hypothesized direct effect of *Parent Attachment* on *Self Esteem* was also born
-out via a significant direct effect in the model.
+Both hypothesized indirect effects between *Peer Attachment* and *Self Esteem* were supported in that the IE through
+*Empathy* and *Prosocial Behavior* as well as the IE through *Empathy* and *Aggressive Behavior* were both significant.
+The hypothesized direct effect of *Parent Attachment* on *Self Esteem* was also born out via a significant direct effect
+in the model.
 
-These results may not tell the whole story, though. We have not tested for 
-indirect effects between *Parent Attachment* and *Self Esteem*, and we have not 
-evaluated simpler indirect effects between *Peer Attachment* and *Self Esteem*
-(e.g., `PeerAtt` $\rightarrow$ `Emp` $\rightarrow$ `SelfEst`). 
+These results may not tell the whole story, though. We have not tested for indirect effects between *Parent Attachment*
+and *Self Esteem*, and we have not evaluated simpler indirect effects between *Peer Attachment* and *Self Esteem* (e.g.,
+`PeerAtt` $\rightarrow$ `Emp` $\rightarrow$ `SelfEst`). 
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### Moderation
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ```{r, include = FALSE}
-outlook <- readRDS(paste0(dataDir, "outlook.rds"))
+outlook <- readRDS(here::here(dataDir, "outlook.rds"))
 ```
 
-We will first analyze a synthetic version of the [*Outlook on Life Survey*][outlook0]
-data. The original data were collected in the United States in 2012 to measure, 
-among other things, attitudes about racial issues, opinions of the Federal 
-government, and beliefs about the future.
+We will first analyze a synthetic version of the [*Outlook on Life Survey*][outlook0] data. The original data were
+collected in the United States in 2012 to measure, among other things, attitudes about racial issues, opinions of the
+Federal government, and beliefs about the future.
 
-We will work with a synthesized subset of the original data. You can access
-these synthetic data as [*outlook.rds*][outlook1]. This dataset comprises 
-`r nrow(outlook)` observations of the following `r ncol(outlook)` variables.
+We will work with a synthesized subset of the original data. You can access these synthetic data as
+[*outlook.rds*][outlook1]. This dataset comprises `r nrow(outlook)` observations of the following `r ncol(outlook)`
+variables.
 
-- `d1:d3`: Three observed indicators of a construct measuring disillusionment 
-with the US Federal government.
+- `d1:d3`: Three observed indicators of a construct measuring disillusionment with the US Federal government.
    - Higher scores indicate more disillusionment
-- `s1:s4`: Four observed indicators of a construct measuring the perceived 
-achievability of material success.
+- `s1:s4`: Four observed indicators of a construct measuring the perceived achievability of material success.
    - Higher scores indicate greater perceived achievability
-- `progress`: A single item assessing perceived progress toward achieving the 
-"American Dream"
+- `progress`: A single item assessing perceived progress toward achieving the "American Dream"
    - Higher scores indicate greater perceived progress
-- `merit`: A single item assessing endorsement of the meritocratic ideal that 
-hard work leads to success.
+- `merit`: A single item assessing endorsement of the meritocratic ideal that hard work leads to success.
    - Higher scores indicate stronger endorsement of the meritocratic ideal
 - `lib2Con`: A single item assessing liberal-to-conservative orientation
    - Lower scores are more liberal, higher scores are more conservative
 - `party`: A four-level factor indicating self-reported political party affiliation
-- `disillusion`: A scale score representing disillusionment with the US Federal 
-government
+- `disillusion`: A scale score representing disillusionment with the US Federal government
    - Created as the mean of `d1:d3`
-- `success`: A scale score representing the perceived achievability of material 
-success
+- `success`: A scale score representing the perceived achievability of material success
    - Created as the mean of `s1:s4`
 
-To satisfy the [access and licensing][access] conditions under which the original 
-data are distributed, the data contained in *outlook.rds* were synthesized from 
-the original variables using the methods described by [Volker and Vink (2021)][miceSyn]. 
-You can access the original data [here][outlook0], and you can access the code 
-used to process the data [here][outlook_code].
+To satisfy the [access and licensing][access] conditions under which the original data are distributed, the data
+contained in *outlook.rds* were synthesized from the original variables using the methods described by
+[Volker and Vink (2021)][miceSyn]. You can access the original data [here][outlook0], and you can access the code used
+to process the data [here][outlook_code].
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### 
 
 Read in the `outlook.rds` dataset.
 
-*Hint:* An RDS file is an R object that's been saved to a file. To read in this
-type of file, we use `readRDS()` from base R.
+*Hint:* An RDS file is an R object that's been saved to a file. To read in this type of file, we use `readRDS()` from
+base R.
 
 <details>
   <summary>Click to show code</summary>
@@ -525,7 +528,7 @@ outlook <- readRDS("outlook.rds")
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -542,18 +545,16 @@ str(outlook)
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 We will first use OLS regression to estimate a model encoding the following relations:
 
-- Belief in the achievability of success, *success*, predicts perceived progress 
-toward the American Dream, *progress*, as the focal effect.
-- Disillusionment with the US Federal government, *disillusion* moderates the 
-*success* $\rightarrow$ *progress* effect.
-- Placement on the liberal-to-conservative continuum, *lib2Con* is partialed out 
-as a covariate.
+- Belief in the achievability of success, *success*, predicts perceived progress toward the American Dream, *progress*,
+as the focal effect.
+- Disillusionment with the US Federal government, *disillusion* moderates the *success* $\rightarrow$ *progress* effect.
+- Placement on the liberal-to-conservative continuum, *lib2Con* is partialed out as a covariate.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -563,17 +564,16 @@ Draw the conceptual path diagram for the model described above.
   <summary>Click for explanation</summary>
   
 ```{r, echo=FALSE}
-knitr::include_graphics("images/lab5_conceptual1.png")
+knitr::include_graphics(here::here("assets", "images", "lab5_conceptual1.png"))
 ```
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Write out the regression equation necessary to evaluate the moderation 
-hypothesis described above.
+Write out the regression equation necessary to evaluate the moderation hypothesis described above.
 
 <details>
   <summary>Click for explanation</summary>
@@ -584,7 +584,7 @@ Y_{progress} = \beta_0 + \beta_1 W_{lib2Con} + \beta_2 X_{success} + \beta_3 Z_{
   
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#olsFit}
 
@@ -599,7 +599,7 @@ olsFit <- lm(progress ~ lib2Con + success * disillusion, data = outlook)
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -621,35 +621,34 @@ summary(olsFit)
 ```{r, include = FALSE}
 tmp <- summary(olsFit)$coef
 
-b  <- tmp["success:disillusion", "Estimate"] %>% round(3)
-t  <- tmp["success:disillusion", "t value"] %>% round(3)
+b  <- tmp["success:disillusion", "Estimate"] |> round(3)
+t  <- tmp["success:disillusion", "t value"] |> round(3)
 df <- olsFit$df.residual
-p  <- tmp["success:disillusion", "Pr(>|t|)"] %>% round(3)
+p  <- tmp["success:disillusion", "Pr(>|t|)"] |> round(3)
 ```
 
-  Yes, *disillusion* significantly moderates the relation between *success* and 
-  *progress* ($\beta = `r b`$, $t[`r df`] = `r t`$, $p = `r p`$) such that the
-  effect of *success* on *progress* increases as levels of *disillusion*
-  increase, after controlling for *lib2Con*.
+  Yes, *disillusion* significantly moderates the relation between *success* and *progress*
+  ($\beta = `r b`$, $t[`r df`] = `r t`$, $p = `r p`$)
+  such that the effect of *success* on *progress* increases as levels of *disillusion* increase, after controlling for
+  *lib2Con*.
  
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The [**rockchalk**][rockchalk] package contains some useful routines for probing
-interactions estimated via `lm()`. Specifically, the `plotslopes()` function will
-estimate and plot simple slopes, and the `testSlopes()` function tests the simple
-slopes estimated by `plotSlopes()`.
+The [**rockchalk**][rockchalk] package contains some useful routines for probing interactions estimated via `lm()`.
+Specifically, the `plotslopes()` function will estimate and plot simple slopes, and the `testSlopes()` function tests
+the simple slopes estimated by `plotSlopes()`.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#ssOls}
 
 Probe the interaction.
 
-- Use the `plotSlopes()` and `testSlopes()` functions from the **rockchalk** 
-package to conduct a simple slopes analysis for the model from \@ref(olsFit).
+- Use the `plotSlopes()` and `testSlopes()` functions from the **rockchalk** package to conduct a simple slopes analysis
+for the model from \@ref(olsFit).
 
 <details>
   <summary>Click to show code</summary>
@@ -670,25 +669,21 @@ tsOut <- testSlopes(psOut)
 tsOut$hypotests
 ```
 
-*Note:* The message printed by `testSlopes()` gives the boundaries of the 
-*Johnson-Neyman Region of Significance* [(Johnson & Neyman, 1936)][jn]. 
-Johnson-Neyman analysis is an alternative method of probing interactions that we 
-have not covered in this course. For more information, check out 
-[Preacher, et al. (2006)][preacher_et_al_2006].
+*Note:* The message printed by `testSlopes()` gives the boundaries of the *Johnson-Neyman Region of Significance*
+[(Johnson & Neyman, 1936)][jn]. Johnson-Neyman analysis is an alternative method of probing interactions that we have
+not covered in this course. For more information, check out [Preacher, et al. (2006)][preacher_et_al_2006].
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-We will now use **lavaan** to estimate the moderated regression model from above 
-as a path analysis.
+We will now use **lavaan** to estimate the moderated regression model from above as a path analysis.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
-Define the model syntax for the path analytic version of the model described
-above.
+Define the model syntax for the path analytic version of the model described above.
 
 - Parameterize the model as in the OLS regression.
 - Use only observed items and scale scores.
@@ -704,7 +699,7 @@ progress ~ 1 + lib2Con + success + disillusion + success:disillusion
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 #### {#pathFit}
 
@@ -719,7 +714,7 @@ pathFit <- sem(pathMod, data = outlook)
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -728,8 +723,7 @@ Summarize the fitted path model and interpret the results.
 - Do the results match the OLS regression results?
 - What proportion of the variability in *progress* is explained by this model?
 
-*Hint:* the function `lavInspect()` can be used to extract information from
-models
+*Hint:* the function `lavInspect()` can be used to extract information from models
 
 <details>
   <summary>Click to show code</summary>
@@ -742,22 +736,19 @@ lavInspect(pathFit, "r2")
   <details>
     <summary>Click for explanation</summary>
 
-  Yes, the estimates and inferential conclusions are all the same as in the OLS 
-  regression model. The model explains 
-  `r (100 * lavInspect(pathFit, "r2")) %>% round(2)`\% of the variability in 
-  *progress*.
+  Yes, the estimates and inferential conclusions are all the same as in the OLS regression model. The model explains
+  `r (100 * lavInspect(pathFit, "r2")) |> round(2)`\% of the variability in *progress*.
   
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The [**semTools**][semTools] package contains some helpful routines for probing 
-interactions estimated via the `lavaan()` function (or one of it's wrappers). 
-Specifically, the `probe2WayMC()` and `plotProbe()` functions will estimate/test 
-simple slopes and plot the estimated simple slopes, respectively.
+The [**semTools**][semTools] package contains some helpful routines for probing interactions estimated via the
+`lavaan()` function (or one of it's wrappers). Specifically, the `probe2WayMC()` and `plotProbe()` functions will
+estimate/test simple slopes and plot the estimated simple slopes, respectively.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ####
 
@@ -765,8 +756,7 @@ Probe the interaction from \@ref(pathFit) using *semTools* utilities.
 
 - Use `probe2WayMC()` to estimate and test the simple slopes.
 - Use `plotProbe()` to visualize the simple slopes.
-- Define the simple slopes with the same conditional values of *disillusion*
-  that you used in \@ref(ssOls). 
+- Define the simple slopes with the same conditional values of *disillusion* that you used in \@ref(ssOls). 
 - Which simple slopes are significant?
 - Do these results match the results from \@ref(ssOls)?
 
@@ -781,7 +771,7 @@ condVals <- summarise(outlook,
                       "m-sd" = mean(disillusion) - sd(disillusion),
                       mean = mean(disillusion),
                       "m+sd" = mean(disillusion) + sd(disillusion)
-                      ) %>% unlist()
+                      ) |> unlist()
  
 ## Compute simple slopes and intercepts:
 ssOut <- probe2WayMC(pathFit, 
@@ -805,23 +795,22 @@ plotProbe(ssOut,
   <details>
     <summary>Click for explanation</summary>
 
-Each of the simple slopes is significant. As level of disillusionment increases,
-the effect of *success* on *progress* also increases, and this effect is
-significant for all levels of *disillusion* considered here. These results
-match the simple slopes from the OLS regression analysis.
+Each of the simple slopes is significant. As level of disillusionment increases, the effect of *success* on *progress*
+also increases, and this effect is significant for all levels of *disillusion* considered here. These results match the
+simple slopes from the OLS regression analysis.
 
   </details>
 </details>
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
 End of In-Class Exercises
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
 [lavaan]: https://cran.r-project.org/web/packages/lavaan/
 [outlook0]: https://doi.org/10.3886/ICPSR35348.v1
-[outlook1]: https://github.com/kylelang/lavaan-e-learning/raw/main/5_moderation/data/outlook.rds
+[outlook1]: https://surfdrive.surf.nl/files/index.php/s/n1BWVuQz8Vm7avl
 [access]: https://www.icpsr.umich.edu/web/pages/datamanagement/lifecycle/access.html
 [miceSyn]: https://doi.org/10.3390/psych3040045
 [outlook_code]: https://github.com/kylelang/lavaan-e-learning/blob/main/code/lab_prep/process_outlook_data.R
