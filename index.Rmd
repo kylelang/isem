@@ -73,10 +73,10 @@ This course comprises three parts:
 
 Your mastery of these themes will be evaluated with a two data analysis assignments. 
 
-1. The first assignment covers path analysis.
+1. The [first assignment](#a1) covers path analysis.
    - You will complete this assignment in a group of three students.
    - This assignment will be graded on a pass/fail basis. 
-1. The second assignment covers latent variable modeling.
+1. The [second assignment](#a2) covers latent variable modeling.
    - This is an individual assignment.
    - Your course grade will be based on your second assignment grade.
 
@@ -118,6 +118,22 @@ After completing the course, you will be able to:
    the benefits of doing so.
 1. Reflect critically on the decisions involved in defining and estimating structural equation models.
 
+---
+
+### Background knowledge {- #background}
+
+We assume you have basic knowledge about multivariate statistics before entering this course. You do not need any prior
+experience working with R. If you wish to refresh your knowledge, Andy Field’s [*Discovering Statistics using R*][field]
+is quite a popular and well-respected introductory stats book. 
+
+If you cannot access the Field book, many other introductory statistics textbooks cover these topics equally well. So,
+use whatever you have lying around from past statistics courses. You could also try one of the following open-access
+options:
+
+- [*Applied Statistics with R*][stats_with_r]
+- [*Introduction to Modern Statistics*][modern_stats]
+- [*Introduction to Statistical Learning*][isl]
+
 <!--------------------------------------------------------------------------------------------------------------------->
 
 ## Resources {-}
@@ -139,6 +155,18 @@ If you run into any trouble accessing a given article, searching for the title u
 
 ---
 
+### Reading questions {-}
+
+Along with every article, we will provide reading questions. You will not be graded on the reading questions, but it is
+important to prepare the reading questions before every lecture. The reading questions serve several important purposes:
+
+-	Provide relevant background knowledge for the lecture
+-	Help you recognize and understand the key terms and concepts
+-	Make you aware of important publications that shaped the field
+- Help you extract the relevant insights from the literature
+
+---
+
 ### Software {-}
 
 You will do all of your statistical analyses with the statistical programming language/environment [R][r] and the add-on
@@ -149,19 +177,11 @@ tutorial](https://lavaan.ugent.be/tutorial/).
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
-## Reading questions {-}
+## Logistics {-}
 
-Along with every article, we will provide reading questions. You will not be graded on the reading questions, but it is
-important to prepare the reading questions before every lecture. The reading questions serve several important purposes:
+---
 
--	Provide relevant background knowledge for the lecture
--	Help you recognize and understand the key terms and concepts
--	Make you aware of important publications that shaped the field
-- Help you extract the relevant insights from the literature
-
-<!--------------------------------------------------------------------------------------------------------------------->
-
-## Weekly preparation {-}
+### Weekly preparation {-}
 
 Before every class meeting (both lectures and practicals) you need to do the assigned homework (delineated in the
 GitBook chapter for that week). This course follows a *flipped classroom* procedure, so you must complete the weekly
@@ -169,23 +189,7 @@ homework to meaningfully participate in, and benefit from, the class meetings.
 
 ---
 
-### Background knowledge {- #background}
-
-We assume you have basic knowledge about multivariate statistics before entering this course. You do not need any prior
-experience working with R. If you wish to refresh your knowledge, Andy Field’s [*Discovering Statistics using R*][field]
-is quite a popular and well-respected introductory stats book. 
-
-If you cannot access the Field book, many other introductory statistics textbooks cover these topics equally well. So,
-use whatever you have lying around from past statistics courses. You could also try one of the following open-access
-options:
-
-- [*Applied Statistics with R*][stats_with_r]
-- [*Introduction to Modern Statistics*][modern_stats]
-- [*Introduction to Statistical Learning*][isl]
-
-<!--------------------------------------------------------------------------------------------------------------------->
-
-## Evaluation {-}
+### Evaluation {-}
 
 Your grade for the course is based on a “portfolio” composed of the two data analysis projects:
 
@@ -201,14 +205,143 @@ Your grade for the course is based on a “portfolio” composed of the two data
 
 **The specifics of the assignments will be explicated in the [Assignments](assignments.html) chapter of this GitBook**
 
-<!--------------------------------------------------------------------------------------------------------------------->
+---
 
-## Attendance {-}
+### Attendance {-}
 
 Attendance is not mandatory, but we strongly encourage you to attend all lectures and practicals. In our experience,
 students who actively participate tend to pass the course, whereas those who do not participate tend to drop out or
 fail. The lectures and practicals build on each other, so, in the unfortunate event that you have to miss a class
 meeting, please make sure you have caught up with the material before the next session.
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+## Using GenAI {- #ai_policy}
+
+Utrecht University (UU) has a set of general [policies and guidelines][uu_ai_policy] regarding GenAI use in UU courses.
+Yet, the specifics are largely left for the instructors to decide on a course-by-course basis. So, in this section, we
+describe how you may use GenAI in this course.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### AI index {-}
+
+UU has adopted the [*AI Index*][uu_ai_index] which defines five different "scenarios" for GenAI usage in UU courses. In
+the Faculty of Social and Behavioral Sciences (FSBS), we're piloting a [revised version][fsbs_ai_index] of the AI Index
+that delineates the following five scenarios.
+
+#### Scenario A: No AI {-}
+
+The assessment is completed entirely without AI assistant in a controlled environment, ensuring that students rely
+solely on their existing knowledge, understanding, and skills.
+
+**You must not use AI at any point during the assessment. You must demonstrate your own core skills and knowledge.**
+
+#### Scenario B: AI planning {-}
+
+AI may be used for pre-task at activities such as brainstorming, outlining, and initial research. This scenario focuses
+on effective use of AI for planning, synthesis, and ideation, but assessment should emphasize the ability to develop and
+refine these ideas independently.
+
+**You may use AI for planning, idea development, and research. Your final submission should show how you have developed
+and refined these ideas.**
+
+#### Scenario C: AI collaboration {- #ai_index_c}
+
+AI may be used to help complete the task including idea generation, drafting, feedback, and refinement. Students should
+critically evaluate and modify their AI suggested outputs, demonstrating their understanding.
+
+**You may use AI to assist with specific tasks such as drafting text, refining, and evaluating your work. You must
+critically evaluate and modify any AI generated content you use.**
+
+#### Scenario D: Full AI {-}
+
+AI may be used to complete any elements of the task, with students directing AI to achieve the assessment goals. In this
+scenario assessment may also require engagement with AI to achieve goals and solve problems.
+
+**You may use AI throughout your work either as you wish, or as specifically directed in your assessment. Focus on
+directing AI to achieve your goals while demonstrating your critical thinking.**
+
+#### Scenario E: AI exploration {-}
+
+AI is used creatively to enhance problem solving generate novel insights, what developed innovative solutions to solve
+problems. Students and educators Co design assessments to explore unique AI applications within the field of study.
+
+**You should use AI creatively to solve the task, potentially co- designing new approaches with your instructor.**
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Acceptable usage in this course {-}
+
+This course falls into [Scenario C](#ai_index_c) of the FSBS AI Index.
+
+#### Why not A or B? {-}
+
+We don't see any point in being overly restrictive, and we think GenAI can be truly useful for rigorous data analysis.
+We want you to learn path analysis, factor analysis, and structural equation modeling, but we don't really care about
+the exact tools you use to do these analyses. Furthermore, data analysis and technical writing involve a lot of tedious
+grunt work. Your ability to complete these tasks tells us nothing about your mastery of the course content. So, we think
+it's great if GenAI obviates some of the menial drudgery and allows you to focus on the important work of developing,
+estimating, and interpreting statistical models. Consequently, Scenarios A and B are limiting and counterproductive.
+
+#### Why not D or E? {-}
+
+You need to learn the underlying *why* of statistical modeling, not just the superficial *how*. In the era of modern
+statistical software packages, it's never been terribly difficult to estimate a statistical model, and that's even more
+true now that GenAI tools can help specify the function calls. The difficult part of statistical modeling has always
+been the critical reasoning needed to design a suitable analysis, evaluate the results, and synthesize the findings. You
+can't develop these critical reasoning skills if you offload too much work to GenAI. So, Scenario D works against our
+course goals.
+
+Finally, this isn't a "vibe coding" course, we won't teach you how to use AI tools, and we don't care how good you are
+at using any given AI tool. So, Scenario E is clearly inappropriate
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Including AI-generated content in your work {-}
+
+You are free to use GenAI to brainstorm ideas, draft text, prototype code, etc. However, you are always responsible for
+your own work, and *you are never allowed to submit work developed entirely by GenAI as your own*. In nearly all cases,
+you should adapt the robots' work to suit your project. For example,
+
+**Edit Text...**
+
+- Into your own voice
+- For continuity and contextual fit
+- To correct factual errors
+
+**Edit Code...**
+
+- To suit your analysis/project
+- To use appropriate style
+- For efficiency
+
+Although you shouldn't need to synthesize any data for this course, be aware of the following restrictions:
+
+- You may use AI tools to assist you in generating code that results in reproducible data sets.
+- You may not use AI tools to directly generate data sets.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### Referencing and academic integrity {-}
+
+You must document your use of GenAI tools and cite direct quotations of AI-generated content as dictated by the
+[relevant UU policy][uu_ai_citing]. In your two data analysis assignments, you will also need to provide an AI
+disclosure statement.
+
+Generative AI may be shiny new tech, but that just means AI is like the newest, shiniest gizmo in a toolbox full of
+time-tested options, not some paradigm shift in carpentry that deprecates the hammer. The normal ethics of scientific
+communication still apply:
+
+- Transparently describe your work
+- Honestly attribute credit/blame
+
+Of course, the natural corollary of the above is that all the standard penalties for bad behavior also apply.
+Obfuscating your use of AI tools or attempting to claim AI-generated content as your own work is a form of academic
+fraud that is more-or-less equivalent to plagiarism. We will treat any such attempted subterfuge as academic dishonesty.
+
+Finally, don’t trust The Robots too much! You are ultimately responsible for the work you submit. So, you will have to
+own any “mistakes” that wily AI models induce in your work.
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -220,3 +353,7 @@ meeting, please make sure you have caught up with the material before the next s
 [stats_with_r]: https://book.stat420.org/
 [modern_stats]: https://openintro-ims.netlify.app/
 [isl]: https://www.statlearning.com
+[uu_ai_policy]: https://www.uu.nl/en/education/educational-vision/teaching/generative-ai
+[uu_ai_index]: https://www.uu.nl/en/organisation/ai-policy/students/ai-index
+[fsbs_ai_index]: https://doi.org/10.48550/arXiv.2412.09029
+[uu_ai_citing]: https://www.uu.nl/en/organisation/ai-policy/researchers/citing-genai-in-your-work

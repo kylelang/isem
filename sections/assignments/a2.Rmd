@@ -1,4 +1,4 @@
-## Assignment 2: Structural Equation Modeling {-}
+## Assignment 2: Structural Equation Modeling {- #a2}
 
 In the second assignment, **you will work individually** to apply a structural equation model (SEM) that describes how
 several (latent) variables could be causally related. 

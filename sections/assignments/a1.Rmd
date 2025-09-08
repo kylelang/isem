@@ -1,4 +1,4 @@
-## Assignment 1: Path Analysis {-}
+## Assignment 1: Path Analysis {- #a1}
 
 For the first assignment, **you will work in groups** to apply a *path model* that describes how several (observed)
 variables could be causally related. 
