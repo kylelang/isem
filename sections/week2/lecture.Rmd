@@ -60,3 +60,12 @@ can conduct statistical analyses. We will conclude with an introduction to
 ### Slides
 
 You can download the lectures slides [here](pdf/modeling.pdf)
+
+### Materials from the lecture meeting
+
+- [This ZIP archive](assets/archives/project_organization.zip) contains the four example project structures that we
+discussed in the lecture meeting.
+- The following links lead to some useful resources from the SoDa Team.
+   - [Guide to sharing research code](https://odissei-soda.nl/tutorials/share-your-reserarch-code/)
+   - [Example project on Zenodo](https://zenodo.org/records/6504837)
+

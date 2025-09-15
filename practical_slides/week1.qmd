@@ -1,0 +1,16 @@
+---
+title: "Week 1 Practical"
+format: beamer
+theme: Utrecht 
+---
+
+## Assignment Groups
+
+You will complete Assignment 1 in groups of 3.
+
+- Form a group in meatspace
+- Enroll in one of the *Assignment Groups* on Brightspace
+   - Try to enroll all group members at once
+   - Don't join an existing group without permission
+- Deadline: **Tuesday 16 September 23:59**
+   - After the deadline, all students without a group will be randomly assigned

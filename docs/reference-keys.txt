@@ -9,6 +9,7 @@ statistical-modeling-path-analysis
 lecture-1
 recordings-1
 slides-1
+materials-from-the-lecture-meeting
 reading-1
 at-home-exercises-1
 setup
