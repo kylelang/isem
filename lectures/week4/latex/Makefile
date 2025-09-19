@@ -1,6 +1,6 @@
 # -*- Makefile -*-
 
-TARGETS = sem.pdf
+TARGETS = cfa_intro.pdf
 DEST = ../../../pdf/
 
 all: $(TARGETS)

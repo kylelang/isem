@@ -1,6 +1,6 @@
 # -*- Makefile -*-
 
-TARGETS = sem.pdf
+TARGETS = multiple_group.pdf
 DEST = ../../../pdf/
 
 all: $(TARGETS)

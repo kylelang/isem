@@ -1,0 +1,2480 @@
+%%% Title:    TCSM Week 5: CFA
+%%% Author:   Kyle M. Lang (Adapted from Rebecca Kuiper's Summer School Slides)
+%%% Created:  2016-XX-XX
+%%% Modified: 2024-10-03
+
+\documentclass[10pt]{beamer}
+\usetheme{Utrecht}
+
+\usepackage{graphicx}
+\usepackage[natbibapa]{apacite}
+\usepackage[libertine]{newtxmath}
+\usepackage{fancybox}
+\usepackage{booktabs}
+\usepackage{relsize}
+\usepackage{xcolor}
+\usepackage{mathtools}
+% \usepackage{amsmath}
+\usepackage{listings}
+\lstnewenvironment{rc}[1][]{\lstset{language=R}}{}
+
+\graphicspath{{images/}}
+\usepackage{tikz} 
+\usetikzlibrary{arrows,calc,patterns,positioning,shapes,decorations.markings} 
+\usetikzlibrary{decorations.pathmorphing} 
+
+\newcommand{\eqit}[1]{\textrm{\textit{#1}}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\src}[1]{\texttt{#1}}
+\newcommand{\rmsc}[1]{\textrm{\textsc{#1}}}
+\newcommand{\mub}[0]{\boldsymbol{\muup}}
+\newcommand{\var}[1]{\eqit{var}(#1)}
+\newcommand{\cov}[1]{\eqit{cov}(#1)}
+
+\DeclareMathOperator*{\argmin}{\arg\min}
+
+\title{CFA Identification \& Estimation}
+\subtitle{Theory Construction and Statistical Modeling}
+\author{Kyle M. Lang}
+\institute{Department of Methodology \& Statistics\\Utrecht University}
+\date{}
+
+\begin{document}
+
+<<setup, include = FALSE, cache = FALSE>>=
+set.seed(235711)
+
+dataDir <- "../data/"
+
+library(knitr)
+library(ggplot2)
+library(xtable)
+library(dplyr)
+library(tidySEM)
+library(lavaan)
+library(psych)
+library(Hmisc)
+library(lavaanPlot)
+
+source("../../../code/supportFunctions.R")
+
+options(width = 80)
+opts_chunk$set(size = "footnotesize",
+               fig.align = "center",
+               fig.path = "figure/cfa_estimation-",
+               message = FALSE,
+               comment = "")
+knit_theme$set('edit-kwrite')
+@
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[t,plain]
+  \titlepage
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\section{SAPI Data}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{South African Personality Inventory Project}
+
+  \begin{figure}[c]
+    \includegraphics[width = 0.9\textwidth]{SAPI.png}
+  \end{figure}
+	
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{SAPI details}
+	\begin{itemize}
+		\item 1216 participants from 11 official language groups
+		\item From about 50,000 descriptive responses to 262 personality items
+		\item Nine personality clusters: 
+		\begin{itemize}
+			\item Conscientiousness
+			\item Emotional Stability
+			\item Extraversion
+			\item Facilitating
+			\item Integrity
+			\item Intellect
+			\item Openness
+			\item Relationship Harmony
+			\item Soft-Heartedness (Ubuntu)
+		\end{itemize}
+		\item Our data: selection of 1000 participants
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\sectionslide{Flavors of Latent Construct}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Reflective Constructs}
+
+%------------------------------------------------------------------------------%
+
+\def\iw{45mm}\relax  % Indicator node width
+\def\gap{0.75}\relax % Spread between indicator nodes
+
+\begin{frame}{Reflective Constructs}
+
+  \begin{figure}
+    \scalebox{0.7}{
+      \begin{tikzpicture}[
+          indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+          factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+          path/.style = {->, very thick}
+        ]
+        \usetikzlibrary{shapes.geometric}
+
+        %% Nodes
+        \node[factor, draw] at (0, 0) (latent) {Extraversion};
+        \node[indicator, right = 2cm of latent] at (2, 3*\gap) (i1) {
+          \parbox{\iw}{Item 77:\\I enjoy telling funny stories}
+        };
+        \node[indicator, right = 2cm of latent] at (2, \gap) (i2) {
+          \parbox{\iw}{Item 84:\\I am a good storyteller}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -\gap) (i3) {
+          \parbox{\iw}{Item 170:\\I laugh a lot}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -3*\gap) (i4) {
+          \parbox{\iw}{Item 196:\\I make others laugh}
+        };
+
+        %% Arrows
+        \draw[path] (latent.east) -- (i1.west);
+        \draw[path] (latent.east) -- (i2.west);
+        \draw[path] (latent.east) -- (i3.west);
+        \draw[path] (latent.east) -- (i4.west);
+
+      \end{tikzpicture}
+    }
+  \end{figure}
+
+  In a reflective measurement model, the items are the dependent variables, and
+  the latent factor is the independent variable.
+  \begin{itemize}
+    \item The observed items are dependent variables.
+    \item The latent factor is causing the items to take the values we observe.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\def\fw{20mm}\relax % Factor node width
+\def\gap{0.5}\relax % Spread between indicator nodes
+
+\begin{frame}{Reflective Constructs}
+
+  \begin{figure}
+    \scalebox{0.7}{
+      \begin{tikzpicture}[
+          indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+          factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+          path/.style = {->, very thick}
+        ]
+        \usetikzlibrary{shapes.geometric}
+
+        %% Nodes
+        \node[factor, draw] at (0, 0) (latent) {
+          \parbox{\fw}{\centering True\\Temperature}
+        };
+        \node[indicator, right = 2cm of latent] at (2, 3*\gap) (i1) {
+          Thermometer Reading 1
+        };
+        \node[indicator, right = 2cm of latent] at (2, \gap) (i2) {
+          Thermometer Reading 2
+        };
+        \node[indicator, right = 2cm of latent] at (2, -\gap) (i3) {
+          Thermometer Reading 3
+        };
+        \node[indicator, right = 2cm of latent] at (2, -3*\gap) (i4) {
+          Thermometer Reading 4
+        };
+
+        %% Arrows
+        \draw[path] (latent.east) -- (i1.west);
+        \draw[path] (latent.east) -- (i2.west);
+        \draw[path] (latent.east) -- (i3.west);
+        \draw[path] (latent.east) -- (i4.west);
+
+      \end{tikzpicture}
+    }
+  \end{figure}
+
+  \vspace{5mm}
+
+  The true temperature is the underlying (unobserved) factor that produces
+  thermometer readings.
+  \begin{itemize}
+    \item Any given thermometer reading is only an imperfect reflection of the
+      true temperature.
+    \item Multiple readings increase the reliability of our temperature estimate.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\def\fw{15mm}\relax % Factor node width
+\def\iw{20mm}\relax % Indicator node width
+
+\begin{frame}{Reflective Constructs}
+
+  \begin{figure}
+    \scalebox{0.7}{
+      \begin{tikzpicture}[
+          indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+          factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+          path/.style = {->, very thick}
+        ]
+        \usetikzlibrary{shapes.geometric}
+
+        %% Nodes
+        \node[factor, draw] at (0, 0) (latent) {
+          \parbox{\fw}{\centering Viral\\Infection}
+        };
+        \node[indicator, right = 2cm of latent] at (2, 3*\gap) (i1) {
+          \parbox{\iw}{Muscle Ache}
+        };
+        \node[indicator, right = 2cm of latent] at (2, \gap) (i2) {
+          \parbox{\iw}{Runny Nose}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -\gap) (i3) {
+          \parbox{\iw}{Coughing}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -3*\gap) (i4) {
+          \parbox{\iw}{Fever}
+        };
+
+        %% Arrows
+        \draw[path] (latent.east) -- (i1.west);
+        \draw[path] (latent.east) -- (i2.west);
+        \draw[path] (latent.east) -- (i3.west);
+        \draw[path] (latent.east) -- (i4.west);
+
+      \end{tikzpicture}
+    }
+  \end{figure}
+
+  \vspace{5mm}
+
+  The latent viral infection is the causal factor that gives rise to the observed
+  symptoms of illness.
+  \begin{itemize}
+    \item Symptoms are the dependent variables.
+    \item Viral infection is the unobserved predictor variable.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Formative Constructs}
+
+%------------------------------------------------------------------------------%
+
+\def\iw{25mm}\relax % Indicator node width
+\def\fw{25mm}\relax % Factor node width
+
+\begin{frame}{Formative Constructs}
+
+  Flipping the direction of the factor loadings makes a \emph{formative construct}.
+
+  \vb
+
+  \begin{figure}
+    \scalebox{0.7}{
+      \begin{tikzpicture}[
+          indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+          factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+          path/.style = {<-, very thick}
+        ]
+        \usetikzlibrary{shapes.geometric}
+
+        %% Nodes
+        \node[factor, draw] at (0, 0) (latent) {
+          \parbox{\fw}{\centering Socioeconomic\\Status}
+        };
+        \node[indicator, right = 2cm of latent] at (2, 3*\gap) (i1) {
+          \parbox{\iw}{Neighborhood}
+        };
+        \node[indicator, right = 2cm of latent] at (2, \gap) (i2) {
+          \parbox{\iw}{Salary}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -\gap) (i3) {
+          \parbox{\iw}{Education}
+        };
+        \node[indicator, right = 2cm of latent] at (2, -3*\gap) (i4) {
+          \parbox{\iw}{Occupation}
+        };
+
+        %% Arrows
+        \draw[path] (latent.9) -- (i1.west);
+        \draw[path] (latent.3) -- (i2.west);
+        \draw[path] (latent.357) -- (i3.west);
+        \draw[path] (latent.351) -- (i4.west);
+
+      \end{tikzpicture}
+    }
+  \end{figure}
+
+  \vspace{5mm}
+
+  SES is an \emph{index} defined as a (weighted) sum of the observed items.
+  \begin{itemize}
+    \item SES is the (latent) dependent variable, predicted by the items.
+    \item This model is not empirically testable.
+  \end{itemize}
+
+\end{frame}
+
+\comment{ %------------------------------------------------------------------------------%
+
+\subsection{Confirmatory or Exploratory?}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Two Subscales of Extraversion}
+
+  \rmsc{Having Fun}
+  \begin{itemize}
+    \item Item 77: I enjoy telling funny stories
+    \item Item 84: I am a good storyteller
+    \item Item 170: I laugh a lot
+    \item Item 196: I make others laugh
+  \end{itemize}
+
+  \va
+
+  \rmsc{Being Liked}
+  \begin{itemize}
+    \item Item 44: I am liked by everyone
+    \item Item 63: I chat to everyone
+    \item Item 76: I have many friends
+    \item Item 98: I have good social skills
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\def\iw{45mm}\relax     % Indicator node width
+\def\fw{20mm}\relax     % Factor node width
+\def\gap{0.6}\relax     % Spread between indicator nodes
+\def\offset{30mm}\relax % Vertical offset between construct submodels
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{EFA}
+
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+
+      \begin{itemize}
+        \item All items load onto all factors
+        \item No hypothesized measurement model
+        \item Estimating latent covariances is optional
+          \begin{itemize}
+            \item Oblique factors $\rightarrow$ Estimated
+            \item Orthogonal factors $\rightarrow$ Fixed
+          \end{itemize}
+        \item Solution is not unique
+        \item Use rotation to improve interpretability
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.55\textwidth}
+
+      \begin{figure}
+        \scalebox{0.5}{
+          \begin{tikzpicture}[
+              indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+              factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+              reg/.style = {->, very thick},
+              cov/.style = {<->, very thick, dashed}
+            ]
+
+            \usetikzlibrary{shapes.geometric}
+
+            %% F1 Nodes
+            \node[factor, draw, yshift = \offset] at (0, 0) (f1) {
+              \parbox{\fw}{\centering Having\\Fun}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, 3*\gap) (i1) {
+              \parbox{\iw}{Item 77:\\I enjoy telling funny stories}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, \gap) (i2) {
+              \parbox{\iw}{Item 84:\\I am a good storyteller}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -\gap) (i3) {
+              \parbox{\iw}{Item 170:\\I laugh a lot}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -3*\gap) (i4) {
+              \parbox{\iw}{Item 196:\\I make others laugh}
+            };
+
+            %% F1 Arrows
+            \draw[reg] (f1.east) -- (i1.west);
+            \draw[reg] (f1.east) -- (i2.west);
+            \draw[reg] (f1.east) -- (i3.west);
+            \draw[reg] (f1.east) -- (i4.west);
+
+            %% F2 Nodes
+            \node[factor, draw, yshift = -\offset] at (0, 0) (f2) {
+              \parbox{\fw}{\centering Being\\Liked}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, 3*\gap) (i5) {
+              \parbox{\iw}{Item 44:\\I am liked by everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, \gap) (i6) {
+              \parbox{\iw}{Item 63:\\I chat to everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -\gap) (i7) {
+              \parbox{\iw}{Item 76:\\I have many friends}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -3*\gap) (i8) {
+              \parbox{\iw}{Item 98:\\I have good social skills}
+            };
+
+            %% F2 Arrows
+            \draw[reg] (f2.east) -- (i5.west);
+            \draw[reg] (f2.east) -- (i6.west);
+            \draw[reg] (f2.east) -- (i7.west);
+            \draw[reg] (f2.east) -- (i8.west);
+
+            %% F1 Cross-loadings
+            \draw[reg, red] (f1.east) -- (i5.west);
+            \draw[reg, red] (f1.east) -- (i6.west);
+            \draw[reg, red] (f1.east) -- (i7.west);
+            \draw[reg, red] (f1.east) -- (i8.west);
+
+            %% F2 Cross-loadings
+            \draw[reg, blue] (f2.east) -- (i1.west);
+            \draw[reg, blue] (f2.east) -- (i2.west);
+            \draw[reg, blue] (f2.east) -- (i3.west);
+            \draw[reg, blue] (f2.east) -- (i4.west);
+
+            %% Latent Covariance
+            \path[cov] (f1.west) edge [bend right] (f2.west);
+
+          \end{tikzpicture}
+        } % end \scalebox{}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{CFA}
+
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+
+      \begin{itemize}
+        \item The statistical model represents the hypothesized measurement model
+        \item No cross-loadings unless they're predicted by theory
+        \item Almost always estimate the latent covariances
+        \item A unique solution exists
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.55\textwidth}
+
+      \begin{figure}
+        \scalebox{0.5}{
+          \begin{tikzpicture}[
+              indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+              factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+              reg/.style = {->, very thick},
+              cov/.style = {<->, very thick}
+            ]
+            \usetikzlibrary{shapes.geometric}
+
+            %% F1 Nodes
+            \node[factor, draw, yshift = \offset] at (0, 0) (f1) {
+              \parbox{\fw}{\centering Having\\Fun}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, 3*\gap) (i1) {
+              \parbox{\iw}{Item 77:\\I enjoy telling funny stories}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, \gap) (i2) {
+              \parbox{\iw}{Item 84:\\I am a good storyteller}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -\gap) (i3) {
+              \parbox{\iw}{Item 170:\\I laugh a lot}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -3*\gap) (i4) {
+              \parbox{\iw}{Item 196:\\I make others laugh}
+            };
+
+            %% F1 Arrows
+            \draw[reg] (f1.east) -- (i1.west);
+            \draw[reg] (f1.east) -- (i2.west);
+            \draw[reg] (f1.east) -- (i3.west);
+            \draw[reg] (f1.east) -- (i4.west);
+
+            %% F2 Nodes
+            \node[factor, draw, yshift = -\offset] at (0, 0) (f2) {
+              \parbox{\fw}{\centering Being\\Liked}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, 3*\gap) (i5) {
+              \parbox{\iw}{Item 44:\\I am liked by everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, \gap) (i6) {
+              \parbox{\iw}{Item 63:\\I chat to everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -\gap) (i7) {
+              \parbox{\iw}{Item 76:\\I have many friends}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -3*\gap) (i8) {
+              \parbox{\iw}{Item 98:\\I have good social skills}
+            };
+
+            %% F2 Arrows
+            \draw[reg] (f2.east) -- (i5.west);
+            \draw[reg] (f2.east) -- (i6.west);
+            \draw[reg] (f2.east) -- (i7.west);
+            \draw[reg] (f2.east) -- (i8.west);
+
+            %% Latent Covariance
+            \path[cov] (f1.west) edge [bend right] (f2.west);
+
+          \end{tikzpicture}
+        }
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+} % COMMENT %------------------------------------------------------------------------------%
+
+%------------------------------------------------------------------------------%
+
+\sectionslide{Model Estimation}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Model-Implied Statistics}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  Most statistical estimation algorithms operate by minimizing the difference
+  between two key reference points:
+
+  \vc
+
+  \begin{enumerate}
+    \item The \emph{model-implied} statistics/predictions/fitted values
+      \begin{itemize}
+        \item The sufficient statistics implied by the structure of your model.
+        \item Predicted/fitted values produced by your model.
+      \end{itemize}
+
+      \vc
+
+    \item The \emph{observed} statistics/values
+      \begin{itemize}
+        \item The sufficient statistics calculated from the observed data.
+        \item The raw outcome values from your dataset.
+      \end{itemize}
+  \end{enumerate}
+
+  \vb
+
+  The predictions/implied statistics produced by a good model must be simpler
+  than the analogous quantities in the observed data.
+  \begin{itemize}
+    \item A model that exactly replicates the observed data is overfitting.
+    \item The inferences from such models won't generalize to the population.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  You should already be familiar with this idea from OLS regression.
+
+  \begin{itemize}
+    \item The fitted values are the model implied statistics.
+      \begin{align*}
+        \hat{Y}_n = \hat{\beta}_0 + \sum_{p = 1}^P \hat{\beta}_p X_{n,p}
+      \end{align*}
+    \item The raw outcome variable, $Y$, contains the observed values.
+    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the
+      model.
+      \begin{align*}
+        \eqit{RSS} = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2
+      \end{align*}
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Fully Specified Path Diagram}
+  
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/cfa_two_factors.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices}
+
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11} &           \\
+          \psi_{21} & \psi_{22}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             &             &             &             &             &             \\
+          0           & \theta_{22} &             &             &             &             &             &             &             \\
+          0           & 0           & \theta_{33} &             &             &             &             &             &             \\
+          0           & 0           & 0           & \theta_{44} &             &             &             &             &             \\
+          0           & 0           & 0           & 0           & \theta_{55} &             &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & \theta_{66} &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & \theta_{77} &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{88} &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{99}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.3\textwidth}
+
+      \begin{align*}
+        \\[22pt]
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11} & 0            \\
+          \lambda_{21} & 0            \\
+          \lambda_{31} & 0            \\
+          \lambda_{41} & 0            \\
+          0            & \lambda_{52} \\
+          0            & \lambda_{62} \\
+          0            & \lambda_{72} \\
+          0            & \lambda_{82} \\
+          0            & \lambda_{92}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Fully Specified Path Diagram}
+  
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/cfa_two_factors_means.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices}
+
+  \begin{columns}
+    \begin{column}{0.1\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1 \\
+          \alpha_2
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3 \\
+          \tau_4 \\
+          \tau_5 \\
+          \tau_6 \\
+          \tau_7 \\
+          \tau_8 \\
+          \tau_9
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.7\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11} &           \\
+          \psi_{21} & \psi_{22}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             &             &             &             &             &             \\
+          0           & \theta_{22} &             &             &             &             &             &             &             \\
+          0           & 0           & \theta_{33} &             &             &             &             &             &             \\
+          0           & 0           & 0           & \theta_{44} &             &             &             &             &             \\
+          0           & 0           & 0           & 0           & \theta_{55} &             &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & \theta_{66} &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & \theta_{77} &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{88} &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{99}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.2\textwidth}
+
+      \begin{align*}
+        \\[22pt]
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11} & 0            \\
+          \lambda_{21} & 0            \\
+          \lambda_{31} & 0            \\
+          \lambda_{41} & 0            \\
+          0            & \lambda_{52} \\
+          0            & \lambda_{62} \\
+          0            & \lambda_{72} \\
+          0            & \lambda_{82} \\
+          0            & \lambda_{92}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\comment{ %------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{columns}
+        \begin{column}{0.5\textwidth}
+
+          \begin{align*}
+            \alpha &=
+            \begin{bmatrix}
+              \alpha_1
+            \end{bmatrix}
+            \\[12pt]
+            \tau &=
+            \begin{bmatrix}
+              \tau_1 \\
+              \tau_2 \\
+              \tau_3 \\
+              \tau_4
+            \end{bmatrix}
+          \end{align*}
+
+        \end{column}
+        \begin{column}{0.5\textwidth}
+
+          \begin{align*}
+            \Psi &=
+            \begin{bmatrix}
+              \psi_{11}
+            \end{bmatrix}
+            \\[12pt]
+            \Lambda &=
+            \begin{bmatrix}
+              \lambda_{11}\\
+              \lambda_{21}\\
+              \lambda_{31}\\
+              \lambda_{41}
+            \end{bmatrix}
+          \end{align*}
+
+        \end{column}
+      \end{columns}
+
+      \begin{align*}
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             \\
+          0           & \theta_{22} &             &             \\
+          0           & 0           & \theta_{33} &             \\
+          0           & 0           & 0           & \theta_{44}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = \textwidth]{figures/cfa_four_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1
+        \end{bmatrix}
+        \;\hspace{3em}
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3 \\
+          \tau_4
+        \end{bmatrix}
+        \;\hspace{3em}
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}\\
+          \lambda_{31}\\
+          \lambda_{41}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             \\
+          0           & \theta_{22} &             &             \\
+          0           & 0           & \theta_{33} &             \\
+          0           & 0           & 0           & \theta_{44}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = \textwidth]{figures/cfa_four_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+} %------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices}
+
+  To see what role these parameter matrices play in model estimation, we'll work
+  with a simpler example.
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.65\textwidth]{figures/cfa_three_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  The parameter matrices define the model-implied mean vector, $\hat{\mu}$, and
+  covariance matrix, $\hat{\Sigma}$, via the following formulas.
+  \begin{align*}
+    \Sigma &= \Lambda \Psi \Lambda^T + \Theta\\
+    \mu &= \tau + \Lambda \alpha
+  \end{align*}
+
+  \vb
+
+  By expanding these formulas, we can see how the model reproduces each mean,
+  variance, and covariance.
+  \begin{align*}
+    \hat{\mu} =
+    \begin{bmatrix}
+     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
+     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
+     \tau_3 + \lambda_{33} \alpha_1
+    \end{bmatrix}
+    \qquad
+    \hat{\Sigma} =
+    \begin{bmatrix*}[l]
+      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+    \end{bmatrix*}
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  The estimating algorithm chooses values for $\alpha$, $\tau$, $\Psi$, and
+  $\Lambda$ that minimize the differences between the model-implied statistics,
+  $\{ \hat{\mu},\ \hat{\Sigma} \}$, and the sufficient statistics calculated from
+  the observed data, $\{ \bar{\mathbf{Y}},\ \mathrm{Cov}(\mathbf{Y}) \}$.
+
+  \begin{alignat*}{3}
+    \hat{\mu} &=
+    \begin{bmatrix}
+     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
+     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
+     \tau_3 + \lambda_{33} \alpha_1
+    \end{bmatrix}
+    &
+    \hat{\Sigma} &=
+    \begin{bmatrix*}[l]
+      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+    \end{bmatrix*}
+    \\[12pt]
+    \bar{\mathbf{Y}} &=
+    \begin{bmatrix}
+      \bar{y}_1 \\[3pt]
+      \bar{y}_2 \\[3pt]
+      \bar{y}_3
+    \end{bmatrix}
+    &
+    \mathrm{Cov} ( \mathbf{Y} ) &=
+    \begin{bmatrix*}[l]
+      \var{y_1}      &                &           \\[3pt]
+      \cov{y_2, y_1} & \var{y_2}      &           \\[3pt]
+      \cov{y_3, y_1} & \cov{y_3, y_2} & \var{y_3} \\
+    \end{bmatrix*}
+  \end{alignat*}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Optimization Objective}
+
+  We can formulate the familiar OLS objective as an abstract optimization problem at follows.
+  \begin{align*}
+    f(\beta_0, \beta_1, \ldots, \beta_P) = \argmin_{\beta_0, \beta_1, \ldots, \beta_P} \left\| Y - \hat{Y} \right\|
+  \end{align*}
+
+  Applying the same idea to our CFA optimization problem, we get the following formulation.
+  \begin{align*}
+    f(\Lambda, \Psi) &= \argmin_{\Lambda,\Psi} \left\| \mathrm{Cov}(\mathbf{Y}) - \hat{\Sigma} \right\|\\
+    f(\tau, \alpha) &= \argmin_{\tau,\alpha} \left\| \bar{\mathbf{Y}} - \hat{\mu} \right\|
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\sectionslide{Model Identification}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Degrees of Freedom}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Number of Estimated Parameters}
+
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+
+      To estimate a CFA model, we must define $\hat{\Sigma}$.
+      \begin{itemize}
+        \item We must estimate each parameter that defines an element in $\hat{\Sigma}$.
+        \item The constraints on our model determine how many parameter estimates we need.
+      \end{itemize}
+
+      \begin{align*}
+        \hat{\Sigma} &=
+        \begin{bmatrix*}[l]
+          \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+          \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+          \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+        \end{bmatrix*}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.3\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/cfa_three_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Number of Estimated Parameters}
+
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+
+      For this example, we need to estimate seven parameters to fully define $\hat{\Sigma}$.
+      \begin{itemize}
+        \item One latent variance: $\psi_{11}$
+        \item Three factor loadings: $\{ \lambda_{11}, \lambda_{21}, \lambda_{31} \}$
+        \item Three residual variances: $\{ \theta_{11}, \theta_{22}, \theta_{33} \}$
+      \end{itemize}
+
+      \begin{align*}
+        \hat{\Sigma} &=
+        \begin{bmatrix*}[l]
+          \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+          \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+          \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+        \end{bmatrix*}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.3\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/cfa_three_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Available Information}
+
+  The data only contain a fixed amount of information.
+  \begin{itemize}
+    \item We can quantify the available information in discrete units.
+    \item Every unique element of $\mathrm{Cov}(\mathbf{Y})$ contributes one unit of information.
+  \end{itemize}
+  \begin{align*}
+    \mathrm{Cov} ( \mathbf{Y} ) &=
+    \begin{bmatrix*}[l]
+      \var{y_1}      &                &           \\[3pt]
+      \cov{y_2, y_1} & \var{y_2}      &           \\[3pt]
+      \cov{y_3, y_1} & \cov{y_3, y_2} & \var{y_3} \\
+    \end{bmatrix*}
+  \end{align*}
+
+  In this example, we have six pieces of available information.
+  \begin{itemize}
+    \item Three variances: $\var{y_1}$, $\var{y_2}$, $\var{y_3}$
+    \item Three covariances: $\cov{y_2,y_1}$, $\cov{y_3,y_1}$, $\cov{y_3,y_2}$
+  \end{itemize}
+
+  \vb
+
+  For a positive-definite $M \times M$ covariance matrix, the number of unique
+  elements will always be $Q = \frac{M (M + 1)}{2}$.
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Degrees of Freedom}
+
+  We can only estimate one parameter for each piece of available information, $Q$.
+  \begin{itemize}
+    \item We can estimate no more than $Q$ parameters in any one model.
+  \end{itemize}
+
+  \vb
+
+  The \emph{degrees of freedom} (df) is the difference between the amount of
+  information available in the data, $Q$, and the number of parameters
+  estimated in our model, $P$. 
+  \begin{align*}
+    df = Q - P
+  \end{align*}
+
+  \vb
+
+  If $df < 0$, the model is not estimable.
+  \begin{itemize}
+    \item A model with $df < 0$ is \emph{not identified}.
+    \item The data do not provide enough information to define a unique solution
+      for all $P$ parameter estimates.
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Degrees of Freedom}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      What are the degrees of freedom for our example?
+      \begin{align*}
+        df = Q - P = 6 - 7 = -1
+      \end{align*}
+      This model has negative $df$.
+      \begin{itemize}
+        \item We cannot estimate the model in this form.
+        \item We must impose \emph{identifying constraints}.
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.7\textwidth]{figures/cfa_three_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Identifying Constraints}
+
+  Consider the following equation:
+  \begin{align*}
+    5 = x + y
+  \end{align*}
+  What are the values of $x$ and $y$?
+  \pause
+  \begin{align*}
+    y = 5 - x
+  \end{align*}
+  \pause
+  What if we assume that $y = x$?
+  \pause
+  \begin{align*}
+    5 &= x + y\\
+    0 &= x - y
+  \end{align*}
+  \pause
+  Now we have enough information:
+  \begin{align*}
+    5 = x + x = 2x~~\Rightarrow~~x = y = 2.5
+  \end{align*}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Identifying Constraints}
+
+  We must fix some parameters to identify the model.
+  \begin{itemize}
+    \item For each construct, we need $df \geq 0$.
+      \vc
+    \item If the construct has three or more indicators:
+      \begin{itemize}
+        \item Fix one parameter in the covariance model.
+        \item Fix one parameter in the mean model.
+      \end{itemize}
+      \vc
+    \item If the construct has two indicators:
+      \begin{itemize}
+        \item Fix an additional parameter in the covariance model.
+      \end{itemize}
+      \vc
+    \item If the construct has only one indicator:
+      \begin{itemize}
+        \item Cannot define a latent factor.
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Identifying Constraints}
+
+  These constraints also define the scale of the latent factors.
+  \begin{itemize}
+    \item Latent factors have no direct representation as observed variables in our dataset.
+    \item A latent factor only exists after we've estimated it.
+    \item So latent factors have no inherent scale.
+    \item Identifying constraints are also called \emph{scaling constraints}.
+  \end{itemize}
+
+  \vb
+
+  There are two common methods of identifying/scaling CFA models.
+  \begin{enumerate}
+    \item Marker-variable method
+    \item Fixed-factor method
+  \end{enumerate}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{Marker-Variable Method}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{itemize}
+        \item Fix one factor loading to 1.
+        \item Fix the latent mean to 0.
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.8\textwidth]{figures/marker_variable_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Marker-Variable Method}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{itemize}
+        \item Fix one factor loading to 1.
+        \item Estimate the latent mean and fix one item intercept to 0.
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.8\textwidth]{figures/marker_variable_means_alt.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Fixed-Factor Method}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{itemize}
+        \item Fix the latent variance to 1.
+        \item Fix the latent mean to 0.
+      \end{itemize}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.8\textwidth]{figures/fixed_factor_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Just-Identified Models}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Just-Identified: Unconstrained Model}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[8pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+        \\[8pt]
+        Q &= \frac{3 (3 + 1)}{2} + 3 = 9\\[8pt]
+        df &= Q - P\\
+           &= 9 - 11 = -2
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.65\textwidth]{figures/cfa_three_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Just-Identified: Marker-Variable}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          0
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[8pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          1           \\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+        \\[8pt]
+        df &= Q - P\\
+           &= 9 - 9 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.65\textwidth]{figures/marker_variable_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Just-Identified: Marker-Variable}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[8pt]
+        \tau &=
+        \begin{bmatrix}
+          0      \\
+          \tau_2 \\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          1           \\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+        \\[8pt]
+        df &= Q - P\\
+           &= 9 - 9 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.65\textwidth]{figures/marker_variable_means_alt.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Just-Identified: Fixed-Factor}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          0
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          1
+        \end{bmatrix}
+        \\[8pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1\\
+          \tau_2\\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+        \\[8pt]
+        df &= Q - P\\
+           &= 9 - 9 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.6\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.65\textwidth]{figures/fixed_factor_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Under-Identified Models}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Under-Identified: Unconstrained Model}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[8pt]
+        \Lambda &=
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             \\
+          0           & \theta_{22}
+        \end{bmatrix}
+        \\[8pt]
+        Q &= \frac{2 (2 + 1)}{2} = 3\\[8pt]
+        df &= Q - P\\
+           &= 3 - 5 = -2
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.45\textwidth]{figures/cfa_two_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Under-Identified: Marker-Variable}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[8pt]
+        \Lambda &=
+        \begin{bmatrix}
+          1\\
+          1
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             \\
+          0           & \theta_{22}
+        \end{bmatrix}
+        \\[8pt]
+        df &= Q - P\\
+           &= 3 - 3 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.45\textwidth]{figures/marker_variable_two_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Under-Identified: Fixed-Factor}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          1
+        \end{bmatrix}
+        \\[8pt]
+        \Lambda &=
+        \begin{bmatrix}
+          \lambda\\
+          \lambda
+        \end{bmatrix}
+        \\[8pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             \\
+          0           & \theta_{22}
+        \end{bmatrix}
+        \\[8pt]
+        df &= Q - P\\
+           &= 3 - 3 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.45\textwidth]{figures/fixed_factor_two_indicators.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Over-Identified Models}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Over-Identified Models}
+
+  What happens when we have four (or more) indicators?
+
+  \vb
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      With 4 indicators, our model contains 14 parameters:
+      \begin{itemize}
+        \item Four factor loadings
+        \item Four residual variances
+        \item Four item intercepts
+        \item One latent mean
+        \item One latent variance
+      \end{itemize}
+
+      \begin{align*}
+        Q &= \frac{4 (4 + 1)}{2} + 4 = 14\\
+        df &= 14 - 14 = 0
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.8\textwidth]{figures/cfa_four_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\begin{frame}{Over-Identified Models}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      With 5 indicators, we have 17 model parameters:
+      \begin{itemize}
+        \item Five factor loadings
+        \item Five residual variances
+        \item Five item intercepts
+        \item One latent mean
+        \item One latent variance
+      \end{itemize}
+
+      \begin{align*}
+        Q &= \frac{5 (5 + 1)}{2} + 5 = 20\\
+        df &= 20 - 17 = 3
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      With 6 indicators, we have 20 model parameters:
+      \begin{itemize}
+        \item Six factor loadings
+        \item Six residual variances
+        \item Six item intercepts
+        \item One latent mean
+        \item One latent variance
+      \end{itemize}
+
+      \begin{align*}
+        Q &= \frac{6 (6 + 1)}{2} + 6 = 27\\
+        df &= 27 - 20 = 7
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
+
+  With four indicators, we automatically have $df \geq 0$ without imposing any
+  scaling constraints.
+  \begin{itemize}
+    \item Can we directly estimate the unconstrained model?
+  \end{itemize}
+
+<<echo = FALSE, include = FALSE>>=
+dataDir <- "../data/"
+sapi <- read.table(paste0(dataDir, "sapi.txt"),
+                   header = TRUE,
+                   na.strings = "-999")
+@
+
+<<warnings = TRUE>>=
+mod1 <- '
+fun =~ Q77 + Q84 + Q170 + Q196 
+'
+
+fit1 <- lavaan(mod1,
+               data          = sapi,
+               auto.var      = TRUE,
+               meanstructure = TRUE,
+               int.ov.free   = TRUE, 
+               int.lv.free   = TRUE)
+@
+
+Hmmm...I guess not.
+
+\framebreak
+
+<<>>=
+partSummary(fit1, 1:4)
+@
+
+\framebreak
+
+<<>>=
+partSummary(fit1, 7:8)
+@
+
+\framebreak
+
+<<>>=
+partSummary(fit1, 9)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
+
+  In the above example, the data contain enough information to define our model
+  parameters, but that's not enough.
+  \vc
+  \begin{itemize}
+    \item We still need scaling constraints.
+      \vc
+    \item The estimation algorithm needs an anchor point from which to
+      extrapolate the relative values of the model parameters.
+      \vc
+    \item Without any scaling constraints, an infinite number of parameter
+      matrices will produce the same $\hat{\mu}$ and $\hat{\Sigma}$.
+      \vc
+    \item An infinite number of solutions are equally good.
+  \end{itemize}
+
+<<>>=
+## Fit a model to get some example parameters:
+mod1 <- '
+fun   =~ Q77 + Q84 + Q170 + Q196 
+liked =~ Q44 + Q63 + Q76  + Q98
+'
+  
+fit1 <- cfa(mod1, data = sapi, effect.coding = TRUE)
+@
+
+\framebreak
+
+<<>>=
+## Extract the estimated factor loadings and latent covariance matrix:
+(lambda <- inspect(fit1, "est")$lambda)
+(psi <- inspect(fit1, "est")$psi)
+@
+
+\framebreak
+
+<<>>=
+## Extract the estimated residual variances:
+(theta <- inspect(fit1, "est")$theta)
+@
+
+\framebreak
+
+<<>>=
+## Manually compute the model-implied covariance matrix:
+(sigma  <- lambda %*% psi %*% t(lambda) + theta)
+@
+
+\framebreak
+
+<<>>=
+## Randomly sample an arbitrary scaling factor:
+(a <- runif(1, 1, 2))
+
+## Rescale all factor loadings by a factor of a:
+(lambda2 <- lambda * a)
+@
+
+\framebreak
+
+<<>>=
+## Rescale the latent covariance matrix by a factor of (1 / a^2):
+(psi2 <- psi / a^2)
+
+## Compute the model-implied covariance matrix using the rescaled parameters:
+(sigma2  <- lambda2 %*% psi2 %*% t(lambda2) + theta)
+@
+
+\framebreak
+
+<<>>=
+## Compare the two model-implied covariance matrices:
+all.equal(sigma, sigma2)
+
+## Repeat the experiment 100 times:
+out <- rep(NA, 100)
+for(i in 1:100) {
+  a <- runif(1, 1, 2)
+
+  lambda2 <- lambda * a
+  psi2    <- psi / a^2
+  sigma2  <- lambda2 %*% psi2 %*% t(lambda2) + theta
+
+  out[i] <- all.equal(sigma, sigma2)
+}
+
+## Always the same result?
+all(out)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\subsection{Multiple Factors}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Two Construct: Unconstrained Model}
+  
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/cfa_two_factors_means.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Unconstrained Parameter Matrices}
+
+  \begin{columns}
+    \begin{column}{0.1\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1 \\
+          \alpha_2
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3 \\
+          \tau_4 \\
+          \tau_5 \\
+          \tau_6 \\
+          \tau_7 \\
+          \tau_8 \\
+          \tau_9
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.7\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11} &           \\
+          \psi_{21} & \psi_{22}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             &             &             &             &             &             \\
+          0           & \theta_{22} &             &             &             &             &             &             &             \\
+          0           & 0           & \theta_{33} &             &             &             &             &             &             \\
+          0           & 0           & 0           & \theta_{44} &             &             &             &             &             \\
+          0           & 0           & 0           & 0           & \theta_{55} &             &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & \theta_{66} &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & \theta_{77} &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{88} &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{99}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.2\textwidth}
+
+      \begin{align*}
+        \\[22pt]
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11} & 0            \\
+          \lambda_{21} & 0            \\
+          \lambda_{31} & 0            \\
+          \lambda_{41} & 0            \\
+          0            & \lambda_{52} \\
+          0            & \lambda_{62} \\
+          0            & \lambda_{72} \\
+          0            & \lambda_{82} \\
+          0            & \lambda_{92}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Two Construct: Marker variable}
+  
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/marker_variable_two_factors_means.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices: Marker Variable}
+
+  \begin{columns}
+    \begin{column}{0.1\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          0\\
+          0
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3 \\
+          \tau_4 \\
+          \tau_5 \\
+          \tau_6 \\
+          \tau_7 \\
+          \tau_8 \\
+          \tau_9
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.7\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          \psi_{11} &           \\
+          \psi_{21} & \psi_{22}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             &             &             &             &             &             \\
+          0           & \theta_{22} &             &             &             &             &             &             &             \\
+          0           & 0           & \theta_{33} &             &             &             &             &             &             \\
+          0           & 0           & 0           & \theta_{44} &             &             &             &             &             \\
+          0           & 0           & 0           & 0           & \theta_{55} &             &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & \theta_{66} &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & \theta_{77} &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{88} &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{99}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.2\textwidth}
+
+      \begin{align*}
+        \\[22pt]
+        \Lambda =
+        \begin{bmatrix}
+          1            & 0            \\
+          \lambda_{21} & 0            \\
+          \lambda_{31} & 0            \\
+          \lambda_{41} & 0            \\
+          0            & 1            \\
+          0            & \lambda_{62} \\
+          0            & \lambda_{72} \\
+          0            & \lambda_{82} \\
+          0            & \lambda_{92}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Two Construct: Fixed-Factor}
+  
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/fixed_factor_two_factors_means.pdf}
+  \end{figure}
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Parameter Matrices: Fixed-Factor}
+
+  \begin{columns}
+    \begin{column}{0.1\textwidth}
+
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          0\\
+          0
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3 \\
+          \tau_4 \\
+          \tau_5 \\
+          \tau_6 \\
+          \tau_7 \\
+          \tau_8 \\
+          \tau_9
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.7\textwidth}
+
+      \begin{align*}
+        \Psi &=
+        \begin{bmatrix}
+          1         &  \\
+          \psi_{21} & 1
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             &             &             &             &             &             &             \\
+          0           & \theta_{22} &             &             &             &             &             &             &             \\
+          0           & 0           & \theta_{33} &             &             &             &             &             &             \\
+          0           & 0           & 0           & \theta_{44} &             &             &             &             &             \\
+          0           & 0           & 0           & 0           & \theta_{55} &             &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & \theta_{66} &             &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & \theta_{77} &             &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{88} &             \\
+          0           & 0           & 0           & 0           & 0           & 0           & 0           & 0           & \theta_{99}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+    \begin{column}{0.2\textwidth}
+
+      \begin{align*}
+        \\[22pt]
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11} & 0            \\
+          \lambda_{21} & 0            \\
+          \lambda_{31} & 0            \\
+          \lambda_{41} & 0            \\
+          0            & \lambda_{52} \\
+          0            & \lambda_{62} \\
+          0            & \lambda_{72} \\
+          0            & \lambda_{82} \\
+          0            & \lambda_{92}
+        \end{bmatrix}
+      \end{align*}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %-----------------------------------------------------------------%
+
+\sectionslide{Example}
+
+%------------------------------------------------------------------------------%
+
+\def\iw{45mm}\relax     % Indicator node width
+\def\fw{20mm}\relax     % Factor node width
+\def\gap{0.6}\relax     % Spread between indicator nodes
+\def\offset{30mm}\relax % Vertical offset between construct submodels
+
+\watermarkoff %----------------------------------------------------------------%
+
+\begin{frame}{CFA of Extraversion Items}
+
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+
+      Suppose we hypothesize two distinct dimensions of extraversion underlying
+      8 of the SAPI items.
+      \begin{enumerate}
+        \item Having Fun
+        \item Being Liked by Others
+      \end{enumerate}
+      \vb
+      We'll define our measurement model as the two-factor CFA shown to the right.
+
+    \end{column}
+    \begin{column}{0.55\textwidth}
+
+      \begin{figure}
+        \scalebox{0.5}{
+          \begin{tikzpicture}[
+              indicator/.style = {rectangle, draw = black, very thick, minimum size = 7mm},
+              factor/.style = {ellipse, draw = black, very thick, minimum size = 10mm},
+              reg/.style = {->, very thick},
+              cov/.style = {<->, very thick}
+            ]
+            \usetikzlibrary{shapes.geometric}
+
+            %% F1 Nodes
+            \node[factor, draw, yshift = \offset] at (0, 0) (f1) {
+              \parbox{\fw}{\centering Having\\Fun}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, 3*\gap) (i1) {
+              \parbox{\iw}{Item 77:\\I enjoy telling funny stories}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, \gap) (i2) {
+              \parbox{\iw}{Item 84:\\I am a good storyteller}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -\gap) (i3) {
+              \parbox{\iw}{Item 170:\\I laugh a lot}
+            };
+            \node[indicator, right = 2cm of f1, yshift = \offset] at (2, -3*\gap) (i4) {
+              \parbox{\iw}{Item 196:\\I make others laugh}
+            };
+
+            %% F1 Arrows
+            \draw[reg] (f1.east) -- (i1.west);
+            \draw[reg] (f1.east) -- (i2.west);
+            \draw[reg] (f1.east) -- (i3.west);
+            \draw[reg] (f1.east) -- (i4.west);
+
+            %% F2 Nodes
+            \node[factor, draw, yshift = -\offset] at (0, 0) (f2) {
+              \parbox{\fw}{\centering Being\\Liked}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, 3*\gap) (i5) {
+              \parbox{\iw}{Item 44:\\I am liked by everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, \gap) (i6) {
+              \parbox{\iw}{Item 63:\\I chat to everyone}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -\gap) (i7) {
+              \parbox{\iw}{Item 76:\\I have many friends}
+            };
+            \node[indicator, right = 2cm of f2, yshift = -\offset] at (2, -3*\gap) (i8) {
+              \parbox{\iw}{Item 98:\\I have good social skills}
+            };
+
+            %% F2 Arrows
+            \draw[reg] (f2.east) -- (i5.west);
+            \draw[reg] (f2.east) -- (i6.west);
+            \draw[reg] (f2.east) -- (i7.west);
+            \draw[reg] (f2.east) -- (i8.west);
+
+            %% Latent Covariance
+            \path[cov] (f1.west) edge [bend right] (f2.west);
+
+          \end{tikzpicture}
+        }
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+
+  Load the SAPI data.
+
+<<>>=
+dataDir <- "../data/"
+sapi <- read.table(paste0(dataDir, "sapi.txt"),
+                   header = TRUE,
+                   na.strings = "-999")
+@
+
+  Specify the \pkg{lavaan} model syntax for the SAPI extraversion CFA.
+
+<<>>=
+mod1 <- '
+fun   =~ Q77 + Q84 + Q170 + Q196 
+liked =~ Q44 + Q63 + Q76  + Q98
+'
+@
+
+Use the \src{cfa()} function to estimate the model.
+
+<<>>=
+library(lavaan)
+out1 <- cfa(mod1, data = sapi)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+
+<<>>=
+partSummary(out1, 1:4)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out1, 5:7)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out1, 8:9)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+
+<<>>=
+inspect(out1, "r2")
+fitMeasures(out1) |> head(22) |> round(3)
+@
+
+\framebreak
+
+<<>>=
+fitMeasures(out1) |> tail(-22) |> round(3)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+
+  We only need to change one option to implement the fixed-factor method.
+  \begin{itemize}
+    \item The \src{std.lv = TRUE} option (i.e., standardized latent variables)
+      applies the appropriate constraints.
+  \end{itemize}
+
+<<>>=
+out2 <- cfa(mod1, data = sapi, std.lv = TRUE)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+
+<<>>=
+partSummary(out2, 1:4)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out2, 5:7)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out2, 8:9)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+
+<<>>=
+inspect(out2, "r2")
+fitMeasures(out2) |> head(22) |> round(3)
+@
+
+\framebreak
+
+<<>>=
+fitMeasures(out2) |> tail(-22) |> round(3)
+@
+
+\end{frame}
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Compare Results}
+
+<<>>=
+inspect(out1, "est")$lambda - inspect(out2, "est")$lambda
+inspect(out1, "est")$psi - inspect(out2, "est")$psi
+@
+
+\framebreak
+
+<<>>=
+all.equal(fitMeasures(out1), fitMeasures(out2))
+inspect(out1, "r2") - inspect(out2, "r2")
+inspect(out1, "est")$theta - inspect(out2, "est")$theta
+@
+
+\end{frame}
+
+\comment{ %------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Degrees of Freedom}
+
+<<>>=
+library(ggplot2)
+library(dplyr)
+
+X <- mvtnorm::rmvnorm(10, 2:3, matrix(c(1.0, 0.5, 0.5, 1.0), 2, 2)) |> data.frame()
+colnames(X) <- c("x", "y")
+
+Y <- X[1:5, ]
+
+lm(y ~ x, data = Y) |> summary()
+
+ggplot(Y, aes(x, y)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+@
+
+\end{frame}
+
+} %------------------------------------------------------------------------------%
+
+\end{document}
