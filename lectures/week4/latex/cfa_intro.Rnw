@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 4: CFA Intro
 %%% Author:   Kyle M. Lang (Adapted from Caspar's TCSM slides and Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-09-17
+%%% Modified: 2025-09-24
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -159,9 +159,9 @@ knit_theme$set('edit-kwrite')
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}{Latent Factors}
+\begin{frame}{Indicator Variables}
 
-  The \emph{indicator variables} are the observed variables that we use to estimate an latent factor.
+  The \emph{indicator variables} are the observed variables that we use to estimate a latent factor.
   
   \begin{itemize}
     \item The latent factor is never observed, so we need to infer its characteristics from the information provided by
@@ -183,6 +183,10 @@ knit_theme$set('edit-kwrite')
 
 \end{frame}
 
+%----------------------------------------------------------------------------------------------------------------------%
+
+\subsection{Intuition}
+
 \watermarkoff %--------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{Example CFA}
@@ -193,7 +197,80 @@ knit_theme$set('edit-kwrite')
 
 \end{frame}
 
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{CFA Intuition}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/venn_diagram_blank.png}
+      \end{figure}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/full_cfa_blank.png}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Partitioning Variance}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/venn_diagram_filled2.png}
+      \end{figure}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/partitioned_covariance_matrix_filled3.png}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{CFA as Partitioned Variance}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/venn_diagram_filled3.png}
+      \end{figure}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.9\textwidth]{figures/full_cfa_filled.png}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
 \watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\sectionslide{Different Types of Factor Analysis}
+
+%----------------------------------------------------------------------------------------------------------------------%
 
 \subsection{Confirmatory or Exploratory?}
 
@@ -228,7 +305,7 @@ knit_theme$set('edit-kwrite')
 \def\gap{0.6}\relax     % Spread between indicator nodes
 \def\offset{30mm}\relax % Vertical offset between construct submodels
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{Exploratory Factor Analysis}
 
@@ -416,7 +493,7 @@ knit_theme$set('edit-kwrite')
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \subsection{Flavors of Latent Construct}
 

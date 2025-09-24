@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 5: CFA II
 %%% Author:   Kyle M. Lang (Adapted from Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-09-19
+%%% Modified: 2025-09-24
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -75,6 +75,256 @@ knit_theme$set('edit-kwrite')
 
 \begin{frame}{Outline}
   \tableofcontents
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\sectionslide{Model Estimation}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  Most statistical estimation algorithms operate by minimizing the difference
+  between two key reference points:
+
+  \vc
+
+  \begin{enumerate}
+    \item The \emph{model-implied} statistics/predictions/fitted values
+      \begin{itemize}
+        \item The sufficient statistics implied by the structure of your model.
+        \item Predicted/fitted values produced by your model.
+      \end{itemize}
+
+      \vc
+
+    \item The \emph{observed} statistics/values
+      \begin{itemize}
+        \item The sufficient statistics calculated from the observed data.
+        \item The raw outcome values from your dataset.
+      \end{itemize}
+  \end{enumerate}
+
+  \vb
+
+  The predictions/implied statistics produced by a good model must be simpler
+  than the analogous quantities in the observed data.
+  \begin{itemize}
+    \item A model that exactly replicates the observed data is overfitting.
+    \item The inferences from such models won't generalize to the population.
+  \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics}
+
+  You should already be familiar with this idea from OLS regression.
+
+  \begin{itemize}
+    \item The fitted values are the model implied statistics.
+      \begin{align*}
+        \hat{Y}_n = \hat{\beta}_0 + \sum_{p = 1}^P \hat{\beta}_p X_{n,p}
+      \end{align*}
+    \item The raw outcome variable, $Y$, contains the observed values.
+    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the
+      model.
+      \begin{align*}
+        \eqit{RSS} = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2
+      \end{align*}
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Hypothesized Model}
+
+  We'll use this toy model to sketch out the intuition for maximum likelihood estimation of CFA models.
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{align*}
+        \alpha &=
+        \begin{bmatrix}
+          \alpha_1
+        \end{bmatrix}
+        \quad
+        \Psi =
+        \begin{bmatrix}
+          \psi_{11}
+        \end{bmatrix}
+        \\[12pt]
+        \tau &=
+        \begin{bmatrix}
+          \tau_1 \\
+          \tau_2 \\
+          \tau_3
+        \end{bmatrix}
+        \quad
+        \Lambda =
+        \begin{bmatrix}
+          \lambda_{11}\\
+          \lambda_{21}\\
+          \lambda_{31}
+        \end{bmatrix}
+        \\[12pt]
+        \Theta &=
+        \begin{bmatrix}
+          \theta_{11} &             &             \\
+          0           & \theta_{22} &             \\
+          0           & 0           & \theta_{33}
+        \end{bmatrix}
+      \end{align*}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+      \begin{figure}
+        \includegraphics[width = 0.7\textwidth]{figures/cfa_three_indicators_means.pdf}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Parameters $\rightarrow$ Implied Statistics}
+
+  The parameter matrices define the model-implied mean vector, $\hat{\mu}$, and covariance matrix, $\hat{\Sigma}$, via
+  the following formulas.
+  \begin{align*}
+    \Sigma &= \Lambda \Psi \Lambda^T + \Theta\\
+    \mu &= \tau + \Lambda \alpha
+  \end{align*}
+
+  \vb
+
+  By expanding these formulas, we can see how the model reproduces each mean, variance, and covariance.
+  \begin{align*}
+    \hat{\mu} =
+    \begin{bmatrix}
+     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
+     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
+     \tau_3 + \lambda_{33} \alpha_1
+    \end{bmatrix}
+    \quad
+    \hat{\Sigma} =
+    \begin{bmatrix*}[l]
+      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+    \end{bmatrix*}
+  \end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model-Implied Statistics for Estimation}
+
+  The estimating algorithm chooses values for $\alpha$, $\tau$, $\Psi$, and $\Lambda$ that minimize the differences
+  between the model-implied statistics, $\{ \hat{\mu},\ \hat{\Sigma} \}$, and the sufficient statistics calculated from
+  the observed data, $\{ \bar{\mathbf{Y}},\ \mathbf{S} \}$.
+
+  \begin{alignat*}{3}
+    \hat{\mu} &=
+    \begin{bmatrix}
+     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
+     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
+     \tau_3 + \lambda_{33} \alpha_1
+    \end{bmatrix}
+    \quad
+    &
+    \hat{\Sigma} &=
+    \begin{bmatrix*}[l]
+      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
+      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
+    \end{bmatrix*}
+    \\[12pt]
+    \bar{\mathbf{Y}} &=
+    \begin{bmatrix}
+      \bar{y}_1 \\[3pt]
+      \bar{y}_2 \\[3pt]
+      \bar{y}_3
+    \end{bmatrix}
+    &
+    \mathbf{S} &=
+    \begin{bmatrix*}[l]
+      \var{y_1}      &                &           \\[3pt]
+      \cov{y_2, y_1} & \var{y_2}      &           \\[3pt]
+      \cov{y_3, y_1} & \cov{y_3, y_2} & \var{y_3} \\
+    \end{bmatrix*}
+  \end{alignat*}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Optimization: Intuition}
+
+  We can formulate the familiar OLS objective as an abstract optimization problem at follows.
+  \begin{align*}
+    f(\beta_0, \beta_1, \ldots, \beta_P) = \argmin_{\beta_0, \beta_1, \ldots, \beta_P} \left\| Y - \hat{Y} \right\|
+  \end{align*}
+
+  Applying the same idea to our CFA optimization problem, we get the following formulation.
+  \begin{align*}
+    f(\Lambda, \Psi) &= \argmin_{\Lambda,\Psi} \left\| \mathrm{Cov}(\mathbf{Y}) - \hat{\Sigma} \right\|\\
+    f(\tau, \alpha) &= \argmin_{\tau,\alpha} \left\| \bar{\mathbf{Y}} - \hat{\mu} \right\|
+  \end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Optimization: Objective Function}
+
+  In OLS regression, we minimize the residual sum of squares (RSS).
+  \begin{align*}
+    RSS = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2 
+  \end{align*}
+
+  In CFA, we minimize the \emph{model deviance}.
+  \begin{align*}
+    D_M &= -2 \left[ \ell \left( \hat{\Sigma}, \hat{\mu} \right) - \ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right) \right]
+  \end{align*}
+
+  Where, $\ell ( \cdot )$ denotes a \emph{loglikelihood} function.
+  \begin{itemize}
+    \item $\ell \left( \hat{\Sigma}, \hat{\mu} \right)$ returns the loglikelihood value for our estimated model.
+    \item $\ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right)$ returns the loglikelihood value for the \emph{saturated
+      model}.
+  \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Optimization: Loglikelihood Functions}
+
+  A loglikelihood function is a model-based distance metric.
+
+  \begin{itemize}
+    \item Derived from the assumed data distribution (i.e., multivariate normal, for the basic CFA)
+    \item Quantifies the "chances" of your estimated model having generated the observed data
+  \end{itemize}
+  \begin{align*}
+    \ell \left( \hat{\Sigma}, \hat{\mu} \right) &= -\frac{K}{2} \ln (2 \pi) - \frac{1}{2} \ln | \hat{\Sigma} | -
+    \frac{1}{2} \sum_{n = 1}^N \left( Y_n - \hat{\mu} \right)^T \hat{\Sigma}^{-1} \left( Y_n - \hat{\mu} \right)
+  \end{align*}
+
+  Say we fit two model, $M_a$ and $M_b$, to the same dataset. If $M_a$'s loglikelihood is closer to zero, we know that
+  $M_a$ represents the data better than $M_b$ does.
+  \begin{itemize}
+    \item $M_a$'s implied statistics are closer to the observed sufficient statistics.
+    \item $M_a$'s parameters are more plausible, given the data.
+  \end{itemize}
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
@@ -469,256 +719,6 @@ all(out)
 
 \watermarkon %---------------------------------------------------------------------------------------------------------%
 
-\sectionslide{Model Estimation}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Model-Implied Statistics}
-
-  Most statistical estimation algorithms operate by minimizing the difference
-  between two key reference points:
-
-  \vc
-
-  \begin{enumerate}
-    \item The \emph{model-implied} statistics/predictions/fitted values
-      \begin{itemize}
-        \item The sufficient statistics implied by the structure of your model.
-        \item Predicted/fitted values produced by your model.
-      \end{itemize}
-
-      \vc
-
-    \item The \emph{observed} statistics/values
-      \begin{itemize}
-        \item The sufficient statistics calculated from the observed data.
-        \item The raw outcome values from your dataset.
-      \end{itemize}
-  \end{enumerate}
-
-  \vb
-
-  The predictions/implied statistics produced by a good model must be simpler
-  than the analogous quantities in the observed data.
-  \begin{itemize}
-    \item A model that exactly replicates the observed data is overfitting.
-    \item The inferences from such models won't generalize to the population.
-  \end{itemize}
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Model-Implied Statistics}
-
-  You should already be familiar with this idea from OLS regression.
-
-  \begin{itemize}
-    \item The fitted values are the model implied statistics.
-      \begin{align*}
-        \hat{Y}_n = \hat{\beta}_0 + \sum_{p = 1}^P \hat{\beta}_p X_{n,p}
-      \end{align*}
-    \item The raw outcome variable, $Y$, contains the observed values.
-    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the
-      model.
-      \begin{align*}
-        \eqit{RSS} = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2
-      \end{align*}
-  \end{itemize}
-
-\end{frame}
-
-\watermarkoff %--------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Hypothesized Model}
-
-  We'll use this toy model to sketch out the intuition for maximum likelihood estimation of CFA models.
-
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{align*}
-        \alpha &=
-        \begin{bmatrix}
-          \alpha_1
-        \end{bmatrix}
-        \quad
-        \Psi =
-        \begin{bmatrix}
-          \psi_{11}
-        \end{bmatrix}
-        \\[12pt]
-        \tau &=
-        \begin{bmatrix}
-          \tau_1 \\
-          \tau_2 \\
-          \tau_3
-        \end{bmatrix}
-        \quad
-        \Lambda =
-        \begin{bmatrix}
-          \lambda_{11}\\
-          \lambda_{21}\\
-          \lambda_{31}
-        \end{bmatrix}
-        \\[12pt]
-        \Theta &=
-        \begin{bmatrix}
-          \theta_{11} &             &             \\
-          0           & \theta_{22} &             \\
-          0           & 0           & \theta_{33}
-        \end{bmatrix}
-      \end{align*}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-
-      \begin{figure}
-        \includegraphics[width = 0.7\textwidth]{figures/cfa_three_indicators_means.pdf}
-      \end{figure}
-
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-\watermarkon %---------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Parameters $\rightarrow$ Implied Statistics}
-
-  The parameter matrices define the model-implied mean vector, $\hat{\mu}$, and covariance matrix, $\hat{\Sigma}$, via
-  the following formulas.
-  \begin{align*}
-    \Sigma &= \Lambda \Psi \Lambda^T + \Theta\\
-    \mu &= \tau + \Lambda \alpha
-  \end{align*}
-
-  \vb
-
-  By expanding these formulas, we can see how the model reproduces each mean, variance, and covariance.
-  \begin{align*}
-    \hat{\mu} =
-    \begin{bmatrix}
-     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
-     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
-     \tau_3 + \lambda_{33} \alpha_1
-    \end{bmatrix}
-    \quad
-    \hat{\Sigma} =
-    \begin{bmatrix*}[l]
-      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
-      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
-      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
-    \end{bmatrix*}
-  \end{align*}
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Model-Implied Statistics for Estimation}
-
-  The estimating algorithm chooses values for $\alpha$, $\tau$, $\Psi$, and $\Lambda$ that minimize the differences
-  between the model-implied statistics, $\{ \hat{\mu},\ \hat{\Sigma} \}$, and the sufficient statistics calculated from
-  the observed data, $\{ \bar{\mathbf{Y}},\ \mathbf{S} \}$.
-
-  \begin{alignat*}{3}
-    \hat{\mu} &=
-    \begin{bmatrix}
-     \tau_1 + \lambda_{11} \alpha_1 \\[3pt]
-     \tau_2 + \lambda_{22} \alpha_1 \\[3pt]
-     \tau_3 + \lambda_{33} \alpha_1
-    \end{bmatrix}
-    \quad
-    &
-    \hat{\Sigma} &=
-    \begin{bmatrix*}[l]
-      \lambda_{11} \psi_{11} \lambda_{11} + \theta_{11} &                                                   &                                                   \\[3pt]
-      \lambda_{11} \psi_{11} \lambda_{21}               & \lambda_{21} \psi_{11} \lambda_{21} + \theta_{22} &                                                   \\[3pt]
-      \lambda_{11} \psi_{11} \lambda_{31}               & \lambda_{21} \psi_{11} \lambda_{31}               & \lambda_{31} \psi_{11} \lambda_{31} + \theta_{33} \\
-    \end{bmatrix*}
-    \\[12pt]
-    \bar{\mathbf{Y}} &=
-    \begin{bmatrix}
-      \bar{y}_1 \\[3pt]
-      \bar{y}_2 \\[3pt]
-      \bar{y}_3
-    \end{bmatrix}
-    &
-    \mathbf{S} &=
-    \begin{bmatrix*}[l]
-      \var{y_1}      &                &           \\[3pt]
-      \cov{y_2, y_1} & \var{y_2}      &           \\[3pt]
-      \cov{y_3, y_1} & \cov{y_3, y_2} & \var{y_3} \\
-    \end{bmatrix*}
-  \end{alignat*}
-
-\end{frame}
-
-\watermarkon %---------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Optimization: Intuition}
-
-  We can formulate the familiar OLS objective as an abstract optimization problem at follows.
-  \begin{align*}
-    f(\beta_0, \beta_1, \ldots, \beta_P) = \argmin_{\beta_0, \beta_1, \ldots, \beta_P} \left\| Y - \hat{Y} \right\|
-  \end{align*}
-
-  Applying the same idea to our CFA optimization problem, we get the following formulation.
-  \begin{align*}
-    f(\Lambda, \Psi) &= \argmin_{\Lambda,\Psi} \left\| \mathrm{Cov}(\mathbf{Y}) - \hat{\Sigma} \right\|\\
-    f(\tau, \alpha) &= \argmin_{\tau,\alpha} \left\| \bar{\mathbf{Y}} - \hat{\mu} \right\|
-  \end{align*}
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Optimization: Objective Function}
-
-  In OLS regression, we minimize the residual sum of squares (RSS).
-  \begin{align*}
-    RSS = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2 
-  \end{align*}
-
-  In CFA, we minimize the \emph{model deviance}.
-  \begin{align*}
-    D_M &= -2 \left[ \ell \left( \hat{\Sigma}, \hat{\mu} \right) - \ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right) \right]
-  \end{align*}
-
-  Where, $\ell ( \cdot )$ denotes a \emph{loglikelihood} function.
-  \begin{itemize}
-    \item $\ell \left( \hat{\Sigma}, \hat{\mu} \right)$ returns the loglikelihood value for our estimated model.
-    \item $\ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right)$ returns the loglikelihood value for the \emph{saturated
-      model}.
-  \end{itemize}
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Optimization: Loglikelihood Functions}
-
-  A loglikelihood function is a model-based distance metric.
-
-  \begin{itemize}
-    \item Derived from the assumed data distribution (i.e., multivariate normal, for the basic CFA)
-    \item Quantifies the "chances" of your estimated model having generated the observed data
-  \end{itemize}
-  \begin{align*}
-    \ell \left( \hat{\Sigma}, \hat{\mu} \right) &= -\frac{K}{2} \ln (2 \pi) - \frac{1}{2} \ln | \hat{\Sigma} | -
-    \frac{1}{2} \sum_{n = 1}^N \left( Y_n - \hat{\mu} \right)^T \hat{\Sigma}^{-1} \left( Y_n - \hat{\mu} \right)
-  \end{align*}
-
-  Say we fit two model, $M_a$ and $M_b$, to the same dataset. If $M_a$'s loglikelihood is closer to zero, we know that
-  $M_a$ represents the data better than $M_b$ does.
-  \begin{itemize}
-    \item $M_a$'s implied statistics are closer to the observed sufficient statistics.
-    \item $M_a$'s parameters are more plausible, given the data.
-  \end{itemize}
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
 \sectionslide{Model Fit}
 
 %----------------------------------------------------------------------------------------------------------------------%
@@ -798,60 +798,6 @@ all(out)
 %----------------------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{Parsimony}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\sectionslide{Model Comparison}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\subsection{Nested Models}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Comparing Nested Models}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Likelihood Ratio Tests}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Wald Tests}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Score Tests}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\subsection{Non-Nested Models}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Comparing Non-Nested Models}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Information Criteria}
 
 
 \end{frame}
