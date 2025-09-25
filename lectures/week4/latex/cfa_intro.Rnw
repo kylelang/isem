@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 4: CFA Intro
 %%% Author:   Kyle M. Lang (Adapted from Caspar's TCSM slides and Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-09-24
+%%% Modified: 2025-09-25
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -997,7 +997,7 @@ knit_theme$set('edit-kwrite')
 \begin{frame}{Diagram: Mean \& Covariance Structure}
 
   We can model the mean structure by including the latent means and item intercepts in our model.
-  
+
   \begin{figure}
     \includegraphics[width = 0.9\textwidth]{figures/cfa_two_factors_means.pdf}
   \end{figure}
