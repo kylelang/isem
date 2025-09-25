@@ -33,8 +33,8 @@
 
 \DeclareMathOperator*{\argmin}{\arg\min}
 
-\title{CFA Identification \& Estimation}
-\subtitle{Theory Construction and Statistical Modeling}
+\title{Confirmatory Factor Analysis II}
+\subtitle{Introduction to Structural Equation Modeling}
 \author{Kyle M. Lang}
 \institute{Department of Methodology \& Statistics\\Utrecht University}
 \date{}
@@ -760,6 +760,64 @@ all(out)
 
 \begin{frame}{Problems with $\chi^2$}
 
+  The $\chi^2$ test is a perfectly valid statistical test, and it does it's job very well, but we don't really care.
+
+  \begin{align*}
+    H_0: \hat{\Sigma} = \mathbf{S}\\[8pt]
+    H_0: \hat{\Sigma} \neq \mathbf{S}
+  \end{align*}
+
+  This isn't a very interesting or useful hypothesis to test.
+  \begin{itemize}
+    \item With reasonably sized samples, the $\chi^2$ will almost always reject the null hypothesis.
+    \item We wouldn't want a model that exactly replicated the observed sufficient statistics.
+  \end{itemize}
+
+  \vb
+
+  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use other fit indices derived from
+  the $\chi^2$.
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+  When evaluate model fit, we need to consider three models.
+
+  \begin{enumerate}
+    \item Our estimated model.
+    \item The \emph{independence model}
+      \begin{itemize}
+        \item The worst possible model
+        \item All item associations are fixed to zero
+      \end{itemize}
+    \item The \emph{saturated model}
+      \begin{itemize}
+        \item The "best" possible model
+        \item All possible associations are estimated
+        \item Perfectly reproduces the observed sufficient statistics
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+<<>>=
+x <- runif(10, 0, 1)
+y <- 0.5 + x + 0.25 * x^2 + rnorm(10)
+
+data.frame(X = x, Y = y) |>
+  ggplot(aes(X, Y)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = "~ x + I(x^2)")
+@
 
 \end{frame}
 
