@@ -97,6 +97,8 @@ section-43
 section-44
 cfa-i
 lecture-3
+recordings-3
+slides-3
 reading-3
 at-home-exercises-3
 in-class-exercises-3

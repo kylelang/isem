@@ -315,7 +315,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="cfa-i.html"><a href="cfa-i.html"><i class="fa fa-check"></i><b>4</b> CFA I</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="lecture-3.html"><a href="lecture-3.html"><i class="fa fa-check"></i><b>4.1</b> Lecture</a></li>
+<li class="chapter" data-level="4.1" data-path="lecture-3.html"><a href="lecture-3.html"><i class="fa fa-check"></i><b>4.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="lecture-3.html"><a href="lecture-3.html#recordings-3"><i class="fa fa-check"></i><b>4.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lecture-3.html"><a href="lecture-3.html#slides-3"><i class="fa fa-check"></i><b>4.1.2</b> Slides</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="reading-3.html"><a href="reading-3.html"><i class="fa fa-check"></i><b>4.2</b> Reading</a></li>
 <li class="chapter" data-level="4.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html"><i class="fa fa-check"></i><b>4.3</b> At-Home Exercises</a></li>
 <li class="chapter" data-level="4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html"><i class="fa fa-check"></i><b>4.4</b> In-Class Exercises</a></li>
@@ -361,17 +365,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="lecture-3" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Lecture<a href="lecture-3.html#lecture-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong><em>Coming soon to a GitBook near you!</em></strong></p>
-<p>We’re still working on this page. Somehow, the balance doesn’t feel quite right…</p>
-<p align="center">
-<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjFoeHZ4cGVwZG5zbjZ2ejQxODd4MGt5ZXJ5enc3N2F0ODBrcHY5ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7xtYIJFfF6bPW/giphy.gif" style="width:100.0%" />
-</p>
-<!-- <p align = "center"> -->
-<!-- ![](https://i.gifer.com/XOsX.gif){width=100%} -->
-<!-- </p> -->
-<!-- <p align = "center"> -->
-<!-- ![](https://i.gifer.com/EniQ.gif){width=100%} -->
-<!-- </p> -->
+<p>In the social and behavioral sciences we’re often forced to measure key concepts indirectly. For example, we have no way
+of directly quantifying a person’s current level of depression, or their innate motivation, or their risk-aversion, or
+any of the other myriad psychological features that comprise the human mental state. In truth, we cannot really
+<em>measure</em> these hypothetical constructs at all, we must <em>estimate</em> latent representations thereof (though,
+psychometricians still use the language of physical measurement to describe this process).</p>
+<p>Furthermore, we can rarely estimate an adequate representation with only a single observed variable (e.g., question on a
+survey, score on a test, reading from a sensor). We generally need several observed variables to reliably represent a
+single hypothetical construct. For example, we cannot accurately determine someone’s IQ or socio-economic status based
+on their response to a single question; we need several questions that each tap into slightly different aspects of IQ or
+SES.</p>
+<p>Given multiple items measuring the same hypothetical construct, we can use <em>factor analysis</em> to estimate <em>latent
+variables</em> that represent the unobservable construct. This week we introduce one particular type of factor analysis:
+<em>confirmatory factor analysis</em> (CFA).</p>
+<!----------------------------------------------------------------------------------------------------------------------
+Next week, we will expand on this introduction by fleshing out some more technical details and discussing how to
+evaluate the quality of an estimated CFA model. In Weeks 7 and 8, we will combine CFA with path analysis to produce full
+*structural equation models*. 
+----------------------------------------------------------------------------------------------------------------------->
+<div id="recordings-3" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Recordings<a href="lecture-3.html#recordings-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="foundations" class="section level4 unnumbered hasAnchor">
+<h4>Foundations<a href="lecture-3.html#foundations" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Isq3LfWsGw8?si=CGa0V2QyYLBlgBHI" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="intuition" class="section level4 unnumbered hasAnchor">
+<h4>Intuition<a href="lecture-3.html#intuition" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HWmnJ_I5Zsw?si=Iz2fotG9t6QcXg4n" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="flavors-of-factor-analysis" class="section level4 unnumbered hasAnchor">
+<h4>Flavors of Factor Analysis<a href="lecture-3.html#flavors-of-factor-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RK1mm9Q_LFQ?si=eVzk-Kz9TWp8Nphb" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="path-diagrams" class="section level4 unnumbered hasAnchor">
+<h4>Path Diagrams<a href="lecture-3.html#path-diagrams" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YfSKkeJ2zAw?si=gP495WsL47p9bFle" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="degrees-of-freedom" class="section level4 unnumbered hasAnchor">
+<h4>Degrees of Freedom<a href="lecture-3.html#degrees-of-freedom" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lLaECaAfKR4?si=5AcTZPV4QNZ53KP9" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="model-identification" class="section level4 unnumbered hasAnchor">
+<h4>Model Identification<a href="lecture-3.html#model-identification" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3n9RQdIPbxc?si=UuIFkCeMvsuCLxXH" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+<div id="software-example" class="section level4 unnumbered hasAnchor">
+<h4>Software Example<a href="lecture-3.html#software-example" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X8sIqhzSuXo?si=D7euFmzR5SX1PagL" title="YouTube video player" frameborder="0" allow="accelerometer; 
+               autoplay; 
+               clipboard-write; 
+               encrypted-media; 
+               gyroscope; 
+               picture-in-picture; 
+               web-share" allowfullscreen>
+</iframe>
+</div>
+</div>
+<div id="slides-3" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Slides<a href="lecture-3.html#slides-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You can download the lecture slides <a href="pdf/cfa_intro.pdf">here</a>.</p>
+</div>
 </div>
             </section>
 
