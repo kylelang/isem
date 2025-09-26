@@ -1,5 +1,5 @@
 bookdown::gitbook:
-  css: [style.css, font-awesome.min.css]
+  css: [assets/html/style.css, font-awesome.min.css]
   split_by: section
   df_print: paged
   config: 

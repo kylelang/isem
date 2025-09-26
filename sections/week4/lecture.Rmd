@@ -26,121 +26,114 @@ evaluate the quality of an estimated CFA model. In Weeks 7 and 8, we will combin
 
 #### Foundations {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/Isq3LfWsGw8?si=CGa0V2QyYLBlgBHI"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/Isq3LfWsGw8?si=CGa0V2QyYLBlgBHI"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Intuition {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/HWmnJ_I5Zsw?si=Iz2fotG9t6QcXg4n"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/HWmnJ_I5Zsw?si=Iz2fotG9t6QcXg4n"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Flavors of Factor Analysis {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/RK1mm9Q_LFQ?si=eVzk-Kz9TWp8Nphb"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/RK1mm9Q_LFQ?si=eVzk-Kz9TWp8Nphb"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Path Diagrams {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/YfSKkeJ2zAw?si=gP495WsL47p9bFle"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/YfSKkeJ2zAw?si=gP495WsL47p9bFle"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Degrees of Freedom {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/lLaECaAfKR4?si=5AcTZPV4QNZ53KP9"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/lLaECaAfKR4?si=5AcTZPV4QNZ53KP9"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Model Identification {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/3n9RQdIPbxc?si=UuIFkCeMvsuCLxXH"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/3n9RQdIPbxc?si=UuIFkCeMvsuCLxXH"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 #### Software Example {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/X8sIqhzSuXo?si=D7euFmzR5SX1PagL"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/X8sIqhzSuXo?si=D7euFmzR5SX1PagL"
+  allow="accelerometer; 
+         autoplay; 
+         clipboard-write; 
+         encrypted-media; 
+         gyroscope; 
+         picture-in-picture; 
+         web-share;
+         fullscreen">
 </iframe>
 
 ### Slides
