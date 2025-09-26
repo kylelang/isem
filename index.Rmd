@@ -194,7 +194,7 @@ homework to meaningfully participate in, and benefit from, the class meetings.
 Your grade for the course is based on a “portfolio” composed of the two data analysis projects:
 
 1. Path modeling 
-    - Deadline: Wednesday 2025-10-01 at 23:59
+    - Deadline: Sunday 2025-10-05 at 23:59
     - Group assignment
     - Pass/Fail
 
