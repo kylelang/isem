@@ -1,7 +1,7 @@
 ### Title:    Support Functions for Examples
 ### Author:   Kyle M. Lang
 ### Created:  2017-08-24
-### Modified: 2023-08-17
+### Modified: 2025-09-26
 
 library(dplyr)
 library(ggplot2)
@@ -347,3 +347,5 @@ getFmi <- function(x, what) {
 }
 
 ###--------------------------------------------------------------------------###
+
+prettyPValue <- function(x) ifelse(x < 0.001, "p < 0.001", paste0("p = ", round(x, 3))) |> noquote()

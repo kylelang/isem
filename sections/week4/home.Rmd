@@ -1,55 +1,140 @@
 ## At-Home Exercises
 
-This week, we will wrap up our re-analysis of the Kestilä (2006) results. During 
-this practical, you will conduct a CFA of the *Trust in Politics* items and 
-compare the results to those obtained from your previous EFA- and PCA-based 
-replications of Kestilä (2006).
+```{r h4_setup, echo = FALSE, include = FALSE}
+source(here::here("code", "supportFunctions.R"))
+```
 
----
+This week, we will take our first steps into the world of factor analysis. We'll begin by fitting some CFA models using
+personality scale data.
 
-###
+------------------------------------------------------------------------------------------------------------------------
 
-Load the ESS data.
+### Setup
 
-- The relevant data are contained in the [*ess_round1.rds*][ess_data] file.
-    - This file is in R Data Set (RDS) format.
-    - The dataset is already stored as a data frame with the processing and 
-    cleaning that you should have done for previous practicals completed.
+**Data:**
+
+You will use the following dataset for these exercises.
+
+- [cattell](https://surfdrive.surf.nl/files/index.php/s/1hLlshF9xF0rpJH)
+- You can find a codebook for the dataset [here](data/16PF/codebook.html)
+
+This dataset contains 1000 observations of 16X personality items collected as part of the
+[International Personality Item Pool][ipip]. These items are meant to assess Raymond Cattell's 16 personality factors
+(16PF):
+
+- Warmth
+- Reasoning
+- Emotional Stability
+- Dominance
+- Liveliness
+- Rule-Consciousness
+- Social Boldness
+- Sensitivity
+- Vigilance
+- Abstractness
+- Privateness
+- Apprehension
+- Openness to Change
+- Self-Reliance
+- Perfectionism
+- Tension
+
+The [16PF Wikipedia page][cattell_wiki] provides a nice summary of the scale. 
+
+**Packages:**
+
+To complete these exercises, you will need to install the package described below.
+
+```{r, echo = FALSE}
+data.frame(
+  Package = c(
+    "semPlot"
+  ),
+  Description = c(
+    "Programmatically draw path diagrams in R"
+  )
+) |>
+  knitr::kable()
+```
+
+Use the `install.packages()` function to install this package.
 
 <details>
   <summary>Click to show code</summary>
-  
-```{r, echo = FALSE}
-dataDir <- "../../../../data/"
-
-ess <- readRDS(paste0(dataDir, "ess_round1.rds"))
-```
 
 ```{r, eval = FALSE}
-ess <- readRDS("ess_round1.rds")
+install.packages("semPlot", dependencies = TRUE)
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Although you may have settled on any number of EFA solutions during the 
-[Week 4 In-Class Exercises](in-class-exercises-3.html), we are going to base the 
-following CFA on a three-factor model of *Trust in Politics* similar to the 
-original PCA results from Kestilä (2006).
+###
 
-*Note:* Unless otherwise specified, all following questions refer to the *Trust 
-in Politics* items. We will not consider the *Attitudes toward Immigration* 
-items in these exercises.
+Load the *cattell* data.
 
----
+- The relevant data are contained in the [*canttell.rds*][cattell_data] file.
 
-### {#cfaSyntax}
+<details>
+  <summary>Click to show code</summary>
 
-Define the `lavaan` model syntax for the CFA implied by the three-factor EFA 
-solution you found in the Week 4 In-Class Exercises.
+```{r}
+dataDir <- "data"
+cattell <- readRDS(here::here(dataDir, "cattell.rds"))
+```
 
-- Covary the three latent factors.
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+We'll first estimate a simple one-dimensional CFA of the *Warmth* factor. Our target model is defined as follows:
+
+- One reflective latent factor representing the *Warmth* dimension
+- 10 observed indicators: {`A1`, `A2`, ..., `A10`}
+- 10 residual variances but no residual covariances
+
+Basically, our CFA should estimate the default measurement model through which one latent factor generates 10 observed
+indicator variables.
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Sketch a path diagram of the CFA model described above.
+
+- Use pencil and paper (or the equivalent); don't generate the diagram programmatically.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### {#df}
+
+Calculate the following quantities for the *Warmth* CFA described above.
+
+1. The number of parameters in the model.
+1. The pieces of unique information provided by the data.
+1. The number of estimated parameters after applying the necessary scaling constraints.
+1. The degrees of freedom for the estimated model.
+
+<details>
+  <summary>Click to show the answer</summary>
+
+1. The model contains 21 parameters
+   - 10 factor loadings
+   - 10 residual variances
+   - One latent variance
+1. Our model will include 10 observed variables, so the data provide 10 (10 + 1) / 2 = 55 pieces of information.
+1. To identify the covariance structure model, we need to fix one parameter. So, we will estimate 20 parameters.
+1. The estimated model will have 55 - 20 = 35 degrees of freedom.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+### {#cfaSyntax1}
+
+Define the `lavaan` model syntax for the unidimensional CFA of *Warmth* described above.
+
 - Do not specify any mean structure.
 - Save this model syntax as an object in your environment.
 
@@ -57,90 +142,136 @@ solution you found in the Week 4 In-Class Exercises.
   <summary>Click to show code</summary>
 
 ```{r}
-mod_3f <- '
-institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
-satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
-politicians  =~ pltinvt + pltcare + trstplt
+mod1 <- '
+warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
 '
 ```
 
 <details>
   <summary>Click for explanation</summary>
 
-We don't have to specify the latent covariances in the model syntax, we can tell 
-`lavaan` to estimate all latent covariances when we fit the model.
+At this point, we only need to define the factor loading map. We can specify all the other options when we estimate the
+model.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Estimate the CFA model you defined above, and summarize the results.
+Estimate the CFA model you defined in \@ref(cfaSyntax1), and summarize the results.
 
 - Use the `lavaan::cfa()` function to estimate the model.
 - Use the default settings for the `cfa()` function.
-- Request the model fit statistics with the summary by supplying the 
-`fit.measures = TRUE` argument to `summary()`.
-- Request the standardized parameter estimates with the summary by supplying the 
-`standardized = TRUE` argument to `summary()`.
 
 Check the results, and answer the following questions:
 
-- Does the model fit the data well?
-- How are the latent variances and covariances specified when using the default 
-settings?
+- What is the estimated variance of the *Warmth* factor?
 - How is the model identified when using the default settings?
 
 <details>
-  <summary>Click the code</summary>
+  <summary>Click to show code</summary>
 
 ```{r}
 ## Load the lavaan package:
 library(lavaan)
 
 ## Estimate the CFA model:
-fit_3f <- cfa(mod_3f, data = ess)
+out1.1 <- cfa(mod1, data = cattell)
 
 ## Summarize the fitted model:
-summary(fit_3f, fit.measures = TRUE, standardized = TRUE)
+summary(out1.1)
 ```
+
 <details>
   <summary>Click for explanation</summary>
 
-No, the model does not seem to fit the data well.
+The estimated latent variance is $\psi_{11} = `r inspect(out1.1, "est")[["psi"]] |> as.numeric() |> round(3)`$.
 
-- The SRMR looks good, but one good looking fit statistic is not enough.
-- The RMSEA, TLI, and CFI are all in the "unacceptable" range.
-- The $\chi^2$ is highly significant, but we don't care.
+The `cfa()` function is just a wrapper for the `lavaan()` function with several options set at the defaults you would
+want for a standard CFA. 
 
-The `cfa()` function is just a wrapper for the `lavaan()` function with several 
-options set at the defaults you would want for a standard CFA. 
+- By default, the model is identified by fixing the first factor loading of each factor to 1 (due to the argument
+`auto.fix.first = TRUE`).
 
-- By default:
-    - All latent variances and covariances are freely estimated (due to the 
-    argument `auto.cov.lv.x = TRUE`)
-    - The model is identified by fixing the first factor loading of each factor 
-    to 1 (due to the argument `auto.fix.first = TRUE`)
-
-To see a full list of the (many) options you can specify to tweak the behavior
-of `lavaan` estimation functions run `?lavOptions`.
+To see a full list of the (many) options you can specify to tweak the behavior of `lavaan` estimation functions run 
+`?lavOptions`.
 
   </details>
 </details>
 
----
-
-Now, we will consider a couple of alternative factor structures for the *Trust 
-in Politics* CFA. First, we will go extremely simple by estimating a one-factor 
-model wherein all *Trust* items are explained by a single latent variable.
-
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Define the `lavaan` model syntax for a one-factor model of the *Trust* items.
+Do the number of model parameters and degrees of freedom reported in the lavaan output agree with the values you
+calculated in \@ref(df)?
+
+<details>
+  <summary>Click to show answer</summary>
+
+Yes, the values should agree. This first part of the lavaan model summary reports the number of model parameters and the
+degrees of freedom.
+
+```{r, echo = FALSE}
+partSummary(out1.1, 1:4)
+
+fit <- fitMeasures(out1.1)
+p   <- fit[["npar"]] |> as.numeric() |> round()
+df  <- fit[["df"]] |> as.numeric() |> round()
+```
+
+In this case, we see that we've estimated `r p` parameters and we have df = `r df`.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the `semPaths()` function from the **semPlot** package to draw a path diagram of your estimated CFA.
+
+- Include the parameter estimates in the diagram.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+library(semPlot)
+semPaths(out1.1, whatLabels = "estimates")
+```
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+Now, we're going to complicate matters slightly by adding another dimension to our model. We'll now estimate a
+two-dimensional CFA that contains correlated *Warmth* and *Dominance* factors.
+
+Defined this new model as follows:
+
+- Two correlated, reflective latent factors: one *Warmth* factor and one *Dominance* factor
+- 10 observed indicators of *Warmth*: {`A1`, `A2`, ..., `A10`}
+- 10 observed indicators of *Dominance*: {`D1`, `D2`, ..., `D10`}
+- No cross-loadings
+- No residual correlations
+
+Again, this CFA should estimate the default measurement model though which two correlated latent factors generate a set
+of 20 observed indicators.
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Sketch a path diagram of the CFA model described above.
+
+- Use pencil and paper (or the equivalent); don't generate the diagram programmatically.
+
+------------------------------------------------------------------------------------------------------------------------
+
+### {#cfaSyntax2}
+
+Define the `lavaan` model syntax for a two-factor model of the *Warmth* and *Dominance* items.
 
 - Save this syntax as an object in your environment.
 
@@ -148,182 +279,190 @@ Define the `lavaan` model syntax for a one-factor model of the *Trust* items.
   <summary>Click to show code</summary>
 
 ```{r}
-mod_1f <- '
-political_trust =~ 
-  trstlgl +
-  trstplc +
-  trstun +
-  trstep +
-  trstprl +
-  stfhlth +
-  stfedu  +
-  stfeco +
-  stfgov +
-  stfdem +
-  pltinvt +
-  pltcare +
-  trstplt
+mod2 <- '
+warmth    =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
+dominance =~ D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10
 '
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#cfaEstimation2}
 
-Estimate the one-factor model, and summarize the results.
+Estimate the two-factor model you specified in \@ref(cfaSyntax2), and summarize the results.
 
-- Does this model appear to fit better or worse than the three-factor model?
-
-*Note:* You can use the `lavaan::fitMeasures()` function to extract only the
-model fit information from a fitted `lavaan` object.
+- Identify the model by fixing the first factor loading of each construct to 1.
+- Do not estimate any mean structure.
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
 ## Estimate the one factor model:
-fit_1f <- cfa(mod_1f, data = ess)
+out2.1 <- cfa(mod2, data = cattell)
 
 ## Summarize the results:
-summary(fit_1f, fit.measures = TRUE)
-
-## Compare fit statistics:
-fitMeasures(fit_3f)
-fitMeasures(fit_1f)
+summary(out2.1)
 ```
 
-<details>
-  <summary>Click for explanation</summary>
-
-The one-factor model definitely seems to fit worse than the three-factor model.
-
-  </details>
 </details>
 
----
-
-A second order CFA model is another way of representing the latent structure 
-underlying a set of items. As you read in Byrne (2005), however, the second 
-order CFA is only appropriate in certain circumstances.
-
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Given the CFA results above, would a second order CFA be appropriate for the 
-*Trust* data? Why or why not?
+Report the following parameter estimates from the model you estimated in \@ref(cfaEstimation2).
+
+1. The `warmth` $\rightarrow$ `A3` factor loading
+1. The `dominance` $\rightarrow$ `D2` factor loading
+1. The latent covariance between *warmth* and *dominance*
 
 <details>
-  <summary>Click for explanation</summary>
-
-Yes, a second order CFA model is a theoretically appropriate representation of 
-the *Trust* items. 
-
-- The first order latent variables in the three-factor model are all 
-significantly correlated.
-- The first order latent variables in the three-factor model seem to tap 
-different aspects of some single underlying construct. 
-
-</details>
-
----
-
-###
-
-Define the `lavaan` model syntax for a second-order CFA model of the *Trust* items.
-
-- Use the three factors defined in \@ref(cfaSyntax) as the first order factors.
-
- <details>
-  <summary>Click to show code</summary>
-
-```{r}
-mod_2nd <- '
-institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
-satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
-politicians  =~ pltinvt + pltcare + trstplt
-
-trust =~ politicians + satisfaction + institutions
-'
+  <summary>Click to show answer</summary>
+  
+```{r, echo = FALSE}
+lambda <- inspect(out2.1, "est")$lambda
+lam3_1 <- lambda[3, 1] |> as.numeric() |> round(3)
+lam12_2 <- lambda[12, 2] |> as.numeric() |> round(3)
+psi2_1 <- inspect(out2.1, "est")$psi[2, 1] |> as.numeric() |> round(3)
 ```
 
-<details>
-  <summary>Click for explanation</summary>
+1. $\lambda_{3,1} = `r lam3_1`$
+1. $\lambda_{12,2} = `r lam12_2`$
+1. $\psi_{2,1} = `r psi2_1`$
 
-To define the second order factor, we use the same syntactic conventions that we
-employ to define a first order factor. The only differences is that the 
-"indicators" of the second order factor (i.e., the variables listed on the RHS 
-of the `=~` operator) are previously defined first order latent variables.
-
-  </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Estimate the second order CFA model, and summarize the results.
+Based on the CFA you estimated in \@ref(cfaEstimation2), can we infer a significant linear association between *Warmth*
+and *Dominance*?
 
-- Does this model fit better or worse than the three-factor model?
-- Is this model more or less complex than the three-factor model?
-    - What information can you use to quantify this difference in complexity?
+- Use the statistics from your estimated model to justify your conclusion.
+
+<details>
+  <summary>Click to show answer</summary>
+  
+```{r, echo = FALSE}
+tmp <- parameterEstimates(out2.1) |> filter(lhs == "warmth", op == "~~", rhs == "dominance")
+se <- round(tmp$se, 2)
+z <- round(tmp$z, 2)
+pValue <- prettyPValue(tmp$p)
+```
+
+Yes, warmth and dominance are significantly correlated
+($\psi_{2,1} = `r psi2_1`$, $SE = `r se`$, $z = `r z`$, $`r pValue`$).
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the `semPaths()` function to draw a path diagram of your estimated CFA.
+
+- Include the parameter estimates in the diagram.
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-fit_2nd <- cfa(mod_2nd, data = ess)
-summary(fit_2nd, fit.measures = TRUE, standardized = TRUE)
-
-## Compare fit between the first and second order models:
-fitMeasures(fit_3f)
-fitMeasures(fit_2nd)
+semPaths(out2.1, whatLabels = "estimates")
 ```
 
-<details>
-  <summary>Click for explanation</summary>
-
-We don't have to do anything special here. We can estimate and summarize the 
-second order CFA exactly as we did the first order CFA.
-
----
-
-You should quickly notice something strange about the model fit statistics 
-compared above. If you don't see it, consider the following:
-
-```{r}
-fitMeasures(fit_3f) - fitMeasures(fit_2nd)
-```
-
-The two models produce identical fit statistics! We also see that the degrees of 
-freedom are identical between the two models. Hence, the two models have equal
-complexity.
-
-This result taps into a critical idea in statistical modeling, namely, *model 
-equivalency*. It turns out the two models we're comparing here are *equivalent* 
-in the sense that they are statistically indistinguishable representations of 
-the data.
-
-Since this is a very important idea, I want to spend some time discussing it in 
-person. So, spend some time between now and the Week 6 lecture session thinking 
-about the implications of this model equivalence. Specifically, consider the 
-following questions:
-
-- What do we mean when we say that these two models are *equivalent*?
-- How is it possible for these two models to be *equivalent* when one contains 
-an additional latent variable?
-- Why are the degrees of freedom equal for these two models?
-- Why are the fit statistics equal for these two models?
-
-We'll take some time to discuss these ideas in the Week 6 lecture session.
-
-  </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+### {#cfaEstimation3}
+
+Estimate a modified version of the two-factor CFA from \@ref(cfaEstimation2), and summarize the results.
+
+- Estimate the mean structure.
+- Identify the model with the fixed factor method (i.e., standardize the latent variables).
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+out2.2 <- cfa(mod2, data = cattell, meanstructure = TRUE, std.lv = TRUE)
+summary(out2.2)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Report the following parameter estimates from the model you estimated in \@ref(cfaEstimation3).
+
+1. The item intercept for `A1`
+1. The item intercept for `D5`
+1. The mean of the *Warmth* factor
+
+<details>
+  <summary>Click to show answer</summary>
+  
+```{r, echo = FALSE}
+tau <- inspect(out2.2, "est")$nu[c("A1", "D5"), ] |> as.numeric() |> round(2)
+```
+
+1. $\tau_1 = `r tau[1]`$
+1. $\tau_{15} = `r tau[2]`$
+1. This is a bit of a trick question. We fixed the latent means to zero for model identification, so we don't have an
+estimated latent mean for the warmth factor.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Based on the CFA you estimated in \@ref(cfaEstimation3), how strong is the association between *Warmth* and *Dominance*?
+
+- Use the statistics from your estimated model to justify your conclusion.
+
+<details>
+  <summary>Click to show answer</summary>
+  
+```{r, echo = FALSE}
+psi <- inspect(out2.2, "est")$psi[2, 1] |> as.numeric() |> round(3)
+```
+
+We set the scale by standardizing the latent factors, so we can interpret the latent covariance as a correlation. Hence,
+the estimated latent covariance of $\psi_{2,1} = `r psi`$ suggests a weak linear association between *Warmth* and
+*Dominance*.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the `semPaths()` function to draw a path diagram of the CFA you estimated in \@ref(cfaEstimation3).
+
+- Include the parameter estimates in the diagram.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+semPaths(out2.2, whatLabels = "estimates")
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+[ipip]: https://ipip.ori.org/
+[cattell_wiki]: https://en.wikipedia.org/wiki/16PF_Questionnaire
+
