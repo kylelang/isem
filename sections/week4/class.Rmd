@@ -33,7 +33,7 @@ cattell <- readRDS(here::here(dataDir, "cattell.rds"))
 In the following exercises, we'll work primarily with the four-factor CFA shown in the following path diagram. This CFA
 models the measurement of the *Warmth*, *Liveliness*, *Vigilance*, and *Tension* factors from the 16PF.
 
-![](assets/images/wk4_class_path_diagram.png)
+![](assets/images/week4_class_path_diagram.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -86,7 +86,7 @@ tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
 
 ------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#cfaEstimationClass1}
 
 Estimate the CFA model you defined in \@ref(cfaSyntaxClass1), and summarize the results.
 
@@ -108,21 +108,6 @@ out1.1 <- cfa(mod1, data = cattell)
 summary(out1.1)
 ```
 
-<details>
-  <summary>Click for explanation</summary>
-
-The estimated latent variance is $\psi_{11} = `r inspect(out1.1, "est")[["psi"]] |> as.numeric() |> round(3)`$.
-
-The `cfa()` function is just a wrapper for the `lavaan()` function with several options set at the defaults you would
-want for a standard CFA. 
-
-- By default, the model is identified by fixing the first factor loading of each factor to 1 (due to the argument
-`auto.fix.first = TRUE`).
-
-To see a full list of the (many) options you can specify to tweak the behavior of `lavaan` estimation functions run 
-`?lavOptions`.
-
-  </details>
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -154,17 +139,171 @@ In this case, we see that we've estimated `r p` parameters and we have df = `r d
 
 ###
 
-Use the `semPaths()` function from the **semPlot** package to draw a path diagram of your estimated CFA.
+Examine the factor loadings from the model you estimated in \@ref(cfaEstimationClass1), and answer the following
+questions.
 
-- Include the parameter estimates in the diagram.
+- Some of the estimated factor loadings are negative. Why are these particular loadings negative?
+- Do you think the negative factor loadings are a problem? Explain you reasoning.
+- Do the estimates make sense given the wording of the observed items and the putative meanings of the latent
+constructs?
+
+<details>
+  <summary>Click to show answer</summary>
+
+- The negative factor loadings are associated with reverse-coded items. Such items get negative factor loadings because
+higher scores on those items reflect lower levels of the latent construct. In other words, reverse coded items have
+negative item-scale correlations.
+$\vc$
+- No, the negative factor loadings are not inherently problematic. Negative factor loadings do not have a deleterious
+effect on the definition of the latent factor. That being said, negative factor loadings can complicate the analysis.
+    - Trying to set the scale by fixing the factor loading for a reverse coded item can cause estimation problems or
+    flip the meaning of the latent factor.
+    - We need to be extra careful when placing constraints for hypothesis testing.
+$\vc$
+- Yes, the estimated factor loadings largely align with theoretical expectations. For example, the observed items that
+appear to reflect interpersonal "warmth" are associated with positive factor loadings for the *Warmth* factor, and the
+reverse coded items that seem to indicate "coldness" have negative factor loadings. The same pattern holds for all four
+latent factors.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Interpret the latent covariances from the model you estimated in \@ref(cfaEstimationClass1).
+
+- Use the parameter estimates and statistical tests from your model to support your interpretations.
+- Do the estimates make sense given the putative meanings of the latent constructs?
+
+<details>
+  <summary>Click to show answer</summary>
+
+```{r, echo = FALSE}
+psi <- lavInspect(out1.1, "cov.lv")
+se  <- lavInspect(out1.1, "se")$psi
+z   <- psi / se
+p   <- pnorm(abs(z), lower.tail = FALSE) * 2
+psi <- round(psi, 3)
+se  <- round(se, 3)
+z   <- round(z, 2)
+```
+
+The estimated latent covariances largely conform to theoretical expectations. The two "pro-social" factors, *Warmth* and
+*Liveliness*, are positively associated
+$(\psi_{2,1} = `r psi[2, 1]`$,
+$\textit{SE} = `r se[2, 1]`$,
+$`r prettyPValue(p[2, 1])`)$,
+as are the two "anti-social" factors, *Vigilance* and *Tension*,
+$(\psi_{4,3} = `r psi[4, 3]`$,
+$\textit{SE} = `r se[4, 3]`$,
+$`r prettyPValue(p[4, 3])`)$.
+Furthermore, *Warmth* negatively correlates with both of the "anti-social" factors
+(*Vigilance*: $\psi_{3,1} = `r psi[3, 1]`$,
+$\textit{SE} = `r se[3, 1]`$,
+$`r prettyPValue(p[3, 1])`$;
+*Tension*: $\psi_{4,1} = `r psi[4, 1]`$,
+$\textit{SE} = `r se[4, 1]`$,
+$`r prettyPValue(p[4, 1])`)$,
+and *Liveliness* negatively correlates with *Vigilance*
+$(\psi_{2,3} = `r psi[2, 3]`$,
+$\textit{SE} = `r se[2, 3]`$,
+$`r prettyPValue(p[2, 3])`)$.
+Only *Liveliness* and *Tension* are not significantly associated
+$(\psi_{2,4} = `r psi[2, 4]`$,
+$\textit{SE} = `r se[2, 4]`$,
+$`r prettyPValue(p[2, 4])`)$.
+  
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+We can request more information when we summarize a fitted lavaan model by adding additional arguments to the
+`summary()` call. For the purposes of this course, the following options are most useful.
+
+- `ci = TRUE`: Include confidence intervals for the estimated parameters
+- `stadardized = TRUE`: Include the standardized parameter estimates
+- `rsquare = TRUE`: Include the $R^2$ estimates for all endogenous variables in the model
+- `fit.measures = TRUE`: Include the model fit statistics
+- `modindices = TRUE`: Include the modification indices
+
+For example, the following code prints the summary including 95% confidence intervals for the parameter estimates.
+
+```{r}
+summary(out1.1, ci = TRUE)
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Summarize the model you estimated in \@ref(cfaEstimationClass1), and include the standardized parameter estimates and 
+the $R^2$ values in the summary.
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-library(semPlot)
-semPaths(out1.1, whatLabels = "estimates")
+summary(out1.1, standardized = TRUE, rsquare = TRUE)
 ```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+We can extract specific elements from the fitted lavaan object with the `lavInspect()` function. For example, the
+following code extracts the number of estimated parameters.
+
+```{r}
+lavInspect(out1.1, "npar")
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Check the help file for the `lavInspect()` function to see what you can extract from a fittend lavaan object.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+?lavInspect
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the the `lavInspect()` function to extract the following data from the lavaan object you created in
+\@ref(cfaEstimationClass1).
+
+  - The factor loading matrix
+  - The latent covariance matrix
+  - The estimated $R^2$ values for the indicator variables.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+# Extract the estimated parameter matrices
+parEst <- lavInspect(out1.1, "est")
+
+# Print the estimated factor loading matrix
+parEst$lambda
+
+# Print the estimated latent covariance matrix
+parEst$psi
+
+# Alternatively, we can directly extract the latent covariance matrix
+lavInspect(out1.1, "cov.lv")
+
+# Extract the estimated R^2 values
+lavInspect(out1.1, "r2")
+```
+
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------

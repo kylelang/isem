@@ -94,6 +94,42 @@ tension    =~ 1*P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
 out1 <- cfa(mod1, data = cattell)
 # out1 <- lavaan(mod1, data = cattell, auto.fix.first = FALSE, std.lv = FALSE, auto.var = TRUE)
 summary(out1)
+summary(out1, standardized = TRUE, rsquare = TRUE)
+summary(out1)
+
+lavInspect(out1, "npar")
+lavInspect(out1, "cov.lv")
+lavInspect(out1, "estimates")$psi
+lavInspect(out1, "sampstat")
+lavInspect(out1, "r2")
+
+psi <- lavInspect(out1, "cov.lv")
+se  <- lavInspect(out1, "se")$psi
+z   <- psi / se
+p   <- pnorm(abs(z), lower.tail = FALSE) * 2
+psi <- round(psi, 3)
+se  <- round(se, 3)
+z   <- round(z, 2)
+
+psi["warmth", "liveliness"]
+psi[ , "liveliness"]
+
+prettyPValue(p["liveliness", "tension"])
+
+partSummary(out1, 8)
+
+
+round(psi, 3)[1, 1]
+
+?lavaan.summary
+?summary
+?cfa
+?summary.lavaan
+
+help(summary, package = "lavaan")
+showMethods(class = "lavaan")$summarize
+
+lavInspect(out1, "ly")
 
 p0 <- semPaths(
   out1, 
