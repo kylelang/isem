@@ -1,4 +1,4 @@
-# install.packages("semPlot")
+install.packages("semptools")
 
 source(here::here("code", "supportFunctions.R"))
 
@@ -6,6 +6,7 @@ library(dplyr)
 library(lavaan)
 library(magrittr)
 library(semPlot)
+library(semptools)
 
 dataDir <- "data"
 cattell <- readRDS(here::here(dataDir, "cattell.rds"))
@@ -16,7 +17,7 @@ mod1 <- '
 warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
 '
 
-out1.1 <- cfa(mod1, data = dat1)
+out1.1 <- cfa(mod1, data = cattell)
 out1.2 <- cfa(mod1, data = dat1, std.lv = TRUE)
 out1.3 <- cfa(mod1, data = dat1, std.lv = TRUE, meanstructure = TRUE)
 
@@ -36,7 +37,7 @@ colnames(dat1)
 
 mod2 <- '
 warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
-dominance =~ D1 + D2 + D3 + D4 + D4 + D5 + D6 + D7 + D8 + D9 + D10
+dominance =~ D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10
 '
 
 out2.1 <- cfa(mod2, data = dat1)
@@ -71,3 +72,133 @@ semPaths(out2.3)
 inspect(out1.1, "est")$psi |> as.numeric()
 inspect(out1.2, "est")$lambda
 inspect(out2.3, "est")
+
+###------------------------------------------------------------------------------------------------------------------###
+
+colnames(cattell)
+
+mod1 <- '
+warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
+liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10
+vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
+tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
+'
+
+mod1 <- '
+warmth     =~ A6 + A7 + A8 + A9 + 1*A10
+liveliness =~ 1*E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10
+vigilance  =~ 1*I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
+tension    =~ 1*P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
+'
+
+out1.2 <- cfa(mod1, data = cattell)
+out1.3 <- cfa(mod1, data = cattell, orthogonal.x = TRUE)
+
+summary(out1.3)
+
+inspect(out1.1, "est")$lambda[ , 1]
+inspect(out1.2, "est")$lambda[1:10, 1]
+inspect(out1.3, "est")$lambda[1:10, 1]
+
+# Modify the lavaan model syntax to fix the latent covariances
+mod1.2 <- '
+warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
+liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10
+vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
+tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
+
+liveliness ~~ 0*warmth
+vigilance  ~~ 0*warmth + 0*liveliness
+tension    ~~ 0*warmth + 0*liveliness + 0*vigilance
+'
+
+# Estimate the new model
+tmp <- cfa(mod1.2, data = cattell)
+
+# We can also use the orginal model string and tell the cfa() function not to estimate
+# any latent covariances
+out1.2 <- cfa(mod1, data = cattell, orthogonal.x = TRUE)
+summary(out1.2)
+
+(inspect(out1.2, "est") |> unlist()) - (inspect(tmp, "est") |> unlist())
+
+fitMeasures(out1.2) - fitMeasures(tmp)
+
+all.equal(out1.2, tmp)
+
+inspect(out1.2, "est")$lambda[1:10, 1, drop = FALSE]
+
+# Are the two approaches equivalent?
+all.equal(tmp, out1.2)
+?lavOptions
+
+# out1 <- lavaan(mod1, data = cattell, auto.fix.first = FALSE, std.lv = FALSE, auto.var = TRUE)
+summary(out1)
+summary(out1, standardized = TRUE, rsquare = TRUE)
+summary(out1)
+
+lavInspect(out1, "npar")
+lavInspect(out1, "cov.lv")
+lavInspect(out1, "estimates")$psi
+lavInspect(out1, "sampstat")
+lavInspect(out1, "r2")
+
+psi <- lavInspect(out1, "cov.lv")
+se  <- lavInspect(out1, "se")$psi
+z   <- psi / se
+p   <- pnorm(abs(z), lower.tail = FALSE) * 2
+psi <- round(psi, 3)
+se  <- round(se, 3)
+z   <- round(z, 2)
+
+psi["warmth", "liveliness"]
+psi[ , "liveliness"]
+
+prettyPValue(p["liveliness", "tension"])
+
+partSummary(out1, 8)
+
+
+round(psi, 3)[1, 1]
+
+?lavaan.summary
+?summary
+?cfa
+?summary.lavaan
+
+help(summary, package = "lavaan")
+showMethods(class = "lavaan")$summarize
+
+lavInspect(out1, "ly")
+
+p0 <- semPaths(
+  out1, 
+  style = "ram",
+  sizeMan = 2,
+  node.width = 1,
+  equalizeManifest = FALSE
+  )
+
+ind_order <- c(paste0("A", 1:10), paste0("E", 1:10), paste0("I", 1:10), paste0("P", 1:9))
+ind_fac <- c(rep("warmth", 10), rep("liveliness", 10), rep("vigilance", 10), rep("tension", 9))
+fac_layout <- matrix(
+  c(NA, "warmth", NA, 
+    "liveliness", NA, "vigilance",
+    NA, "tension", NA),
+  byrow = TRUE, 3, 3)
+fac_direct <- matrix(
+  c(NA, "up", NA,
+    "left", NA, "right",
+    NA, "down", NA),
+  byrow = TRUE, 3, 3)
+
+p1 <- set_sem_layout(p0,
+  indicator_order = ind_order,
+  indicator_factor = ind_fac,
+  factor_layout = fac_layout,
+  factor_point_to = fac_direct
+)
+
+plot(p1)
+
+?lavOptions
