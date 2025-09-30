@@ -17,7 +17,7 @@ mod1 <- '
 warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
 '
 
-out1.1 <- cfa(mod1, data = dat1)
+out1.1 <- cfa(mod1, data = cattell)
 out1.2 <- cfa(mod1, data = dat1, std.lv = TRUE)
 out1.3 <- cfa(mod1, data = dat1, std.lv = TRUE, meanstructure = TRUE)
 
@@ -91,7 +91,47 @@ vigilance  =~ 1*I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
 tension    =~ 1*P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
 '
 
-out1 <- cfa(mod1, data = cattell)
+out1.2 <- cfa(mod1, data = cattell)
+out1.3 <- cfa(mod1, data = cattell, orthogonal.x = TRUE)
+
+summary(out1.3)
+
+inspect(out1.1, "est")$lambda[ , 1]
+inspect(out1.2, "est")$lambda[1:10, 1]
+inspect(out1.3, "est")$lambda[1:10, 1]
+
+# Modify the lavaan model syntax to fix the latent covariances
+mod1.2 <- '
+warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
+liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10
+vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
+tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
+
+liveliness ~~ 0*warmth
+vigilance  ~~ 0*warmth + 0*liveliness
+tension    ~~ 0*warmth + 0*liveliness + 0*vigilance
+'
+
+# Estimate the new model
+tmp <- cfa(mod1.2, data = cattell)
+
+# We can also use the orginal model string and tell the cfa() function not to estimate
+# any latent covariances
+out1.2 <- cfa(mod1, data = cattell, orthogonal.x = TRUE)
+summary(out1.2)
+
+(inspect(out1.2, "est") |> unlist()) - (inspect(tmp, "est") |> unlist())
+
+fitMeasures(out1.2) - fitMeasures(tmp)
+
+all.equal(out1.2, tmp)
+
+inspect(out1.2, "est")$lambda[1:10, 1, drop = FALSE]
+
+# Are the two approaches equivalent?
+all.equal(tmp, out1.2)
+?lavOptions
+
 # out1 <- lavaan(mod1, data = cattell, auto.fix.first = FALSE, std.lv = FALSE, auto.var = TRUE)
 summary(out1)
 summary(out1, standardized = TRUE, rsquare = TRUE)

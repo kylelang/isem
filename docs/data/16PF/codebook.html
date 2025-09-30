@@ -11,7 +11,8 @@ measure Cattell's 16 personality factors.
   <li>"agree"</li>
   <li>"strongly agree"</li>
 </ol>
-<p>These items are all represented as integer values on the dataset.</p>
+<p>These items are all represented as integer values on the dataset. All missing values have been imputed via a single 
+round of predictive mean matching.</p>
 
 <h2>Warmth</h2>
 
@@ -1063,16 +1064,16 @@ measure Cattell's 16 personality factors.
   </tr>
   <tr>
     <td>source</td>
-    <td>INTEGER</td>
+    <td>FACTOR</td>
     <td>
       How the participant came to the test based on HTTP referrer (the url the link the user clicked was on).
       <br/>
-      <br/>1 = from front page of website that hosted the survey
-      <br/>2 = from google
-      <br/>3 = facebook
-      <br/>4 = any url containing ".edu" (so "xxx.edu" or "xxx.edu.au" etc., typically it appears these are students in a course where the professor linked the test in their course management software (e.g. moodle))
-      <br/>5 = wikipedia
-      <br/>6 = other source or empty source (empty source=not provided or direct traffic)
+      <br/>homepage = from front page of website that hosted the survey
+      <br/>google = from google
+      <br/>facebook = from facebook
+      <br/>edu = from any url containing ".edu" (so "xxx.edu" or "xxx.edu.au" etc., typically it appears these are students in a course where the professor linked the test in their course management software (e.g. moodle))
+      <br/>wikipedia = from Wikipedia
+      <br/>other = from any other source or empty source (empty source=not provided or direct traffic)
     </td>
   </tr>
   <tr>

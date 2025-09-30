@@ -158,7 +158,7 @@ model.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#cfaEstimationHome1}
 
 Estimate the CFA model you defined in \@ref(cfaSyntax1), and summarize the results.
 
@@ -178,16 +178,16 @@ Check the results, and answer the following questions:
 library(lavaan)
 
 ## Estimate the CFA model:
-out1.1 <- cfa(mod1, data = cattell)
+outH1.1 <- cfa(mod1, data = cattell)
 
 ## Summarize the fitted model:
-summary(out1.1)
+summary(outH1.1)
 ```
 
 <details>
   <summary>Click for explanation</summary>
 
-The estimated latent variance is $\psi_{11} = `r inspect(out1.1, "est")[["psi"]] |> as.numeric() |> round(3)`$.
+The estimated latent variance is $\psi_{11} = `r inspect(outH1.1, "est")[["psi"]] |> as.numeric() |> round(3)`$.
 
 The `cfa()` function is just a wrapper for the `lavaan()` function with several options set at the defaults you would
 want for a standard CFA. 
@@ -215,9 +215,9 @@ Yes, the values should agree. This first part of the lavaan model summary report
 degrees of freedom.
 
 ```{r, echo = FALSE}
-partSummary(out1.1, 1:4)
+partSummary(outH1.1, 1:4)
 
-fit <- fitMeasures(out1.1)
+fit <- fitMeasures(outH1.1)
 p   <- fit[["npar"]] |> as.numeric() |> round()
 df  <- fit[["df"]] |> as.numeric() |> round()
 ```
@@ -239,7 +239,7 @@ Use the `semPaths()` function from the **semPlot** package to draw a path diagra
 
 ```{r}
 library(semPlot)
-semPaths(out1.1, whatLabels = "estimates")
+semPaths(outH1.1, whatLabels = "estimates")
 ```
 </details>
 
@@ -300,11 +300,11 @@ Estimate the two-factor model you specified in \@ref(cfaSyntax2), and summarize 
   <summary>Click to show code</summary>
 
 ```{r}
-## Estimate the one factor model:
-out2.1 <- cfa(mod2, data = cattell)
+## Estimate the two factor model:
+outH2.1 <- cfa(mod2, data = cattell)
 
 ## Summarize the results:
-summary(out2.1)
+summary(outH2.1)
 ```
 
 </details>
@@ -323,10 +323,10 @@ Report the following parameter estimates from the model you estimated in \@ref(c
   <summary>Click to show answer</summary>
   
 ```{r, echo = FALSE}
-lambda <- inspect(out2.1, "est")$lambda
+lambda <- inspect(outH2.1, "est")$lambda
 lam3_1 <- lambda[3, 1] |> as.numeric() |> round(3)
 lam12_2 <- lambda[12, 2] |> as.numeric() |> round(3)
-psi2_1 <- inspect(out2.1, "est")$psi[2, 1] |> as.numeric() |> round(3)
+psi2_1 <- inspect(outH2.1, "est")$psi[2, 1] |> as.numeric() |> round(3)
 ```
 
 1. $\lambda_{3,1} = `r lam3_1`$
@@ -348,7 +348,7 @@ and *Dominance*?
   <summary>Click to show answer</summary>
   
 ```{r, echo = FALSE}
-tmp <- parameterEstimates(out2.1) |> filter(lhs == "warmth", op == "~~", rhs == "dominance")
+tmp <- parameterEstimates(outH2.1) |> filter(lhs == "warmth", op == "~~", rhs == "dominance")
 se <- round(tmp$se, 2)
 z <- round(tmp$z, 2)
 pValue <- prettyPValue(tmp$p)
@@ -371,7 +371,7 @@ Use the `semPaths()` function to draw a path diagram of your estimated CFA.
   <summary>Click to show code</summary>
 
 ```{r}
-semPaths(out2.1, whatLabels = "estimates")
+semPaths(outH2.1, whatLabels = "estimates")
 ```
 
 </details>
@@ -389,8 +389,8 @@ Estimate a modified version of the two-factor CFA from \@ref(cfaEstimation2), an
   <summary>Click to show code</summary>
 
 ```{r}
-out2.2 <- cfa(mod2, data = cattell, meanstructure = TRUE, std.lv = TRUE)
-summary(out2.2)
+outH2.2 <- cfa(mod2, data = cattell, meanstructure = TRUE, std.lv = TRUE)
+summary(outH2.2)
 ```
 
 </details>
@@ -409,7 +409,7 @@ Report the following parameter estimates from the model you estimated in \@ref(c
   <summary>Click to show answer</summary>
   
 ```{r, echo = FALSE}
-tau <- inspect(out2.2, "est")$nu[c("A1", "D5"), ] |> as.numeric() |> round(2)
+tau <- inspect(outH2.2, "est")$nu[c("A1", "D5"), ] |> as.numeric() |> round(2)
 ```
 
 1. $\tau_1 = `r tau[1]`$
@@ -431,7 +431,7 @@ Based on the CFA you estimated in \@ref(cfaEstimation3), how strong is the assoc
   <summary>Click to show answer</summary>
   
 ```{r, echo = FALSE}
-psi <- inspect(out2.2, "est")$psi[2, 1] |> as.numeric() |> round(3)
+psi <- inspect(outH2.2, "est")$psi[2, 1] |> as.numeric() |> round(3)
 ```
 
 We set the scale by standardizing the latent factors, so we can interpret the latent covariance as a correlation. Hence,
@@ -452,7 +452,7 @@ Use the `semPaths()` function to draw a path diagram of the CFA you estimated in
   <summary>Click to show code</summary>
 
 ```{r}
-semPaths(out2.2, whatLabels = "estimates")
+semPaths(outH2.2, whatLabels = "estimates")
 ```
 
 </details>

@@ -4,7 +4,7 @@
 source(here::here("code", "supportFunctions.R"))
 ```
 
-For this week's in-class exercises, we'll continue modeling the Cattell 16PF items usign CFA. We will use the same
+For this week's in-class exercises, we'll continue modeling the Cattell 16PF items using CFA. We will use the same
 dataset that you analyzed in the at-home exercises.
 
 - [cattell](https://surfdrive.surf.nl/files/index.php/s/1hLlshF9xF0rpJH)
@@ -55,7 +55,7 @@ Calculate the following quantities for the CFA model shown above.
    - 4 latent variances
    - 6 latent covariances
 1. Our model will include 39 observed variables, so the data provide 39 (39 + 1) / 2 = 780 pieces of information.
-1. To identify the covariance structure model, we need to fix one parameter in each factor's submodel. So, we will
+1. To identify the covariance structure model, we need to fix one parameter in each factor's sub-model. So, we will
    estimate 84 parameters.
 1. The estimated model will have 780 - 84 = 696 degrees of freedom.
 
@@ -102,10 +102,10 @@ Estimate the CFA model you defined in \@ref(cfaSyntaxClass1), and summarize the 
 library(lavaan)
 
 ## Estimate the CFA model:
-out1.1 <- cfa(mod1, data = cattell)
+outC1.1 <- cfa(mod1, data = cattell)
 
 ## Summarize the fitted model:
-summary(out1.1)
+summary(outC1.1)
 ```
 
 </details>
@@ -124,9 +124,9 @@ Yes, the values should agree. This first part of the lavaan model summary report
 degrees of freedom.
 
 ```{r, echo = FALSE}
-partSummary(out1.1, 1:4)
+partSummary(outC1.1, 1:4)
 
-fit <- fitMeasures(out1.1)
+fit <- fitMeasures(outC1.1)
 p   <- fit[["npar"]] |> as.numeric() |> round()
 df  <- fit[["df"]] |> as.numeric() |> round()
 ```
@@ -180,8 +180,8 @@ Interpret the latent covariances from the model you estimated in \@ref(cfaEstima
   <summary>Click to show answer</summary>
 
 ```{r, echo = FALSE}
-psi <- lavInspect(out1.1, "cov.lv")
-se  <- lavInspect(out1.1, "se")$psi
+psi <- lavInspect(outC1.1, "cov.lv")
+se  <- lavInspect(outC1.1, "se")$psi
 z   <- psi / se
 p   <- pnorm(abs(z), lower.tail = FALSE) * 2
 psi <- round(psi, 3)
@@ -230,7 +230,7 @@ We can request more information when we summarize a fitted lavaan model by addin
 For example, the following code prints the summary including 95% confidence intervals for the parameter estimates.
 
 ```{r}
-summary(out1.1, ci = TRUE)
+summary(outC1.1, ci = TRUE)
 ```
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -244,7 +244,7 @@ the $R^2$ values in the summary.
   <summary>Click to show code</summary>
 
 ```{r}
-summary(out1.1, standardized = TRUE, rsquare = TRUE)
+summary(outC1.1, standardized = TRUE, rsquare = TRUE)
 ```
 
 </details>
@@ -255,14 +255,14 @@ We can extract specific elements from the fitted lavaan object with the `lavInsp
 following code extracts the number of estimated parameters.
 
 ```{r}
-lavInspect(out1.1, "npar")
+lavInspect(outC1.1, "npar")
 ```
 
 ------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Check the help file for the `lavInspect()` function to see what you can extract from a fittend lavaan object.
+Check the help file for the `lavInspect()` function to see what you can extract from a fitted lavaan object.
 
 <details>
   <summary>Click to show code</summary>
@@ -277,19 +277,19 @@ Check the help file for the `lavInspect()` function to see what you can extract 
 
 ###
 
-Use the the `lavInspect()` function to extract the following data from the lavaan object you created in
+Use the `lavInspect()` function to extract the following data from the lavaan object you created in
 \@ref(cfaEstimationClass1).
 
-  - The factor loading matrix
-  - The latent covariance matrix
-  - The estimated $R^2$ values for the indicator variables.
+- The factor loading matrix
+- The latent covariance matrix
+- The estimated $R^2$ values for the indicator variables.
 
 <details>
   <summary>Click to show code</summary>
 
-```{r, eval = FALSE}
+```{r}
 # Extract the estimated parameter matrices
-parEst <- lavInspect(out1.1, "est")
+parEst <- lavInspect(outC1.1, "estimates")
 
 # Print the estimated factor loading matrix
 parEst$lambda
@@ -298,231 +298,101 @@ parEst$lambda
 parEst$psi
 
 # Alternatively, we can directly extract the latent covariance matrix
-lavInspect(out1.1, "cov.lv")
+lavInspect(outC1.1, "cov.lv")
 
 # Extract the estimated R^2 values
-lavInspect(out1.1, "r2")
+lavInspect(outC1.1, "r2")
 ```
 
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------
 
-Now, we're going to complicate matters slightly by adding another dimension to our model. We'll now estimate a
-two-dimensional CFA that contains correlated *Warmth* and *Dominance* factors.
+### {#cfaEstimationClass2}
 
-Defined this new model as follows:
+Re-specify the model from \@ref(cfaEstimationClass1) by fixing all latent covariances to zero.
 
-- Two correlated, reflective latent factors: one *Warmth* factor and one *Dominance* factor
-- 10 observed indicators of *Warmth*: {`A1`, `A2`, ..., `A10`}
-- 10 observed indicators of *Dominance*: {`D1`, `D2`, ..., `D10`}
-- No cross-loadings
-- No residual correlations
-
-Again, this CFA should estimate the default measurement model though which two correlated latent factors generate a set
-of 20 observed indicators.
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Sketch a path diagram of the CFA model described above.
-
-- Use pencil and paper (or the equivalent); don't generate the diagram programmatically.
-
-------------------------------------------------------------------------------------------------------------------------
-
-### {#cfaSyntax2}
-
-Define the `lavaan` model syntax for a two-factor model of the *Warmth* and *Dominance* items.
-
-- Save this syntax as an object in your environment.
+- Estimate the re-specified model.
+- Summarize the fitted model object.
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-mod2 <- '
-warmth    =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
-dominance =~ D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10
+# Modify the lavaan model syntax to fix the latent covariances
+mod1.2 <- '
+warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10
+liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10
+vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10
+tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9
+
+liveliness ~~ 0*warmth
+vigilance  ~~ 0*warmth + 0*liveliness
+tension    ~~ 0*warmth + 0*liveliness + 0*vigilance
 '
+
+# Estimate the new model
+outC1.2 <- cfa(mod1.2, data = cattell)
+summary(outC1.2)
+```
+
+Alternatively, we can keep the original model string and tell the `cfa()` function not to estimate any latent
+covariances by setting the option `orthogonal.x = TRUE`.
+
+```{r}
+outC1.2 <- cfa(mod1, data = cattell, orthogonal.x = TRUE)
+summary(outC1.2)
 ```
 
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------
 
-### {#cfaEstimation2}
+###
 
-Estimate the two-factor model you specified in \@ref(cfaSyntax2), and summarize the results.
+Compare the factor loadings for the *Warmth* construct from the following two models:
 
-- Identify the model by fixing the first factor loading of each construct to 1.
-- Do not estimate any mean structure.
+- M1: The correlated-factor model from \@ref(cfaEstimationClass1)
+- M2: The orthogonal-factor model from \@ref(cfaEstimationClass2)
+
+Are the factor loading matrices equal or different across models? What's going on here? How would you explain the
+differences (or lack thereof)?
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-## Estimate the one factor model:
-out2.1 <- cfa(mod2, data = cattell)
+# Factor loadings from the correlated-factor CFA
+lavInspect(outC1.1, "estimates")$lambda[1:10, 1, drop = FALSE]
 
-## Summarize the results:
-summary(out2.1)
+# Factor loadings from the orthogonal-factor CFA
+lavInspect(outC1.2, "estimates")$lambda[1:10, 1, drop = FALSE]
 ```
 
+  <details>
+    <summary>Click for explanation</summary>
+
+The models produce slightly different factor loadings because the different latent covariance structures imply subtly
+different definitions of the *Warmth* factor.
+
+- M1 is the more flexible and "accurate" of the two models.
+    - The latent covariance structure of the CFA is fully saturated. So, the estimator has the best possible chance of
+    fitting the data well (more details on what we mean by "fitting the data" coming next week).
+- M2 imposes very strong constraints on the model structure.
+    - The model forces independence between the latent constructs. So, M2 "tries" to estimate a *Warmth* factor that
+    best conforms to a reality wherein *Warmth*, *Liveliness*, *Vigilance*, and *Tension* are completely unrelated
+    concepts.
+
+M1 is the more appropriate way of estimating these four latent factors. M2 places untenable constraints on the latent
+covariance structure. These Draconian constraints influence the estimates of other model parameters in ways that we
+probably don't want (unless we have good reason to force an orthogonal definition of these constructs).
+
+  </details>
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------
 
-###
-
-Report the following parameter estimates from the model you estimated in \@ref(cfaEstimation2).
-
-1. The `warmth` $\rightarrow$ `A3` factor loading
-1. The `dominance` $\rightarrow$ `D2` factor loading
-1. The latent covariance between *warmth* and *dominance*
-
-<details>
-  <summary>Click to show answer</summary>
-  
-```{r, echo = FALSE}
-lambda <- inspect(out2.1, "est")$lambda
-lam3_1 <- lambda[3, 1] |> as.numeric() |> round(3)
-lam12_2 <- lambda[12, 2] |> as.numeric() |> round(3)
-psi2_1 <- inspect(out2.1, "est")$psi[2, 1] |> as.numeric() |> round(3)
-```
-
-1. $\lambda_{3,1} = `r lam3_1`$
-1. $\lambda_{12,2} = `r lam12_2`$
-1. $\psi_{2,1} = `r psi2_1`$
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Based on the CFA you estimated in \@ref(cfaEstimation2), can we infer a significant linear association between *Warmth*
-and *Dominance*?
-
-- Use the statistics from your estimated model to justify your conclusion.
-
-<details>
-  <summary>Click to show answer</summary>
-  
-```{r, echo = FALSE}
-tmp <- parameterEstimates(out2.1) |> filter(lhs == "warmth", op == "~~", rhs == "dominance")
-se <- round(tmp$se, 2)
-z <- round(tmp$z, 2)
-pValue <- prettyPValue(tmp$p)
-```
-
-Yes, warmth and dominance are significantly correlated
-($\psi_{2,1} = `r psi2_1`$, $SE = `r se`$, $z = `r z`$, $`r pValue`$).
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Use the `semPaths()` function to draw a path diagram of your estimated CFA.
-
-- Include the parameter estimates in the diagram.
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-semPaths(out2.1, whatLabels = "estimates")
-```
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-### {#cfaEstimation3}
-
-Estimate a modified version of the two-factor CFA from \@ref(cfaEstimation2), and summarize the results.
-
-- Estimate the mean structure.
-- Identify the model with the fixed factor method (i.e., standardize the latent variables).
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-out2.2 <- cfa(mod2, data = cattell, meanstructure = TRUE, std.lv = TRUE)
-summary(out2.2)
-```
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Report the following parameter estimates from the model you estimated in \@ref(cfaEstimation3).
-
-1. The item intercept for `A1`
-1. The item intercept for `D5`
-1. The mean of the *Warmth* factor
-
-<details>
-  <summary>Click to show answer</summary>
-  
-```{r, echo = FALSE}
-tau <- inspect(out2.2, "est")$nu[c("A1", "D5"), ] |> as.numeric() |> round(2)
-```
-
-1. $\tau_1 = `r tau[1]`$
-1. $\tau_{15} = `r tau[2]`$
-1. This is a bit of a trick question. We fixed the latent means to zero for model identification, so we don't have an
-estimated latent mean for the warmth factor.
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Based on the CFA you estimated in \@ref(cfaEstimation3), how strong is the association between *Warmth* and *Dominance*?
-
-- Use the statistics from your estimated model to justify your conclusion.
-
-<details>
-  <summary>Click to show answer</summary>
-  
-```{r, echo = FALSE}
-psi <- inspect(out2.2, "est")$psi[2, 1] |> as.numeric() |> round(3)
-```
-
-We set the scale by standardizing the latent factors, so we can interpret the latent covariance as a correlation. Hence,
-the estimated latent covariance of $\psi_{2,1} = `r psi`$ suggests a weak linear association between *Warmth* and
-*Dominance*.
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-###
-
-Use the `semPaths()` function to draw a path diagram of the CFA you estimated in \@ref(cfaEstimation3).
-
-- Include the parameter estimates in the diagram.
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-semPaths(out2.2, whatLabels = "estimates")
-```
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
-End of At-Home Exercises
+End of In-Class Exercises
 
 ------------------------------------------------------------------------------------------------------------------------
 
