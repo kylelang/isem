@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 5: CFA II
 %%% Author:   Kyle M. Lang (Adapted from Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-09-24
+%%% Modified: 2025-10-01
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -53,6 +53,8 @@ library(lavaan)
 library(psych)
 library(Hmisc)
 library(lavaanPlot)
+library(semPlot)
+library(semptools)
 
 source(here::here("code", "supportFunctions.R"))
 
@@ -362,77 +364,9 @@ knit_theme$set('edit-kwrite')
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}{$\chi^2$ Statistic}
-
-  The $\chi^2$ statistic is the most fundamental model fit statistic.
-  \vc
-  \begin{itemize}
-    \item Derived directly from the optimized value of the objective function
-      \vc
-    \item Allows rigorous hypothesis tests
-      \vc
-    \item Basis for most other fit indices
-  \end{itemize}
-  \begin{align*}
-    \chi^2 &= D_M\\
-    \chi^2 &= N \times F_{ML}
-  \end{align*}
-
-  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
-
-\end{frame}
-
-\watermarkoff %--------------------------------------------------------------------------------------------------------%
-
-\begin{frame}[fragile, allowframebreaks]{Example Model}
-
-<<>>=
-library(lavaan)
-library(psych)
-
-mod1 <- '
-agree =~ A1 + A2 + A3
-open  =~ O1 + O2 + O3
-'
-
-out1 <- cfa(mod1, data = bfi)
-@
-
-\framebreak
-
-<<>>=
-partSummary(out1, 1:4)
-@
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Problems with $\chi^2$}
-
-  The $\chi^2$ test is a perfectly valid statistical test, and it does it's job very well, but we usually don't care.
-  \begin{align*}
-    H_0: \hat{\Sigma} = \mathbf{S}\\
-    H_1: \hat{\Sigma} \neq \mathbf{S}
-  \end{align*}
-  This isn't a very interesting or useful hypothesis to test.
-  \begin{itemize}
-    \item With reasonably sized samples, the $\chi^2$ will almost always reject the null hypothesis.
-    \item We wouldn't want a model that exactly replicated the observed sufficient statistics.
-  \end{itemize}
-
-  \vb
-
-  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use other fit indices derived from
-  the $\chi^2$.
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
 \begin{frame}{Different Ways to Quantify Fit}
 
-  When evaluating model fit, we need to consider three models.
+  When evaluating model fit, we need to consider classes of model.
   \vc
   \begin{enumerate}
     \item Our estimated model.
@@ -476,10 +410,25 @@ indOut <- cfa(indMod, data = bfi)
 partSummary(indOut, 1:4)
 @
 
-\framebreak
+\end{frame}
 
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Independence Model}
+  
 <<>>=
 lavInspect(indOut, "cov.ov")
+@
+
+<<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2>>=
+semPaths(indOut,
+         layout = "tree",
+         sizeMan = 10,
+         sizeMan2 = 8,
+         curve = 3,
+         esize = 2,
+         asize = 4,
+         mar = c(0, 2, 0, 2))
 @
 
 \end{frame}
@@ -507,10 +456,31 @@ satOut <- cfa(satMod, data = bfi)
 partSummary(satOut, 1:4)
 @
 
-\framebreak
+\end{frame}
 
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Saturated Model}
+  
 <<>>=
 lavInspect(satOut, "cov.ov")
+@
+
+<<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2.5>>=
+tmp        <- rep(0, 6)
+names(tmp) <- lavNames(satOut)
+
+semPaths(satOut,
+         layout = "tree",
+         sizeMan = 10,
+         sizeMan2 = 8,
+         curve = 3,
+         esize = 2,
+         asize = 4,
+         mar = c(0, 1, -4, 1),
+         DoNotPlot = TRUE) |>
+  rotate_resid(tmp) |>
+  plot()
 @
 
 \end{frame}
@@ -542,10 +512,136 @@ lavInspect(satOut, "est")$psi
 
 \end{frame}
 
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+  We can conceptualize model fit comparisons in two ways.
+  \vc
+  \begin{enumerate}
+    \item \emph{Absolute Fit}
+      \begin{itemize}
+        \item How well does the model reproduce the observed sufficient statistics?
+        \item How close is our model to the best possible model?
+        \item Compare our model to the \emph{saturated model}.
+      \end{itemize}
+      \vc
+    \item \emph{Relative/Incremental/Comparative Fit}
+      \begin{itemize}
+        \item How much better does our model perform than some poorer baseline model?
+        \item How much improvement do we achieve over the worst possible model?
+        \item Compare our model to the \emph{indepenence model}.
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{$\chi^2$ Statistic}
+
+  The $\chi^2$ statistic is the most fundamental model fit statistic.
+  \vc
+  \begin{itemize}
+    \item Absolute fit statistic
+      \vc
+    \item Derived directly from the optimized value of the objective function
+      \vc
+    \item Allows rigorous hypothesis tests
+      \vc
+    \item Basis for most other fit indices
+  \end{itemize}
+  \begin{align*}
+    \chi^2 &= D_M\\
+    \chi^2 &= N \times F_{ML}
+  \end{align*}
+
+  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example Model}
+
+<<>>=
+library(lavaan)
+library(psych)
+
+mod1 <- '
+agree =~ A1 + A2 + A3
+open  =~ O1 + O2 + O3
+'
+
+out1 <- cfa(mod1, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out1, 1:4)
+@
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Problems with $\chi^2$}
+
+  The $\chi^2$ statistic test for \emph{exact fit}:
+  \begin{align*}
+    H_0: \hat{\Sigma} = \mathbf{S}\\
+    H_1: \hat{\Sigma} \neq \mathbf{S}
+  \end{align*}
+  This hypothesis is perfectly valid, but it isn't a very interesting or useful for real-world data analysis.
+  \begin{itemize}
+    \item The $\chi^2$ will almost always reject the null hypothesis.
+    \item With a large enough sample, the null hypothesis must be reject for any model other than the exact data
+      generating model.
+    \item We'll reject perfectly good models because of substantively trivial deviations from the population model.
+  \end{itemize}
+
+  \vc
+
+  We don't want a model that exactly replicates the sufficient statistics.
+  \begin{itemize}
+    \item The true data generating model is almost certainly too complex to have any practical utility.
+  \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Approximate Fit Indices}
+
+  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use \emph{approximate fit indices}
+  (mostly) derived from the $\chi^2$.
+  \begin{itemize}
+    \item We have many (maybe too many) options.
+    \item \textbf{lavaan} 0.6-19 provides 28 approximate fit measures for a basic CFA.
+  \end{itemize}
+
+  \vb
+
+  We'll focus on three complementary and well-balanced indices.
+
+  \begin{itemize}
+    \item Root Mean Squared Error of Approximation (RMSEA)
+    \item Comparative Fit Index (CFI)
+    \item Standardized Root Mean Squared Residual (SRMR)
+  \end{itemize}
+
+\end{frame}
+
 %----------------------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{RMSEA}
 
+  The RMSEA is an \emph{absolute fit index} that evaluates deviations from \emph{close fit}.
+
+  \begin{align*}
+    \textrm{RMSEA} = \sqrt{\textrm{max} \left[ \frac{\chi^2 - df}{N \times df}, ~ 0 \right]}
+  \end{align*}
 
 \end{frame}
 
@@ -553,6 +649,20 @@ lavInspect(satOut, "est")$psi
 
 \begin{frame}{CFI}
 
+  The CFI is a normed \emph{incremental fit index}.
+
+  \begin{align*}
+    \textrm{CFI} &= 1 - \frac{
+      \textrm{max} \left[ (\chi^2 - df), ~ 0 \right]
+    }{ 
+    \textrm{max} \left[ (\chi_0^2 - df_0), ~ (\chi^2 - df), ~ 0 \right]
+    }
+  \end{align*}
+  Assuming the ordinary situation where $\chi^2 \geq df$, and the baseline model fits worse than our target model, we
+  can simplify the CFI formula.
+  \begin{align*}
+    CFI = 1 - \frac{\chi^2 - df}{\chi_0^2 - df_0}
+  \end{align*}
 
 \end{frame}
 
@@ -560,6 +670,154 @@ lavInspect(satOut, "est")$psi
 
 \begin{frame}{SRMR}
 
+  \begin{align*}
+    \textrm{SRMR} = \sqrt{
+      \frac{
+        \sum_{i = 1}^M \sum_{j = 1}^i \left[ \frac{s_{ij} - \hat{\sigma}_{ij}}{s_i s_j} \right]^2 
+      }{ 
+      Q
+      } 
+    }
+  \end{align*}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Target Model}
+
+  We can use the \src{fitMeasures()} function to get model fit statistics.
+
+<<>>=
+fit1 <- fitMeasures(out1)
+
+head(fit1, 22) |> round(3)
+@
+
+\framebreak
+
+<<>>=
+tail(fit1, -22) |> round(3)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Independence Model}
+
+<<>>=
+indFit <- fitMeasures(indOut) |> as.list()
+fit1   <- as.list(fit1)
+
+indFit$chisq
+fit1$baseline.chisq
+
+indFit$df
+fit1$baseline.df
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example: Saturated Model}
+
+  The saturated model has perfect fit because it perfectly reproduces the observed sufficient statistics.
+
+<<>>=
+fitMeasures(satOut, c("chisq", "df", "rmsea", "cfi", "srmr"))
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating $\chi^2$}
+
+<<>>=
+llSat <- logLik(satOut) # saturated model loglikelihood
+ll1   <- logLik(out1)   # target model loglikelihood
+
+# Manually calculate the chi-squared stat
+-2 * (ll1 - llSat) |> as.numeric()
+
+# Compare to lavaan's version
+fit1$chisq
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating CFI}
+
+<<>>=
+chisq1 <- fit1$chisq
+df1    <- fit1$df
+chisq0 <- fit1$baseline.chisq
+df0    <- fit1$baseline.df
+
+# Manually calculate the CFI
+1 - ((chisq1 - df1) / (chisq0 - df0))
+
+# Compare to lavaan's version
+fit1$cfi
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating RMSEA}
+
+<<>>=
+n <- fit1$ntotal
+
+# Manually calculate the RMSEA
+sqrt((chisq1 - df1) / (n * df1))
+
+# Compare to lavaan's version
+fit1$rmsea
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Manually Calculating SRMR}
+
+<<>>=
+M <- 6               # No. of observed variables
+Q <- M * (M + 1) / 2 # No. of unique elements in S
+
+# Model-implied covariance matrix
+sHat <- inspect(out1, "sigma")
+
+# Observed covariance matrix
+sObs <- inspect(out1, "sampstat")$cov
+
+# Observed standard deviations
+se   <- sqrt(diag(sObs))
+@
+
+\framebreak
+
+<<>>=
+# Sum of squared standardized residuals
+x <- 0
+for(i in 1:M) {
+  for(j in 1:i) {
+    x <- x + ( (sObs[i, j] - sHat[i, j]) / (se[i] * se[j]) )^2
+  }
+}
+
+# Root mean of the above = SRMR
+sqrt(x / Q) |> as.numeric()
+
+# Compare to lavaan's version
+fit1$srmr
+@
 
 \end{frame}
 
