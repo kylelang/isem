@@ -289,12 +289,12 @@ knit_theme$set('edit-kwrite')
     RSS = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2 
   \end{align*}
 
-  In CFA, we minimize the \emph{model deviance}.
+  In CFA, we can estimate the model by minimizing the \emph{model deviance}.
   \begin{align*}
     D_M &= -2 \left[ \ell \left( \hat{\Sigma}, \hat{\mu} \right) - \ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right) \right]
   \end{align*}
 
-  Where, $\ell ( \cdot )$ denotes a \emph{loglikelihood} function.
+  Where, $\ell ( \cdot )$ denotes the \emph{loglikelihood} function.
   \begin{itemize}
     \item $\ell \left( \hat{\Sigma}, \hat{\mu} \right)$ returns the loglikelihood value for our estimated model.
     \item $\ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right)$ returns the loglikelihood value for the \emph{saturated
@@ -307,10 +307,11 @@ knit_theme$set('edit-kwrite')
 
 \begin{frame}{Optimization: Loglikelihood Functions}
 
-  A loglikelihood function is a model-based distance metric.
-
+  The loglikelihood function is a model-based distance metric.
+  \vc
   \begin{itemize}
-    \item Derived from the assumed data distribution (i.e., multivariate normal, for the basic CFA)
+    \item Derived from the assumed data distribution (i.e., multivariate normal)
+      \vc
     \item Quantifies the "chances" of your estimated model having generated the observed data
   \end{itemize}
   \begin{align*}
@@ -318,12 +319,265 @@ knit_theme$set('edit-kwrite')
     \frac{1}{2} \sum_{n = 1}^N \left( Y_n - \hat{\mu} \right)^T \hat{\Sigma}^{-1} \left( Y_n - \hat{\mu} \right)
   \end{align*}
 
-  Say we fit two model, $M_a$ and $M_b$, to the same dataset. If $M_a$'s loglikelihood is closer to zero, we know that
-  $M_a$ represents the data better than $M_b$ does.
+  Say we fit two models, $M_a$ and $M_b$, to the same dataset. If $\ell \left( M_a \right)$ is closer to zero, we know
+  that  $M_a$ represents the data better than $M_b$ does.
+  \vc
   \begin{itemize}
     \item $M_a$'s implied statistics are closer to the observed sufficient statistics.
+      \vc
     \item $M_a$'s parameters are more plausible, given the data.
   \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\sectionslide{Model Fit}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model Fit: Intuition}
+
+  We want a plausible, parsimonious, and useful model.
+  \vc
+  \begin{enumerate}
+    \item Our model should make theoretical sense.
+      \vc
+    \item Our model's implied statistics should closely align with the observed sufficient statistics.
+      \vc
+    \item Our model should be no more complex than necessary.
+  \end{enumerate}
+
+  \vb
+
+  We can use \emph{model fit statistics} to evaluate the second and third criteria.
+  \vc
+  \begin{itemize}
+    \item Model fit statistics transform $\hat{D}_M$ into interpretable, comparable, scale-free distance measures.
+      \vc
+    \item These indices give us practical tools for evaluating how well our model represents the data.
+  \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{$\chi^2$ Statistic}
+
+  The $\chi^2$ statistic is the most fundamental model fit statistic.
+  \vc
+  \begin{itemize}
+    \item Derived directly from the optimized value of the objective function
+      \vc
+    \item Allows rigorous hypothesis tests
+      \vc
+    \item Basis for most other fit indices
+  \end{itemize}
+  \begin{align*}
+    \chi^2 &= D_M\\
+    \chi^2 &= N \times F_{ML}
+  \end{align*}
+
+  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example Model}
+
+<<>>=
+library(lavaan)
+library(psych)
+
+mod1 <- '
+agree =~ A1 + A2 + A3
+open  =~ O1 + O2 + O3
+'
+
+out1 <- cfa(mod1, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out1, 1:4)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Problems with $\chi^2$}
+
+  The $\chi^2$ test is a perfectly valid statistical test, and it does it's job very well, but we usually don't care.
+  \begin{align*}
+    H_0: \hat{\Sigma} = \mathbf{S}\\
+    H_1: \hat{\Sigma} \neq \mathbf{S}
+  \end{align*}
+  This isn't a very interesting or useful hypothesis to test.
+  \begin{itemize}
+    \item With reasonably sized samples, the $\chi^2$ will almost always reject the null hypothesis.
+    \item We wouldn't want a model that exactly replicated the observed sufficient statistics.
+  \end{itemize}
+
+  \vb
+
+  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use other fit indices derived from
+  the $\chi^2$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+  When evaluating model fit, we need to consider three models.
+  \vc
+  \begin{enumerate}
+    \item Our estimated model.
+      \vc
+    \item The \emph{independence model}
+      \begin{itemize}
+        \item The worst possible model
+        \item All item associations are fixed to zero
+      \end{itemize}
+      \vc
+    \item The \emph{saturated model}
+      \begin{itemize}
+        \item The "best" possible model
+        \item All possible associations are estimated
+        \item Perfectly reproduces the observed sufficient statistics
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Independence Model}
+
+<<>>=
+indMod <- '
+A1 ~~ A1
+A2 ~~ A2
+A3 ~~ A3
+O1 ~~ O1
+O2 ~~ O2
+O3 ~~ O3
+'
+
+indOut <- cfa(indMod, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(indOut, 1:4)
+@
+
+\framebreak
+
+<<>>=
+lavInspect(indOut, "cov.ov")
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Saturated Model}
+  
+<<>>=
+satMod <- '
+A1 ~~ A1
+A2 ~~ A1 + A2
+A3 ~~ A1 + A2 + A3
+O1 ~~ A1 + A2 + A3 + O1
+O2 ~~ A1 + A2 + A3 + O1 + O2
+O3 ~~ A1 + A2 + A3 + O1 + O2 + O3
+'
+
+satOut <- cfa(satMod, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(satOut, 1:4)
+@
+
+\framebreak
+
+<<>>=
+lavInspect(satOut, "cov.ov")
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Measurement Structure}
+
+  We don't estimate any measurement structure in the independence model or in the saturated model.
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+<<>>=
+lavInspect(indOut, "est")$lambda
+lavInspect(indOut, "est")$psi
+@
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+<<>>=
+lavInspect(satOut, "est")$lambda
+lavInspect(satOut, "est")$psi
+@
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{RMSEA}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{CFI}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{SRMR}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\sectionslide{Model Complexity}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{DF \& Complexity}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Parsimony}
+
 
 \end{frame}
 
@@ -717,148 +971,6 @@ all(out)
 
 \end{frame}
 
-\watermarkon %---------------------------------------------------------------------------------------------------------%
-
-\sectionslide{Model Fit}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Model Fit: Intuition}
-
-  We want a plausible, parsimonious, and useful model.
-  \begin{enumerate}
-    \item Our model should make theoretical sense.
-    \item Our model's implied statistics should closely align with the observed sufficient statistics.
-    \item Our model should be no more complex than necessary.
-  \end{enumerate}
-
-  \va
-
-  We can use \emph{model fit statistics/indices} to evaluate the second and third criteria.
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{$\chi^2$ Statistic}
-
-  The $\chi^2$ statistic is the most fundamental fit statistic.
-  \begin{itemize}
-    \item Derived directly from the objective function used to estimate the model.
-    \item Allows rigorous hypothesis tests.
-    \item Basis for most other fit indices.
-  \end{itemize}
-  \begin{align*}
-    \chi^2 = (N - 1) D_M
-  \end{align*}
-
-  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Problems with $\chi^2$}
-
-  The $\chi^2$ test is a perfectly valid statistical test, and it does it's job very well, but we don't really care.
-
-  \begin{align*}
-    H_0: \hat{\Sigma} = \mathbf{S}\\[8pt]
-    H_0: \hat{\Sigma} \neq \mathbf{S}
-  \end{align*}
-
-  This isn't a very interesting or useful hypothesis to test.
-  \begin{itemize}
-    \item With reasonably sized samples, the $\chi^2$ will almost always reject the null hypothesis.
-    \item We wouldn't want a model that exactly replicated the observed sufficient statistics.
-  \end{itemize}
-
-  \vb
-
-  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use other fit indices derived from
-  the $\chi^2$.
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Different Ways to Quantify Fit}
-
-  When evaluate model fit, we need to consider three models.
-
-  \begin{enumerate}
-    \item Our estimated model.
-    \item The \emph{independence model}
-      \begin{itemize}
-        \item The worst possible model
-        \item All item associations are fixed to zero
-      \end{itemize}
-    \item The \emph{saturated model}
-      \begin{itemize}
-        \item The "best" possible model
-        \item All possible associations are estimated
-        \item Perfectly reproduces the observed sufficient statistics
-      \end{itemize}
-  \end{enumerate}
-
-\end{frame}
-
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Different Ways to Quantify Fit}
-
-<<>>=
-x <- runif(10, 0, 1)
-y <- 0.5 + x + 0.25 * x^2 + rnorm(10)
-
-data.frame(X = x, Y = y) |>
-  ggplot(aes(X, Y)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = "~ x + I(x^2)")
-@
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{RMSEA}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{CFI}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{SRMR}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\sectionslide{Model Complexity}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{DF \& Complexity}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Parsimony}
-
-
-\end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
 
