@@ -48,10 +48,14 @@ lavNames(satOut)
 indOut <- cfa(indMod, data = bfi)
 satOut <- cfa(satMod, data = bfi)
 
+satOut <- cfa(satMod, data = tmp)
+
 mod1 <- '
 agree =~ A1 + A2 + A3
 open  =~ O1 + O2 + O3
 '
+
+fitMeasures(indOut)
 
 out1 <- cfa(mod1, data = bfi)
 
@@ -59,19 +63,56 @@ semPaths(out1)
 semPaths(indOut)
 semPaths(satOut)
 
+lavInspect(satOut, "sigma") - cov(bfi[lavNames(satOut)], use = "listwise")
+lavInspect(satOut, "sigma") - cov(na.omit(bfi[lavNames(satOut)]))
+
+tmp <- na.omit(bfi[lavNames(satOut)])
+
+c1 <- cov(tmp)
+x <- crossprod(scale(tmp, scale = FALSE))
+
+sigma <- lavInspect(satOut, "sigma")
+
+sigma - c2
+
+zz <- lavInspect(satOut, "sampstat")$cov
+xx <- lavInspect(indOut, "sampstat")$cov
+
+xx - zz
+
+sigma - zz
+
+c1
+c2 <- x / nrow(tmp)
+
+c1 - x
+
+?cov
+
 ?semPaths
 
 sHat <- inspect(out1, "sigma")
 sObs <- inspect(out1, "sampstat")$cov
 se   <- sqrt(diag(sObs))
 
-r <- s - sigma
+sObs <- inspect(indOut, "sigma")
+
+eps <- 5
+sObs <- diag(6) * eps
+sHat <- eps - sObs
+se   <- sqrt(diag(sObs))
+
+res <- sObs - sHat
 
 s2 <- matrix(se)
 
 w <- s2 %*% t(s2)
 
-x <- (r / w)^2 |> sum()  
+x <- (r / w)^2
+
+mean(x) |> sqrt()
+
+sqrt(sum(x) / 36)
 
 sqrt(x / 42)
 
@@ -90,21 +131,23 @@ s2
 
 s2[3] * s2[2]
 
+sHat <- diag(6)
 x <- 0
 for(i in 1:6) {
-  for(j in 1:6) {
+  for(j in 1:i) {
     x <- x + ( (sObs[i, j] - sHat[i, j]) / (se[i] * se[j]) )^2
   }
 }
 
-q <- 6 * 7
+q <- 6 * 7 / 2
+sqrt(x / q)
+
 q
 
 x
 
 x / q
 
-sqrt(x)
 
 sqrt(x / 42)
 

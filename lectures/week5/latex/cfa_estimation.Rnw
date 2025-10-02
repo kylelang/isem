@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 5: CFA II
 %%% Author:   Kyle M. Lang (Adapted from Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-10-01
+%%% Modified: 2025-10-02
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -85,10 +85,12 @@ knit_theme$set('edit-kwrite')
 
 %----------------------------------------------------------------------------------------------------------------------%
 
+\subsection{Model-Implied Statistics}
+
+%----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{Model-Implied Statistics}
 
-  Most statistical estimation algorithms operate by minimizing the difference
-  between two key reference points:
+  Most statistical estimation algorithms operate by minimizing the difference between two key reference points:
 
   \vc
 
@@ -110,8 +112,8 @@ knit_theme$set('edit-kwrite')
 
   \vb
 
-  The predictions/implied statistics produced by a good model must be simpler
-  than the analogous quantities in the observed data.
+  The predictions/implied statistics produced by a good model must be simpler than the analogous quantities in the
+  observed data.
   \begin{itemize}
     \item A model that exactly replicates the observed data is overfitting.
     \item The inferences from such models won't generalize to the population.
@@ -131,8 +133,7 @@ knit_theme$set('edit-kwrite')
         \hat{Y}_n = \hat{\beta}_0 + \sum_{p = 1}^P \hat{\beta}_p X_{n,p}
       \end{align*}
     \item The raw outcome variable, $Y$, contains the observed values.
-    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the
-      model.
+    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the model.
       \begin{align*}
         \eqit{RSS} = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2
       \end{align*}
@@ -267,6 +268,10 @@ knit_theme$set('edit-kwrite')
 
 \watermarkon %---------------------------------------------------------------------------------------------------------%
 
+\subsection{Optimization}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
 \begin{frame}{Optimization: Intuition}
 
   We can formulate the familiar OLS objective as an abstract optimization problem at follows.
@@ -338,6 +343,10 @@ knit_theme$set('edit-kwrite')
 
 %----------------------------------------------------------------------------------------------------------------------%
 
+\subsection{Underlying Concepts}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
 \begin{frame}{Model Fit: Intuition}
 
   We want a plausible, parsimonious, and useful model.
@@ -397,7 +406,13 @@ knit_theme$set('edit-kwrite')
 
 \begin{frame}{Model Continuum}
 
-  We can orient the possible models on a single continuum.
+  We can use the \emph{model continuum} diagrammed below to organize the four classes of possible model.
+  \vc
+  \begin{itemize}
+    \item The left side of the continuum represents bad model fit.
+      \vc
+    \item The right side of the continuum represents good model fit.
+  \end{itemize}
 
   \vb
 
@@ -437,7 +452,7 @@ partSummary(indOut, 1:4)
 \begin{frame}[fragile]{Independence Model}
   
 <<>>=
-lavInspect(indOut, "cov.ov")
+lavInspect(indOut, "sigma")
 @
 
 <<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2>>=
@@ -483,7 +498,7 @@ partSummary(satOut, 1:4)
 \begin{frame}[fragile]{Saturated Model}
   
 <<>>=
-lavInspect(satOut, "cov.ov")
+lavInspect(satOut, "sigma")
 @
 
 <<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2.5>>=
@@ -501,6 +516,21 @@ semPaths(satOut,
          DoNotPlot = TRUE) |>
   rotate_resid(tmp) |>
   plot()
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Saturated Model}
+  
+  The saturated model reproduces the observed sufficient statistics.
+  \begin{itemize}
+    \item $\hat{\Sigma} = \mathbf{S}$
+  \end{itemize}
+  
+<<>>=
+lavInspect(satOut, "sigma") - lavInspect(satOut, "sampstat")$cov
 @
 
 \end{frame}
@@ -550,11 +580,15 @@ lavInspect(satOut, "est")$psi
       \begin{itemize}
         \item How much does our model outperform some baseline model?
         \item How much improvement do we achieve over some bad model?
-        \item Compare our model to the \emph{indepenence model}.
+        \item Compare our model to the \emph{independence model}.
       \end{itemize}
   \end{enumerate}
 
 \end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\subsection{Fit Statistics \& Indices}
 
 %----------------------------------------------------------------------------------------------------------------------%
 
@@ -716,7 +750,7 @@ partSummary(out1, 1:4)
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{RMSEA}
 
@@ -747,7 +781,7 @@ partSummary(out1, 1:4)
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{CFI}
 
@@ -770,7 +804,7 @@ partSummary(out1, 1:4)
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{CFI}
 
@@ -807,7 +841,7 @@ partSummary(out1, 1:4)
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{SRMR}
 
@@ -842,7 +876,7 @@ partSummary(out1, 1:4)
 
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      Basically, the SRMR represents the average magnitude of the standadized model residuals.
+      Basically, the SRMR represents the average magnitude of the standardized model residuals.
     \end{column}
     \begin{column}{0.3\textwidth}
       \begin{align*}
@@ -859,7 +893,7 @@ partSummary(out1, 1:4)
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \begin{frame}{SRMR}
 
@@ -891,6 +925,10 @@ partSummary(out1, 1:4)
 \end{frame}
 
 \watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\subsection{Code Examples}
+
+%----------------------------------------------------------------------------------------------------------------------%
 
 \begin{frame}[fragile, allowframebreaks]{Example: Target Model}
 
@@ -1044,7 +1082,7 @@ fit1$srmr
 
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \sectionslide{Model Identification}
 
@@ -1291,8 +1329,7 @@ fit1$srmr
 
 \begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
 
-  With four indicators, we automatically have $df \geq 0$ without imposing any
-  scaling constraints.
+  With four indicators, we automatically have $df \geq 0$ without imposing any scaling constraints.
   \begin{itemize}
     \item Can we directly estimate the unconstrained model?
   \end{itemize}
@@ -1341,19 +1378,22 @@ partSummary(fit1, 9)
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
+\subsubsection{Why constrain over-identified models?}
 
-  In the above example, the data contain enough information to define our model
-  parameters, but that's not enough.
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Why $df \geq 0$ is Not Enough}
+
+  In the above example, the data contain enough information to define our model parameters, but that's not enough.
   \vc
   \begin{itemize}
     \item We still need scaling constraints.
       \vc
-    \item The estimation algorithm needs an anchor point from which to
-      extrapolate the relative values of the model parameters.
+    \item The estimation algorithm needs an anchor point from which to extrapolate the relative values of the model
+      parameters.
       \vc
-    \item Without any scaling constraints, an infinite number of parameter
-      matrices will produce the same $\hat{\mu}$ and $\hat{\Sigma}$.
+    \item Without any scaling constraints, an infinite number of parameter matrices will produce the same $\hat{\mu}$
+      and $\hat{\Sigma}$.
       \vc
     \item An infinite number of solutions are equally good.
   \end{itemize}
@@ -1435,7 +1475,7 @@ all(out)
 \end{frame}
 
 
-%----------------------------------------------------------------------------------------------------------------------%
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \sectionslide{Example}
 

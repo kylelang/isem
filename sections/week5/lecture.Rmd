@@ -1,30 +1,13 @@
 ## Lecture
 
-This week we extend last week's introduction to CFA by focussing on model estimation and identification.
+This week we continue with CFA by building upon the more conceptual foundations that we established last week. In
+particular this week's lecture will address three questions.
+
+1. How do we estimate CFA models?
+1. How can we judge the quality of an estimated CFA model?
+1. How does model identification work for models that are not "just identified"?
 
 ### Recordings
-
-
-These five recordings supplement Caspar's overview from last week. These recordings dig deeper into some of the more
-tricky ideas that tend to cause the most confusion. In particular, these recordings focus on model estimation,
-identification, and scaling.
-
-#### Types of Latent Construct {-}
-
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/VS5YExoVH9Q?si=8ADX47oWp4_uKbe2"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
-</iframe>
 
 #### Model Estimation {-}
 
@@ -43,7 +26,9 @@ identification, and scaling.
         allowfullscreen>
 </iframe>
 
-#### Model Identification {-}
+#### Model Fit {-}
+
+#### More Model Identification {-}
 
 <iframe width="560" 
         height="315" 
