@@ -1,7 +1,7 @@
 %%% Title:    ISEM Week 5: CFA II
 %%% Author:   Kyle M. Lang (Adapted from Rebecca Kuiper's Summer School Slides)
 %%% Created:  2016-XX-XX
-%%% Modified: 2025-09-24
+%%% Modified: 2025-10-02
 
 \documentclass[10pt]{beamer}
 \usetheme{Utrecht}
@@ -53,6 +53,8 @@ library(lavaan)
 library(psych)
 library(Hmisc)
 library(lavaanPlot)
+library(semPlot)
+library(semptools)
 
 source(here::here("code", "supportFunctions.R"))
 
@@ -83,10 +85,12 @@ knit_theme$set('edit-kwrite')
 
 %----------------------------------------------------------------------------------------------------------------------%
 
+\subsection{Model-Implied Statistics}
+
+%----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{Model-Implied Statistics}
 
-  Most statistical estimation algorithms operate by minimizing the difference
-  between two key reference points:
+  Most statistical estimation algorithms operate by minimizing the difference between two key reference points:
 
   \vc
 
@@ -108,8 +112,8 @@ knit_theme$set('edit-kwrite')
 
   \vb
 
-  The predictions/implied statistics produced by a good model must be simpler
-  than the analogous quantities in the observed data.
+  The predictions/implied statistics produced by a good model must be simpler than the analogous quantities in the
+  observed data.
   \begin{itemize}
     \item A model that exactly replicates the observed data is overfitting.
     \item The inferences from such models won't generalize to the population.
@@ -129,8 +133,7 @@ knit_theme$set('edit-kwrite')
         \hat{Y}_n = \hat{\beta}_0 + \sum_{p = 1}^P \hat{\beta}_p X_{n,p}
       \end{align*}
     \item The raw outcome variable, $Y$, contains the observed values.
-    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the
-      model.
+    \item Minimize the difference between $\hat{Y}$ and $Y$ to estimate the model.
       \begin{align*}
         \eqit{RSS} = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2
       \end{align*}
@@ -265,6 +268,10 @@ knit_theme$set('edit-kwrite')
 
 \watermarkon %---------------------------------------------------------------------------------------------------------%
 
+\subsection{Optimization}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
 \begin{frame}{Optimization: Intuition}
 
   We can formulate the familiar OLS objective as an abstract optimization problem at follows.
@@ -289,12 +296,12 @@ knit_theme$set('edit-kwrite')
     RSS = \sum_{n = 1}^N \left( Y_n - \hat{Y}_n \right)^2 
   \end{align*}
 
-  In CFA, we minimize the \emph{model deviance}.
+  In CFA, we can estimate the model by minimizing the \emph{model deviance}.
   \begin{align*}
     D_M &= -2 \left[ \ell \left( \hat{\Sigma}, \hat{\mu} \right) - \ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right) \right]
   \end{align*}
 
-  Where, $\ell ( \cdot )$ denotes a \emph{loglikelihood} function.
+  Where, $\ell ( \cdot )$ denotes the \emph{loglikelihood} function.
   \begin{itemize}
     \item $\ell \left( \hat{\Sigma}, \hat{\mu} \right)$ returns the loglikelihood value for our estimated model.
     \item $\ell \left( \mathbf{S}, \bar{\mathbf{Y}} \right)$ returns the loglikelihood value for the \emph{saturated
@@ -307,10 +314,11 @@ knit_theme$set('edit-kwrite')
 
 \begin{frame}{Optimization: Loglikelihood Functions}
 
-  A loglikelihood function is a model-based distance metric.
-
+  The loglikelihood function is a model-based distance metric.
+  \vc
   \begin{itemize}
-    \item Derived from the assumed data distribution (i.e., multivariate normal, for the basic CFA)
+    \item Derived from the assumed data distribution (i.e., multivariate normal)
+      \vc
     \item Quantifies the "chances" of your estimated model having generated the observed data
   \end{itemize}
   \begin{align*}
@@ -318,16 +326,763 @@ knit_theme$set('edit-kwrite')
     \frac{1}{2} \sum_{n = 1}^N \left( Y_n - \hat{\mu} \right)^T \hat{\Sigma}^{-1} \left( Y_n - \hat{\mu} \right)
   \end{align*}
 
-  Say we fit two model, $M_a$ and $M_b$, to the same dataset. If $M_a$'s loglikelihood is closer to zero, we know that
-  $M_a$ represents the data better than $M_b$ does.
+  Say we fit two models, $M_a$ and $M_b$, to the same dataset. If $\ell \left( M_a \right)$ is closer to zero, we know
+  that  $M_a$ represents the data better than $M_b$ does.
+  \vc
   \begin{itemize}
     \item $M_a$'s implied statistics are closer to the observed sufficient statistics.
+      \vc
     \item $M_a$'s parameters are more plausible, given the data.
   \end{itemize}
 
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
+
+\sectionslide{Model Fit}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\subsection{Underlying Concepts}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model Fit: Intuition}
+
+  We want a plausible, parsimonious, and useful model.
+  \vc
+  \begin{enumerate}
+    \item Our model should make theoretical sense.
+      \vc
+    \item Our model's implied statistics should closely align with the observed sufficient statistics.
+      \vc
+    \item Our model should be no more complex than necessary.
+  \end{enumerate}
+
+  \vb
+
+  We can use \emph{model fit statistics} to evaluate the second and third criteria.
+  \vc
+  \begin{itemize}
+    \item Model fit statistics transform $\hat{D}_M$ into interpretable, comparable, scale-free distance measures.
+      \vc
+    \item These indices give us practical tools for evaluating how well our model represents the data.
+  \end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+  When evaluating model fit, we need to consider four types of model.
+  \vc
+  \begin{enumerate}
+    \item Our estimated model.
+      \vc
+    \item The \emph{independence model}
+      \begin{itemize}
+        \item The worst possible model
+        \item All item associations fixed to zero
+      \end{itemize}
+      \vc
+    \item The \emph{saturated model}
+      \begin{itemize}
+        \item The "best" possible model
+        \item Estimates all possible associations
+        \item Perfectly reproduces the observed sufficient statistics
+      \end{itemize}
+      \vc
+    \item The \emph{true model}
+      \begin{itemize}
+        \item The unknown population model that generates the data
+        \item Typically simpler than the saturated model
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Model Continuum}
+
+  We can use the \emph{model continuum} diagrammed below to organize the four classes of possible model.
+  \vc
+  \begin{itemize}
+    \item The left side of the continuum represents bad model fit.
+      \vc
+    \item The right side of the continuum represents good model fit.
+  \end{itemize}
+
+  \vb
+
+  \begin{figure}
+    \includegraphics[width = 0.9\textwidth]{figures/fit_line_bare.png}
+  \end{figure}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Independence Model}
+
+<<>>=
+indMod <- '
+A1 ~~ A1
+A2 ~~ A2
+A3 ~~ A3
+O1 ~~ O1
+O2 ~~ O2
+O3 ~~ O3
+'
+
+indOut <- cfa(indMod, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(indOut, 1:4)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Independence Model}
+  
+<<>>=
+lavInspect(indOut, "sigma")
+@
+
+<<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2>>=
+semPaths(indOut,
+         layout = "tree",
+         sizeMan = 10,
+         sizeMan2 = 8,
+         curve = 3,
+         esize = 2,
+         asize = 4,
+         mar = c(0, 2, 0, 2))
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Saturated Model}
+  
+<<>>=
+satMod <- '
+A1 ~~ A1
+A2 ~~ A1 + A2
+A3 ~~ A1 + A2 + A3
+O1 ~~ A1 + A2 + A3 + O1
+O2 ~~ A1 + A2 + A3 + O1 + O2
+O3 ~~ A1 + A2 + A3 + O1 + O2 + O3
+'
+
+satOut <- cfa(satMod, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(satOut, 1:4)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Saturated Model}
+  
+<<>>=
+lavInspect(satOut, "sigma")
+@
+
+<<echo = FALSE, out.width = '0.9\\linewidth', fig.height = 2.5>>=
+tmp        <- rep(0, 6)
+names(tmp) <- lavNames(satOut)
+
+semPaths(satOut,
+         layout = "tree",
+         sizeMan = 10,
+         sizeMan2 = 8,
+         curve = 3,
+         esize = 2,
+         asize = 4,
+         mar = c(0, 1, -4, 1),
+         DoNotPlot = TRUE) |>
+  rotate_resid(tmp) |>
+  plot()
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Saturated Model}
+  
+  The saturated model reproduces the observed sufficient statistics.
+  \begin{itemize}
+    \item $\hat{\Sigma} = \mathbf{S}$
+  \end{itemize}
+  
+<<>>=
+lavInspect(satOut, "sigma") - lavInspect(satOut, "sampstat")$cov
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Measurement Structure}
+
+  We don't estimate any measurement structure in the independence model or in the saturated model.
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+
+<<>>=
+lavInspect(indOut, "est")$lambda
+lavInspect(indOut, "est")$psi
+@
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+
+<<>>=
+lavInspect(satOut, "est")$lambda
+lavInspect(satOut, "est")$psi
+@
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Different Ways to Quantify Fit}
+
+  For now, we'll conceptualize model fit as comparing different points on the model continuum introduced above.
+  \vc
+  \begin{enumerate}
+    \item \emph{Absolute Fit}
+      \begin{itemize}
+        \item How well does the model reproduce the observed sufficient statistics?
+        \item How close is our model to some ideal model?
+        \item Compare our model to the \emph{saturated model}.
+      \end{itemize}
+      \vc
+    \item \emph{Relative/Incremental/Comparative Fit}
+      \begin{itemize}
+        \item How much does our model outperform some baseline model?
+        \item How much improvement do we achieve over some bad model?
+        \item Compare our model to the \emph{independence model}.
+      \end{itemize}
+  \end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\subsection{Fit Statistics \& Indices}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{$\chi^2$ Statistic}
+
+  The $\chi^2$ statistic is the most fundamental model fit statistic.
+  \vc
+  \begin{itemize}
+    \item Absolute fit statistic
+      \vc
+    \item Derived directly from the optimized value of the objective function
+      \vc
+    \item Allows rigorous hypothesis tests
+      \vc
+    \item Basis for most other fit indices
+  \end{itemize}
+  \begin{align*}
+    \chi^2 &= D_M\\
+    \chi^2 &= N \times F_{ML}
+  \end{align*}
+
+  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example Model}
+
+<<>>=
+library(lavaan)
+library(psych)
+
+mod1 <- '
+agree =~ A1 + A2 + A3
+open  =~ O1 + O2 + O3
+'
+
+out1 <- cfa(mod1, data = bfi)
+@
+
+\framebreak
+
+<<>>=
+partSummary(out1, 1:4)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Problems with $\chi^2$}
+
+  The $\chi^2$ statistic test for \emph{exact fit}:
+  \begin{align*}
+    H_0: \hat{\Sigma} = \mathbf{S}\\
+    H_1: \hat{\Sigma} \neq \mathbf{S}
+  \end{align*}
+  This hypothesis is perfectly valid, but it isn't a very interesting or useful for real-world data analysis.
+  \begin{itemize}
+    \item The $\chi^2$ will almost always reject the null hypothesis.
+    \item With a large enough sample, the null hypothesis must be rejected for any model simpler than the exact data
+      generating model.
+  \end{itemize}
+
+  \begin{figure}
+    \includegraphics[width = 0.7\textwidth]{figures/fit_line_chisq.png}
+  \end{figure}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+% \begin{frame}{Problems with $\chi^2$}
+
+%   The $\chi^2$ statistic test for \emph{exact fit}:
+%   \begin{align*}
+%     H_0: \hat{\Sigma} = \mathbf{S}\\
+%     H_1: \hat{\Sigma} \neq \mathbf{S}
+%   \end{align*}
+%   This hypothesis is perfectly valid, but it isn't a very interesting or useful for real-world data analysis.
+%   \begin{itemize}
+%     \item The $\chi^2$ will almost always reject the null hypothesis.
+%     \item With a large enough sample, the null hypothesis must be rejected for any model other than the exact data
+%       generating model.
+%     \item We'll reject perfectly good models because of substantively trivial deviations from the population model.
+%   \end{itemize}
+
+%   \vc
+
+%   We don't want a model that exactly replicates the sufficient statistics.
+%   \begin{itemize}
+%     \item The true data generating model is almost certainly too complex to have any practical utility.
+%   \end{itemize}
+
+% \end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{Approximate Fit Indices}
+
+  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use \emph{approximate fit indices}
+  (mostly) derived from the $\chi^2$.
+  \vc
+  \begin{itemize}
+    \item We have many (maybe too many) options.
+      \vc
+    \item \textbf{lavaan} 0.6-19 provides 28 approximate fit measures for a basic CFA.
+  \end{itemize}
+
+  \vb
+
+  We'll focus on three complementary and well-balanced indices.
+  \vc
+  \begin{itemize}
+    \item Root Mean Squared Error of Approximation (RMSEA)
+      \vc
+    \item Comparative Fit Index (CFI)
+      \vc
+    \item Standardized Root Mean Squared Residual (SRMR)
+  \end{itemize}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+% \begin{frame}{Approximate Fit Indices}
+
+%   Let's start by adding the implied $\chi^2$ values for some key anchor points to our model continuum figure.
+
+%   \vc
+
+%   \begin{figure}
+%     \includegraphics[width = 0.9\textwidth]{figures/fit_line_chisq.png}
+%   \end{figure}
+
+% \end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{RMSEA}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      The RMSEA is a non-normed \emph{absolute fit index} that evaluates deviations from \emph{close fit}.
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{align*}
+        \textrm{RMSEA} = \sqrt{ \frac{ \textrm{max} \left( \chi^2 - df, ~ 0 \right) }{ N \times df } }
+      \end{align*}
+    \end{column}
+  \end{columns}
+
+  \va
+
+  \begin{figure}
+    \includegraphics[width = 0.7\textwidth]{figures/fit_line_rmsea2.png}
+  \end{figure}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{RMSEA}
+
+  The RMSEA must be non-negative, but has no upper bound.
+  \begin{itemize}
+    \item $\textrm{RMSEA} \in [0, +\infty)$
+  \end{itemize}
+
+  \vb
+
+  The RMSEA will be positive whenever $\chi^2 > df$.
+  \begin{itemize}
+    \item $\textrm{RMSEA} = 0 ~ \textit{iif} ~ \chi^2 \leq df$
+  \end{itemize}
+
+  \vb
+
+  The RMSEA measures deviations from an ideal model, so smaller values represent better fit.
+  \begin{align*}
+    \textrm{RMSEA} \in
+    \begin{cases}
+      [0, ~ 0.06] & \Rightarrow ~ \textrm{Good Fit}\\
+      (0.06, ~ 0.08] & \Rightarrow ~ \textrm{Acceptable Fit}\\
+      (0.08, ~ 0.1] & \Rightarrow ~ \textrm{Marginal Fit}\\
+      (0.1, ~ +\infty) & \Rightarrow ~ \textrm{Bad Fit}
+    \end{cases}
+  \end{align*}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{CFI}
+
+  The CFI is a normed \emph{incremental fit index}.
+  \begin{align*}
+    \textrm{CFI} = 1 - \frac{
+      \textrm{max} \left( \chi^2 - df, ~ 0 \right)
+    }{ 
+    \textrm{max} \left( \chi_0^2 - df_0, ~ \chi^2 - df, ~ 0 \right)
+    }
+    \overset{ \stackrel{typical}{cases} }{\rightarrow}
+    1 - \frac{\chi^2 - df}{\chi_0^2 - df_0}
+  \end{align*}
+  We can use the simplified formula on the right in the ordinary situations where $\chi^2 \geq df$, and the baseline
+  model fits worse than our target model.
+  \vc
+  \begin{figure}
+    \includegraphics[width = 0.7\textwidth]{figures/fit_line_cfi2.png}
+  \end{figure}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{CFI}
+
+  The CFI is a normed index, so it is bounded by 0 and 1.
+  \begin{itemize}
+    \item $\textrm{CFI} \in [0, 1]$
+  \end{itemize}
+
+  \vb
+
+  The CFI = 0 when the estimated and baseline models are equivalent.
+  \begin{itemize}
+    \item $\textrm{CFI} = 0 ~ \textit{iif} ~ \left[ (\chi^2 - df) - (\chi_0^2 - df_0) \right] = 0$
+  \end{itemize}
+
+  \vb
+
+  The CFI = 1 for estimated models that are equivalent to the true model or more complex than the true model.
+  \begin{itemize}
+    \item $\textrm{CFI} = 1 ~ \textit{iif} ~ \chi^2 \leq df$
+  \end{itemize}
+
+  \vb
+
+  The CFI measures improvement over a poor model, so larger values represent better fit.
+  \begin{align*}
+    \textrm{CFI} \in
+    \begin{cases}
+      [0.95, ~ 1] & \Rightarrow ~ \textrm{Good Fit}\\
+      [0.90, ~ 0.95) & \Rightarrow ~ \textrm{Acceptable Fit}\\
+      [0, ~ 0.90) & \Rightarrow ~ \textrm{Bad Fit}
+    \end{cases}
+  \end{align*}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{SRMR}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      The SRMR is an \emph{absolute fit index} derived from the standardized model residuals.
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \begin{align*}
+        \textrm{SRMR} = \sqrt{
+          \frac{
+            \sum_{i = 1}^M \sum_{j = 1}^i \left( \frac{s_{ij} - \hat{\sigma}_{ij}}{s_i s_j} \right)^2 
+          }{ 
+          Q
+          } 
+        }
+      \end{align*}
+    \end{column}
+  \end{columns}
+
+  \va
+
+  \begin{figure}
+    \includegraphics[width = 0.7\textwidth]{figures/fit_line_full2.png}
+  \end{figure}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{SRMR}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      Basically, the SRMR represents the average magnitude of the standardized model residuals.
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \begin{align*}
+        \textrm{SRMR} \approx \textrm{mean} \left[ \textrm{std} \left( \mathbf{S} - \hat{\Sigma} \right) \right]
+      \end{align*}
+    \end{column}
+  \end{columns}
+
+  \va
+
+  \begin{figure}
+    \includegraphics[width = 0.7\textwidth]{figures/fit_line_full2.png}
+  \end{figure}
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
+
+\begin{frame}{SRMR}
+
+  Technically, the SRMR is a normed index that is bounded by 0 and 1.
+  \begin{itemize}
+    \item $\textrm{SRMR} \in [0, 1]$
+    \item For all real data, $SRMR \ll 1$
+  \end{itemize}
+
+  \vb
+
+  The SRMR = 0 when the estimated and saturated models are equivalent.
+  \begin{itemize}
+    \item $\textrm{SRMR} = 0 ~ \textit{iif} ~ \hat{\Sigma} = \mathbf{S}$
+  \end{itemize}
+
+  \vb
+
+  The SRMR measures deviations from a perfectly fitting model, so smaller values represent better fit.
+  \begin{align*}
+    \textrm{SRMR} \in
+    \begin{cases}
+      [0, ~ 0.08] & \Rightarrow ~ \textrm{Good Fit}\\
+      (0.08, ~ 0.1] & \Rightarrow ~ \textrm{Acceptable Fit}\\
+      (0.1, ~ 1] & \Rightarrow ~ \textrm{Bad Fit}
+    \end{cases}
+  \end{align*}
+
+\end{frame}
+
+\watermarkoff %--------------------------------------------------------------------------------------------------------%
+
+\subsection{Code Examples}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Target Model}
+
+  We can use the \src{fitMeasures()} function to get model fit statistics.
+
+<<>>=
+fit1 <- fitMeasures(out1)
+
+head(fit1, 22) |> round(3)
+@
+
+\framebreak
+
+<<>>=
+tail(fit1, -22) |> round(3)
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Example: Independence Model}
+
+  We can confirm that the baseline stats provided by lavaan match the versions from our explicitly estimated
+  independence model.
+
+<<>>=
+indFit <- fitMeasures(indOut) |> as.list()
+fit1   <- as.list(fit1)
+
+indFit$chisq
+fit1$baseline.chisq
+
+indFit$df
+fit1$baseline.df
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Example: Edge Cases}
+
+  The saturated model has perfect fit because it perfectly reproduces the observed sufficient statistics.
+
+<<>>=
+fitMeasures(satOut, c("chisq", "df", "rmsea", "cfi", "srmr"))
+@
+
+\va
+
+Notice how small the independence model's SRMR value is.
+
+<<>>=
+indFit$srmr
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating $\chi^2$}
+
+<<>>=
+llSat <- logLik(satOut) # saturated model loglikelihood
+ll1   <- logLik(out1)   # target model loglikelihood
+
+# Manually calculate the chi-squared stat
+-2 * (ll1 - llSat) |> as.numeric()
+
+# Compare to lavaan's version
+fit1$chisq
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating CFI}
+
+<<>>=
+# Target model stats
+chisq1 <- fit1$chisq
+df1    <- fit1$df
+
+# Independence model stats
+chisq0 <- fit1$baseline.chisq
+df0    <- fit1$baseline.df
+
+# Manually calculate the CFI
+1 - ((chisq1 - df1) / (chisq0 - df0))
+
+# Compare to lavaan's version
+fit1$cfi
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile]{Manually Calculating RMSEA}
+
+<<>>=
+# Sample size
+n <- fit1$ntotal
+
+# Manually calculate the RMSEA
+sqrt((chisq1 - df1) / (n * df1))
+
+# Compare to lavaan's version
+fit1$rmsea
+@
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Manually Calculating SRMR}
+
+<<>>=
+M <- 6               # No. of observed variables
+Q <- M * (M + 1) / 2 # No. of unique elements in S
+
+# Model-implied covariance matrix
+sHat <- inspect(out1, "sigma")
+
+# Observed covariance matrix
+sObs <- inspect(out1, "sampstat")$cov
+
+# Observed standard deviations
+se <- sqrt(diag(sObs))
+@
+
+\framebreak
+
+<<>>=
+# Sum of squared standardized residuals
+x <- 0
+for(i in 1:M) {
+  for(j in 1:i) {
+    x <- x + ( (sObs[i, j] - sHat[i, j]) / (se[i] * se[j]) )^2
+  }
+}
+
+# Root mean of the above = SRMR
+sqrt(x / Q) |> as.numeric()
+
+# Compare to lavaan's version
+fit1$srmr
+@
+
+\end{frame}
+
+\watermarkon %---------------------------------------------------------------------------------------------------------%
 
 \sectionslide{Model Identification}
 
@@ -574,8 +1329,7 @@ knit_theme$set('edit-kwrite')
 
 \begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
 
-  With four indicators, we automatically have $df \geq 0$ without imposing any
-  scaling constraints.
+  With four indicators, we automatically have $df \geq 0$ without imposing any scaling constraints.
   \begin{itemize}
     \item Can we directly estimate the unconstrained model?
   \end{itemize}
@@ -624,19 +1378,22 @@ partSummary(fit1, 9)
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Over-Identified Models}
+\subsubsection{Why constrain over-identified models?}
 
-  In the above example, the data contain enough information to define our model
-  parameters, but that's not enough.
+%----------------------------------------------------------------------------------------------------------------------%
+
+\begin{frame}[fragile, allowframebreaks]{Why $df \geq 0$ is Not Enough}
+
+  In the above example, the data contain enough information to define our model parameters, but that's not enough.
   \vc
   \begin{itemize}
     \item We still need scaling constraints.
       \vc
-    \item The estimation algorithm needs an anchor point from which to
-      extrapolate the relative values of the model parameters.
+    \item The estimation algorithm needs an anchor point from which to extrapolate the relative values of the model
+      parameters.
       \vc
-    \item Without any scaling constraints, an infinite number of parameter
-      matrices will produce the same $\hat{\mu}$ and $\hat{\Sigma}$.
+    \item Without any scaling constraints, an infinite number of parameter matrices will produce the same $\hat{\mu}$
+      and $\hat{\Sigma}$.
       \vc
     \item An infinite number of solutions are equally good.
   \end{itemize}
@@ -717,150 +1474,8 @@ all(out)
 
 \end{frame}
 
+
 \watermarkon %---------------------------------------------------------------------------------------------------------%
-
-\sectionslide{Model Fit}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Model Fit: Intuition}
-
-  We want a plausible, parsimonious, and useful model.
-  \begin{enumerate}
-    \item Our model should make theoretical sense.
-    \item Our model's implied statistics should closely align with the observed sufficient statistics.
-    \item Our model should be no more complex than necessary.
-  \end{enumerate}
-
-  \va
-
-  We can use \emph{model fit statistics/indices} to evaluate the second and third criteria.
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{$\chi^2$ Statistic}
-
-  The $\chi^2$ statistic is the most fundamental fit statistic.
-  \begin{itemize}
-    \item Derived directly from the objective function used to estimate the model.
-    \item Allows rigorous hypothesis tests.
-    \item Basis for most other fit indices.
-  \end{itemize}
-  \begin{align*}
-    \chi^2 = (N - 1) D_M
-  \end{align*}
-
-  This statistic follows a $\chi^2$ distribution with $df = Q - P$ (i.e., the same DF as the estimated model).
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Problems with $\chi^2$}
-
-  The $\chi^2$ test is a perfectly valid statistical test, and it does it's job very well, but we don't really care.
-
-  \begin{align*}
-    H_0: \hat{\Sigma} = \mathbf{S}\\[8pt]
-    H_0: \hat{\Sigma} \neq \mathbf{S}
-  \end{align*}
-
-  This isn't a very interesting or useful hypothesis to test.
-  \begin{itemize}
-    \item With reasonably sized samples, the $\chi^2$ will almost always reject the null hypothesis.
-    \item We wouldn't want a model that exactly replicated the observed sufficient statistics.
-  \end{itemize}
-
-  \vb
-
-  In practice, we won't use the $\chi^2$ test to directly evaluate model fit. We'll use other fit indices derived from
-  the $\chi^2$.
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Different Ways to Quantify Fit}
-
-  When evaluate model fit, we need to consider three models.
-
-  \begin{enumerate}
-    \item Our estimated model.
-    \item The \emph{independence model}
-      \begin{itemize}
-        \item The worst possible model
-        \item All item associations are fixed to zero
-      \end{itemize}
-    \item The \emph{saturated model}
-      \begin{itemize}
-        \item The "best" possible model
-        \item All possible associations are estimated
-        \item Perfectly reproduces the observed sufficient statistics
-      \end{itemize}
-  \end{enumerate}
-
-\end{frame}
-
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Different Ways to Quantify Fit}
-
-<<>>=
-x <- runif(10, 0, 1)
-y <- 0.5 + x + 0.25 * x^2 + rnorm(10)
-
-data.frame(X = x, Y = y) |>
-  ggplot(aes(X, Y)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = "~ x + I(x^2)")
-@
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{RMSEA}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{CFI}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{SRMR}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\sectionslide{Model Complexity}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{DF \& Complexity}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}{Parsimony}
-
-
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
 
 \sectionslide{Example}
 
@@ -873,19 +1488,16 @@ data.frame(X = x, Y = y) |>
 
 \watermarkoff %--------------------------------------------------------------------------------------------------------%
 
-\begin{frame}{CFA of Extraversion Items}
+\begin{frame}{Example: Hypothesized Model}
 
   \begin{columns}
     \begin{column}{0.45\textwidth}
 
-      Suppose we hypothesize two distinct dimensions of extraversion underlying
-      8 of the SAPI items.
-      \begin{enumerate}
-        \item Having Fun
-        \item Being Liked by Others
-      \end{enumerate}
-      \vb
-      We'll define our measurement model as the two-factor CFA shown to the right.
+      Let's revisit the example SAPI analysis from last week.
+      \vc
+      \begin{itemize}
+        \item We'll estimate the two-factor CFA shown to the right.
+      \end{itemize}
 
     \end{column}
     \begin{column}{0.55\textwidth}
@@ -961,7 +1573,7 @@ data.frame(X = x, Y = y) |>
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+\begin{frame}[fragile, allowframebreaks]{Example: Model Estimation}
 
   Load the SAPI data.
 
@@ -985,14 +1597,14 @@ Use the \src{cfa()} function to estimate the model.
 
 <<>>=
 library(lavaan)
-out1 <- cfa(mod1, data = sapi)
+out1 <- cfa(mod1, data = sapi, std.lv = TRUE)
 @
 
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+\begin{frame}[fragile, allowframebreaks]{Example: Model Evaluation}
 
 <<>>=
 partSummary(out1, 1:4)
@@ -1014,7 +1626,7 @@ partSummary(out1, 8:9)
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Example: Marker Variable}
+\begin{frame}[fragile, allowframebreaks]{Example: Model Evaluation}
 
 <<>>=
 inspect(out1, "r2")
@@ -1031,74 +1643,87 @@ fitMeasures(out1) |> tail(-22) |> round(3)
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+% \begin{frame}[fragile, allowframebreaks]{Example: Compare Scaling Methods}
 
-  We only need to change one option to implement the fixed-factor method.
-  \begin{itemize}
-    \item The \src{std.lv = TRUE} option (i.e., standardized latent variables)
-      applies the appropriate constraints.
-  \end{itemize}
+%   We only need to change one option to implement the fixed-factor method.
+%   \begin{itemize}
+%     \item The \src{std.lv = TRUE} option (i.e., standardized latent variables)
+%       applies the appropriate constraints.
+%   \end{itemize}
 
-<<>>=
-out2 <- cfa(mod1, data = sapi, std.lv = TRUE)
-@
+% <<>>=
+% out2 <- cfa(mod1, data = sapi)
+% @
 
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------------------%
-
-\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
-
-<<>>=
-partSummary(out2, 1:4)
-@
-
-\framebreak
-
-<<>>=
-partSummary(out2, 5:7)
-@
-
-\framebreak
-
-<<>>=
-partSummary(out2, 8:9)
-@
-
-\end{frame}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+% \begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
 
-<<>>=
-inspect(out2, "r2")
-fitMeasures(out2) |> head(22) |> round(3)
-@
+% <<>>=
+% partSummary(out2, 1:4)
+% @
 
-\framebreak
+% \framebreak
 
-<<>>=
-fitMeasures(out2) |> tail(-22) |> round(3)
-@
+% <<>>=
+% partSummary(out2, 5:7)
+% @
 
-\end{frame}
+% \framebreak
+
+% <<>>=
+% partSummary(out2, 8:9)
+% @
+
+% \end{frame}
+
+% %----------------------------------------------------------------------------------------------------------------------%
+
+% \begin{frame}[fragile, allowframebreaks]{Example: Fixed Factor}
+
+% <<>>=
+% inspect(out2, "r2")
+% fitMeasures(out2) |> head(22) |> round(3)
+% @
+
+% \framebreak
+
+% <<>>=
+% fitMeasures(out2) |> tail(-22) |> round(3)
+% @
+
+% \end{frame}
 
 %----------------------------------------------------------------------------------------------------------------------%
 
-\begin{frame}[fragile, allowframebreaks]{Compare Results}
+\begin{frame}[fragile, allowframebreaks]{Compare Scaling Methods}
 
 <<>>=
+# Re-estimate the model with marker-variable identification
+out2 <- cfa(mod1, data = sapi)
+
 inspect(out1, "est")$lambda - inspect(out2, "est")$lambda
 inspect(out1, "est")$psi - inspect(out2, "est")$psi
 @
 
 \framebreak
 
+Both models partition the indicators' variance in the same way.
+
 <<>>=
-all.equal(fitMeasures(out1), fitMeasures(out2))
 inspect(out1, "r2") - inspect(out2, "r2")
 inspect(out1, "est")$theta - inspect(out2, "est")$theta
+@
+
+\framebreak
+
+Both models produce equivalent representations of the data.
+
+<<>>=
+all.equal(fitMeasures(out1), fitMeasures(out2))
+inspect(out1, "sigma") - inspect(out2, "sigma")
 @
 
 \end{frame}

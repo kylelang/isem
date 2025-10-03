@@ -1,97 +1,143 @@
 ## Lecture
 
-This week we extend last week's introduction to CFA by focussing on model estimation and identification.
+This week we continue with CFA by building upon the more conceptual foundations that we established last week. In
+particular this week's lecture will address three questions.
+
+1. How do we estimate CFA models?
+1. How can we judge the quality of an estimated CFA model?
+1. How does model identification work for models that are not "just identified"?
 
 ### Recordings
 
-
-These five recordings supplement Caspar's overview from last week. These recordings dig deeper into some of the more
-tricky ideas that tend to cause the most confusion. In particular, these recordings focus on model estimation,
-identification, and scaling.
-
-#### Types of Latent Construct {-}
-
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/VS5YExoVH9Q?si=8ADX47oWp4_uKbe2"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
-</iframe>
-
 #### Model Estimation {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/oBwkYnJbcXc?si=IRchD_qMgiTTGDQ5" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/TSq6txmj9C4?si=bZAb9UO28kfdURcV"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
 </iframe>
 
-#### Model Identification {-}
+#### Model Fit Concepts {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/rruGRWVBpAE?si=lFMDJXR9_IV2LZvf"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/muFNURFHy3Y?si=_w1iRlOZ7CgoRPh8"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
 </iframe>
 
-#### Over-Identified Models {-}
+#### $\chi^2$ Statistic {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/tqMfTcsKpAU?si=XPgEQOGlBeJYTMzT"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/DHQcgehcJUQ?si=nfuUawbwBfwomz3v"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
 </iframe>
 
-#### Example {-}
+#### Approximate Fit Indices {-}
 
-<iframe width="560" 
-        height="315" 
-        src="https://www.youtube.com/embed/SyffdlKuvig?si=8--ZKFYge5vLzbiN"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; 
-               autoplay; 
-               clipboard-write; 
-               encrypted-media; 
-               gyroscope; 
-               picture-in-picture; 
-               web-share" 
-        allowfullscreen>
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/2f9TfA6V3Pg?si=KFdZj31ju87G9pwt"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
+</iframe>
+
+#### Model Fit Example {-}
+
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/PCNKHespj7g?si=TPdGwoydHGo4aa3s"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
+</iframe>
+
+#### More Model Identification {-}
+
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/MN9-syEKmJk?si=OQbHgSTVBpQertZg"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
+</iframe>
+
+#### Scaling for Over-Identified Models {-}
+
+The following recording uses an older version of the lecture slides. So, the slide numbers and titles won't match the
+current slide deck. All the actual slide content should be the same, though.
+
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/tqMfTcsKpAU?si=XPgEQOGlBeJYTMzT"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
+</iframe>
+
+#### Example Analysis {-}
+
+<iframe
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/tW8TlvIgtjs?si=tcNpisyq8Jao0kx7"
+  allow="accelerometer;
+         autoplay;
+         clipboard-write;
+         encrypted-media;
+         gyroscope;
+         picture-in-picture;
+         web-share;
+         fullscreen">
 </iframe>
 
 ### Slides

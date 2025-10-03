@@ -1,4 +1,9 @@
 library(ggplot2)
+library(lavaan)
+library(psych)
+library(semPlot)
+
+source(here::here("code", "supportFunctions.R"))
 
 x <- rnorm(50, 0, 3)
 y <- 0.5 + 2 * x + 0.75 * x^2 + rnorm(10, 0, 5)
@@ -17,3 +22,178 @@ f1 <- paste(
   paste0("I(x^", 2:19, ")", collapse = " + "),
   sep = " + "
   ) |> as.formula()
+
+colnames(bfi)
+
+satMod <- '
+A1 ~~ A1
+A2 ~~ A1 + A2
+A3 ~~ A1 + A2 + A3
+O1 ~~ A1 + A2 + A3 + O1
+O2 ~~ A1 + A2 + A3 + O1 + O2
+O3 ~~ A1 + A2 + A3 + O1 + O2 + O3
+'
+
+indMod <- '
+A1 ~~ A1
+A2 ~~ A2
+A3 ~~ A3
+O1 ~~ O1
+O2 ~~ O2
+O3 ~~ O3
+'
+
+lavNames(satOut)
+
+indOut <- cfa(indMod, data = bfi)
+satOut <- cfa(satMod, data = bfi)
+
+satOut <- cfa(satMod, data = tmp)
+
+mod1 <- '
+agree =~ A1 + A2 + A3
+open  =~ O1 + O2 + O3
+'
+
+fitMeasures(indOut)
+
+out1 <- cfa(mod1, data = bfi)
+
+semPaths(out1)
+semPaths(indOut)
+semPaths(satOut)
+
+lavInspect(satOut, "sigma") - cov(bfi[lavNames(satOut)], use = "listwise")
+lavInspect(satOut, "sigma") - cov(na.omit(bfi[lavNames(satOut)]))
+
+tmp <- na.omit(bfi[lavNames(satOut)])
+
+c1 <- cov(tmp)
+x <- crossprod(scale(tmp, scale = FALSE))
+
+sigma <- lavInspect(satOut, "sigma")
+
+sigma - c2
+
+zz <- lavInspect(satOut, "sampstat")$cov
+xx <- lavInspect(indOut, "sampstat")$cov
+
+xx - zz
+
+sigma - zz
+
+c1
+c2 <- x / nrow(tmp)
+
+c1 - x
+
+?cov
+
+?semPaths
+
+sHat <- inspect(out1, "sigma")
+sObs <- inspect(out1, "sampstat")$cov
+se   <- sqrt(diag(sObs))
+
+sObs <- inspect(indOut, "sigma")
+
+eps <- 5
+sObs <- diag(6) * eps
+sHat <- eps - sObs
+se   <- sqrt(diag(sObs))
+
+res <- sObs - sHat
+
+s2 <- matrix(se)
+
+w <- s2 %*% t(s2)
+
+x <- (r / w)^2
+
+mean(x) |> sqrt()
+
+sqrt(sum(x) / 36)
+
+sqrt(x / 42)
+
+w
+
+((r / w)^2 |> sum()) / 2
+
+/ q) |> sqrt()
+
+
+fit1 <- fitMeasures(out1) |> as.list()
+
+fit1$srmr
+
+s2
+
+s2[3] * s2[2]
+
+sHat <- diag(6)
+x <- 0
+for(i in 1:6) {
+  for(j in 1:i) {
+    x <- x + ( (sObs[i, j] - sHat[i, j]) / (se[i] * se[j]) )^2
+  }
+}
+
+q <- 6 * 7 / 2
+sqrt(x / q)
+
+q
+
+x
+
+x / q
+
+
+sqrt(x / 42)
+
+fit1$srmr
+
+out1 <- cfa(mod1, data = bfi)
+
+indX2 <- -2 * (logLik(indOut) - logLik(satOut))
+estX2 <- -2 * (logLik(out1) - logLik(satOut))
+
+fit1 <- fitMeasures(out1)
+
+fit1 |> length()
+
+tmp <- fit1 |> tail(-8)
+
+length(tmp)
+
+ncp1 <- fit1$chisq - fit1$df
+ncp0 <- fit1$baseline.chisq - fit1$baseline.df
+
+1 - ncp1 / ncp0
+fit1$cfi
+
+fit1 |> head(23)
+fit1 |> tail(-30)
+
+inspect(out0, "cov.ov")
+
+tmp <- (logLik(out1) - logLik(out0)) / n
+
+
+f - abs(tmp)
+
+exp(logLik(out1)) - exp(logLik(out0))
+
+logLik(out1)
+
+n <- fit1["ntotal"]
+f <- fit1["fmin"]
+x2 <- fit1["chisq"]
+fit1
+
+x <- 27.3
+y <- 88.34
+
+log(x / y)
+
+log(x) - log(y)
