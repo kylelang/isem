@@ -138,6 +138,12 @@ recordings-4
 slides-4
 reading-4
 at-home-exercises-4
+section-64
+cfaSyntax
+section-65
+section-66
+section-67
+section-68
 in-class-exercises-4
 extra-resources
 fall-break

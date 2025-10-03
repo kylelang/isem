@@ -1,53 +1,155 @@
 ## At-Home Exercises
 
-This week, we will wrap up our re-analysis of the Kestilä (2006) results. During 
-this practical, you will conduct a CFA of the *Trust in Politics* items and 
-compare the results to those obtained from your previous EFA- and PCA-based 
-replications of Kestilä (2006).
+```{r setupH5, include = FALSE, echo = FALSE}
+source(here::here("code", "supportFunctions.R"))
+```
 
----
+In these exercises, you will attempt to confirm the measurement model structure proposed in:
+
+Kestilä, E. (2006). Is there demand for radical right populism in the Finnish electorate? *Scandinavian Political
+Studies 29*(3), 169--191. <https://doi.org/10.1111/j.1467-9477.2006.00148.x>
+
+The data for this practical were collected during the first round of the European Social Survey (ESS). The ESS is a
+repeated cross-sectional survey administered in 32 European countries. The first wave was collected in 2002, and two new
+waves have been collected each year since. You can find more info and access the data at
+<https://www.europeansocialsurvey.org>. 
+
+The data we will analyze in this practical are contained in the file named [*ess_round1.rds*][ess_data]. This file
+contains a processed subset of the ESS data. The following table describes the variables in this dataset.
+
+```{r, results = "asis", echo = FALSE}
+library(kableExtra)
+
+dataDir <- "data"
+
+## Read the 'ess_round1.rds' data into a data frame called 'ess': 
+ess <- readRDS(here::here(dataDir, "ess_round1.rds"))
+
+desc <- c(
+  "Title of dataset",
+  "ESS round",
+  "Edition",
+  "Production date",
+  "Country",
+  "Respondent's identification number",
+  "Trust in the legal system",
+  "Trust in the police",
+  "Trust in the United Nations",
+  "Trust in the European Parliament",
+  "Trust in country's parliament",
+  "State of health services in country nowadays",
+  "State of education in country nowadays",
+  "How satisfied with present state of economy in country",
+  "How satisfied with the national government",
+  "How satisfied with the way democracy works in country",
+  "Politicians interested in votes rather than peoples opinions",
+  "Politicians in general care what people like respondent think",
+  "Trust in politicians",
+  "Allow many/few immigrants of same race/ethnic group as majority",
+  "Allow many/few immigrants of different race/ethnic group from majority",
+  "Allow many/few immigrants from richer countries in Europe",
+  "Allow many/few immigrants from poorer countries in Europe",
+  "Allow many/few immigrants from richer countries outside Europe",
+  "Allow many/few immigrants from poorer countries outside Europe",
+  "Qualification for immigration: christian background",
+  "Qualification for immigration: be white",
+  "Average wages/salaries generally brought down by immigrants",
+  "Immigrants harm economic prospects of the poor more than the rich",
+  "Immigrants take jobs away in country or create new jobs",
+  "Taxes and services: immigrants take out more than they put in or less",
+  "Immigration bad or good for country's economy",
+  "Country's cultural life undermined or enriched by immigrants",
+  "Immigrants make country worse or better place to live",
+  "Immigrants make country's crime problems worse or better",
+  "Richer countries should be responsible for accepting people from poorer countries",
+  "Better for a country if almost everyone share customs and traditions",
+  "Better for a country if a variety of different religions",
+  "Country has more than its fair share of people applying refugee status",
+  "People applying refugee status allowed to work while cases considered",
+  "Government should be generous judging applications for refugee status",
+  "Most refugee applicants not in real fear of persecution own countries",
+  "Financial support to refugee applicants while cases considered",
+  "Granted refugees should be entitled to bring close family members",
+  "Gender",
+  "Year of birth",
+  "Highest level of education",
+  "Years of full-time education completed",
+  "How interested in politics",
+  "Placement on left right scale",
+  "A factor version of the 'cntry' variable",
+  "A factor version of the 'gndr' variable"
+  )
+
+data.frame(Variable = names(ess), Type = descriptives(ess)$type, Description = desc) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Load the ESS data.
+Load the *ess_round1.rds* dataset.
 
-- The relevant data are contained in the [*ess_round1.rds*][ess_data] file.
-    - This file is in R Data Set (RDS) format.
-    - The dataset is already stored as a data frame with the processing and 
-    cleaning that you should have done for previous practicals completed.
+- Inspect the data after loading to make sure everything went well.
 
 <details>
   <summary>Click to show code</summary>
-  
-```{r, echo = FALSE}
-dataDir <- "../../../../data/"
 
-ess <- readRDS(paste0(dataDir, "ess_round1.rds"))
-```
+```{r}
+library(tidySEM)
 
-```{r, eval = FALSE}
-ess <- readRDS("ess_round1.rds")
+dataDir <- "data"
+
+## Read the 'ess_round1.rds' data into a data frame called 'ess': 
+ess <- readRDS(here::here(dataDir, "ess_round1.rds"))
+
+## Inspect the result:
+dim(ess)
+head(ess)
+descriptives(ess)
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Although you may have settled on any number of EFA solutions during the 
-[Week 4 In-Class Exercises](in-class-exercises-3.html), we are going to base the 
-following CFA on a three-factor model of *Trust in Politics* similar to the 
-original PCA results from Kestilä (2006).
+```{r, echo = FALSE, include = FALSE}
+names(desc) <- colnames(ess)
+xxx <- as.list(desc)
+```
 
-*Note:* Unless otherwise specified, all following questions refer to the *Trust 
-in Politics* items. We will not consider the *Attitudes toward Immigration* 
-items in these exercises.
+Kestilä, E. (2006) used principal components analysis to estimate the measurement model underlying thirteen ESS
+variables related to *Trust in Politics*. Based on the results of this PCA, Kestilä recommended the following
+three-factor structure.
 
----
+**Trust in Institutions**
+
+- `trstlgl`: `r xxx$trstlgl`
+- `trstplc`: `r xxx$trstplc`
+- `trstun`: `r xxx$trstun`
+- `trustep`: `r xxx$trstep`
+- `trustprl`: `r xxx$trstprl`
+
+**Satisfaction with the Political Situation**
+
+- `stfhlth`: `r xxx$stfhlth`
+- `stfedu`: `r xxx$stfedu`
+- `stfeco`: `r xxx$stfeco`
+- `stfgov`: `r xxx$stfgov`
+- `stfdem`: `r xxx$stfdem`
+
+**Trust in Politicians**
+
+- `pltinvt`: `r xxx$pltinvt`
+- `pltcare`: `r xxx$pltcare`
+- `trstplt`: `r xxx$trstplt`
+
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#cfaSyntax}
 
-Define the `lavaan` model syntax for the CFA implied by the three-factor EFA 
-solution you found in the Week 4 In-Class Exercises.
+Define the `lavaan` model syntax for the three-factor CFA described above.
 
 - Covary the three latent factors.
 - Do not specify any mean structure.
@@ -64,34 +166,21 @@ politicians  =~ pltinvt + pltcare + trstplt
 '
 ```
 
-<details>
-  <summary>Click for explanation</summary>
-
-We don't have to specify the latent covariances in the model syntax, we can tell 
-`lavaan` to estimate all latent covariances when we fit the model.
-
-  </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Estimate the CFA model you defined above, and summarize the results.
+Estimate the CFA model you defined above, summarize the results, and evaluate the model fit.
 
 - Use the `lavaan::cfa()` function to estimate the model.
-- Use the default settings for the `cfa()` function.
-- Request the model fit statistics with the summary by supplying the 
-`fit.measures = TRUE` argument to `summary()`.
-- Request the standardized parameter estimates with the summary by supplying the 
-`standardized = TRUE` argument to `summary()`.
+- Use the fixed-factor method to identify the model.
+- Otherwise, use the default settings for the `cfa()` function.
+- Request the model fit indices by supplying the `fitMeasures = TRUE` argument to `summary()`.
+- Request the standardized parameter estimates by supplying the `standardized = TRUE` argument to `summary()`.
 
-Check the results, and answer the following questions:
-
-- Does the model fit the data well?
-- How are the latent variances and covariances specified when using the default 
-settings?
-- How is the model identified when using the default settings?
+Does the model fit the data well?
 
 <details>
   <summary>Click the code</summary>
@@ -101,42 +190,96 @@ settings?
 library(lavaan)
 
 ## Estimate the CFA model:
-fit_3f <- cfa(mod_3f, data = ess)
+out_3f <- cfa(mod_3f, data = ess, std.lv = TRUE)
 
 ## Summarize the fitted model:
-summary(fit_3f, fit.measures = TRUE, standardized = TRUE)
+summary(out_3f, fit.measures = TRUE, standardized = TRUE)
 ```
+
 <details>
   <summary>Click for explanation</summary>
 
-No, the model does not seem to fit the data well.
+```{r, echo = FALSE, include = FALSE}
+fit <- fitMeasures(out_3f) |> as.list()
+
+x2 <- fit$chisq |> round(2) |> format(scientific = FALSE)
+df <- fit$df |> round()
+p  <- prettyPValue(fit$pvalue)
+
+rmsea <- fit$rmsea |> round(3)
+cfi   <- fit$cfi |> round(3)
+srmr  <- fit$srmr |> round(3)
+
+n <- fit$ntotal |> format(scientific = FALSE)
+```
+
+No, the model does not seem to fit the data well
+$(\chi^2 = `r x2`,$
+$\textit{df} = `r df`,$
+$`r p`,$
+$\textrm{RMSEA} = `r rmsea`,$
+$\textrm{CFI} = `r cfi`,$
+$\textrm{SRMR} = `r srmr`)$.
 
 - The SRMR looks good, but one good looking fit statistic is not enough.
-- The RMSEA, TLI, and CFI are all in the "unacceptable" range.
-- The $\chi^2$ is highly significant, but we don't care.
-
-The `cfa()` function is just a wrapper for the `lavaan()` function with several 
-options set at the defaults you would want for a standard CFA. 
-
-- By default:
-    - All latent variances and covariances are freely estimated (due to the 
-    argument `auto.cov.lv.x = TRUE`)
-    - The model is identified by fixing the first factor loading of each factor 
-    to 1 (due to the argument `auto.fix.first = TRUE`)
-
-To see a full list of the (many) options you can specify to tweak the behavior
-of `lavaan` estimation functions run `?lavOptions`.
+- The RMSEA and CFI both indicate poor fit.
+- The $\chi^2$ is highly significant, but we don't care (especially when our sample size is $N = `r n`$).
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-Now, we will consider a couple of alternative factor structures for the *Trust 
-in Politics* CFA. First, we will go extremely simple by estimating a one-factor 
-model wherein all *Trust* items are explained by a single latent variable.
+###
 
----
+Consider the factor loadings for the *Trust in Politicians* factor.
+
+- Do the loadings seem sensible?
+- Do you notice any discrepancy between the raw and standardized estimates of these loadings?
+- How would you explain this discrepancy (assuming you see one)?
+
+<details>
+  <summary>Click for explanation</summary>
+
+```{r}
+data.frame(
+  raw = lavInspect(out_3f, "estimates")$lambda[11:13, 3],
+  std = lavInspect(out_3f, "standardized")$lambda[11:13, 3]
+  )
+```
+
+Hmm...something seem strange, but we need to be careful when evaluating these factor loadings.
+
+- The raw loadings seem to suggest some pretty severe heterogeneity among the loadings of the *Trust in Politicians* factor.
+- The standardized estimates don't look too bad.
+
+The only difference between these two versions of the loadings is the scale of the indicator variables.
+
+- The indicators for the standardized loadings all have the same unit variance.
+- The indicators for the raw loadings have their original scale.
+
+Let's check the scale of the raw indicator variables.
+
+```{r}
+ess |>
+  select(lavNames(out_3f)) |>
+  tidySEM::descriptives() |> 
+  select(name, mean, sd, min, max)
+```
+
+Well, there's your problem! All the variables have an eleven-point scale except `pltinvt` and `pltcare`: they only have
+five-point scales. So, the factor loadings for `pltinvt` and `pltcare` should be smaller than the factor loading for
+`trstplt`. One unit of change in `pltinvt` or `pltcare` implies a large effect than one unit of change in `trstplt`
+would.
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+Now, we will consider an alternative factor structure for the *Trust in Politics* CFA. We'll go extremely simple by
+estimating a one-factor model wherein all *Trust* items are explained by a single latent variable.
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -168,30 +311,30 @@ political_trust =~
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
 Estimate the one-factor model, and summarize the results.
 
-- Does this model appear to fit better or worse than the three-factor model?
+- Identify the scale using the fixed factor method.
+- Don't estimate any mean structure.
 
-*Note:* You can use the `lavaan::fitMeasures()` function to extract only the
-model fit information from a fitted `lavaan` object.
+Does this model appear to fit better or worse than the three-factor model?
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
 ## Estimate the one factor model:
-fit_1f <- cfa(mod_1f, data = ess)
+out_1f <- cfa(mod_1f, data = ess, std.lv = TRUE)
 
 ## Summarize the results:
-summary(fit_1f, fit.measures = TRUE)
+summary(out_1f)
 
 ## Compare fit statistics:
-fitMeasures(fit_3f)
-fitMeasures(fit_1f)
+data.frame(three_factor = fitMeasures(out_3f), one_factor = fitMeasures(out_1f)) |>
+  format(scientific = FALSE, digits = 3, drop0trailing = TRUE)
 ```
 
 <details>
@@ -202,128 +345,10 @@ The one-factor model definitely seems to fit worse than the three-factor model.
   </details>
 </details>
 
----
-
-A second order CFA model is another way of representing the latent structure 
-underlying a set of items. As you read in Byrne (2005), however, the second 
-order CFA is only appropriate in certain circumstances.
-
----
-
-###
-
-Given the CFA results above, would a second order CFA be appropriate for the 
-*Trust* data? Why or why not?
-
-<details>
-  <summary>Click for explanation</summary>
-
-Yes, a second order CFA model is a theoretically appropriate representation of 
-the *Trust* items. 
-
-- The first order latent variables in the three-factor model are all 
-significantly correlated.
-- The first order latent variables in the three-factor model seem to tap 
-different aspects of some single underlying construct. 
-
-</details>
-
----
-
-###
-
-Define the `lavaan` model syntax for a second-order CFA model of the *Trust* items.
-
-- Use the three factors defined in \@ref(cfaSyntax) as the first order factors.
-
- <details>
-  <summary>Click to show code</summary>
-
-```{r}
-mod_2nd <- '
-institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
-satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
-politicians  =~ pltinvt + pltcare + trstplt
-
-trust =~ politicians + satisfaction + institutions
-'
-```
-
-<details>
-  <summary>Click for explanation</summary>
-
-To define the second order factor, we use the same syntactic conventions that we
-employ to define a first order factor. The only differences is that the 
-"indicators" of the second order factor (i.e., the variables listed on the RHS 
-of the `=~` operator) are previously defined first order latent variables.
-
-  </details>
-</details>
-
----
-
-###
-
-Estimate the second order CFA model, and summarize the results.
-
-- Does this model fit better or worse than the three-factor model?
-- Is this model more or less complex than the three-factor model?
-    - What information can you use to quantify this difference in complexity?
-
-<details>
-  <summary>Click to show code</summary>
-
-```{r}
-fit_2nd <- cfa(mod_2nd, data = ess)
-summary(fit_2nd, fit.measures = TRUE, standardized = TRUE)
-
-## Compare fit between the first and second order models:
-fitMeasures(fit_3f)
-fitMeasures(fit_2nd)
-```
-
-<details>
-  <summary>Click for explanation</summary>
-
-We don't have to do anything special here. We can estimate and summarize the 
-second order CFA exactly as we did the first order CFA.
-
----
-
-You should quickly notice something strange about the model fit statistics 
-compared above. If you don't see it, consider the following:
-
-```{r}
-fitMeasures(fit_3f) - fitMeasures(fit_2nd)
-```
-
-The two models produce identical fit statistics! We also see that the degrees of 
-freedom are identical between the two models. Hence, the two models have equal
-complexity.
-
-This result taps into a critical idea in statistical modeling, namely, *model 
-equivalency*. It turns out the two models we're comparing here are *equivalent* 
-in the sense that they are statistically indistinguishable representations of 
-the data.
-
-Since this is a very important idea, I want to spend some time discussing it in 
-person. So, spend some time between now and the Week 6 lecture session thinking 
-about the implications of this model equivalence. Specifically, consider the 
-following questions:
-
-- What do we mean when we say that these two models are *equivalent*?
-- How is it possible for these two models to be *equivalent* when one contains 
-an additional latent variable?
-- Why are the degrees of freedom equal for these two models?
-- Why are the fit statistics equal for these two models?
-
-We'll take some time to discuss these ideas in the Week 6 lecture session.
-
-  </details>
-</details>
-
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+[ess_data]: https://surfdrive.surf.nl/files/index.php/s/an0GVjaMiZYA73u 
