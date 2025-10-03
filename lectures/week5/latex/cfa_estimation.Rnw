@@ -788,7 +788,7 @@ partSummary(out1, 1:4)
   The CFI is a normed \emph{incremental fit index}.
   \begin{align*}
     \textrm{CFI} = 1 - \frac{
-      \textrm{max} \left( \chi^2 - df), ~ 0 \right)
+      \textrm{max} \left( \chi^2 - df, ~ 0 \right)
     }{ 
     \textrm{max} \left( \chi_0^2 - df_0, ~ \chi^2 - df, ~ 0 \right)
     }

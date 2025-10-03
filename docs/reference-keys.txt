@@ -136,10 +136,10 @@ cfa-ii
 lecture-4
 recordings-4
 slides-4
-extra-resources
 reading-4
 at-home-exercises-4
 in-class-exercises-4
+extra-resources
 fall-break
 full-sem
 lecture-5

@@ -5,7 +5,7 @@ source("code/chapter_setup.R")
 partDir <- paste0(partDir0, "week5/")
 ```
 
-This week, we will continue with CFA by focussing on the ideas of model fit, model complexity, and model identification. 
+This week, we will continue with CFA by focusing on model estimation and model fit.
 
 **Homework before the lecture**
 
@@ -30,10 +30,11 @@ knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 # knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 # knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 # knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir, "extra.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 
 # knit_child(paste0(partDir0, "lecture-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 knit_child(paste0(partDir0, "reading-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 knit_child(paste0(partDir0, "home-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 knit_child(paste0(partDir0, "class-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+
+knit_child(paste0(partDir, "extra.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
 ```
