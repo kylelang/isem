@@ -816,7 +816,8 @@ representation of the data?</p>
 <summary>
 Click for explanation
 </summary>
-<p><strong>Model Fit</strong></p>
+<div id="model-fit" class="section level5 unnumbered hasAnchor">
+<h5>Model Fit<a href="in-class-exercises-4.html#model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The model fit is ambiguous
 <span class="math inline">\((\chi^2 = 27329.81,\)</span>
 <span class="math inline">\(\textit{df} = 638,\)</span>
@@ -836,7 +837,9 @@ be overly optimistic when computed from large models with many degrees of freedo
 <li>One bad-looking index (CFI)</li>
 <li>One good-looking, but not entirely trustworthy, index (RMSEA)</li>
 </ul>
-<p><strong>Parameter Estimates</strong></p>
+</div>
+<div id="parameter-estimates" class="section level5 unnumbered hasAnchor">
+<h5>Parameter Estimates<a href="in-class-exercises-4.html#parameter-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The standardized factor loadings and residual variances seem fine.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="in-class-exercises-4.html#cb183-1" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(out_trust_att, <span class="st">&quot;standardized&quot;</span>)</span>
 <span id="cb183-2"><a href="in-class-exercises-4.html#cb183-2" tabindex="-1"></a><span class="fu">cbind</span>(est<span class="sc">$</span>lambda, <span class="at">Resid_Var =</span> <span class="fu">diag</span>(est<span class="sc">$</span>theta)) <span class="sc">|&gt;</span></span>
@@ -895,27 +898,28 @@ be overly optimistic when computed from large models with many degrees of freedo
 ## econ     0.276  0.235  0.325 -0.453  0.575 -0.498 -0.445  1.000</code></pre>
 <p>The balance of evidence suggests that this model is probably useful, but we’re definitely in a gray area. In practice,
 we would need to consider the context of our analysis. For example, we should ask ourselves questions like the following.</p>
-<p><em>How noisy are the data?</em></p>
+<p><strong><em>How noisy are the data?</em></strong></p>
 <p>Do we have high-quality data that should support an unambiguously good model? If so, these results don’t stack up. On
 the other hand, we might not have high expectations because we know that our data are very noisy. If we’re just using
 this analysis to provide some vague guidance toward next steps in our research line, we may be fine with this model.</p>
-<p><em>What are the stakes of “getting it wrong”?</em></p>
+<p><strong><em>What are the stakes of “getting it wrong”?</em></strong></p>
 <p>We don’t want to use this quality of result to make mission-critical inference. For example, if our results will
 influence real-world policy or impact the design of subsequent projects in our research line, this model isn’t good
 enough.</p>
-<p><em>What are the standards in our field?</em></p>
+<p><strong><em>What are the standards in our field?</em></strong></p>
 <p>If we’re working in a field where noisy data and weak theory are unavoidable, then this model is probably good enough to
-provide some meaningful insight. That’s not to say that we should promulgate questionable research practices. If good
+provide some meaningful insight. That’s not to say that we should employ questionable research practices. If good
 measurement and rigorous theory are possible, we should shoot for those more lofty objectives. Frequently, however, we
 really don’t have any hope of a good fitting model. In such situations, we should make the most of the data we can get.</p>
 </details>
 <hr />
-<p>When we fail to support the hypothesized measurement model, the confirmatory phase of our analysis is over. At this
-point, we’ve essentially rejected our hypothesized measurement structure, and that’s the conclusion of our analysis. We
-don’t have to throw up our hands in despair, however. We can still contribute something useful by modifying the
-theoretical measurement model through an exploratory, data-driven, post-hoc analysis.</p>
+<p>If we fail to support the measurement model that we hypothesized a priori, the confirmatory phase of our analysis is
+over. At this point, we’ve essentially rejected our hypothesized measurement structure, and that’s the conclusion of our
+analysis. We don’t have to throw up our hands in despair, however. We can still contribute something useful by modifying
+the theoretical measurement model through an exploratory, data-driven, post-hoc analysis.</p>
 <p>We’ll give that a shot below.</p>
 <hr />
+</div>
 </div>
 </div>
 <div id="post-hoc-model-modifications" class="section level3 hasAnchor" number="5.4.2">
@@ -926,7 +930,7 @@ model is clearly rejected). Unfortunately, such cases arise frequently in real-w
 make the most of these bad situations.</p>
 <div id="modification-indices" class="section level4 unnumbered hasAnchor">
 <h4>Modification Indices<a href="in-class-exercises-4.html#modification-indices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>If we’re going to modify our hypothesized model structure, the can help guide us.</p>
+<p>If we’re going to modify our hypothesized model structure, the <em>modification indices</em> can help guide us.</p>
 <p>Modification indices estimate the improvement in model fit that we’d get from freeing parameters that are fixed in the
 current model. If a parameter has a large modification index, we expect substantially better fit for a model that freely
 estimates that parameter. Hence, we can use the modification indices to help us choose which parameter estimates to add
@@ -1039,8 +1043,8 @@ At-Home Exercises.</p>
 ## 124       stfeco ~~ pltinvt    0.384  0.008   0.008    0.006    0.006
 ## 94        trstep ~~  stfedu    0.196 -0.012  -0.012   -0.004   -0.004
 ## 126       stfeco ~~ trstplt    0.001 -0.001  -0.001    0.000    0.000</code></pre>
-<p>As you can see, the <code>modificationInices()</code> function will usually produce a lot of output, but we don’t need all that
-stuff. We only care about the largest modification indices, so we only need to print the first few rows.</p>
+<p>As you can see, the <code>modificationInices()</code> function will usually produce a lot of output, but we only care about the
+largest modification indices. So, we can simplify by printing only the first few rows.</p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="in-class-exercises-4.html#cb189-1" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_3f, <span class="at">sort. =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##              lhs op     rhs       mi   epc sepc.lv sepc.all sepc.nox
 ## 59       trstlgl ~~ trstplc 2753.812 1.537   1.537    0.487    0.487
@@ -1062,21 +1066,41 @@ model <span class="math inline">\(\chi^2\)</span> as a useful rule-of-thumb.</p>
 </div>
 <div id="using-modification-indices" class="section level4 unnumbered hasAnchor">
 <h4>Using Modification Indices<a href="in-class-exercises-4.html#using-modification-indices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>To keep our modifications in check, we should follow the guidelines below when using modification indices to help choose
-which parameters to free.</p>
+<p>We need to be very careful here; it’s surprisingly easy to go wrong with modification indices. It’s no secret that
+humans are hardwired to recognize patterns (even where none exist) and to bootstrap explanatory stories from meaningless
+coincidence. Yet, we often seem to forget these most fundamental aspect of our nature when faced with the opportunity to
+adjust an a priori theory to better align with contradictory evidence. We all seem to agree that most other people are
+weak-willed, HARKing monsters, but we’re certainly not. In our own minds, we’ve each somehow ascended beyond these baser
+instincts to the rarefied heights of truly disinterested observers for whom a priori model specification and post-hoc
+model modification are equivalent.</p>
+<p>I’m being a bit facetious here, but only a bit. If you allow yourself to do so, I can all but guarantee that you’ll be
+able to justify enough modifications to get a well-fitting model. So, we need to police our own behavior. To keep our
+modifications in check, we should follow the guidelines below when using modification indices to help choose which
+parameters to free.</p>
 <ul>
-<li>Only consider parameters with modification indices larger than 10% of the model <span class="math inline">\(\chi^2\)</span>.</li>
-<li>Only consider parameters that make obvious theoretical sense.</li>
-<li>Only consider parameters that you believe to be part of the true model.</li>
+<li>Only consider parameters with modification indices larger than 10% of the model <span class="math inline">\(\chi^2\)</span>.
+<ul>
+<li>Don’t sell your soul too cheaply.</li>
+</ul></li>
+<li>Only consider parameters that make obvious theoretical sense.
+<ul>
+<li>You should be kicking yourself for not including the parameter in your original model.</li>
+<li>If you have to think through why the parameter should be estimated, don’t estimate it.</li>
+</ul></li>
+<li>Only consider parameters that you believe to be part of the true model.
+<ul>
+<li>You’re not trying to get good fit; you’re proposing a new model structure. This is serious!</li>
+</ul></li>
 </ul>
-<p>The final guideline is particularly important. The goal of post-hoc model modifications is not getting the model to fit
+<p>The final guideline is particularly important. The goal of post-hoc model modification is not getting the model to fit
 our data: that ship has already sailed. We’re proposing changes to the theoretical model for the benefit of future
 research on our topic. That’s a heavy task. We can only make a justified post-hoc model modification if we can honestly
 agree with the following statements.</p>
 <ul>
-<li>My a priori hypothesized model was wrong.</li>
+<li>The model that I initially hypothesized was misspecified.</li>
+<li>Whoever proposed the model that I originally tested was wrong.</li>
 <li>These modifications are part of the true population model that I’m trying to estimate.</li>
-<li>All future analyses should use this modified version of the model as the a priori hypothesized model.</li>
+<li>All future analyses should use this modified version of the model as the a priori model.</li>
 </ul>
 <p>To give you a sense of the gravity of these decisions, consider the following humble-brag. I’ve been doing this type of
 modeling in some professional capacity for more than 15 years, and I can’t recall a single case where I’ve been able to
@@ -1351,8 +1375,8 @@ Click to show code
 Click for explanation
 </summary>
 <ul>
-<li><p>Freeing the covariance between <code>imrcntr</code> and <code>eimrcnt</code> would produce the largest improvement in model fit.</p></li>
-<li><p>After freeing this parameter, we’d expect the model <span class="math inline">\(\chi^2\)</span> to decrease by 5114.36.</p></li>
+<li><p>Freeing the covariance between <code>trstlgl</code> and <code>trstplc</code> would produce the largest improvement in model fit.</p></li>
+<li><p>After freeing this parameter, we’d expect the model <span class="math inline">\(\chi^2\)</span> to decrease by 2132.87.</p></li>
 <li><p>Yes. Both of these items ask about trust in parts of the legal system. None of the other questions address trust in
 courts or police.</p>
 </details></li>
@@ -1576,10 +1600,10 @@ Click to show code
 <div id="model-comparisons" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> Model Comparisons<a href="in-class-exercises-4.html#model-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <hr />
-<p>For the At-Home Exercises, you qualitatively compared the fit of a three-factor <em>Trust in Politics</em> model to the fit of
-a one-factor version. This type of qualitative comparison is fine, but we’d like to have an actual statistical test for
-these fit differences. As it happens, we have just such a test: a nested model <span class="math inline">\(\Delta \chi^2\)</span> test (AKA, chi-squared
-difference test, change in chi-squared test, likelihood ratio test).</p>
+<p>For the At-Home Exercises, you qualitatively compared the fit of a three-factor model to the fit of a one-factor
+version. This type of qualitative comparison is fine, but we’d like to have an actual statistical test for these fit
+differences. As it happens, we have just such a test: a nested model <span class="math inline">\(\Delta \chi^2\)</span> test (AKA, chi-squared difference
+test, change in chi-squared test, likelihood ratio test).</p>
 <p>In the coming weeks, we’ll cover nested models and tests thereof, but it will be useful to start thinking about these
 concepts now. Two models are said to be <em>nested</em> if you can define one model by placing constraints on the other model.</p>
 <p>By way of example, consider the following two CFA models.</p>
@@ -1618,41 +1642,42 @@ constraints we imposed to define the nested model have produced <em>too much</em
 <hr />
 <div id="section-72" class="section level4" number="5.4.3.1">
 <h4><span class="header-section-number">5.4.3.1</span> </h4>
-<p>Use the <code>anova()</code> function to compare the three-factor model <em>Trust in Politics</em> from <a href="at-home-exercises-4.html#estimateCfa3F">5.3.3</a> to the
-one-factor model from <a href="at-home-exercises-4.html#estimateCfa1F">5.3.6</a>.</p>
-<ul>
+<p>Use the <code>anova()</code> function to compare the three-factor model of <em>Trust in Politics</em> from <a href="at-home-exercises-4.html#estimateCfa3F">5.3.3</a> to the
+one-factor model version <a href="at-home-exercises-4.html#estimateCfa1F">5.3.6</a>.</p>
+<ol style="list-style-type: decimal">
 <li>Explain what <code>Df</code>, <code>Chisq</code>, <code>Chisq diff</code>, <code>Df diff</code>, and <code>Pr(&gt;Chisq)</code> mean.</li>
 <li>Which model is more complex?</li>
 <li>Which model fits better?</li>
 <li>What is the conclusion of the test?</li>
-</ul>
+</ol>
 <details>
 <summary>
 Click to show code
 </summary>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="in-class-exercises-4.html#cb201-1" tabindex="-1"></a><span class="fu">anova</span>(out_1f, out_3f)</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Chisq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Chisq diff"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSEA"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Df diff"],"name":[7],"type":["int"],"align":["right"]},{"label":["Pr(>Chisq)"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"62","2":"742867.3","3":"743087.7","4":"10652.21","5":"NA","6":"NA","7":"NA","8":"NA","_rn_":"out_3f"},{"1":"65","2":"749876.4","3":"750074.0","4":"17667.30","5":"7015.096","6":"0.3976999","7":"3","8":"0","_rn_":"out_1f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##        Df    AIC    BIC Chisq Chisq diff  RMSEA Df diff Pr(&gt;Chisq)
+## out_3f 62 742867 743088 10652                                     
+## out_1f 65 749876 750074 17667     7015.1 0.3977       3  &lt; 2.2e-16</code></pre>
 <details>
 <summary>
 Click for explanation
 </summary>
+<p><strong>Q1:</strong></p>
 <p>The <code>Df</code> column contains the degrees of freedom of each model.</p>
 <ul>
-<li>Higher df <span class="math inline">\(\Rightarrow\)</span> Less complex model</li>
+<li>More df <span class="math inline">\(\Rightarrow\)</span> Fewer estimated parameters <span class="math inline">\(\Rightarrow\)</span> Less complex model</li>
 </ul>
 <p>The <code>Chisq</code> column shows the <span class="math inline">\(\chi^2\)</span> statistics (AKA, likelihood ratio statistics) for each model.</p>
 <ul>
-<li><span class="math inline">\(\chi^2\)</span> = The ratio of the likelihoods for the estimated model and the saturated model.</li>
 <li>Larger <span class="math inline">\(\chi^2\)</span> <span class="math inline">\(\Rightarrow\)</span> Worse fit</li>
 </ul>
 <p><code>Chisq diff</code> is the difference between the two <span class="math inline">\(\chi^2\)</span> values (i.e., <span class="math inline">\(\Delta \chi^2\)</span>).</p>
 <ul>
 <li>How much better the more complex model fits the data</li>
-<li>Larger <span class="math inline">\(\Delta \chi^2\)</span> values indicate greater losses of fit induced by the constraints place on the nested model.</li>
+<li>Larger <span class="math inline">\(\Delta \chi^2\)</span> values indicate greater losses of fit induced by the constraints in the nested model.</li>
 </ul>
 <p><code>Df diff</code> is the difference in the degrees of freedom between the models.</p>
 <ul>
@@ -1664,15 +1689,24 @@ parameters that were constrained to define the nested model.</li>
 <li><span class="math inline">\(H_0: \Delta \chi^2 = 0\)</span></li>
 <li><span class="math inline">\(H_1: \Delta \chi^2 &gt; 0\)</span></li>
 </ul>
+<p><strong>Q2:</strong></p>
+<p>The three-factor model has fewer degrees of freedom <span class="math inline">\((\textit{df} = 62)\)</span> than the one-factor model
+<span class="math inline">\((\textit{df} = 65)\)</span>. So, the three-factor model is more complex.</p>
+<p><strong>Q3:</strong></p>
+<p>The three-factor model fits better than the one-factor model <span class="math inline">\((\chi_{3F}^2 = 10652.21\)</span> vs. <span class="math inline">\(\chi_{1F}^2 = 17667.30)\)</span>.</p>
+<p><strong>Q4:</strong></p>
 <p>The three-factor model is more complex than the one-factor model, but the extra complexity is justified. The
-three-factor model fits significantly better than the one-factor model.</p>
+three-factor model fits significantly better than the one-factor model
+<span class="math inline">\((\Delta\chi^2 = 7015.1,\)</span>
+<span class="math inline">\(\textit{df} = 3,\)</span>
+<span class="math inline">\(p &lt; 0.001).\)</span></p>
 </details>
 </details>
 <hr />
 </div>
 <div id="section-73" class="section level4" number="5.4.3.2">
 <h4><span class="header-section-number">5.4.3.2</span> </h4>
-<p>Use a <span class="math inline">\(\Delta\chi^2\)</span> test to test if the additional parameter estimates you added in <a href="in-class-exercises-4.html#estimateCfaTrustAtt2">5.4.2.2</a> and
+<p>Use the <span class="math inline">\(\Delta\chi^2\)</span> to test if the additional parameter estimates you added in <a href="in-class-exercises-4.html#estimateCfaTrustAtt2">5.4.2.2</a> and
 <a href="in-class-exercises-4.html#estimateCfaTrustAtt3">5.4.2.4</a> significantly improve the model fit.</p>
 <ul>
 <li>Did the model fit significantly improve?</li>
@@ -1682,14 +1716,14 @@ three-factor model fits significantly better than the one-factor model.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="in-class-exercises-4.html#cb202-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att3)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="in-class-exercises-4.html#cb203-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att3)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 
 ##                 Df     AIC     BIC Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)
 ## out_trust_att3 636 1422116 1422890 19151                                      
 ## out_trust_att  638 1430291 1431050 27330     8179.2 0.59074       2  &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="in-class-exercises-4.html#cb204-1" tabindex="-1"></a><span class="fu">fitMeasures</span>(out_trust_att3)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="in-class-exercises-4.html#cb205-1" tabindex="-1"></a><span class="fu">fitMeasures</span>(out_trust_att3)</span></code></pre></div>
 <pre><code>##                  npar                  fmin                 chisq 
 ##               105.000                 0.817             19150.640 
 ##                    df                pvalue        baseline.chisq 
@@ -1736,7 +1770,7 @@ significant, so we can conclude that including the two new parameter estimates h
 <ul>
 <li>I.e., Estimating these two residual covariances is “worth it” in the sense of balancing model fit and model complexity.</li>
 </ul>
-<p>Also, the overall fit of the modified model is now more unanbiguously acceptable
+<p>Also, the overall fit of the modified model is now more unambiguously acceptable
 <span class="math inline">\((\chi^2 = 19150.64,\)</span>
 <span class="math inline">\(\textit{df} = 636,\)</span>
 <span class="math inline">\(p &lt; 0.001,\)</span>
@@ -1769,17 +1803,17 @@ Immigration</em> factors.</li>
 <summary>
 Click to show code
 </summary>
-<p>First, we’ll define a syntax snippit to enforce the constraints.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="in-class-exercises-4.html#cb206-1" tabindex="-1"></a>constraints <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb206-2"><a href="in-class-exercises-4.html#cb206-2" tabindex="-1"></a><span class="st">inst ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
-<span id="cb206-3"><a href="in-class-exercises-4.html#cb206-3" tabindex="-1"></a><span class="st">sat  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
-<span id="cb206-4"><a href="in-class-exercises-4.html#cb206-4" tabindex="-1"></a><span class="st">pol  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
-<span id="cb206-5"><a href="in-class-exercises-4.html#cb206-5" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<p>First, we’ll define a syntax snippet to enforce the constraints.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="in-class-exercises-4.html#cb207-1" tabindex="-1"></a>constraints <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb207-2"><a href="in-class-exercises-4.html#cb207-2" tabindex="-1"></a><span class="st">inst ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-3"><a href="in-class-exercises-4.html#cb207-3" tabindex="-1"></a><span class="st">sat  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-4"><a href="in-class-exercises-4.html#cb207-4" tabindex="-1"></a><span class="st">pol  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-5"><a href="in-class-exercises-4.html#cb207-5" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
 <p>Now, we’ll add the constraint syntax to the CFA syntax.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="in-class-exercises-4.html#cb207-1" tabindex="-1"></a>mod_trust_att0 <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_trust_att, constraints, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="in-class-exercises-4.html#cb208-1" tabindex="-1"></a>mod_trust_att0 <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_trust_att, constraints, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>Finally, we’ll estimate and summarize the restricted model.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="in-class-exercises-4.html#cb208-1" tabindex="-1"></a>out_trust_att0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att0, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb208-2"><a href="in-class-exercises-4.html#cb208-2" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="in-class-exercises-4.html#cb209-1" tabindex="-1"></a>out_trust_att0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att0, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb209-2"><a href="in-class-exercises-4.html#cb209-2" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 48 iterations
 ## 
 ##   Estimator                                         ML
@@ -1990,8 +2024,8 @@ restricted version you estimated in <a href="in-class-exercises-4.html#estimateC
 Click for explanation
 </summary>
 <ol style="list-style-type: decimal">
-<li>The unrestricted CFA is more complex: we estimate more parameters in that model.</li>
-<li>The restricted model will have more degrees of freedom: we lose one degree of freedom for every estimated parameter.</li>
+<li>The unrestricted CFA is more complex: We estimate more parameters in that model.</li>
+<li>The restricted model will have more degrees of freedom: We lose one degree of freedom for every estimated parameter.</li>
 <li><span class="math inline">\(\Delta \textit{df} = 24\)</span>: We fixed 24 latent covariances to define the restricted model, so the restricted model has
 24 more degrees of freedom.</li>
 <li>Our <span class="math inline">\(\chi^2\)</span> test will have <span class="math inline">\(\textit{df} = 24\)</span>: The df for a <span class="math inline">\(\Delta\chi^2\)</span> is equal to the <span class="math inline">\(\Delta \textit{df}\)</span>
@@ -2005,13 +2039,13 @@ between the compared models.</li>
 <p>Use R to conduct the <span class="math inline">\(\Delta\chi^2\)</span> test.</p>
 <ul>
 <li>What is the conclusion of the test?</li>
-<li>Support your claim with appropriate statitsics.</li>
+<li>Support your claim with appropriate statistics</li>
 </ul>
 <details>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="in-class-exercises-4.html#cb210-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att0)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="in-class-exercises-4.html#cb211-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att0)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 

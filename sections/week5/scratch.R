@@ -14,6 +14,19 @@ politicians  =~ pltinvt + pltcare + trstplt
 
 out_3f <- cfa(mod_3f, data = ess, std.lv = TRUE)
 
+mod_1f <- '
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl + stfhlth + stfedu  + stfeco + stfgov + stfdem + pltinvt + pltcare + trstplt
+'
+
+out_1f <- cfa(mod_1f, data = ess, std.lv = TRUE)
+
+aOut <- anova(out_3f, out_1f)
+
+x2 <- aOut[ , "Chisq"] |> round(2)
+
+x2[1]
+x2[2]
+
 fit <- fitMeasures(out_3f) |> as.list()
 x2 <- fit$chisq |> round(2)
 

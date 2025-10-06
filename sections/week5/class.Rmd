@@ -244,7 +244,7 @@ srmr  <- fit$srmr |> round(3)
 n <- fit$ntotal |> format(scientific = FALSE)
 ```
 
-**Model Fit**
+##### Model Fit {-}
 
 The model fit is ambiguous
 $(\chi^2 = `r x2`,$
@@ -265,7 +265,7 @@ be overly optimistic when computed from large models with many degrees of freedo
 - One bad-looking index (CFI)
 - One good-looking, but not entirely trustworthy, index (RMSEA)
 
-**Parameter Estimates**
+##### Parameter Estimates {-}
 
 The standardized factor loadings and residual variances seem fine.
 
@@ -285,22 +285,22 @@ round(est$psi, 3)
 The balance of evidence suggests that this model is probably useful, but we're definitely in a gray area. In practice,
 we would need to consider the context of our analysis. For example, we should ask ourselves questions like the following.
 
-*How noisy are the data?*
+***How noisy are the data?***
 
 Do we have high-quality data that should support an unambiguously good model? If so, these results don't stack up. On
 the other hand, we might not have high expectations because we know that our data are very noisy. If we're just using
 this analysis to provide some vague guidance toward next steps in our research line, we may be fine with this model.
 
-*What are the stakes of "getting it wrong"?*
+***What are the stakes of "getting it wrong"?***
 
 We don't want to use this quality of result to make mission-critical inference. For example, if our results will
 influence real-world policy or impact the design of subsequent projects in our research line, this model isn't good
 enough.
 
-*What are the standards in our field?*
+***What are the standards in our field?***
 
 If we're working in a field where noisy data and weak theory are unavoidable, then this model is probably good enough to
-provide some meaningful insight. That's not to say that we should promulgate questionable research practices. If good
+provide some meaningful insight. That's not to say that we should employ questionable research practices. If good
 measurement and rigorous theory are possible, we should shoot for those more lofty objectives. Frequently, however, we
 really don't have any hope of a good fitting model. In such situations, we should make the most of the data we can get.
 
@@ -308,10 +308,10 @@ really don't have any hope of a good fitting model. In such situations, we shoul
 
 ------------------------------------------------------------------------------------------------------------------------
 
-When we fail to support the hypothesized measurement model, the confirmatory phase of our analysis is over. At this
-point, we've essentially rejected our hypothesized measurement structure, and that's the conclusion of our analysis. We
-don't have to throw up our hands in despair, however. We can still contribute something useful by modifying the
-theoretical measurement model through an exploratory, data-driven, post-hoc analysis.
+If we fail to support the measurement model that we hypothesized a priori, the confirmatory phase of our analysis is
+over. At this point, we've essentially rejected our hypothesized measurement structure, and that's the conclusion of our
+analysis. We don't have to throw up our hands in despair, however. We can still contribute something useful by modifying
+the theoretical measurement model through an exploratory, data-driven, post-hoc analysis.
 
 We'll give that a shot below.
 
@@ -327,7 +327,7 @@ make the most of these bad situations.
 
 #### Modification Indices {-}
 
-If we're going to modify our hypothesized model structure, the \emph{modification indices} can help guide us.
+If we're going to modify our hypothesized model structure, the *modification indices* can help guide us.
 
 Modification indices estimate the improvement in model fit that we'd get from freeing parameters that are fixed in the
 current model. If a parameter has a large modification index, we expect substantially better fit for a model that freely
@@ -341,8 +341,8 @@ At-Home Exercises.
 modificationIndices(out_3f, sort. = TRUE)
 ```
 
-As you can see, the `modificationInices()` function will usually produce a lot of output, but we don't need all that
-stuff. We only care about the largest modification indices, so we only need to print the first few rows.
+As you can see, the `modificationInices()` function will usually produce a lot of output, but we only care about the
+largest modification indices. So, we can simplify by printing only the first few rows.
 
 ```{r, paged.print = FALSE}
 modificationIndices(out_3f, sort. = TRUE) |> head()
@@ -371,21 +371,36 @@ So, we can infer that freeing the `r text` would reduce the model $\chi^2$ by `r
 
 #### Using Modification Indices {-}
 
-To keep our modifications in check, we should follow the guidelines below when using modification indices to help choose
-which parameters to free.
+We need to be very careful here; it's surprisingly easy to go wrong with modification indices. It's no secret that
+humans are hardwired to recognize patterns (even where none exist) and to bootstrap explanatory stories from meaningless
+coincidence. Yet, we often seem to forget these most fundamental aspect of our nature when faced with the opportunity to
+adjust an a priori theory to better align with contradictory evidence. We all seem to agree that most other people are
+weak-willed, HARKing monsters, but we're certainly not. In our own minds, we've each somehow ascended beyond these baser
+instincts to the rarefied heights of truly disinterested observers for whom a priori model specification and post-hoc
+model modification are equivalent.
+
+I'm being a bit facetious here, but only a bit. If you allow yourself to do so, I can all but guarantee that you'll be
+able to justify enough modifications to get a well-fitting model. So, we need to police our own behavior. To keep our
+modifications in check, we should follow the guidelines below when using modification indices to help choose which
+parameters to free.
 
 - Only consider parameters with modification indices larger than 10\% of the model $\chi^2$.
+   - Don't sell your soul too cheaply.
 - Only consider parameters that make obvious theoretical sense.
+   - You should be kicking yourself for not including the parameter in your original model.
+   - If you have to think through why the parameter should be estimated, don't estimate it.
 - Only consider parameters that you believe to be part of the true model.
+   - You're not trying to get good fit; you're proposing a new model structure. This is serious!
 
-The final guideline is particularly important. The goal of post-hoc model modifications is not getting the model to fit
+The final guideline is particularly important. The goal of post-hoc model modification is not getting the model to fit
 our data: that ship has already sailed. We're proposing changes to the theoretical model for the benefit of future
 research on our topic. That's a heavy task. We can only make a justified post-hoc model modification if we can honestly
 agree with the following statements.
 
-- My a priori hypothesized model was wrong.
+- The model that I initially hypothesized was misspecified.
+- Whoever proposed the model that I originally tested was wrong.
 - These modifications are part of the true population model that I'm trying to estimate.
-- All future analyses should use this modified version of the model as the a priori hypothesized model.
+- All future analyses should use this modified version of the model as the a priori model.
 
 To give you a sense of the gravity of these decisions, consider the following humble-brag. I've been doing this type of
 modeling in some professional capacity for more than 15 years, and I can't recall a single case where I've been able to
@@ -478,7 +493,7 @@ modificationIndices(out_trust_att2, sort. = TRUE, minimum.value = thresh)
     <summary>Click for explanation</summary>
 
 ```{r, echo = FALSE, include = FALSE}
-mi <- modificationIndices(out_trust_att, sort. = TRUE)[1, , drop = FALSE]
+mi <- modificationIndices(out_trust_att2, sort. = TRUE)[1, , drop = FALSE]
 v1 <- mi$lhs
 v2 <- mi$rhs
 val <- mi$mi |> round(2)
@@ -524,10 +539,10 @@ summary(out_trust_att3, fit.measures = TRUE, standardized = TRUE)
 
 ------------------------------------------------------------------------------------------------------------------------
 
-For the At-Home Exercises, you qualitatively compared the fit of a three-factor *Trust in Politics* model to the fit of
-a one-factor version. This type of qualitative comparison is fine, but we'd like to have an actual statistical test for
-these fit differences. As it happens, we have just such a test: a nested model $\Delta \chi^2$ test (AKA, chi-squared
-difference test, change in chi-squared test, likelihood ratio test).
+For the At-Home Exercises, you qualitatively compared the fit of a three-factor model to the fit of a one-factor
+version. This type of qualitative comparison is fine, but we'd like to have an actual statistical test for these fit
+differences. As it happens, we have just such a test: a nested model $\Delta \chi^2$ test (AKA, chi-squared difference
+test, change in chi-squared test, likelihood ratio test).
 
 In the coming weeks, we'll cover nested models and tests thereof, but it will be useful to start thinking about these
 concepts now. Two models are said to be *nested* if you can define one model by placing constraints on the other model.
@@ -653,37 +668,47 @@ We can use the `anova()` function to easily conduct $\Delta \chi^2$ tests compar
 
 ####
 
-Use the `anova()` function to compare the three-factor model *Trust in Politics* from \@ref(estimateCfa3F) to the
-one-factor model from \@ref(estimateCfa1F). 
+Use the `anova()` function to compare the three-factor model of *Trust in Politics* from \@ref(estimateCfa3F) to the
+one-factor model version \@ref(estimateCfa1F). 
 
-- Explain what `Df`, `Chisq`, `Chisq diff`, `Df diff`, and `Pr(>Chisq)` mean.
-- Which model is more complex?
-- Which model fits better?
-- What is the conclusion of the test?
+1. Explain what `Df`, `Chisq`, `Chisq diff`, `Df diff`, and `Pr(>Chisq)` mean.
+1. Which model is more complex?
+1. Which model fits better?
+1. What is the conclusion of the test?
 
 <details>
   <summary>Click to show code</summary>
   
-```{r}
+```{r, paged.print = FALSE}
 anova(out_1f, out_3f)
 ```
   
   <details>
     <summary>Click for explanation</summary>
     
+```{r, echo = FALSE, include = FALSE}
+aOut <- anova(out_1f, out_3f)
+df <- aOut[ , "Df"] |> round()
+x2 <- aOut[ , "Chisq"] |> format(scientific = FALSE)
+dX2 <- aOut[2, "Chisq diff"] |> round(2)
+dDf <- aOut[2, "Df diff"] |> round()
+dP <- prettyPValue(aOut[2, "Pr(>Chisq)"])
+```
+
+**Q1:**
+
 The `Df` column contains the degrees of freedom of each model.
 
-- Higher df $\Rightarrow$ Less complex model
+- More df $\Rightarrow$ Fewer estimated parameters $\Rightarrow$ Less complex model
 
 The `Chisq` column shows the $\chi^2$ statistics (AKA, likelihood ratio statistics) for each model.
 
-- $\chi^2$ = The ratio of the likelihoods for the estimated model and the saturated model.
 - Larger $\chi^2$ $\Rightarrow$ Worse fit
 
 `Chisq diff` is the difference between the two $\chi^2$ values (i.e., $\Delta \chi^2$).
 
 - How much better the more complex model fits the data
-- Larger $\Delta \chi^2$ values indicate greater losses of fit induced by the constraints place on the nested model.
+- Larger $\Delta \chi^2$ values indicate greater losses of fit induced by the constraints in the nested model.
 
 `Df diff` is the difference in the degrees of freedom between the models.
 
@@ -695,8 +720,22 @@ parameters that were constrained to define the nested model.
 - $H_0: \Delta \chi^2 = 0$
 - $H_1: \Delta \chi^2 > 0$
 
+**Q2:**
+
+The three-factor model has fewer degrees of freedom $(\textit{df} = `r df[1]`)$ than the one-factor model
+$(\textit{df} = `r df[2]`)$. So, the three-factor model is more complex.
+
+**Q3:**
+
+The three-factor model fits better than the one-factor model $(\chi_{3F}^2 = `r x2[1]`$ vs. $\chi_{1F}^2 = `r x2[2]`)$.
+
+**Q4:**
+
 The three-factor model is more complex than the one-factor model, but the extra complexity is justified. The
-three-factor model fits significantly better than the one-factor model.
+three-factor model fits significantly better than the one-factor model
+$(\Delta\chi^2 = `r dX2`,$
+$\textit{df} = `r dDf`,$
+$`r dP`).$
 
   </details>
 </details>
@@ -705,7 +744,7 @@ three-factor model fits significantly better than the one-factor model.
 
 ####
 
-Use a $\Delta\chi^2$ test to test if the additional parameter estimates you added in \@ref(estimateCfaTrustAtt2) and
+Use the $\Delta\chi^2$ to test if the additional parameter estimates you added in \@ref(estimateCfaTrustAtt2) and
 \@ref(estimateCfaTrustAtt3) significantly improve the model fit.
 
 - Did the model fit significantly improve?
@@ -749,7 +788,7 @@ significant, so we can conclude that including the two new parameter estimates h
 
 - I.e., Estimating these two residual covariances is "worth it" in the sense of balancing model fit and model complexity.
 
-Also, the overall fit of the modified model is now more unanbiguously acceptable
+Also, the overall fit of the modified model is now more unambiguously acceptable
 $(\chi^2 = `r x2`,$
 $\textit{df} = `r df`,$
 $`r p`,$
@@ -787,7 +826,7 @@ Summarize the estimated model to check that everything worked.
 <details>
   <summary>Click to show code</summary>
 
-First, we'll define a syntax snippit to enforce the constraints.
+First, we'll define a syntax snippet to enforce the constraints.
 
 ```{r}
 constraints <- '
@@ -829,8 +868,8 @@ restricted version you estimated in \@ref(estimateCfaTrustAtt0). All remaining q
 <details>
   <summary>Click for explanation</summary>
 
-1. The unrestricted CFA is more complex: we estimate more parameters in that model.
-1. The restricted model will have more degrees of freedom: we lose one degree of freedom for every estimated parameter.
+1. The unrestricted CFA is more complex: We estimate more parameters in that model.
+1. The restricted model will have more degrees of freedom: We lose one degree of freedom for every estimated parameter.
 1. $\Delta \textit{df} = 24$: We fixed 24 latent covariances to define the restricted model, so the restricted model has
    24 more degrees of freedom.
 1. Our $\chi^2$ test will have $\textit{df} = 24$: The df for a $\Delta\chi^2$ is equal to the $\Delta \textit{df}$
@@ -845,7 +884,7 @@ restricted version you estimated in \@ref(estimateCfaTrustAtt0). All remaining q
 Use R to conduct the $\Delta\chi^2$ test.
 
 - What is the conclusion of the test?
-- Support your claim with appropriate statitsics.
+- Support your claim with appropriate statistics
 
 <details>
   <summary>Click to show code</summary>
