@@ -117,11 +117,12 @@ descriptives(ess)
 ```{r, echo = FALSE, include = FALSE}
 names(desc) <- colnames(ess)
 xxx <- as.list(desc)
+saveRDS(xxx, here::here(dataDir, "ess_variable_descriptions.rds"))
 ```
 
-Kestilä, E. (2006) used principal components analysis to estimate the measurement model underlying thirteen ESS
-variables related to *Trust in Politics*. Based on the results of this PCA, Kestilä recommended the following
-three-factor structure.
+Kestilä (2006) used principal components analysis to estimate the measurement model underlying thirteen ESS variables
+related to *Trust in Politics*. Based on the results of this PCA, Kestilä recommended the following three-factor
+structure.
 
 **Trust in Institutions**
 
@@ -170,7 +171,7 @@ politicians  =~ pltinvt + pltcare + trstplt
 
 ------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#estimateCfa3F}
 
 Estimate the CFA model you defined above, summarize the results, and evaluate the model fit.
 
@@ -313,7 +314,7 @@ political_trust =~
 
 ------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#estimateCfa1F}
 
 Estimate the one-factor model, and summarize the results.
 
