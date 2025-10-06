@@ -102,3 +102,84 @@ desc
 
 length(desc)
 length(ccc)
+
+mod_att <- '
+## Immigration Policy:
+ip =~ imrcntr + eimrcnt + eimpcnt + imsmetn + impcntr + imdfetn 
+
+## Social Threat:
+st =~ imbgeco + imbleco + imwbcnt + imwbcrm + imtcjob + imueclt
+
+## Refugee Policy:
+rp =~ gvrfgap + imrsprc + rfgbfml + rfggvfn + rfgawrk + rfgfrpc + shrrfg
+
+## Cultural Threat:
+ct =~ qfimchr + qfimwht + pplstrd + vrtrlg
+
+## Economic Threat:
+et =~ l*imwgdwn + l*imhecop 
+'
+
+mod_trust_att <- '
+## Trust in Institutions:
+institutions =~ trstlgl + trstplc + trstun + trstep + trstprl
+
+## Satisfaction with the Political Situation:
+satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem
+
+## Trust in Politicians:
+politicians  =~ pltinvt + pltcare + trstplt
+
+## Immigration Policy:
+ip =~ imrcntr + eimrcnt + eimpcnt + imsmetn + impcntr + imdfetn 
+
+## Social Threat:
+st =~ imbgeco + imbleco + imwbcnt + imwbcrm + imtcjob + imueclt
+
+## Refugee Policy:
+rp =~ gvrfgap + imrsprc + rfgbfml + rfggvfn + rfgawrk + rfgfrpc + shrrfg
+
+## Cultural Threat:
+ct =~ qfimchr + qfimwht + pplstrd + vrtrlg
+
+## Economic Threat:
+et =~ l*imwgdwn + l*imhecop 
+'
+
+out_trust_att <- cfa(mod_trust_att, data = ess, std.lv = TRUE)
+out_att <- cfa(mod_att, data = ess, std.lv = TRUE)
+
+summary(out_trust_att)
+fitMeasures(out_trust_att)
+fitMeasures(out_att)
+
+modificationIndices(out_trust_att, sort. = TRUE, minimum.value = minChange)
+
+?modificationIndices
+
+mod_trust_att2 <- paste(mod_trust_att, "imrcntr ~~ eimrcnt", sep = "\n")
+out_trust_att2 <- cfa(mod_trust_att2, data = ess, std.lv = TRUE)
+
+minChange <- fitMeasures(out_trust_att2, "chisq") * 0.1
+
+fitMeasures(out_trust_att2)
+
+modificationIndices(out_trust_att2, sort. = TRUE, minimum.value = minChange)
+
+est <- lavInspect(out_trust_att, "standardized")
+
+lambda <- est$lambda
+
+lambda[lambda == 0] <- NULL
+
+?print
+
+print(lambda, zero.print = ".")
+?sparseMatrix
+
+Matrix::Matrix(lambda, sparse = TRUE)
+
+aOut <- anova(out_trust_att, out_trust_att2)
+aOut
+
+?anova
