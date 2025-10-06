@@ -158,8 +158,8 @@ section-71
 estimateCfaTrustAtt3
 model-comparisons
 section-72
-estimateCfaTrustAtt0
 section-73
+estimateCfaTrustAtt0
 section-74
 section-75
 extra-resources

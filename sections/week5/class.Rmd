@@ -5,8 +5,7 @@ knitr::opts_chunk$set(error = TRUE)
 options(show.signif.stars = FALSE)
 ```
 
-In these exercises, we'll extend the three-factor CFA of the *Trust in Politics* items that you estimated for the
-At-Home Exercises.
+In these exercises, we'll continue the factor analysis of the ESS data that we started in the At-Home Exercises.
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +32,7 @@ ess <- readRDS(here::here(dataDir, "ess_round1.rds"))
 ------------------------------------------------------------------------------------------------------------------------
 
 We are going to extend our existing three-factor CFA by adding the five-factor representation of the *Attitudes toward
-Immigration* items suggested by Kestilä (2006). The hypothesized factor-to-item mapping is defined below.
+Immigration* items suggested by Kestilä (2006). The hypothesized factor-to-item mapping is given below.
 
 ```{r, echo = FALSE, include = FALSE}
 xxx <- readRDS(here::here(dataDir, "ess_variable_descriptions.rds"))
@@ -105,7 +104,7 @@ xxx <- readRDS(here::here(dataDir, "ess_variable_descriptions.rds"))
 
 ####
 
-Calcualte the following quantities for the CFA described above.
+Calculate the following quantities for the CFA described above.
 
 1. The number of model parameters
 1. The pieces of available information provided by the data
@@ -124,12 +123,12 @@ Our model will have 38 observed indicators and 8 latent constructs, so we get th
 
 **Model Parameters**
 
-  - 8 (8 - 1) / 2 = 28 latent covariances
-  - 8 latent variances
-  - 38 factor loadings
-  - 38 residual variances
+- 8 (8 - 1) / 2 = 28 latent covariances
+- 8 latent variances
+- 38 factor loadings
+- 38 residual variances
 
-  Total = 28 + 8 + 2 $\times$ 38 = 112
+Total = 28 + 8 + 2 $\times$ 38 = 112
 
 **Available Information**
 
@@ -137,8 +136,8 @@ Our model will have 38 observed indicators and 8 latent constructs, so we get th
 
 **Degrees of Freedom**
 
-To identify the model, we need to constrain one parameter in each constructs sub-model. We also need to constrain
-another parameter in the submodel for *Economic Threat*, because that construct has only two indicators. So, we need to
+To identify the model, we need to constrain one parameter in each construct's sub-model. We also need to constrain
+another parameter in the sub-model for *Economic Threat*, because that construct has only two indicators. So, we need to
 constrain 9 parameters.
 
 df = 741 - 112 + 9 = 638
@@ -151,8 +150,7 @@ df = 741 - 112 + 9 = 638
 
 Define the `lavaan` model syntax for the CFA described above.
 
-- Use the fixed-factor method to set the scale.
-- Enforce a simple structure; do not allow any cross-loadings.
+- Enforce a simple structure: do not allow any cross-loadings.
 - Covary all latent factors.
 - Do not specify any mean structure.
 - Save this model syntax as an object in your environment.
@@ -188,7 +186,8 @@ econ =~ l*imwgdwn + l*imhecop
 '
 ```
 
-*Note:* We equate the factor loadings for the *Economic Threat* factor because that construct is under-identified.
+*Note:* We equate the factor loadings for the *Economic Threat* factor because that construct is under-identified
+without the extra constraints.
 
 </details>
 
@@ -199,10 +198,10 @@ econ =~ l*imwgdwn + l*imhecop
 Estimate the CFA model you defined above, and summarize the results.
 
 - Use the `lavaan::cfa()` function to estimate the model.
-- Use the fixed-factor method of idenfication
+- Use the fixed-factor method of identification
 - Use the default settings for the `cfa()` function.
-- Request the model fit statistics by supplying the `fit.measures = TRUE` argument to `summary()`.
-- Request the standardized parameter estimates by supplying the `standardized = TRUE` argument to `summary()`.
+- Request the model fit statistics and standardized parameter estimates by specifying `fit.measures = TRUE` and
+`standardized = TRUE` in `summary()`.
 
 
 <details>
@@ -259,8 +258,8 @@ $\textrm{SRMR} = `r srmr`)$.
 - The CFI indicates poor fit.
 - The $\chi^2$ is highly significant, but we don't care.
 
-Two out of our three approximate fit indices suggest a good model, but we need to be cautious. The RMSEA can be overly
-optimistic for large models with many degrees of freedom. So, we have a bit of a tie:
+Two out of our three preferred approximate fit indices suggest a good model, but we need to be cautious. The RMSEA can
+be overly optimistic when computed from large models with many degrees of freedom. So, we have a bit of a tie:
 
 - One good-looking index (SRMR)
 - One bad-looking index (CFI)
@@ -277,11 +276,33 @@ cbind(est$lambda, Resid_Var = diag(est$theta)) |>
   Matrix::Matrix(sparse = TRUE)
 ```
 
-The latent correlations looks sensible.
+The latent correlations look sensible.
 
 ```{r}
 round(est$psi, 3)
 ```
+
+The balance of evidence suggests that this model is probably useful, but we're definitely in a gray area. In practice,
+we would need to consider the context of our analysis. For example, we should ask ourselves questions like the following.
+
+*How noisy are the data?*
+
+Do we have high-quality data that should support an unambiguously good model? If so, these results don't stack up. On
+the other hand, we might not have high expectations because we know that our data are very noisy. If we're just using
+this analysis to provide some vague guidance toward next steps in our research line, we may be fine with this model.
+
+*What are the stakes of "getting it wrong"?*
+
+We don't want to use this quality of result to make mission-critical inference. For example, if our results will
+influence real-world policy or impact the design of subsequent projects in our research line, this model isn't good
+enough.
+
+*What are the standards in our field?*
+
+If we're working in a field where noisy data and weak theory are unavoidable, then this model is probably good enough to
+provide some meaningful insight. That's not to say that we should promulgate questionable research practices. If good
+measurement and rigorous theory are possible, we should shoot for those more lofty objectives. Frequently, however, we
+really don't have any hope of a good fitting model. In such situations, we should make the most of the data we can get.
 
 </details>
 
@@ -299,6 +320,19 @@ We'll give that a shot below.
 ### Post-Hoc Model Modifications
 
 ------------------------------------------------------------------------------------------------------------------------
+
+We should avoid making any post-hoc model modifications until we don't have any other choice (i.e., our hypothesized
+model is clearly rejected). Unfortunately, such cases arise frequently in real-world data analysis. So, we want to
+make the most of these bad situations. 
+
+#### Modification Indices {-}
+
+If we're going to modify our hypothesized model structure, the \emph{modification indices} can help guide us.
+
+Modification indices estimate the improvement in model fit that we'd get from freeing parameters that are fixed in the
+current model. If a parameter has a large modification index, we expect substantially better fit for a model that freely
+estimates that parameter. Hence, we can use the modification indices to help us choose which parameter estimates to add
+when modifying our hypothesized model.
 
 The following code will compute the modification indices for the three-factor model of *Trust in Politics* from the
 At-Home Exercises.
@@ -321,6 +355,42 @@ model $\chi^2$ as a useful rule-of-thumb.
 thresh <- 0.1 * fitMeasures(out_3f, "chisq")
 modificationIndices(out_3f, sort. = TRUE, minimum.value = thresh)
 ```
+
+```{r, echo = FALSE, include = FALSE}
+mi <- modificationIndices(out_3f, sort. = TRUE)[1, , drop = FALSE]
+v1 <- mi$lhs
+v2 <- mi$rhs
+val <- mi$mi |> round(2)
+text <- ifelse(mi$op == "~~", 
+  paste0("covariance between `", v1, "` and `", v2, "`"),
+  paste0("factor loading from `", v1, "` to `", v2, "`")
+)
+```
+
+So, we can infer that freeing the `r text` would reduce the model $\chi^2$ by `r val`, for example.
+
+#### Using Modification Indices {-}
+
+To keep our modifications in check, we should follow the guidelines below when using modification indices to help choose
+which parameters to free.
+
+- Only consider parameters with modification indices larger than 10\% of the model $\chi^2$.
+- Only consider parameters that make obvious theoretical sense.
+- Only consider parameters that you believe to be part of the true model.
+
+The final guideline is particularly important. The goal of post-hoc model modifications is not getting the model to fit
+our data: that ship has already sailed. We're proposing changes to the theoretical model for the benefit of future
+research on our topic. That's a heavy task. We can only make a justified post-hoc model modification if we can honestly
+agree with the following statements.
+
+- My a priori hypothesized model was wrong.
+- These modifications are part of the true population model that I'm trying to estimate.
+- All future analyses should use this modified version of the model as the a priori hypothesized model.
+
+To give you a sense of the gravity of these decisions, consider the following humble-brag. I've been doing this type of
+modeling in some professional capacity for more than 15 years, and I can't recall a single case where I've been able to
+make a truly justifiable post-hoc model modification. That's not to say that I haven't modified my fair share of
+models, but this is one of those "do as I say, not as I do" type situations.
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -345,16 +415,20 @@ modificationIndices(out_trust_att, sort. = TRUE, minimum.value = thresh)
     <summary>Click for explanation</summary>
 
 ```{r, echo = FALSE, include = FALSE}
-mi <- modificationIndices(out_trust_att, sort. = TRUE)
-v1 <- mi$lhs[1]
-v2 <- mi$rhs[1]
-x2 <- mi$mi[1]
+mi <- modificationIndices(out_trust_att, sort. = TRUE)[1, , drop = FALSE]
+v1 <- mi$lhs
+v2 <- mi$rhs
+val <- mi$mi |> round(2)
+text <- ifelse(mi$op == "~~", 
+  paste0("covariance between `", v1, "` and `", v2, "`"),
+  paste0("factor loading from `", v1, "` to `", v2, "`")
+)
 ```
 
-- Freeing the residual covariances between ``r v1`` and ``r v2`` would produce the largest improvement in model fit.
-- After freeing this covariance, we'd expect the model $\chi^2$ to decrease by `r round(x2, 2)`.
+- Freeing the `r text` would produce the largest improvement in model fit.
+- After freeing this parameter, we'd expect the model $\chi^2$ to decrease by `r val`.
 - Yes. Both of these items ask about attitudes towards immigrants from rich countries. None of the other items
-explicitly address immigration from rich countries.
+  explicitly address immigration from rich countries.
 
   </details>
 </details>
@@ -397,21 +471,25 @@ Calculate the modification indices for the model you estimated in \@ref(estimate
 
 ```{r, paged.print = FALSE}
 thresh <- 0.1 * fitMeasures(out_trust_att2, "chisq")
-modificationIndices(out_trust_att2, sort. = TRUE, thresh)
+modificationIndices(out_trust_att2, sort. = TRUE, minimum.value = thresh)
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
 ```{r, echo = FALSE, include = FALSE}
-mi <- modificationIndices(out_trust_att2, sort. = TRUE)
-v1 <- mi$lhs[1]
-v2 <- mi$rhs[1]
-x2 <- mi$mi[1]
+mi <- modificationIndices(out_trust_att, sort. = TRUE)[1, , drop = FALSE]
+v1 <- mi$lhs
+v2 <- mi$rhs
+val <- mi$mi |> round(2)
+text <- ifelse(mi$op == "~~", 
+  paste0("covariance between `", v1, "` and `", v2, "`"),
+  paste0("factor loading from `", v1, "` to `", v2, "`")
+)
 ```
 
-- Freeing the residual covariances between ``r v1`` and ``r v2`` would produce the largest improvement in model fit.
-- After freeing this covariance, we'd expect the model $\chi^2$ to decrease by `r round(x2, 2)`.
+- Freeing the `r text` would produce the largest improvement in model fit.
+- After freeing this parameter, we'd expect the model $\chi^2$ to decrease by `r val`.
 - Yes. Both of these items ask about trust in parts of the legal system. None of the other questions address trust in
 courts or police.
 
@@ -625,46 +703,6 @@ three-factor model fits significantly better than the one-factor model.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-#### {#estimateCfaTrustAtt0}
-
-Estimate a restricted version of the 8-factor CFA from \@ref(estimateCfaTrustAtt).
-
-- Remove all latent covariances between the three *Trust in Politics* factors and the five *Attitudes Toward
-Immigration* factors.
-- Retain all other aspects of the original CFA.
-
-Summarize the estimated model to check that everything worked.
-
-<details>
-  <summary>Click to show code</summary>
-
-First, we'll define a syntax snippit to enforce the constraints.
-
-```{r}
-constraints <- '
-inst ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
-sat  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
-pol  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
-'
-```
-
-Now, we'll add the constraint syntax to the CFA syntax.
-
-```{r}
-mod_trust_att0 <- paste(mod_trust_att, constraints, sep = "\n")
-```
-
-Finally, we'll estimate and summarize the restricted model.
-
-```{r}
-out_trust_att0 <- cfa(mod_trust_att0, data = ess, std.lv = TRUE)
-summary(out_trust_att0, fit.measures = TRUE, standardized = TRUE)
-```
-
-</details>
-
-------------------------------------------------------------------------------------------------------------------------
-
 ####
 
 Use a $\Delta\chi^2$ test to test if the additional parameter estimates you added in \@ref(estimateCfaTrustAtt2) and
@@ -736,8 +774,48 @@ our mistakes.
 
 ------------------------------------------------------------------------------------------------------------------------
 
+#### {#estimateCfaTrustAtt0}
+
+Estimate a restricted version of the 8-factor CFA from \@ref(estimateCfaTrustAtt).
+
+- Remove all latent covariances between the three *Trust in Politics* factors and the five *Attitudes Toward
+Immigration* factors.
+- Retain all other aspects of the original CFA.
+
+Summarize the estimated model to check that everything worked.
+
+<details>
+  <summary>Click to show code</summary>
+
+First, we'll define a syntax snippit to enforce the constraints.
+
+```{r}
+constraints <- '
+inst ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
+sat  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
+pol  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ
+'
+```
+
+Now, we'll add the constraint syntax to the CFA syntax.
+
+```{r}
+mod_trust_att0 <- paste(mod_trust_att, constraints, sep = "\n")
+```
+
+Finally, we'll estimate and summarize the restricted model.
+
+```{r}
+out_trust_att0 <- cfa(mod_trust_att0, data = ess, std.lv = TRUE)
+summary(out_trust_att0, fit.measures = TRUE, standardized = TRUE)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
 Below, you will conduct a $\Delta\chi^2$ test to compare the full 8-factor CFA from \@ref(estimateCfaTrustAtt) to the
-restricted version you estimated in \@ref(estimateCfaTrustAtt0). The next XX questions refer to this test.
+restricted version you estimated in \@ref(estimateCfaTrustAtt0). All remaining questions refer to this test.
 
 ------------------------------------------------------------------------------------------------------------------------
 
