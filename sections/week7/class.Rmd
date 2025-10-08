@@ -1,20 +1,16 @@
 ## In-Class Exercises
 
-In these exercises, you will use full structural equation modeling (SEM) to
-evaluate the *Theory of Reasoned Action* (TORA), which is a popular psychological 
-theory of social behavior developed by Ajzen and Fishbein. The theory states that 
-actual behavior is predicted by behavioral intention, which is in turn predicted 
-by the attitude toward the behavior and subjective norms about the behavior. 
-Later, a third determinant was added, *perceived behavioral control*. The extent
-to which people feel that they have control over their behavior also influences 
-their behavior.
+In these exercises, you will use full structural equation modeling (SEM) to evaluate the *Theory of Reasoned Action*
+(TORA), which is a popular psychological theory of social behavior developed by Ajzen and Fishbein. The theory states
+that actual behavior is predicted by behavioral intention, which is in turn predicted by the attitude toward the
+behavior and subjective norms about the behavior. Later, a third determinant was added, *perceived behavioral control*.
+The extent to which people feel that they have control over their behavior also influences their behavior.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The data we will use for this practical are available in the 
-[*toradata.csv*][tora_data] file. These data were synthesized according to the
-results of Reinecke (1998)'s investigation of condom use by young people between
-16 and 24 years old. 
+The data we will use for this practical are available in the [*toradata.csv*][tora_data] file. These data were
+synthesized according to the results of Reinecke (1998)'s investigation of condom use by young people between 16 and 24
+years old. 
 
 The data contain the following variables:
 
@@ -26,13 +22,12 @@ The data contain the following variables:
 - `attit_1`:`attit_3`: Three indicators of attitudes about condom use
     - Measured on a 5-point rating scale (e.g., using a condom is awkward)
 - `norm_1`:`norm_3`: Three indicators of social norms about condom use
-    - Measured on a 5-point rating scale (e.g., I think most of my friends would 
-    use...)
+    - Measured on a 5-point rating scale (e.g., I think most of my friends would use...)
 - `control_1`:`control_3`: Three indicators of perceived behavioral control 
     - Measured on a 5-point rating scale (e.g., I know well how to use a condom)
 - `sex`: Binary factor indicating biological sex
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -41,18 +36,14 @@ Load the data contained in the *toradata.csv* file.
 <details>
   <summary>Click to show code</summary>
   
-```{r, eval = FALSE}
-condom <- read.csv("toradata.csv", stringsAsFactors = TRUE)
-```
-
-```{r, echo = FALSE}
-dataDir <- "../../../../data/"
-condom <- read.csv(paste0(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
+```{r}
+dataDir <- "data"
+condom <- read.csv(here::here(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#toraCFA}
 
@@ -98,7 +89,7 @@ measurement structure.
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -149,7 +140,7 @@ predicts *condom use*.
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#updatedModel}
 
@@ -199,7 +190,7 @@ and *norms* both significantly predict *intention*, while *intention* and
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 The TORA model explicitly forbids direct paths from *attitudes* and *norms* to
 *behaviors*; these effects should be fully mediated by the *behavioral intention*. 
@@ -207,7 +198,7 @@ The theory does not specify how *perceived behavioral control* should affect
 *behaviors*. There may be a direct effect of *control* on *behavior*, or the
 effect may be (partially) mediated by *intention*.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -244,7 +235,7 @@ summary(fit, ci = TRUE)
 ```
 
 - Yes, both indirect effects are significant according to the 95% bootstrapped CIs.
-- Yes, both effects are completely moderated by *behavioral intention*. We can
+- Yes, both effects are completely mediated by *behavioral intention*. We can
 infer as much because the direct effects of *attitudes* and *norms* on *condom 
 use* are both nonsignificant.
 - Yes, these results comport with the TORA. Both effects are fully mediated, as
@@ -252,7 +243,7 @@ the theory stipulates.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 In addition to evaluating the significance of the indirect and direct effects, 
 we can also take a model-comparison perspective. We can use model comparisons to
@@ -260,7 +251,7 @@ test if removing the direct effects of *attitudes* and *norms* on *condom use*
 significantly decreases model fit. In other words, are those paths needed to 
 accurately represent the data, or are they "dead weight". 
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -288,7 +279,7 @@ we should probably prefer the more parsimonious model.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -304,9 +295,9 @@ Use some statistical means of evaluating the most plausible way to include
 
 *Hint:* There is more than one way to approach this problem.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 1: Testing Effects**
+#### Approach 1: Testing Effects {-}
 
 <details>
   <summary>Click to show code</summary>
@@ -343,9 +334,9 @@ sense to include *control* via a direct (non-mediated) effect on *behavior*.
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 2.1: Nested Model Comparison**
+#### Approach 2.1: Nested Model Comparison {-}
 
 <details>
   <summary>Click to show code</summary>
@@ -404,9 +395,9 @@ effects model.
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 2.2: Non-Nested Model Comparison**
+#### Approach 2.2: Non-Nested Model Comparison {-}
 
 <details>
   <summary>Click to show code</summary>
@@ -444,9 +435,9 @@ the best.
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Conclusion**
+#### Conclusion {-}
 
 <details>
   <summary>Click for explanation</summary>
@@ -590,11 +581,11 @@ Therefore, *sex* must moderate at least some of these paths.
 
 ------------------------------------------------------------------------------->
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of In-Class Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 [mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html
 [van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740

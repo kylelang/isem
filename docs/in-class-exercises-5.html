@@ -456,19 +456,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="in-class-exercises-5" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> In-Class Exercises<a href="in-class-exercises-5.html#in-class-exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In these exercises, you will use full structural equation modeling (SEM) to
-evaluate the <em>Theory of Reasoned Action</em> (TORA), which is a popular psychological
-theory of social behavior developed by Ajzen and Fishbein. The theory states that
-actual behavior is predicted by behavioral intention, which is in turn predicted
-by the attitude toward the behavior and subjective norms about the behavior.
-Later, a third determinant was added, <em>perceived behavioral control</em>. The extent
-to which people feel that they have control over their behavior also influences
-their behavior.</p>
+<p>In these exercises, you will use full structural equation modeling (SEM) to evaluate the <em>Theory of Reasoned Action</em>
+(TORA), which is a popular psychological theory of social behavior developed by Ajzen and Fishbein. The theory states
+that actual behavior is predicted by behavioral intention, which is in turn predicted by the attitude toward the
+behavior and subjective norms about the behavior. Later, a third determinant was added, <em>perceived behavioral control</em>.
+The extent to which people feel that they have control over their behavior also influences their behavior.</p>
 <hr />
-<p>The data we will use for this practical are available in the
-<a href="https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download"><em>toradata.csv</em></a> file. These data were synthesized according to the
-results of Reinecke (1998)’s investigation of condom use by young people between
-16 and 24 years old.</p>
+<p>The data we will use for this practical are available in the <a href="https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download"><em>toradata.csv</em></a> file. These data were
+synthesized according to the results of Reinecke (1998)’s investigation of condom use by young people between 16 and 24
+years old.</p>
 <p>The data contain the following variables:</p>
 <ul>
 <li><code>respnr</code>: Numeric participant ID</li>
@@ -486,8 +482,7 @@ results of Reinecke (1998)’s investigation of condom use by young people betwe
 </ul></li>
 <li><code>norm_1</code>:<code>norm_3</code>: Three indicators of social norms about condom use
 <ul>
-<li>Measured on a 5-point rating scale (e.g., I think most of my friends would
-use…)</li>
+<li>Measured on a 5-point rating scale (e.g., I think most of my friends would use…)</li>
 </ul></li>
 <li><code>control_1</code>:<code>control_3</code>: Three indicators of perceived behavioral control
 <ul>
@@ -503,7 +498,8 @@ use…)</li>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="in-class-exercises-5.html#cb237-1" tabindex="-1"></a>condom <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;toradata.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="in-class-exercises-5.html#cb237-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb237-2"><a href="in-class-exercises-5.html#cb237-2" tabindex="-1"></a>condom <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;toradata.csv&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -1064,7 +1060,7 @@ Click for explanation
 ##     ie_norm           0.385    0.066    5.835    0.000    0.268    0.527</code></pre>
 <ul>
 <li>Yes, both indirect effects are significant according to the 95% bootstrapped CIs.</li>
-<li>Yes, both effects are completely moderated by <em>behavioral intention</em>. We can
+<li>Yes, both effects are completely mediated by <em>behavioral intention</em>. We can
 infer as much because the direct effects of <em>attitudes</em> and <em>norms</em> on <em>condom
 use</em> are both nonsignificant.</li>
 <li>Yes, these results comport with the TORA. Both effects are fully mediated, as
@@ -1123,7 +1119,8 @@ mediated by <em>intention</em>.</li>
 </ul>
 <p><em>Hint:</em> There is more than one way to approach this problem.</p>
 <hr />
-<p><strong>Approach 1: Testing Effects</strong></p>
+<div id="approach-1-testing-effects" class="section level4 unnumbered hasAnchor">
+<h4>Approach 1: Testing Effects<a href="in-class-exercises-5.html#approach-1-testing-effects" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click to show code
@@ -1230,7 +1227,9 @@ sense to include <em>control</em> via a direct (non-mediated) effect on <em>beha
 </details>
 </details>
 <hr />
-<p><strong>Approach 2.1: Nested Model Comparison</strong></p>
+</div>
+<div id="approach-2.1-nested-model-comparison" class="section level4 unnumbered hasAnchor">
+<h4>Approach 2.1: Nested Model Comparison<a href="in-class-exercises-5.html#approach-2.1-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click to show code
@@ -1430,7 +1429,9 @@ effects model.</p>
 </details>
 </details>
 <hr />
-<p><strong>Approach 2.2: Non-Nested Model Comparison</strong></p>
+</div>
+<div id="approach-2.2-non-nested-model-comparison" class="section level4 unnumbered hasAnchor">
+<h4>Approach 2.2: Non-Nested Model Comparison<a href="in-class-exercises-5.html#approach-2.2-non-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click to show code
@@ -1473,7 +1474,9 @@ the best.</p>
 </details>
 </details>
 <hr />
-<p><strong>Conclusion</strong></p>
+</div>
+<div id="conclusion" class="section level4 unnumbered hasAnchor">
+<h4>Conclusion<a href="in-class-exercises-5.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click for explanation
@@ -2112,6 +2115,7 @@ Therefore, *sex* must moderate at least some of these paths.
 <p>End of In-Class Exercises</p>
 <hr />
 
+</div>
 </div>
 </div>
 <!-- </div> -->

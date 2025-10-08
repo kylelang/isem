@@ -598,10 +598,10 @@ Click to show code
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="at-home-exercises-5.html#cb220-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
 <span id="cb220-2"><a href="at-home-exercises-5.html#cb220-2" tabindex="-1"></a></span>
 <span id="cb220-3"><a href="at-home-exercises-5.html#cb220-3" tabindex="-1"></a><span class="do">## Fit the SEM:</span></span>
-<span id="cb220-4"><a href="at-home-exercises-5.html#cb220-4" tabindex="-1"></a>fit_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_sem, <span class="at">data =</span> ess_fin, <span class="at">std.lv =</span> <span class="cn">TRUE</span>, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb220-4"><a href="at-home-exercises-5.html#cb220-4" tabindex="-1"></a>out_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_sem, <span class="at">data =</span> ess_fin, <span class="at">std.lv =</span> <span class="cn">TRUE</span>, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb220-5"><a href="at-home-exercises-5.html#cb220-5" tabindex="-1"></a></span>
 <span id="cb220-6"><a href="at-home-exercises-5.html#cb220-6" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
-<span id="cb220-7"><a href="at-home-exercises-5.html#cb220-7" tabindex="-1"></a><span class="fu">summary</span>(fit_sem, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb220-7"><a href="at-home-exercises-5.html#cb220-7" tabindex="-1"></a><span class="fu">summary</span>(out_sem, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 55 iterations
 ## 
 ##   Estimator                                         ML
@@ -880,10 +880,10 @@ Click to show code
 <span id="cb226-7"><a href="at-home-exercises-5.html#cb226-7" tabindex="-1"></a><span class="st">&#39;</span></span>
 <span id="cb226-8"><a href="at-home-exercises-5.html#cb226-8" tabindex="-1"></a></span>
 <span id="cb226-9"><a href="at-home-exercises-5.html#cb226-9" tabindex="-1"></a><span class="do">## Fit the path analytic model:</span></span>
-<span id="cb226-10"><a href="at-home-exercises-5.html#cb226-10" tabindex="-1"></a>fit_pa <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_pa, <span class="at">data =</span> ess_fin, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb226-10"><a href="at-home-exercises-5.html#cb226-10" tabindex="-1"></a>out_pa <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_pa, <span class="at">data =</span> ess_fin, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb226-11"><a href="at-home-exercises-5.html#cb226-11" tabindex="-1"></a></span>
 <span id="cb226-12"><a href="at-home-exercises-5.html#cb226-12" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
-<span id="cb226-13"><a href="at-home-exercises-5.html#cb226-13" tabindex="-1"></a><span class="fu">summary</span>(fit_pa, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb226-13"><a href="at-home-exercises-5.html#cb226-13" tabindex="-1"></a><span class="fu">summary</span>(out_pa, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 45 iterations
 ## 
 ##   Estimator                                         ML
@@ -1015,7 +1015,7 @@ model summary.</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="at-home-exercises-5.html#cb228-1" tabindex="-1"></a><span class="do">## Source the script that defines the partSummary() convenience function:</span></span>
 <span id="cb228-2"><a href="at-home-exercises-5.html#cb228-2" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;supportFunctions.R&quot;</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="at-home-exercises-5.html#cb229-1" tabindex="-1"></a><span class="do">## View the regression estimates from the SEM:</span></span>
-<span id="cb229-2"><a href="at-home-exercises-5.html#cb229-2" tabindex="-1"></a><span class="fu">partSummary</span>(fit_sem, <span class="dv">8</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb229-2"><a href="at-home-exercises-5.html#cb229-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_sem, <span class="dv">8</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
 ##   institutions ~                                                        
@@ -1037,7 +1037,7 @@ model summary.</p>
 ##     hi_pol_interst    0.512    0.052    9.854    0.000    0.485    0.242
 ##     lrscale           0.070    0.012    5.736    0.000    0.067    0.135</code></pre>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="at-home-exercises-5.html#cb231-1" tabindex="-1"></a><span class="do">## View the regression estimates from the path analysis:</span></span>
-<span id="cb231-2"><a href="at-home-exercises-5.html#cb231-2" tabindex="-1"></a><span class="fu">partSummary</span>(fit_pa, <span class="dv">7</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb231-2"><a href="at-home-exercises-5.html#cb231-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_pa, <span class="dv">7</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
 ##   ins_score ~                                                           
@@ -1059,7 +1059,7 @@ model summary.</p>
 ##     hi_pol_interst    0.541    0.050   10.722    0.000    0.541    0.236
 ##     lrscale           0.064    0.012    5.270    0.000    0.064    0.113</code></pre>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="at-home-exercises-5.html#cb233-1" tabindex="-1"></a><span class="do">## View the R-squared estimates from the SEM:</span></span>
-<span id="cb233-2"><a href="at-home-exercises-5.html#cb233-2" tabindex="-1"></a><span class="fu">partSummary</span>(fit_sem, <span class="dv">11</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb233-2"><a href="at-home-exercises-5.html#cb233-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_sem, <span class="dv">11</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## R-Square:
 ##                    Estimate
 ##     trstlgl           0.457
@@ -1079,7 +1079,7 @@ model summary.</p>
 ##     satisfaction      0.066
 ##     politicians       0.104</code></pre>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="at-home-exercises-5.html#cb235-1" tabindex="-1"></a><span class="do">## View the R-squared estimates from the SEM:</span></span>
-<span id="cb235-2"><a href="at-home-exercises-5.html#cb235-2" tabindex="-1"></a><span class="fu">partSummary</span>(fit_pa, <span class="dv">10</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb235-2"><a href="at-home-exercises-5.html#cb235-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_pa, <span class="dv">10</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## R-Square:
 ##                    Estimate
 ##     ins_score         0.051

@@ -179,10 +179,10 @@ Estimate the SEM, and summarize the results.
 library(lavaan)
 
 ## Fit the SEM:
-fit_sem <- sem(mod_sem, data = ess_fin, std.lv = TRUE, fixed.x = FALSE)
+out_sem <- sem(mod_sem, data = ess_fin, std.lv = TRUE, fixed.x = FALSE)
 
 ## Summarize the results:
-summary(fit_sem, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+summary(out_sem, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
 ```
 
 <details>
@@ -266,10 +266,10 @@ pol_score ~ female + age + eduyrs + hi_pol_interest + lrscale
 '
 
 ## Fit the path analytic model:
-fit_pa <- sem(mod_pa, data = ess_fin, fixed.x = FALSE)
+out_pa <- sem(mod_pa, data = ess_fin, fixed.x = FALSE)
 
 ## Summarize the results:
-summary(fit_pa, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+summary(out_pa, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
 ```
 
 </details>
@@ -299,32 +299,32 @@ source(here::here("code", "supportFunctions.R"))
 
 ```{r}
 ## View the regression estimates from the SEM:
-partSummary(fit_sem, 8, standardized = TRUE)
+partSummary(out_sem, 8, standardized = TRUE)
 
 ## View the regression estimates from the path analysis:
-partSummary(fit_pa, 7, standardized = TRUE)
+partSummary(out_pa, 7, standardized = TRUE)
 
 ## View the R-squared estimates from the SEM:
-partSummary(fit_sem, 11, rsquare = TRUE)
+partSummary(out_sem, 11, rsquare = TRUE)
 
 ## View the R-squared estimates from the SEM:
-partSummary(fit_pa, 10, rsquare = TRUE)
+partSummary(out_pa, 10, rsquare = TRUE)
 ```
 
 ```{r, eval = FALSE, echo = FALSE}
-r2_sem <- summary(fit_sem, rsquare = TRUE)$pe %>% 
+r2_sem <- summary(out_sem, rsquare = TRUE)$pe %>% 
   filter(op == "r2", rhs == "institutions") %>% 
   select(est) %>% 
   as.numeric()
-r2_pa <- inspect(fit_pa, "r2")
+r2_pa <- inspect(out_pa, "r2")
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
 ```{r, echo = FALSE, include = FALSE}
-estSem <- parameterEstimates(fit_sem, standardized = TRUE)
-estPa  <- parameterEstimates(fit_pa, standardized = TRUE)
+estSem <- parameterEstimates(out_sem, standardized = TRUE)
+estPa  <- parameterEstimates(out_pa, standardized = TRUE)
 
 x <- estSem |> filter(op == "~") |> select(lhs, rhs, std.all) |> rename(X = rhs, SEM = std.all)
 y <- estPa |> filter(op == "~") |> select(std.all) |> rename(PA = std.all)
@@ -351,8 +351,8 @@ testSat <- filter(tests, lhs == "satisfaction") |> select(-lhs)
 testPol <- filter(tests, lhs == "politicians") |> select(-lhs)
 
 r2 <- data.frame(
-  SEM = lavInspect(fit_sem, "r2") |> tail(3), 
-  PA = lavInspect(fit_pa, "r2") |> as.numeric()
+  SEM = lavInspect(out_sem, "r2") |> tail(3), 
+  PA = lavInspect(out_pa, "r2") |> as.numeric()
 )
 ```
 
