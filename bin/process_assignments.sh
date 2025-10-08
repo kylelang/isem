@@ -1,48 +1,52 @@
 #!/bin/bash
 
-### Title:    Process TCSM Assignment Submissions
+### Title:    Process ISEM Assignment Submissions
 ### Author:   Kyle M. Lang
 ### Created:  2024-10-03
-### Modified: 2024-11-04
+### Modified: 2025-10-07
 
 ### Description:
-# This script should automagically process the assignment downloads from BB
-# 1. Unzip the download archive and move the download archive to ./tmp/
-# 2. Replace all spaces in filenames with underscores
-# 3. Remove all BB boilerplate from filenames and give the files consistent names
-# 4. Parse the file names to extract the group numbers/student IDs and create a directory for each
-# 5. Move all relevant files to the matching directory
+# This script should automagically process the assignment downloads from BrightSpace
+# 1. Unzip the download archive and move the download archive to ./downloads/
+# 2. Give the directories consistent names
 
 ### Usage:
-# ./process_assignments.sh ASSIGNMENT_NUMBER BB_DOWNLOAD_FILE.zip
-# ASSIGNMENT_NUMBER = 33 -> A3 Resit
+# ./process_assignments.sh ASSIGNMENT_NUMBER BS_DOWNLOAD_FILE.zip
 
 function lss () {
-  ls --ignore=*.sh -p | grep -v /$
+  ls -dr */ | grep -v downloads | grep -v duplicates
 }
 
-unzip "$2"
+## Unzip the archive downloaded from BrightSpace
+7z x "$2"
 
-mkdir tmp
-mv "$2" tmp/
+mkdir downloads duplicates
+mv "$2" downloads/
 
-rename.ul --all " " "_" ./*
+rename.ul --all " " "_FML_" ./*
 
-if [ "$1" -eq "3" ]; then
-  s0='s/^Assignment_3_//'
-elif [ "$1" -eq "33" ]; then
-  s0='s/^A3_Resit_//'
-else
-  s0='s/^.*Group_/g/'
-fi
+# if [ "$1" -eq "3" ]; then
+#   s0='s/^Assignment_3_//'
+# elif [ "$1" -eq "33" ]; then
+#   s0='s/^A3_Resit_//'
+# else
+#   s0='s/^.*Group_/g/'
+# fi
 
 for x in `lss`; do
-  f=`echo $x | sed -e $s0 -e 's/_.*\\././'`
-  d=`echo $f | sed 's/\\..*//'`
+  n=`echo $x | sed s/^.*group_FML_// | sed s/_FML_-.*//`
 
-  if [ ! -d "$d" ]; then
-    mkdir $d
+  nchar=`echo $n | wc -m`
+  if [ $nchar -gt 2 ]; then
+    d=g$n
+  else
+    d=g0$n
   fi
 
-  mv $x $d/$f
+  if [ -e $d ]; then
+    mv $x duplicates/
+    rename.ul --all "_FML_" " " duplicates/$x
+  else
+    mv $x $d
+  fi
 done
