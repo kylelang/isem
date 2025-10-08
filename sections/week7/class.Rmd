@@ -1,20 +1,16 @@
 ## In-Class Exercises
 
-In these exercises, you will use full structural equation modeling (SEM) to
-evaluate the *Theory of Reasoned Action* (TORA), which is a popular psychological 
-theory of social behavior developed by Ajzen and Fishbein. The theory states that 
-actual behavior is predicted by behavioral intention, which is in turn predicted 
-by the attitude toward the behavior and subjective norms about the behavior. 
-Later, a third determinant was added, *perceived behavioral control*. The extent
-to which people feel that they have control over their behavior also influences 
-their behavior.
+In these exercises, you will use full structural equation modeling (SEM) to evaluate the *Theory of Reasoned Action*
+(TORA), which is a popular psychological theory of social behavior developed by Ajzen and Fishbein. The theory states
+that actual behavior is predicted by behavioral intention, which is in turn predicted by the attitude toward the
+behavior and subjective norms about the behavior. Later, a third determinant was added, *perceived behavioral control*.
+The extent to which people feel that they have control over their behavior also influences their behavior.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The data we will use for this practical are available in the 
-[*toradata.csv*][tora_data] file. These data were synthesized according to the
-results of Reinecke (1998)'s investigation of condom use by young people between
-16 and 24 years old. 
+The data we will use for this practical are available in the [*toradata.csv*][tora_data] file. These data were
+synthesized according to the results of Reinecke (1998)'s investigation of condom use by young people between 16 and 24
+years old. 
 
 The data contain the following variables:
 
@@ -26,13 +22,12 @@ The data contain the following variables:
 - `attit_1`:`attit_3`: Three indicators of attitudes about condom use
     - Measured on a 5-point rating scale (e.g., using a condom is awkward)
 - `norm_1`:`norm_3`: Three indicators of social norms about condom use
-    - Measured on a 5-point rating scale (e.g., I think most of my friends would 
-    use...)
+    - Measured on a 5-point rating scale (e.g., I think most of my friends would use...)
 - `control_1`:`control_3`: Three indicators of perceived behavioral control 
     - Measured on a 5-point rating scale (e.g., I know well how to use a condom)
 - `sex`: Binary factor indicating biological sex
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -41,25 +36,27 @@ Load the data contained in the *toradata.csv* file.
 <details>
   <summary>Click to show code</summary>
   
-```{r, eval = FALSE}
-condom <- read.csv("toradata.csv", stringsAsFactors = TRUE)
-```
-
-```{r, echo = FALSE}
-dataDir <- "../../../../data/"
-condom <- read.csv(paste0(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
+```{r}
+dataDir <- "data"
+condom  <- read.csv(here::here(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#toraCFA}
 
-The data contain multiple indicators of *attitudes*, *norms*, and *control*.
-Run a CFA for these three latent variables.
+The data contain multiple indicators of *attitudes*, *norms*, and *control*. Run a CFA to test a three-factor
+measurement model for these three constructs.
 
-- Correlate the latent factors.
+- Covary all three latent factors.
+- Set the scale with the marker-variable method of identification.
+- Impose a simple structure with no cross loadings.
+- Do not estimate any mean structure.
+
+Use this CFA to evaluate the measurement model.
+
 - Do the data support the measurement model for these latent factors?
 - Are the three latent factors significantly correlated?
 - Is it reasonable to proceed with our evaluation of the TORA theory?
@@ -76,147 +73,250 @@ norms     =~ norm_1    + norm_2    + norm_3
 control   =~ control_1 + control_2 + control_3
 '
 
-fit <- cfa(mod_cfa, data = condom)
+cfa_out <- cfa(mod_cfa, data = condom)
 
-summary(fit, fit.measures = TRUE)
+summary(cfa_out, fit.measures = TRUE)
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
-- Yes, the model fits the data well, and the measurement parameters (e.g., factor
-loadings, residual variances) look reasonable. So, the data seem to support this 
-measurement structure.
+- Yes, the model fits the data well, and the measurement parameters (e.g., factor loadings, residual variances) look
+reasonable. So, the data seem to support this measurement structure.
 - Yes, all three latent variables are significantly, positively correlated.
 - Yes. 
-   - The measurement structure is supported, so we can use the latent variables
-   to represent the respective constructs in our subsequent SEM. 
-   - The TORA doesn't actually say anything about the associations between these 
-   three factors, but it makes sense that they would be positively associated.
-   So, we should find this result comforting.
+   - The measurement structure is supported, so we can use the latent variables to represent the respective constructs
+   in our subsequent SEM. 
+   - The TORA doesn't actually say anything about the associations between these three factors, but it makes sense that
+   they would be positively associated. So, we should find this result comforting.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+The basic TORA model implies the following structural relations.
+
+- *intention* predicts *behavior*
+- *attitudes* and *norms* predict *intention*
+- *attitudes* and *norms* covary
+
+We'll use observed scores to quantify *behavior* ($Y_{behave}$) and *intention* ($Y_{intent}$) while we have latent
+factors to represent *attitudes* ($\eta_{attitudes}$) and *norms* ($\eta_{norms}$). Thus, we can represent the TORA
+model via the following equations.
+
+$$
+\begin{align*}
+Y_{behave} &= \beta_{11} Y_{intent}\\[8pt]
+Y_{intent} &= \beta_{21} \eta_{attitudes} + \beta_{22} \eta_{norms}\\[8pt]
+\begin{bmatrix}
+Y_{behave}\\
+Y_{intent}\\
+\eta_{attitudes}\\
+\eta_{norms}
+\end{bmatrix}
+&\sim N \left( 
+\begin{bmatrix}
+0\\
+0\\
+0\\
+0
+\end{bmatrix},
+\begin{bmatrix}
+\psi_{11} &           &           &          \\
+0         & \psi_{22} &           &          \\
+0         & 0         & \psi_{33} &          \\
+0         & 0         & \psi_{43} & \psi_{44}
+\end{bmatrix}
+\right)
+\end{align*}
+$$
+
+The first two equations describe the latent regression structure. The third line shows the latent covariance structure
+in terms of the multivariate normal distribution that we assume for the focal variables.
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Estimate the basic TORA model as an SEM.
+Draw a path diagram representing the structural part of our TORA model.
 
-- Predict *intention* from *attitudes* and *norms*.
-- Predict *condom use* from *intention*. 
-- Use the latent versions of *attitudes* and *norms*. 
-- Covary the *attitudes* and *norms* factors.
+- Do not diagram the measurement model.
+   - I.e., don't include the observed indicators, factor loadings, or residual factors/variances.
+- Draw the diagram by hand, on paper.
+
+
+<details>
+  <summary>Click for explanation</summary>
+
+  If you don't explicitly diagram the variances, your diagram should look something like the following.
+
+  ![](assets/images/tora1_structure_diagram.png)
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+### {#tora1Estimation}
+
+Estimate the basic TORA model as an SEM, and use the result to evaluate the TORA.
+
 - Does the model fit well?
 - Do the estimates align with the TORA?
-- How much variance in *intention* and *condom use* are explained by the model?
+- How much variance in *intention* and *behavior* are explained by the model?
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-mod <- '
+mod_tora1 <- '
 ## Define the latent variables:
 attitudes =~ attit_1 + attit_2 + attit_3
 norms     =~ norm_1  + norm_2  + norm_3
 
-## Define the structural model:         
-intent   ~ attitudes + norms
+## Define the structural model:
 behavior ~ intent
+intent   ~ attitudes + norms
 '
 
-fit <- sem(mod, data = condom)
+out_tora1 <- sem(mod_tora1, data = condom)
 
-summary(fit, fit.measures = TRUE, rsquare = TRUE)
+summary(out_tora1, fit.measures = TRUE, rsquare = TRUE)
 ```
 
 ```{r, echo = FALSE}
-tmp <- inspect(fit, "r2")
+tmp <- inspect(out_tora1, "r2")
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
 - Yes, the model still fits the data very well.
-- Yes, the estimates all align with the TORA. Specifically, *attitudes* and 
-*norms* both significantly predict *intention*, and *intention* significantly 
-predicts *condom use*.
-- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in 
-*intention* and `r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in 
-*condom use*.
+- Yes, the estimates all align with the TORA. Specifically, *attitudes* and *norms* both significantly predict
+*intention*, and *intention* significantly predicts *condom use*.
+- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in *intention* and
+`r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in *behavior*.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+Now, we'll update the model to represent the extended TORA model that includes *perceived behavioral control*. Modify
+the basic TORA model from \@ref(tora1Estimation) as follows.
+
+- Add *control* as a second predictor of *behavior*
+- Allow all three exogenous latent factors covary
+
+We can represent the extended TORA model via the following equations.
+
+$$
+\begin{align*}
+Y_{behave} &= \beta_{11} Y_{intent} + \beta_{12} \eta_{control}\\[8pt]
+Y_{intent} &= \beta_{21} \eta_{attitudes} + \beta_{22} \eta_{norms}\\[8pt]
+\begin{bmatrix}
+Y_{behavior}\\
+Y_{inent}\\
+\eta_{attitudes}\\
+\eta_{norms}\\
+\eta_{control}
+\end{bmatrix}
+&\sim N \left( 
+\begin{bmatrix}
+0\\
+0\\
+0\\
+0\\
+0
+\end{bmatrix},
+\begin{bmatrix}
+\psi_{11} &           &           &           &          \\
+0         & \psi_{22} &           &           &          \\
+0         & 0         & \psi_{33} &           &          \\
+0         & 0         & \psi_{43} & \psi_{44} &          \\
+0         & 0         & \psi_{53} & \psi_{54} & \psi_{55}
+\end{bmatrix}
+\right)
+\end{align*}
+$$
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Draw a path diagram representing the structural part of our extended TORA model.
+
+- Do not diagram the measurement model.
+   - I.e., don't include the observed indicators, factor loadings, or residual factors/variances.
+- Draw the diagram by hand, on paper.
+
+
+<details>
+  <summary>Click for explanation</summary>
+
+  If you don't explicitly diagram the variances, your diagram should look something like the following.
+
+  ![](assets/images/tora2_structure_diagram.png)
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 ### {#updatedModel}
 
-Update your model to represent the extended TORA model that includes 
-*perceived behavioral control*.
+Estimate the extended TORA model described above.
 
-- Regress *condom use* onto *perceived behavioral control*.
-- Use the latent variable representation of *control*.
-- Covary all three exogenous latent factors.
 - Does the model fit well?
-- Do the estimates align with the updated TORA?
-- How much variance in *intention* and *condom use* are explained by the model?
+- Do the estimates align with the extended TORA?
+- How much variance in *intention* and *behavior* are explained by the model?
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-mod_tora <- '
+mod_tora2 <- '
 attitudes =~ attit_1   + attit_2   + attit_3
 norms     =~ norm_1    + norm_2    + norm_3
 control   =~ control_1 + control_2 + control_3
              
-intent   ~ attitudes + norms
 behavior ~ intent + control
+intent   ~ attitudes + norms
 '
 
-fit_tora <- sem(mod_tora, data = condom)
+out_tora2 <- sem(mod_tora2, data = condom)
 
-summary(fit_tora, fit.measures = TRUE, rsquare = TRUE)
+summary(out_tora2, fit.measures = TRUE, rsquare = TRUE)
 ```
 
 ```{r, echo = FALSE}
-tmp <- inspect(fit_tora, "r2")
+tmp <- inspect(out_tora2, "r2")
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
 - Yes, the model still fits the data very well.
-- Yes, the estimates all align with the updated TORA. Specifically, *attitudes* 
-and *norms* both significantly predict *intention*, while *intention* and 
-*control* both significantly predict *condom use*.
-- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in 
-*intention* and `r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in 
-*condom use*.
+- Yes, the estimates all align with the updated TORA. Specifically, *attitudes* and *norms* both significantly predict
+*intention*, while *intention* and *control* both significantly predict *behavior*.
+- The model explains `r (100 * tmp[["intent"]]) %>% round(2)`% of the variance in *intention* and
+`r (100 * tmp[["behavior"]]) %>% round(2)`% of the variance in *behavior*.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-The TORA model explicitly forbids direct paths from *attitudes* and *norms* to
-*behaviors*; these effects should be fully mediated by the *behavioral intention*. 
-The theory does not specify how *perceived behavioral control* should affect 
-*behaviors*. There may be a direct effect of *control* on *behavior*, or the
-effect may be (partially) mediated by *intention*.
+The TORA model explicitly forbids direct paths from *attitudes* and *norms* to *behavior*: these effects should be fully
+mediated by the *intention*. The theory does not specify how *control* should affect *behavior*. There may be a direct
+effect of *control* on *behavior*, or the effect may be (partially) mediated by *intention*.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Evaluate the hypothesized indirect effects of *attitudes* and *norms*.
+Use the extended TORA model to evaluate the hypothesized indirect effects of *attitudes* and *norms*.
 
-- Include *attitudes*, *norms*, and *control* in your model as in \@ref(updatedModel).
-- Does *intention* significantly mediate the effects of *attitudes* and *norms* 
-on *behavior*?
-    - Don't forget to follow all the steps we covered for testing mediation.
+- Does *intention* significantly mediate the effects of *attitudes* and *norms* on *behavior*?
 - Are both of the above effects completely mediated?
 - Do these results comport with the TORA? Why or why not?
 
@@ -224,13 +324,13 @@ on *behavior*?
   <summary>Click for explanation</summary>
 
 ```{r boot1, cache = TRUE}
-mod <- '
+mod_ie <- '
 attitudes =~ attit_1   + attit_2   + attit_3
 norms     =~ norm_1    + norm_2    + norm_3
 control   =~ control_1 + control_2 + control_3
              
-intent   ~ a1 * attitudes + a2 * norms
-behavior ~ b * intent + control + attitudes + norms
+behavior ~ b*intent + control + attitudes + norms
+intent   ~ a1*attitudes + a2*norms
 
 ie_att  := a1 * b
 ie_norm := a2 * b
@@ -238,75 +338,69 @@ ie_norm := a2 * b
 
 set.seed(235711)
 
-fit <- sem(mod, data = condom, se = "bootstrap", bootstrap = 1000)
+out_ie <- sem(mod_ie, data = condom, se = "bootstrap", bootstrap = 1000)
 
-summary(fit, ci = TRUE)
+summary(out_ie, ci = TRUE)
 ```
 
 - Yes, both indirect effects are significant according to the 95% bootstrapped CIs.
-- Yes, both effects are completely moderated by *behavioral intention*. We can
-infer as much because the direct effects of *attitudes* and *norms* on *condom 
-use* are both nonsignificant.
-- Yes, these results comport with the TORA. Both effects are fully mediated, as
-the theory stipulates.
+- Yes, both effects are completely mediated by *intention*. We can infer as much because the direct effects of
+*attitudes* and *norms* on *behavior* are both nonsignificant.
+- Yes, these results comport with the TORA. Both effects are fully mediated, as the theory stipulates.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-In addition to evaluating the significance of the indirect and direct effects, 
-we can also take a model-comparison perspective. We can use model comparisons to
-test if removing the direct effects of *attitudes* and *norms* on *condom use* 
-significantly decreases model fit. In other words, are those paths needed to 
-accurately represent the data, or are they "dead weight". 
+In addition to evaluating the significance of the indirect and direct effects, we can also take a model-comparison
+perspective. We can use model comparisons to test if removing the direct effects of *attitudes* and *norms* on
+*behavior* significantly decreases model fit. In other words, are those paths needed to accurately represent the data,
+or are they "dead weight". 
 
----
+Use the extended TORA model to answer the remaining questions.
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Use a $\Delta \chi^2$ test to evaluate the necessity of including the direct
-effects of *attitudes* and *norms* on *condom use* in the model.
+Use a $\Delta \chi^2$ test to evaluate the necessity of including the direct effects of *attitudes* and *norms* on
+*behavior* in the model.
 
 - What is your conclusion?
 
 <details>
   <summary>Click for explanation</summary>
 
-We only need to compare the fit of the model with the direct effects included
-to the fit of the model without the direct effects. We've already estimated both
-models, so we can simply submit the fitted **lavaan** objects to the `anova()` 
+We only need to compare the fit of the model with the direct effects included to the fit of the model without the direct
+effects. We've already estimated both models, so we can simply submit the fitted **lavaan** objects to the `anova()`
 function.
 
-```{r}
-anova(fit, fit_tora)
+```{r, paged.print = FALSE}
+anova(out_tora1, out_tora2)
 ```
 
-The $\Delta \chi^2$ test is not significant. So, we have not lost a significant
-amount of fit by fixing the direct effects to zero. In other words, the complete
-mediation model explains the data just as well as the partial mediation model. So,
-we should probably prefer the more parsimonious model.
+The $\Delta \chi^2$ test is not significant. So, we have not lost a significant amount of fit by fixing the direct
+effects to zero. In other words, the complete mediation model explains the data just as well as the partial mediation
+model. So, we should probably prefer the more parsimonious model.
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Use some statistical means of evaluating the most plausible way to include 
-*perceived behavioral control* into the model.
+Use some statistical means of evaluating the most plausible way to include *control* into the model.
 
 - Choose between the following three options:
     1. *control* predicts *behavior* via a direct, un-mediated effect.
-    1. *control* predicts *behavior* via an indirect effect that is completely 
-    mediated by *intention*.
-    1. *control* predicts *behavior* via both an indirect effect through 
-    *intention* and a residual direct effect.
+    1. *control* predicts *behavior* via an indirect effect that is completely mediated by *intention*.
+    1. *control* predicts *behavior* via both an indirect effect through *intention* and a residual direct effect.
 
 *Hint:* There is more than one way to approach this problem.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 1: Testing Effects**
+#### Approach 1: Testing Effects {-}
 
 <details>
   <summary>Click to show code</summary>
@@ -320,8 +414,8 @@ attitudes =~ attit_1   + attit_2   + attit_3
 norms     =~ norm_1    + norm_2    + norm_3
 control   =~ control_1 + control_2 + control_3
              
-intent   ~ attitudes + norms + a * control
-behavior ~ b * intent + c * control
+behavior ~ b*intent + c*control
+intent   ~ attitudes + norms + a*control
 
 ie    := a * b
 total := ie + c
@@ -329,131 +423,112 @@ total := ie + c
 
 set.seed(235711)
 
-fit1 <- sem(mod1, data = condom, se = "bootstrap", bootstrap = 1000)
-summary(fit1, ci = TRUE)
+out1 <- sem(mod1, data = condom, se = "bootstrap", bootstrap = 1000)
+summary(out1, ci = TRUE)
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
-From the above results, we can see that the direct and total effects are both
-significant, but the indirect effect is not. Hence, it probably makes the most
-sense to include *control* via a direct (non-mediated) effect on *behavior*.
+From the above results, we can see that the direct and total effects are both significant, but the indirect effect is
+not. Hence, it probably makes the most sense to include *control* via a direct (non-mediated) effect on *behavior*.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 2.1: Nested Model Comparison**
+#### Approach 2: Nested Model Comparison {-}
 
 <details>
   <summary>Click to show code</summary>
 
-We can also approach this problem from a model-comparison perspective. We can
-fit models that encode each pattern of constraints and check which one best 
-represents the data. 
+We can also approach this problem from a model-comparison perspective. We can fit models that encode each pattern of
+constraints and check which one best represents the data. 
 
-```{r}
+- The extended TORA model from \@ref(updatedModel) already encodes the non-mediated direct effect.
+
+```{r, paged.print = FALSE}
 ## Force complete mediation:
 mod2 <- '
 attitudes =~ attit_1   + attit_2   + attit_3
 norms     =~ norm_1    + norm_2    + norm_3
 control   =~ control_1 + control_2 + control_3
              
-intent   ~ attitudes + norms + control
 behavior ~ intent
-'
-
-## Force no mediation:
-mod3 <- '
-attitudes =~ attit_1   + attit_2   + attit_3
-norms     =~ norm_1    + norm_2    + norm_3
-control   =~ control_1 + control_2 + control_3
-             
-intent   ~ attitudes + norms
-behavior ~ intent + control
+intent   ~ attitudes + norms + control
 '
 
 ## Estimate the two restricted models:
-fit2 <- sem(mod2, data = condom)
-fit3 <- sem(mod3, data = condom)
+out2 <- sem(mod2, data = condom)
 
 ## Check the results:
-summary(fit2)
-summary(fit3)
+summary(out2)
 
-## Do either of the restricted models fit worse than the partial mediation model?
-anova(fit1, fit2)
-anova(fit1, fit3)
+## Does the full-mediation model fit worse than the partial mediation model?
+anova(out1, out2)
+
+## Does the no-mediation model fit worse than the partial mediation model?
+anova(out1, out_tora2)
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
-The above $\Delta \chi^2$ tests tell us that the full mediation model fits 
-significantly worse than the partial mediation model. Hence, forcing full 
-mediation by fixing the direct effect to zero is an unreasonable restraint. The 
-total effect model, on the other hand, does not fit significantly worse than the 
-partial mediation model. So, we can conclude that removing the indirect effect
-and modeling the influence of *control* on *behavior* as an un-mediated direct
-association represents the data just as well as a model that allows for both 
-indirect and direct effects. Hence, we should prefer the more parsimonious total
-effects model.
+The above $\Delta \chi^2$ tests tell us that the full mediation model fits significantly worse than the partial
+mediation model. Hence, forcing full mediation by fixing the direct effect to zero is an unreasonable constraint. The
+total effect model, on the other hand, does not fit significantly worse than the partial mediation model. So, we can
+conclude that removing the indirect effect and modeling the influence of *control* on *behavior* as an un-mediated
+direct association represents the data just as well as a model that allows for both indirect and direct effects. Hence,
+we should prefer the more parsimonious total effects model.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Approach 2.2: Non-Nested Model Comparison**
+#### Approach 3: Non-Nested Model Comparison {-}
 
 <details>
   <summary>Click to show code</summary>
 
-We can also use *information criteria* to compare our models. The two most
-popular information criteria are the *Akaike's Information Criterion* (AIC) and
-the *Bayesian Information Criterion* (BIC).
+We can also use *information criteria* to compare our models. The two most popular information criteria are the
+*Akaike's Information Criterion* (AIC) and the *Bayesian Information Criterion* (BIC).
 
 ```{r}
 ## Which model is the most parsimonious representation of the data?
-AIC(fit1, fit2, fit3)
-BIC(fit1, fit2, fit3)
+AIC(out1, out2, out_tora2)
+BIC(out1, out2, out_tora2)
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
-While the effect tests and the nested model comparisons both lead us to prefer 
-the non-mediated model, we cannot directly say that the complete mediation
-model fits significantly worse than the non-mediated model. We have not directly
-compared those two models, and we cannot do so with the $\Delta \chi^2$. We 
-cannot do such a test because these two models are not nested: we must both add
-and remove a path to get from one model specification to the other. Also, both
-models have the same degrees of freedom, so we cannot define a sampling 
-distribution against which we would compare the $\Delta \chi^2$, anyway.
+While the effect tests and the nested model comparisons both lead us to prefer the non-mediated model, we cannot
+directly say that the complete mediation model fits significantly worse than the non-mediated model. We have not
+directly compared those two models, and we cannot do so with the $\Delta \chi^2$. We cannot do such a test because these
+two models are not nested: we must both add and remove a path to get from one model specification to the other. Also,
+both models have the same degrees of freedom, so we cannot define a sampling distribution against which we would compare
+the $\Delta \chi^2$, anyway.
 
-We can use information criteria to get around this problem, though. Information
-criteria can be used to compare both nested and non-nested models. These criteria 
-are designed to rank models by balancing their fit to the data and their complexity.
-When comparing models based on information criteria, a lower value indicates a 
-better model in the sense of a better balance of fit and parsimony. The above 
-results show that both the AIC and the BIC agree that the no-mediation model is
-the best.
+We can use information criteria to get around this problem, though. Information criteria can be used to compare both
+nested and non-nested models. These criteria are designed to rank models by balancing their fit to the data and their
+complexity. When comparing models based on information criteria, a lower value indicates a better, more parsimonious
+model in the sense of a better balance of fit and complexity. The above results show that both the AIC and the BIC agree
+that the no-mediation model is the best.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-**Conclusion**
+#### Conclusion {-}
 
 <details>
   <summary>Click for explanation</summary>
 
-So, in the end, regardless of how we approach the question, all of our results 
-suggest modeling *perceived behavioral control* as a direct, non-mediated
-predictor of *condom* use.
+So, in the end, regardless of how we approach the question, all of our results suggest the best model includes *control*
+as a direct, non-mediated predictor of *behavior*.
 
 </details>
 
@@ -590,13 +665,13 @@ Therefore, *sex* must moderate at least some of these paths.
 
 ------------------------------------------------------------------------------->
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of In-Class Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-[mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html
-[van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740
-[putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004
+<!-- [mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html -->
+<!-- [van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740 -->
+<!-- [putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004 -->
 [tora_data]: https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download

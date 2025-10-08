@@ -1,51 +1,43 @@
 ## At-Home Exercises
 
-```{r, include = FALSE}
+```{r, echo = FALSE, include = FALSE}
 knitr::opts_chunk$set(error = TRUE)
+source(here::here("code", "supportFunctions.R"))
 ```
 
-This week, we'll take another look at the Kestilä (2006) results. During this
-practical, you will conduct an SEM to replicate the regression analysis of the
-Finnish data that you conducted in the [Week 4 In-Class Exercises](in-class-exercises-3.html).
+This week, we'll take another look at the Kestilä (2006) results. During this practical, you will use SEM to conduct a 
+regression analysis of the *Trust in Politics* factors that you estimated in the
+[Week 5 At-Home Exercises](at-home-exercises-4.html).
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
 Load the Finnish subsample of ESS data.
 
 - The relevant data are contained in the [*ess_finland.rds*][fin_data] file.
-   - These are the processed Finnish subsample data from the Week 4 exercises.
+- This dataset comprises the Finnish subsample from the Week 5 exercise data.
+   - The missing values have been imputed with a single round of predictive mean matching.
 
 *Note:* Unless otherwise noted, all the following analyses use these data.
 
 <details>
   <summary>Click to show code</summary>
   
-```{r, echo = FALSE}
-dataDir <- "../../../../data/"
-codeDir <- "../../code/"
-
-source(paste0(codeDir, "supportFunctions.R"))
-
-ess_fin <- readRDS(paste0(dataDir, "ess_finland.rds"))
-```
-
-```{r, eval = FALSE}
-ess_fin <- readRDS("ess_finland.rds")
+```{r}
+dataDir <- "data"
+ess_fin <- readRDS(here::here(dataDir, "ess_finland.rds"))
 ```
 
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-We need to do a little data processing before we can fit the regression model.
-At the moment, `lavaan` will not automatically convert a factor variable into
-dummy codes. So, we need to create explicit dummy codes for the two factors
-we'll use as predictors in our regression analysis: *sex*  and *political
-orientation*.  
+We need to do a little data processing before we can fit the regression model. At the moment, `lavaan` will not
+automatically convert a factor variable into dummy codes. So, we need to create explicit dummy codes for the two factors
+we'll use as predictors in our regression analysis: *sex*  and *political orientation*.  
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -70,38 +62,32 @@ with(ess_fin, table(dummy = hi_pol_interest, factor = polintr_bin))
   <details>
     <summary>Click for explanation</summary>
 
-In R, we have several ways of converting a factor into an appropriate set of 
-dummy codes.
+In R, we have several ways of converting a factor into an appropriate set of dummy codes.
 
-- We could use the `dplyr::recode()` function as we did last week.
-- We can use the `model.matrix()` function to define a design matrix based on 
-the inherent contrast attribute of the factor.
+- We could use the `dplyr::recode()` function.
+- We can use the `model.matrix()` function to define a design matrix based on the inherent contrast attribute of the
+factor.
     - Missing data will cause problems here.
-- We can us `as.numeric()` to revert the factor to its underlying numeric 
-representation {Male = 1, Female = 2} and use arithmetic to convert {1, 2} 
-$\rightarrow$ {0, 1}.
+- We can us `as.numeric()` to revert the factor to its underlying numeric representation {Male = 1, Female = 2} and use
+arithmetic to convert {1, 2} $\rightarrow$ {0, 1}.
 
-When our factor only has two levels, though, the `ifelse()` function is the 
-simplest way.
+When our factor only has two levels, though, the `ifelse()` function is the simplest way.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-We are now ready to estimate our latent regression model. Specifically, we want
-to combine the three OLS regression models that you ran in \@ref(efaRegression)
-into a single SEM that we will estimate in `lavaan`.
+We are now ready to estimate our latent regression model. Specifically, we want to estimate a single SEM to regress the
+three *Trust in Politics* factors onto the following predictors:
+
+- *Sex*
+- *Age*
+- *Years of Education*
+- *High vs. Low Political Interest*
+- *Placement on the Left-Right Political Scale*
 
 The following path diagram shows the intended theoretical model.
-
-<!------------------------------------------------------------------------------
-\[
-Y_{trust\_inst} = \beta_1 X_{age} + \beta_2 X_{female} + \beta_3 X_{edu\_years} +
-                  \beta_4 X_{hi\_pol\_interest} + \beta_5 X_{lrscale} + 
-                  \varepsilon_Y
-\]
-------------------------------------------------------------------------------->
 
 ```{r echo = FALSE}
 library(semPlot)
@@ -133,10 +119,10 @@ sem(mod_sem, data = ess_fin, fixed.x = FALSE) %>%
            nCharNodes = 0)
 ```
 
-Although the variances are not included in this path diagram, all variables in
-the model (including the observed predictor variables) are random.
+Although the variances are not included in this path diagram, all variables in the model (including the observed
+predictor variables) are random.
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
@@ -167,22 +153,22 @@ politicians  ~ female + age + eduyrs + hi_pol_interest + lrscale
 <details>
   <summary>Click for explanation</summary>
 
-- We simply need to add a line defining the latent regression paths to our old
-  CFA syntax.
-- We don't need to specify the covariances in the syntax. We can use options in
-  the `sem()` function to request those estimates.
+- We simply need to add a three lines defining the latent regression paths to our old CFA syntax.
+- We don't need to specify the covariances in the syntax. We can use options in the `sem()` function to request those
+estimates.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
-###
+### {#semEstimation}
 
 Estimate the SEM, and summarize the results.
 
 - Fit the model to the processed Finnish subsample from above.
 - Estimate the model using `lavaan::sem()`.
+- Use the fixed-factor method to identify the model.
 - Request the standardized parameter estimates with the summary.
 - Request the $R^2$ estimates with the summary.
 
@@ -193,124 +179,218 @@ Estimate the SEM, and summarize the results.
 library(lavaan)
 
 ## Fit the SEM:
-fit_sem <- sem(mod_sem, data = ess_fin, fixed.x = FALSE)
+out_sem <- sem(mod_sem, data = ess_fin, std.lv = TRUE, fixed.x = FALSE)
 
 ## Summarize the results:
-summary(fit_sem, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+summary(out_sem, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
 ```
 
 <details>
   <summary>Click for explanation</summary>
 
-The `fixed.x = FALSE` argument tells **lavaan** to model the predictors as random
-variables. By default, **lavaan** will covary any random predictor variables. So,
-we don't need to make any other changes to the usual procedure.
+The `fixed.x = FALSE` argument tells **lavaan** to model the predictors as random variables. By default, **lavaan** will
+covary any random predictor variables. So, we don't need to make any other changes to the usual procedure.
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+In the final part of these exercises, you will rerun the above SEM as a path model wherein the observed mean scores
+representing *Trust in Institutions*, *Satisfaction with Political Systems*, and *Trust in Politicians* act as the DVs.
+The `scoreItems()` function from the **psych** package makes it very easy to create scale scores.
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
-Finally, we will rerun the latent regression model from above as a path model 
-with the factor scores from \@ref(factorScores) acting as the DVs.
+Read the documentation for the `psych::scoreItems()` function.
 
-- Rerun the above SEM as a path model wherein the EFA-derived *Trust in 
-  Institutions*, *Satisfaction with Political Systems*, and *Trust in Politicians*
-  factor scores act as the DVs.
-   - Request the standardized parameter estimates with the summary.
-   - Request the $R^2$ estimates with the summary.
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r, eval = FALSE}
+?psych::scoreItems
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the `psych::scoreItems()` function to create mean scores to represent the three latent constructs in the above SEM.
 
 <details>
   <summary>Click to show code</summary>
 
 ```{r}
-## Define the model syntax for the path analysis:
-mod_pa <- '
-trust_inst ~ female + age + eduyrs + hi_pol_interest + lrscale
-satisfy    ~ female + age + eduyrs + hi_pol_interest + lrscale
-trust_pol  ~ female + age + eduyrs + hi_pol_interest + lrscale
-'
+library(psych)
 
-## Estimate the path model:
-fit_pa <- sem(mod_pa, data = ess_fin, fixed.x = FALSE)
+## Create a list to define the item-to-score mapping
+scaleKeys <- list(
+  ins_score = c("trstlgl", "trstplc", "trstun", "trstep", "trstprl"),
+  sat_score = c("stfhlth", "stfedu", "stfeco", "stfgov", "stfdem"),
+  pol_score  = c("pltinvt", "pltcare", "trstplt")
+  )
 
-## Summarize the results:
-summary(fit_pa, standardized = TRUE, rsquare = TRUE)
+## Create the scale scores
+scaleScores <- scoreItems(keys = scaleKeys, items = ess_fin, impute = "none")
+
+## If we print the 'scaleScores' object, we get a bunch of interesting psychometric information
+scaleScores
+
+## Add the scores to the ESS dataset
+ess_fin <- data.frame(ess_fin, scaleScores$scores)
 ```
 
-  <details>
-    <summary>Click to show explanation</summary>
-
-We don't so anything particularly special here. We simply rerun our latent 
-regression as a path analysis with the EFA-derived factor scores as the DVs.
-
-  </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
+
+###
+
+Use the mean scores you created above to estimate a path analytic version of the SEM from \@ref(semEstimation).
+
+<details>
+  <summary>Click to show code</summary>
+
+```{r}
+## Specify the model syntax for the path model:
+mod_pa <- '
+## Specify the structural relations:
+ins_score ~ female + age + eduyrs + hi_pol_interest + lrscale
+sat_score ~ female + age + eduyrs + hi_pol_interest + lrscale
+pol_score ~ female + age + eduyrs + hi_pol_interest + lrscale
+'
+
+## Fit the path analytic model:
+out_pa <- sem(mod_pa, data = ess_fin, fixed.x = FALSE)
+
+## Summarize the results:
+summary(out_pa, fit.measures = TRUE, standardized = TRUE, rsquare = TRUE)
+```
+
+</details>
+
+------------------------------------------------------------------------------------------------------------------------
 
 ###
 
 Compare the results from the path analysis to the SEM-based results.
 
-- Does it matter whether we use a latent variable or a factor score to define 
-the DV?
+- Does it matter whether we use a latent variable or a factor score to define the DV?
 
-*Hint:* When comparing parameter estimates, use the fully standardized estimates 
-(i.e., the values in the column labeled `Std.all`).
+*Hint:* When comparing parameter estimates, use the fully standardized estimates (i.e., the values in the column labeled
+`Std.all`).
 
 <details>
   <summary>Click to show code</summary>
 
-*Note:* The "supportFunction.R" script that we source below isn't a necessary
-part of the solution. This script defines a bunch of convenience functions. One
-of these functions, `partSummary()`, allows us to print selected pieces of the 
+*Note:* The "supportFunction.R" script that we source below isn't a necessary part of the solution. This script defines
+a bunch of convenience functions. One of these functions, `partSummary()`, allows us to print selected pieces of the
 model summary.
 
 ```{r, eval = FALSE}
-## Source a script of convenience function definitions:
-source("supportFunctions.R")
+## Source the script that defines the partSummary() convenience function:
+source(here::here("code", "supportFunctions.R"))
 ```
 
 ```{r}
 ## View the regression estimates from the SEM:
-partSummary(fit_sem, 8, standardized = TRUE)
+partSummary(out_sem, 8, standardized = TRUE)
 
 ## View the regression estimates from the path analysis:
-partSummary(fit_pa, 7, standardized = TRUE)
+partSummary(out_pa, 7, standardized = TRUE)
 
 ## View the R-squared estimates from the SEM:
-partSummary(fit_sem, 11, rsquare = TRUE)
+partSummary(out_sem, 11, rsquare = TRUE)
 
 ## View the R-squared estimates from the SEM:
-partSummary(fit_pa, 10, rsquare = TRUE)
+partSummary(out_pa, 10, rsquare = TRUE)
 ```
 
 ```{r, eval = FALSE, echo = FALSE}
-r2_sem <- summary(fit_sem, rsquare = TRUE)$pe %>% 
+r2_sem <- summary(out_sem, rsquare = TRUE)$pe %>% 
   filter(op == "r2", rhs == "institutions") %>% 
   select(est) %>% 
   as.numeric()
-r2_pa <- inspect(fit_pa, "r2")
+r2_pa <- inspect(out_pa, "r2")
 ```
 
   <details>
     <summary>Click for explanation</summary>
 
-It certainly looks like the way we define the DV has a meaningful impact. The 
-patterns of significance differ between the two sets of regression slopes, and
-the $R^2$ values are larger for the *Institutions* and *Satisfaction* factors in
-the SEM, and the $R^2$ for the *Politicians* factor is higher in the path analysis.
+```{r, echo = FALSE, include = FALSE}
+estSem <- parameterEstimates(out_sem, standardized = TRUE)
+estPa  <- parameterEstimates(out_pa, standardized = TRUE)
+
+x <- estSem |> filter(op == "~") |> select(lhs, rhs, std.all) |> rename(X = rhs, SEM = std.all)
+y <- estPa |> filter(op == "~") |> select(std.all) |> rename(PA = std.all)
+
+beta <- data.frame(x, y)
+
+betaIns <- filter(beta, lhs == "institutions") |> select(-lhs)
+betaSat <- filter(beta, lhs == "satisfaction") |> select(-lhs)
+betaPol <- filter(beta, lhs == "politicians") |> select(-lhs)
+
+xx <- estSem |>
+  filter(op == "~") |>
+  select(lhs, rhs, est, se, z) |>
+  rename(X = rhs, SEM_Est = est, SEM_SE = se, SEM_Z = z)
+yy <- estPa |>
+  filter(op == "~") |>
+  select(est, se, z) |>
+  rename(PA_Est = est, PA_SE = se, PA_Z = z)
+
+tests <- data.frame(xx, yy)
+
+testIns <- filter(tests, lhs == "institutions") |> select(-lhs)
+testSat <- filter(tests, lhs == "satisfaction") |> select(-lhs)
+testPol <- filter(tests, lhs == "politicians") |> select(-lhs)
+
+r2 <- data.frame(
+  SEM = lavInspect(out_sem, "r2") |> tail(3), 
+  PA = lavInspect(out_pa, "r2") |> as.numeric()
+)
+```
+
+The two approaches reach the same substantive conclusions, but we do see differences. For example, the standardized
+regression weights mostly suggests larger effect sizes in the SEM model.
+
+#### DV = Institutions {-}
+
+```{r, echo = FALSE}
+kable(betaIns, digits = 3)
+```
+
+#### DV = Satisfaction {-}
+
+```{r, echo = FALSE}
+kable(betaSat, digits = 3)
+```
+  
+#### DV = Politicians {-}
+
+```{r, echo = FALSE}
+kable(betaPol, digits = 3)
+```
+
+The $R^2$ values from the SEM are also larger than those from the path analysis for two out of three factors and
+approximately equal for the *Politicians* factor.
+
+```{r, echo = FALSE}
+kable(r2, digits = 3)
+```
 
   </details>
 </details>
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 End of At-Home Exercises
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 [fin_data]: https://surfdrive.surf.nl/files/index.php/s/rN8FuscpJTLsB4h/download

@@ -1,8 +1,8 @@
 # Full SEM
 
 ```{r week7_global_options, include = FALSE}
-source("code/chapter_setup.R")
-partDir <- paste0(partDir0, "week7/")
+library(knitr)
+thisWeek <- "week7"
 ```
 
 This week, we will focus on integrating all of the disparate methods we've covered so far into full-fledged *structural
@@ -21,14 +21,16 @@ Complete the [At-Home Exercises](at-home-exercises-5.html).
 
 During the practical you will work on the [In-Class Exercises](in-class-exercises-5.html).
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, error = TRUE, results = "asis"}
-# knit_child(paste0(partDir, "lecture.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-# knit_child(paste0(partDir, "reading.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-# knit_child(paste0(partDir, "home.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-# knit_child(paste0(partDir, "class.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+```{r, echo = FALSE, message = FALSE, warning = FALSE, error = FALSE, results = "asis"}
+knit_child(here::here("sections", thisWeek, "lecture.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+# knit_child(here::here("sections", "lecture-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
 
-knit_child(paste0(partDir0, "lecture-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir0, "reading-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir0, "home-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
-knit_child(paste0(partDir0, "class-placeholder.Rmd"), quiet = TRUE) %>% cat(sep = "\n")
+knit_child(here::here("sections", thisWeek, "reading.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+# knit_child(here::here("sections", "reading-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+
+knit_child(here::here("sections", thisWeek, "home.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+# knit_child(here::here("sections", "home-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+
+knit_child(here::here("sections", thisWeek, "class.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+# knit_child(here::here("sections", "class-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
 ```

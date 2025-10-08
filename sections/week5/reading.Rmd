@@ -1,9 +1,5 @@
 ## Reading
 
-```{r include = FALSE}
-answer <- yaml::yaml.load_file("../../answers.yml")$rq6
-```
-
 This week, we don't have any "required" readings with reading questions, but we recommend these two papers if you'd
 like some more information on model fit and reporting CFA analyses.
 
