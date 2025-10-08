@@ -435,9 +435,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="multiple-group-models.html"><a href="multiple-group-models.html"><i class="fa fa-check"></i><b>8</b> Multiple Group Models</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="lecture-6.html"><a href="lecture-6.html"><i class="fa fa-check"></i><b>8.1</b> Lecture</a></li>
+<li class="chapter" data-level="8.1" data-path="lecture-6.html"><a href="lecture-6.html"><i class="fa fa-check"></i><b>8.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="lecture-6.html"><a href="lecture-6.html#recordings-5"><i class="fa fa-check"></i><b>8.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lecture-6.html"><a href="lecture-6.html#slides-6"><i class="fa fa-check"></i><b>8.1.2</b> Slides</a></li>
+</ul></li>
 <li class="chapter" data-level="8.2" data-path="reading-6.html"><a href="reading-6.html"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
-<li class="chapter" data-level="8.3" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html"><i class="fa fa-check"></i><b>8.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="8.3" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html"><i class="fa fa-check"></i><b>8.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgPathAnalysis"><i class="fa fa-check"></i><b>8.3.1</b> Multiple-Group Path Analysis</a></li>
+<li class="chapter" data-level="8.3.2" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgCFA"><i class="fa fa-check"></i><b>8.3.2</b> Multiple-Group CFA</a></li>
+</ul></li>
 <li class="chapter" data-level="8.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html"><i class="fa fa-check"></i><b>8.4</b> In-Class Exercises</a></li>
 </ul></li>
 </ul>
@@ -459,11 +467,801 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="at-home-exercises-6" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> At-Home Exercises<a href="at-home-exercises-6.html#at-home-exercises-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong><em>Coming soon to a GitBook near you!</em></strong></p>
-<p>We’re still building this page. It’s almost finished…just a few more bricks should do it…</p>
-<p align="center">
-<img src="https://i.gifer.com/BGzf.gif" style="width:100.0%" />
-</p>
+<hr />
+<div id="mgPathAnalysis" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Multiple-Group Path Analysis<a href="at-home-exercises-6.html#mgPathAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>To fix ideas, we’ll start these practical exercises by re-running part of the moderation analysis from the
+<a href="at-home-exercises-2.html#moderation">Week 3 At-Home Exercises</a> as a multiple group model.</p>
+<hr />
+<div id="section-89" class="section level4" number="8.3.1.1">
+<h4><span class="header-section-number">8.3.1.1</span> </h4>
+<p>Load the <a href="https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M/download"><em>Sesam2.sav</em></a> data.</p>
+<ul>
+<li><em>NOTE:</em> Unless otherwise specified, all analyses in Section <a href="at-home-exercises-6.html#mgPathAnalysis">8.3.1</a> use these data.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="at-home-exercises-6.html#cb257-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb257-2"><a href="at-home-exercises-6.html#cb257-2" tabindex="-1"></a></span>
+<span id="cb257-3"><a href="at-home-exercises-6.html#cb257-3" tabindex="-1"></a><span class="co"># Read the data into an object called &#39;sesam2&#39;:</span></span>
+<span id="cb257-4"><a href="at-home-exercises-6.html#cb257-4" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb257-5"><a href="at-home-exercises-6.html#cb257-5" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;Sesam2.sav&quot;</span>))</span></code></pre></div>
+</details>
+<hr />
+<p><code>VIEWCAT</code> is a nominal grouping variable, but it is represented as a numeric variable in the <code>sesam2</code> data. The levels
+represent the following frequencies of Sesame Street viewership of the children in the data:</p>
+<ul>
+<li><code>VIEWCAT = 1</code>: Rarely/Never</li>
+<li><code>VIEWCAT = 2</code>: 2–3 times a week</li>
+<li><code>VIEWCAT = 3</code>: 4–5 times a week</li>
+<li><code>VIEWCAT = 4</code>: &gt; 5 times a week</li>
+</ul>
+<p>We will use <code>VIEWCAT</code> as the grouping variable in our path model. To do so, we don’t really need to convert <code>VIEWCAT</code>
+into a factor, but, if we do, <strong>lavaan</strong> will give our groups meaningful labels in the output. That added clarity can be
+pretty helpful.</p>
+<hr />
+</div>
+<div id="section-90" class="section level4" number="8.3.1.2">
+<h4><span class="header-section-number">8.3.1.2</span> </h4>
+<p>Convert <em>VIEWCAT</em> into a factor.</p>
+<ul>
+<li>Make sure that <code>VIEWCAT = 1</code> is the reference group.</li>
+<li>Assign the factor labels denoted above.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="at-home-exercises-6.html#cb258-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb258-2"><a href="at-home-exercises-6.html#cb258-2" tabindex="-1"></a></span>
+<span id="cb258-3"><a href="at-home-exercises-6.html#cb258-3" tabindex="-1"></a><span class="do">## Store the old version for checking:</span></span>
+<span id="cb258-4"><a href="at-home-exercises-6.html#cb258-4" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> sesam2<span class="sc">$</span>VIEWCAT</span>
+<span id="cb258-5"><a href="at-home-exercises-6.html#cb258-5" tabindex="-1"></a></span>
+<span id="cb258-6"><a href="at-home-exercises-6.html#cb258-6" tabindex="-1"></a><span class="do">## Convert &#39;VIEWCAT&#39; to a factor:</span></span>
+<span id="cb258-7"><a href="at-home-exercises-6.html#cb258-7" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(sesam2, </span>
+<span id="cb258-8"><a href="at-home-exercises-6.html#cb258-8" tabindex="-1"></a>                 <span class="at">VIEWCAT =</span> <span class="fu">factor</span>(VIEWCAT,</span>
+<span id="cb258-9"><a href="at-home-exercises-6.html#cb258-9" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb258-10"><a href="at-home-exercises-6.html#cb258-10" tabindex="-1"></a>                                    <span class="st">&quot;Rarely/never&quot;</span>,</span>
+<span id="cb258-11"><a href="at-home-exercises-6.html#cb258-11" tabindex="-1"></a>                                    <span class="st">&quot;2-3 times per week&quot;</span>,</span>
+<span id="cb258-12"><a href="at-home-exercises-6.html#cb258-12" tabindex="-1"></a>                                    <span class="st">&quot;4-5 times per week&quot;</span>,</span>
+<span id="cb258-13"><a href="at-home-exercises-6.html#cb258-13" tabindex="-1"></a>                                    <span class="st">&quot;&gt; 5 times per week&quot;</span></span>
+<span id="cb258-14"><a href="at-home-exercises-6.html#cb258-14" tabindex="-1"></a>                                    )</span>
+<span id="cb258-15"><a href="at-home-exercises-6.html#cb258-15" tabindex="-1"></a>                                  )</span>
+<span id="cb258-16"><a href="at-home-exercises-6.html#cb258-16" tabindex="-1"></a>                )</span>
+<span id="cb258-17"><a href="at-home-exercises-6.html#cb258-17" tabindex="-1"></a></span>
+<span id="cb258-18"><a href="at-home-exercises-6.html#cb258-18" tabindex="-1"></a><span class="do">## Check the conversion:</span></span>
+<span id="cb258-19"><a href="at-home-exercises-6.html#cb258-19" tabindex="-1"></a><span class="fu">table</span>(<span class="at">new =</span> sesam2<span class="sc">$</span>VIEWCAT, <span class="at">old =</span> tmp, <span class="at">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>##                     old
+## new                   1  2  3  4 &lt;NA&gt;
+##   Rarely/never       25  0  0  0    0
+##   2-3 times per week  0 44  0  0    0
+##   4-5 times per week  0  0 57  0    0
+##   &gt; 5 times per week  0  0  0 53    0
+##   &lt;NA&gt;                0  0  0  0    0</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-91" class="section level4" number="8.3.1.3">
+<h4><span class="header-section-number">8.3.1.3</span> </h4>
+<p>Create a conditional slopes plot to visualize the effect of <code>AGE</code> on <code>POSTNUMB</code> within each of the <code>VIEWCAT</code> groups.</p>
+<ul>
+<li>Based on this visualization, do you think it is reasonable to expect that <code>VIEWCAT</code> moderates the effect of <code>AGE</code> on
+<code>POSTNUMB</code>?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="at-home-exercises-6.html#cb260-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb260-2"><a href="at-home-exercises-6.html#cb260-2" tabindex="-1"></a></span>
+<span id="cb260-3"><a href="at-home-exercises-6.html#cb260-3" tabindex="-1"></a><span class="fu">ggplot</span>(sesam2, <span class="fu">aes</span>(AGE, POSTNUMB, <span class="at">color =</span> VIEWCAT)) <span class="sc">+</span> </span>
+<span id="cb260-4"><a href="at-home-exercises-6.html#cb260-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb260-5"><a href="at-home-exercises-6.html#cb260-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="isem_files/figure-html/unnamed-chunk-488-1.png" width="672" /></p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The regression lines representing the conditional focal effects are not parallel, so there appears to be some level of
+moderation. That being said, the differences are pretty small, so the moderation may not be significant (i.e., the
+non-parallel regression lines may simply be reflecting sampling variability).</p>
+</details>
+</details>
+<hr />
+<p>We will use path analysis to test if <code>VIEWCAT</code> moderates the effect of <code>AGE</code> on <code>POSTNUMB</code>. This analysis will entail
+three steps:</p>
+<ol style="list-style-type: decimal">
+<li>Estimate the unrestricted multiple-group model wherein we regress <code>POSTNUMB</code> onto <code>AGE</code> and specify <code>VIEWCAT</code> as the
+grouping factor.</li>
+<li>Estimate the restricted model wherein we constrain the <code>AGE</code> <span class="math inline">\(\rightarrow\)</span> <code>POSTNUMB</code> effect to be equal in all
+<code>VIEWCAT</code> groups.</li>
+<li>Conduct a <span class="math inline">\(\Delta \chi^2\)</span> test to compare the fit of the two models.</li>
+</ol>
+<hr />
+</div>
+<div id="fullPaMod" class="section level4" number="8.3.1.4">
+<h4><span class="header-section-number">8.3.1.4</span> </h4>
+<p>Estimate the unrestricted path model described above.</p>
+<ul>
+<li>Include the intercept term in your model.</li>
+<li>Judging from the focal effects estimate in each group, do you think moderation is plausible?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="at-home-exercises-6.html#cb261-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb261-2"><a href="at-home-exercises-6.html#cb261-2" tabindex="-1"></a></span>
+<span id="cb261-3"><a href="at-home-exercises-6.html#cb261-3" tabindex="-1"></a><span class="do">## Estimate the unrestricted model a view the results:</span></span>
+<span id="cb261-4"><a href="at-home-exercises-6.html#cb261-4" tabindex="-1"></a>out_full <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + AGE&#39;</span>, <span class="at">data =</span> sesam2, <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
+<span id="cb261-5"><a href="at-home-exercises-6.html#cb261-5" tabindex="-1"></a><span class="fu">summary</span>(out_full)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        12
+## 
+##   Number of observations per group:                   
+##     Rarely/never                                    25
+##     4-5 times per week                              57
+##     &gt; 5 times per week                              53
+##     2-3 times per week                              44
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+##   Test statistic for each group:
+##     Rarely/never                                 0.000
+##     4-5 times per week                           0.000
+##     &gt; 5 times per week                           0.000
+##     2-3 times per week                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## 
+## Group 1 [Rarely/never]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE               0.747    0.239    3.118    0.002
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        -18.721   12.142   -1.542    0.123
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB         73.285   20.728    3.536    0.000
+## 
+## 
+## Group 2 [4-5 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE               0.554    0.234    2.369    0.018
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB          4.861   12.178    0.399    0.690
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        135.923   25.461    5.339    0.000
+## 
+## 
+## Group 3 [&gt; 5 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE               0.405    0.214    1.894    0.058
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB         15.676   11.249    1.394    0.163
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        115.942   22.523    5.148    0.000
+## 
+## 
+## Group 4 [2-3 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE               0.729    0.255    2.855    0.004
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB         -8.747   13.003   -0.673    0.501
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        112.019   23.882    4.690    0.000</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>There are some notable differences in the <code>AGE</code> <span class="math inline">\(\rightarrow\)</span> <code>POSTNUMB</code> focal effect between <code>VIEWCAT</code> groups. It looks
+like <code>VIEWCAT</code> could moderate the focal effect.</p>
+</details>
+</details>
+<hr />
+</div>
+<div id="resPaMod" class="section level4" number="8.3.1.5">
+<h4><span class="header-section-number">8.3.1.5</span> </h4>
+<p>Estimate the restricted model described above.</p>
+<ul>
+<li>Equate the focal effect across all <code>VIEWCAT</code> groups.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="at-home-exercises-6.html#cb263-1" tabindex="-1"></a><span class="do">## Estimate the restricted model and view the results:</span></span>
+<span id="cb263-2"><a href="at-home-exercises-6.html#cb263-2" tabindex="-1"></a>out_res <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + c(&quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;) * AGE&#39;</span>,</span>
+<span id="cb263-3"><a href="at-home-exercises-6.html#cb263-3" tabindex="-1"></a>               <span class="at">data =</span> sesam2,</span>
+<span id="cb263-4"><a href="at-home-exercises-6.html#cb263-4" tabindex="-1"></a>               <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
+<span id="cb263-5"><a href="at-home-exercises-6.html#cb263-5" tabindex="-1"></a><span class="fu">summary</span>(out_res)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 38 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        12
+##   Number of equality constraints                     3
+## 
+##   Number of observations per group:                   
+##     Rarely/never                                    25
+##     4-5 times per week                              57
+##     &gt; 5 times per week                              53
+##     2-3 times per week                              44
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 1.486
+##   Degrees of freedom                                 3
+##   P-value (Chi-square)                           0.685
+##   Test statistic for each group:
+##     Rarely/never                                 0.413
+##     4-5 times per week                           0.027
+##     &gt; 5 times per week                           0.760
+##     2-3 times per week                           0.287
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## 
+## Group 1 [Rarely/never]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE       (b1)    0.592    0.118    5.032    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        -10.966    6.154   -1.782    0.075
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB         74.505   21.073    3.536    0.000
+## 
+## 
+## Group 2 [4-5 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE       (b1)    0.592    0.118    5.032    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB          2.869    6.275    0.457    0.647
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        135.988   25.473    5.339    0.000
+## 
+## 
+## Group 3 [&gt; 5 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE       (b1)    0.592    0.118    5.032    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB          5.923    6.313    0.938    0.348
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        117.616   22.848    5.148    0.000
+## 
+## 
+## Group 4 [2-3 times per week]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   POSTNUMB ~                                          
+##     AGE       (b1)    0.592    0.118    5.032    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB         -1.826    6.157   -0.297    0.767
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .POSTNUMB        112.751   24.039    4.690    0.000</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-92" class="section level4" number="8.3.1.6">
+<h4><span class="header-section-number">8.3.1.6</span> </h4>
+<p>Test for moderation by comparing the full and restricted models from <a href="at-home-exercises-6.html#fullPaMod">8.3.1.4</a> and <a href="at-home-exercises-6.html#resPaMod">8.3.1.5</a>.</p>
+<ul>
+<li>Does <code>VIEWCAT</code> significantly moderate the effect of <code>AGE</code> on <code>POSTNUMB</code>?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="at-home-exercises-6.html#cb265-1" tabindex="-1"></a><span class="do">## Test for moderation:</span></span>
+<span id="cb265-2"><a href="at-home-exercises-6.html#cb265-2" tabindex="-1"></a><span class="fu">anova</span>(out_full, out_res)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##          Df    AIC    BIC  Chisq Chisq diff RMSEA Df diff Pr(&gt;Chisq)
+## out_full  0 1378.9 1417.1 0.0000                                    
+## out_res   3 1374.3 1403.0 1.4862     1.4862     0       3     0.6855</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>No, <em>VIEWCAT</em> does not significantly moderate the effect of <em>AGE</em> on <em>POSTNUMB</em>
+(<span class="math inline">\(\Delta \chi^2[3] = 1.486\)</span>, <span class="math inline">\(p = 0.685\)</span>).</p>
+</details>
+</details>
+<hr />
+</div>
+</div>
+<div id="mgCFA" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Multiple-Group CFA<a href="at-home-exercises-6.html#mgCFA" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>In the next part of these exercises, we will estimate a multiple-group CFA to evaluate the measurement structure of a
+scale assessing <em>Prolonged Grief Disorder</em>. The relevant data are contained in the <a href="https://surfdrive.surf.nl/files/index.php/s/xxkp4gZY682AGyY/download"><em>PGDdata2.txt</em></a> file. This
+dataset is a subset of a larger sample collected from bereaved people who had recently lost a close family member. You
+can find more information about this scale in <a href="https://doi.org/10.1016/j.jad.2010.01.076">Boelen et al. (2010)</a>.</p>
+<p>The dataset consists of a grouping variable, <code>Kin2</code>, and 5 items taken from the <em>Inventory of Complicated Grief</em>:</p>
+<ol style="list-style-type: decimal">
+<li><code>Kin2</code>: Relation to the deceased family member {1 = Spouse, 0 = Other}</li>
+<li><code>b1pss1</code>: Yearning</li>
+<li><code>b2pss2</code>: Part of self died</li>
+<li><code>b3pss3</code>: Difficulty accepting the loss</li>
+<li><code>b4pss4</code>: Avoiding reminders of deceased</li>
+<li><code>b5pss5</code>: Bitterness about the loss</li>
+</ol>
+<p>The <em>PGDdata2.txt</em> file has the following characteristics.</p>
+<ul>
+<li>Fields are separated by tab characters.</li>
+<li>The first row contains variable names.</li>
+<li>Missing values are coded as -999.</li>
+</ul>
+<hr />
+<div id="section-93" class="section level4" number="8.3.2.1">
+<h4><span class="header-section-number">8.3.2.1</span> </h4>
+<p>Load the <em>PGDdata2.txt</em> data.</p>
+<ul>
+<li>Use the <code>read.table()</code> function to load the data.</li>
+<li>Convert the missing values to <code>NA</code> via the <code>na.strings</code> argument.</li>
+<li>Retain the column labels via the <code>header</code> argument.</li>
+<li>Specify the field delimiter as the tab character (i.e., <code>"\t"</code>).</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="at-home-exercises-6.html#cb267-1" tabindex="-1"></a><span class="do">## Load the data:</span></span>
+<span id="cb267-2"><a href="at-home-exercises-6.html#cb267-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">read.table</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;PGDdata2.txt&quot;</span>),</span>
+<span id="cb267-3"><a href="at-home-exercises-6.html#cb267-3" tabindex="-1"></a>                  <span class="at">na.strings =</span> <span class="st">&quot;-999&quot;</span>,</span>
+<span id="cb267-4"><a href="at-home-exercises-6.html#cb267-4" tabindex="-1"></a>                  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb267-5"><a href="at-home-exercises-6.html#cb267-5" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb267-6"><a href="at-home-exercises-6.html#cb267-6" tabindex="-1"></a></span>
+<span id="cb267-7"><a href="at-home-exercises-6.html#cb267-7" tabindex="-1"></a><span class="do">## Check the results:</span></span>
+<span id="cb267-8"><a href="at-home-exercises-6.html#cb267-8" tabindex="-1"></a><span class="fu">head</span>(pgd)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Kin2"],"name":[1],"type":["int"],"align":["right"]},{"label":["b1pss1"],"name":[2],"type":["int"],"align":["right"]},{"label":["b2pss2"],"name":[3],"type":["int"],"align":["right"]},{"label":["b3pss3"],"name":[4],"type":["int"],"align":["right"]},{"label":["b4pss4"],"name":[5],"type":["int"],"align":["right"]},{"label":["b5pss5"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"1","3":"1","4":"1","5":"1","6":"1","_rn_":"1"},{"1":"0","2":"1","3":"0","4":"0","5":"1","6":"0","_rn_":"2"},{"1":"1","2":"1","3":"1","4":"1","5":"1","6":"0","_rn_":"3"},{"1":"1","2":"1","3":"0","4":"1","5":"1","6":"0","_rn_":"4"},{"1":"0","2":"1","3":"1","4":"2","5":"0","6":"0","_rn_":"5"},{"1":"1","2":"2","3":"2","4":"2","5":"2","6":"1","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="at-home-exercises-6.html#cb268-1" tabindex="-1"></a><span class="fu">summary</span>(pgd)</span></code></pre></div>
+<pre><code>##       Kin2            b1pss1          b2pss2           b3pss3      
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :1.0000   Median :1.000   Median :0.0000   Median :1.0000  
+##  Mean   :0.6661   Mean   :1.235   Mean   :0.4606   Mean   :0.9772  
+##  3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :3.0000   Max.   :5.0000  
+##  NA&#39;s   :2                                         NA&#39;s   :1       
+##      b4pss4          b5pss5      
+##  Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.0000  
+##  Median :1.000   Median :0.0000  
+##  Mean   :1.011   Mean   :0.6754  
+##  3rd Qu.:2.000   3rd Qu.:1.0000  
+##  Max.   :3.000   Max.   :3.0000  
+##                  NA&#39;s   :1</code></pre>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="at-home-exercises-6.html#cb270-1" tabindex="-1"></a><span class="fu">str</span>(pgd)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    571 obs. of  6 variables:
+##  $ Kin2  : int  0 0 1 1 0 1 1 1 1 1 ...
+##  $ b1pss1: int  1 1 1 1 1 2 1 3 1 1 ...
+##  $ b2pss2: int  1 0 1 0 1 2 1 2 0 0 ...
+##  $ b3pss3: int  1 0 1 1 2 2 1 2 1 1 ...
+##  $ b4pss4: int  1 1 1 1 0 2 2 3 0 1 ...
+##  $ b5pss5: int  1 0 0 0 0 1 2 3 0 0 ...</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-94" class="section level4" number="8.3.2.2">
+<h4><span class="header-section-number">8.3.2.2</span> </h4>
+<p>Process the PGD data as follows.</p>
+<ul>
+<li>Convert <code>Kin2</code> into a factor variable.</li>
+<li>Exclude any cases with missing values on <code>Kin2</code>.</li>
+<li>Save the processed dataset as an RDS file.</li>
+</ul>
+<p><em>NOTE:</em> Unless otherwise specified, all analyses in Section <a href="at-home-exercises-6.html#mgCFA">8.3.2</a> use these data.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="at-home-exercises-6.html#cb272-1" tabindex="-1"></a><span class="do">## Process data</span></span>
+<span id="cb272-2"><a href="at-home-exercises-6.html#cb272-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pgd, <span class="at">Kin2 =</span> <span class="fu">factor</span>(Kin2, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;spouse&quot;</span>, <span class="st">&quot;other&quot;</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb272-3"><a href="at-home-exercises-6.html#cb272-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Kin2))</span>
+<span id="cb272-4"><a href="at-home-exercises-6.html#cb272-4" tabindex="-1"></a></span>
+<span id="cb272-5"><a href="at-home-exercises-6.html#cb272-5" tabindex="-1"></a><span class="do">## Save the processed data</span></span>
+<span id="cb272-6"><a href="at-home-exercises-6.html#cb272-6" tabindex="-1"></a><span class="fu">saveRDS</span>(pgd, here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;pgd_data.rds&quot;</span>))</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="oneGroupCFA" class="section level4" number="8.3.2.3">
+<h4><span class="header-section-number">8.3.2.3</span> </h4>
+<p>Run a single-group CFA wherein the five scale variables described above indicate a single latent factor.</p>
+<ul>
+<li>Do not include any grouping variable.</li>
+<li>Use the default settings in the <code>cfa()</code> function.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="at-home-exercises-6.html#cb273-1" tabindex="-1"></a><span class="do">## Define the model syntax:</span></span>
+<span id="cb273-2"><a href="at-home-exercises-6.html#cb273-2" tabindex="-1"></a>cfaMod <span class="ot">&lt;-</span> <span class="st">&#39;grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5&#39;</span></span>
+<span id="cb273-3"><a href="at-home-exercises-6.html#cb273-3" tabindex="-1"></a></span>
+<span id="cb273-4"><a href="at-home-exercises-6.html#cb273-4" tabindex="-1"></a><span class="do">## Estimate the model:</span></span>
+<span id="cb273-5"><a href="at-home-exercises-6.html#cb273-5" tabindex="-1"></a>out0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd)</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-95" class="section level4" number="8.3.2.4">
+<h4><span class="header-section-number">8.3.2.4</span> </h4>
+<p>Summarize the evaluate the fitted CFA</p>
+<ul>
+<li>Does the model fit well?</li>
+<li>Are the items homogeneously associated with the latent factor?</li>
+<li>Which item is most weakly associated with the latent factor?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="at-home-exercises-6.html#cb274-1" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
+<span id="cb274-2"><a href="at-home-exercises-6.html#cb274-2" tabindex="-1"></a><span class="fu">summary</span>(out0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 19 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        10
+## 
+##                                                   Used       Total
+##   Number of observations                           567         569
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 8.110
+##   Degrees of freedom                                 5
+##   P-value (Chi-square)                           0.150
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                               775.364
+##   Degrees of freedom                                10
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.996
+##   Tucker-Lewis Index (TLI)                       0.992
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -3219.918
+##   Loglikelihood unrestricted model (H1)      -3215.863
+##                                                       
+##   Akaike (AIC)                                6459.836
+##   Bayesian (BIC)                              6503.240
+##   Sample-size adjusted Bayesian (SABIC)       6471.495
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.033
+##   90 Percent confidence interval - lower         0.000
+##   90 Percent confidence interval - upper         0.073
+##   P-value H_0: RMSEA &lt;= 0.050                    0.710
+##   P-value H_0: RMSEA &gt;= 0.080                    0.023
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.018
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   grief =~                                                              
+##     b1pss1            1.000                               0.752    0.759
+##     b2pss2            0.454    0.043   10.570    0.000    0.341    0.495
+##     b3pss3            0.831    0.058   14.445    0.000    0.625    0.691
+##     b4pss4            0.770    0.055   14.010    0.000    0.579    0.667
+##     b5pss5            0.817    0.057   14.410    0.000    0.614    0.689
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .b1pss1            0.416    0.037   11.300    0.000    0.416    0.424
+##    .b2pss2            0.358    0.023   15.549    0.000    0.358    0.755
+##    .b3pss3            0.427    0.033   13.117    0.000    0.427    0.522
+##    .b4pss4            0.419    0.031   13.599    0.000    0.419    0.555
+##    .b5pss5            0.417    0.032   13.160    0.000    0.417    0.525
+##     grief             0.565    0.059    9.514    0.000    1.000    1.000
+## 
+## R-Square:
+##                    Estimate
+##     b1pss1            0.576
+##     b2pss2            0.245
+##     b3pss3            0.478
+##     b4pss4            0.445
+##     b5pss5            0.475</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li><p>The model fits the data quite well
+<span class="math inline">\((\chi^2[5] = 8.11,\)</span>
+<span class="math inline">\(p = 0.15,\)</span>
+<span class="math inline">\(\textit{RMSEA} = 0.033,\)</span>
+<span class="math inline">\(\textit{CFI} = 0.996,\)</span>
+<span class="math inline">\(\textit{SRMR} = 0.018).\)</span></p></li>
+<li><p>All of the indicators appear to be more-or-less equally good indicators of the latent factor except for b2pss2 which
+has a standardized factor loading of <span class="math inline">\(\lambda = 0.495\)</span> and <span class="math inline">\(R^2 = 0.245\)</span>.</p>
+</details></li>
+</ul>
+</details>
+<hr />
+</div>
+<div id="twoGroupCFA" class="section level4" number="8.3.2.5">
+<h4><span class="header-section-number">8.3.2.5</span> </h4>
+<p>Rerun the CFA from <a href="at-home-exercises-6.html#oneGroupCFA">8.3.2.3</a> as a multiple-group model.</p>
+<ul>
+<li>Use the <code>Kin2</code> variable as the grouping factor.</li>
+<li>Do not place any equality constraints across groups.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="at-home-exercises-6.html#cb276-1" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd, <span class="at">group =</span> <span class="st">&quot;Kin2&quot;</span>)</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-96" class="section level4" number="8.3.2.6">
+<h4><span class="header-section-number">8.3.2.6</span> </h4>
+<p>Summarize the fitted multiple-group CFA from <a href="at-home-exercises-6.html#twoGroupCFA">8.3.2.5</a>.</p>
+<ul>
+<li>Does the two-group model fit the data well?</li>
+<li>Do you notice any salient differences between the two sets of within-group estimates?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="at-home-exercises-6.html#cb277-1" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-19 ended normally after 27 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        30
+## 
+##   Number of observations per group:               Used       Total
+##     spouse                                         188         190
+##     other                                          379         379
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                11.317
+##   Degrees of freedom                                10
+##   P-value (Chi-square)                           0.333
+##   Test statistic for each group:
+##     spouse                                       8.976
+##     other                                        2.340
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                               781.358
+##   Degrees of freedom                                20
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.998
+##   Tucker-Lewis Index (TLI)                       0.997
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)              -3206.363
+##   Loglikelihood unrestricted model (H1)      -3200.705
+##                                                       
+##   Akaike (AIC)                                6472.727
+##   Bayesian (BIC)                              6602.937
+##   Sample-size adjusted Bayesian (SABIC)       6507.701
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.022
+##   90 Percent confidence interval - lower         0.000
+##   90 Percent confidence interval - upper         0.070
+##   P-value H_0: RMSEA &lt;= 0.050                    0.789
+##   P-value H_0: RMSEA &gt;= 0.080                    0.018
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.017
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## 
+## Group 1 [spouse]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   grief =~                                                              
+##     b1pss1            1.000                               0.702    0.712
+##     b2pss2            0.372    0.076    4.922    0.000    0.261    0.410
+##     b3pss3            0.938    0.118    7.986    0.000    0.659    0.709
+##     b4pss4            0.909    0.116    7.848    0.000    0.638    0.691
+##     b5pss5            0.951    0.122    7.774    0.000    0.667    0.683
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .b1pss1            1.346    0.072   18.727    0.000    1.346    1.366
+##    .b2pss2            0.441    0.046    9.499    0.000    0.441    0.693
+##    .b3pss3            1.059    0.068   15.618    0.000    1.059    1.139
+##    .b4pss4            1.122    0.067   16.671    0.000    1.122    1.216
+##    .b5pss5            0.745    0.071   10.442    0.000    0.745    0.762
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .b1pss1            0.478    0.067    7.118    0.000    0.478    0.493
+##    .b2pss2            0.338    0.037    9.205    0.000    0.338    0.832
+##    .b3pss3            0.430    0.060    7.170    0.000    0.430    0.498
+##    .b4pss4            0.445    0.060    7.408    0.000    0.445    0.522
+##    .b5pss5            0.511    0.068    7.519    0.000    0.511    0.534
+##     grief             0.493    0.098    5.007    0.000    1.000    1.000
+## 
+## R-Square:
+##                    Estimate
+##     b1pss1            0.507
+##     b2pss2            0.168
+##     b3pss3            0.502
+##     b4pss4            0.478
+##     b5pss5            0.466
+## 
+## 
+## Group 2 [other]:
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   grief =~                                                              
+##     b1pss1            1.000                               0.769    0.778
+##     b2pss2            0.502    0.052    9.597    0.000    0.386    0.542
+##     b3pss3            0.785    0.066   11.945    0.000    0.604    0.680
+##     b4pss4            0.708    0.062   11.497    0.000    0.544    0.652
+##     b5pss5            0.762    0.062   12.185    0.000    0.586    0.696
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .b1pss1            1.182    0.051   23.277    0.000    1.182    1.196
+##    .b2pss2            0.475    0.037   12.973    0.000    0.475    0.666
+##    .b3pss3            0.934    0.046   20.460    0.000    0.934    1.051
+##    .b4pss4            0.955    0.043   22.270    0.000    0.955    1.144
+##    .b5pss5            0.644    0.043   14.879    0.000    0.644    0.764
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .b1pss1            0.385    0.043    8.862    0.000    0.385    0.394
+##    .b2pss2            0.359    0.029   12.468    0.000    0.359    0.706
+##    .b3pss3            0.425    0.039   11.025    0.000    0.425    0.538
+##    .b4pss4            0.401    0.035   11.420    0.000    0.401    0.575
+##    .b5pss5            0.366    0.034   10.767    0.000    0.366    0.516
+##     grief             0.592    0.073    8.081    0.000    1.000    1.000
+## 
+## R-Square:
+##                    Estimate
+##     b1pss1            0.606
+##     b2pss2            0.294
+##     b3pss3            0.462
+##     b4pss4            0.425
+##     b5pss5            0.484</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li><p>The two-group model also fits the data very well
+<span class="math inline">\((\chi^2[10] = 11.32,\)</span>
+<span class="math inline">\(p = 0.333,\)</span>
+<span class="math inline">\(\textit{RMSEA} = 0.022,\)</span>
+<span class="math inline">\(\textit{CFI} = 0.998,\)</span>
+<span class="math inline">\(\textit{SRMR} = 0.017).\)</span></p></li>
+<li><p>No, there are no striking differences between the two sets of estimates. Although there is certainly some variability
+between groups, the two sets of estimates don’t look systematically different.</p>
+</details></li>
+</ul>
+</details>
+<hr />
+</div>
+<div id="section-97" class="section level4" number="8.3.2.7">
+<h4><span class="header-section-number">8.3.2.7</span> </h4>
+<p>Based on the above results, what can you conclude about configural, weak, and strong measurement invariance across the
+<code>Kin2</code> groups?</p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li>Configural invariance holds. The unrestricted multiple-group CFA fits the data adequately (very well, actually), and
+the measurement model parameters are reasonable in both groups.</li>
+<li>We cannot yet draw any conclusions about weak or strong invariance. We need to do the appropriate model comparison
+tests first.</li>
+</ul>
+</details>
+<hr />
+<p>End of At-Home Exercises</p>
+<hr />
+</div>
+</div>
 </div>
             </section>
 

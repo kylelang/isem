@@ -1,7 +1,7 @@
 ## Lecture
 
-In this lecture, we will explore how you can incorporate grouping factors into
-your CFA and SEM analyses. We'll cover three general topics:
+In this lecture, we will explore how you can incorporate grouping factors into your CFA and SEM analyses. We'll cover
+three general topics:
 
 1. The multiple group modeling framework
 1. Measurement invariance testing
