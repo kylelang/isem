@@ -5,11 +5,3 @@ No class this week. We're currently indisposed, but we'll be back next week.
 <p align = "center">
   ![](https://i.gifer.com/X5NY.gif){width=90%}
 </p>
-
-<!-- <p align = "center"> -->
-<!-- ![](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnJjYXp6eHZ6anBkZnYxNjU4aW5tcnFrOHBrNG9rYWU5Z3VlMG93ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lRSRi2YLOhk5rBMpl2/giphy.gif) -->
-<!-- </p> -->
-
-<!-- <p align = "center"> -->
-<!-- ![](https://i.gifer.com/NyoI.gif) -->
-<!-- </p> -->

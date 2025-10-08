@@ -3,6 +3,7 @@ rm(list = ls(all = TRUE))
 library(lavaan)
 library(dplyr)
 library(psych)
+library(semPlot)
 
 dataDir <- "data"
 ess_fin <- readRDS(here::here(dataDir, "ess_finland.rds"))
@@ -97,3 +98,40 @@ scaleScores$alpha
 ls(scaleScores)
 
 scaleScores
+
+condom <- read.csv(here::here(dataDir, "toradata.csv"), stringsAsFactors = TRUE)
+head(condom)
+
+mod_sem <- '
+## Define the latent variables:
+attitudes =~ attit_1 + attit_2 + attit_3
+norms     =~ norm_1  + norm_2  + norm_3
+
+## Define the structural model:
+intent   ~ attitudes + norms
+behavior ~ intent
+'
+
+out_sem <- sem(mod_sem, data = condom)
+
+summary(out_sem)
+inspect(out_sem, "est")
+
+mod_sem2 <- '
+## Define the latent variables:
+attitudes =~ attit_1   + attit_2   + attit_3
+norms     =~ norm_1    + norm_2    + norm_3
+control   =~ control_1 + control_2 + control_3
+
+## Define the structural model:
+behavior ~ intent + control
+intent   ~ attitudes + norms
+'
+
+out_sem2 <- sem(mod_sem2, data = condom)
+
+summary(out_sem2)
+
+semPaths(out_sem2, structural = TRUE)
+?semPaths
+

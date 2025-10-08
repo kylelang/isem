@@ -1,7 +1,7 @@
 # CFA II
 
 ```{r week5_global_options, include = FALSE}
-source("code/chapter_setup.R")
+source(here::here("code", "chapter_setup.R"))
 partDir <- paste0(partDir0, "week5/")
 ```
 

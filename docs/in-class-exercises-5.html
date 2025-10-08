@@ -329,6 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#reference-3"><i class="fa fa-check"></i>Reference</a></li>
 <li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#questions-3"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#answers-3"><i class="fa fa-check"></i>Answers</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html"><i class="fa fa-check"></i><b>4.3</b> At-Home Exercises</a>
 <ul>
@@ -424,10 +425,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4.1" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-83"><i class="fa fa-check"></i><b>7.4.1</b> </a></li>
 <li class="chapter" data-level="7.4.2" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#toraCFA"><i class="fa fa-check"></i><b>7.4.2</b> </a></li>
 <li class="chapter" data-level="7.4.3" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-84"><i class="fa fa-check"></i><b>7.4.3</b> </a></li>
-<li class="chapter" data-level="7.4.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#updatedModel"><i class="fa fa-check"></i><b>7.4.4</b> </a></li>
+<li class="chapter" data-level="7.4.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#tora1Estimation"><i class="fa fa-check"></i><b>7.4.4</b> </a></li>
 <li class="chapter" data-level="7.4.5" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-85"><i class="fa fa-check"></i><b>7.4.5</b> </a></li>
-<li class="chapter" data-level="7.4.6" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-86"><i class="fa fa-check"></i><b>7.4.6</b> </a></li>
-<li class="chapter" data-level="7.4.7" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-87"><i class="fa fa-check"></i><b>7.4.7</b> </a></li>
+<li class="chapter" data-level="7.4.6" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#updatedModel"><i class="fa fa-check"></i><b>7.4.6</b> </a></li>
+<li class="chapter" data-level="7.4.7" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-86"><i class="fa fa-check"></i><b>7.4.7</b> </a></li>
+<li class="chapter" data-level="7.4.8" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-87"><i class="fa fa-check"></i><b>7.4.8</b> </a></li>
+<li class="chapter" data-level="7.4.9" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-88"><i class="fa fa-check"></i><b>7.4.9</b> </a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="multiple-group-models.html"><a href="multiple-group-models.html"><i class="fa fa-check"></i><b>8</b> Multiple Group Models</a>
@@ -498,17 +501,23 @@ years old.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="in-class-exercises-5.html#cb237-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
-<span id="cb237-2"><a href="in-class-exercises-5.html#cb237-2" tabindex="-1"></a>condom <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;toradata.csv&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="in-class-exercises-5.html#cb236-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb236-2"><a href="in-class-exercises-5.html#cb236-2" tabindex="-1"></a>condom  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;toradata.csv&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <hr />
 </div>
 <div id="toraCFA" class="section level3" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> </h3>
-<p>The data contain multiple indicators of <em>attitudes</em>, <em>norms</em>, and <em>control</em>.
-Run a CFA for these three latent variables.</p>
+<p>The data contain multiple indicators of <em>attitudes</em>, <em>norms</em>, and <em>control</em>. Run a CFA to test a three-factor
+measurement model for these three constructs.</p>
 <ul>
-<li>Correlate the latent factors.</li>
+<li>Covary all three latent factors.</li>
+<li>Set the scale with the marker-variable method of identification.</li>
+<li>Impose a simple structure with no cross loadings.</li>
+<li>Do not estimate any mean structure.</li>
+</ul>
+<p>Use this CFA to evaluate the measurement model.</p>
+<ul>
 <li>Do the data support the measurement model for these latent factors?</li>
 <li>Are the three latent factors significantly correlated?</li>
 <li>Is it reasonable to proceed with our evaluation of the TORA theory?</li>
@@ -517,17 +526,17 @@ Run a CFA for these three latent variables.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="in-class-exercises-5.html#cb238-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb238-2"><a href="in-class-exercises-5.html#cb238-2" tabindex="-1"></a></span>
-<span id="cb238-3"><a href="in-class-exercises-5.html#cb238-3" tabindex="-1"></a>mod_cfa <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb238-4"><a href="in-class-exercises-5.html#cb238-4" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb238-5"><a href="in-class-exercises-5.html#cb238-5" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb238-6"><a href="in-class-exercises-5.html#cb238-6" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb238-7"><a href="in-class-exercises-5.html#cb238-7" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb238-8"><a href="in-class-exercises-5.html#cb238-8" tabindex="-1"></a></span>
-<span id="cb238-9"><a href="in-class-exercises-5.html#cb238-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_cfa, <span class="at">data =</span> condom)</span>
-<span id="cb238-10"><a href="in-class-exercises-5.html#cb238-10" tabindex="-1"></a></span>
-<span id="cb238-11"><a href="in-class-exercises-5.html#cb238-11" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="in-class-exercises-5.html#cb237-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb237-2"><a href="in-class-exercises-5.html#cb237-2" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="in-class-exercises-5.html#cb237-3" tabindex="-1"></a>mod_cfa <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb237-4"><a href="in-class-exercises-5.html#cb237-4" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb237-5"><a href="in-class-exercises-5.html#cb237-5" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb237-6"><a href="in-class-exercises-5.html#cb237-6" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb237-7"><a href="in-class-exercises-5.html#cb237-7" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb237-8"><a href="in-class-exercises-5.html#cb237-8" tabindex="-1"></a></span>
+<span id="cb237-9"><a href="in-class-exercises-5.html#cb237-9" tabindex="-1"></a>cfa_out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_cfa, <span class="at">data =</span> condom)</span>
+<span id="cb237-10"><a href="in-class-exercises-5.html#cb237-10" tabindex="-1"></a></span>
+<span id="cb237-11"><a href="in-class-exercises-5.html#cb237-11" tabindex="-1"></a><span class="fu">summary</span>(cfa_out, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 29 iterations
 ## 
 ##   Estimator                                         ML
@@ -622,52 +631,103 @@ Click to show code
 Click for explanation
 </summary>
 <ul>
-<li>Yes, the model fits the data well, and the measurement parameters (e.g., factor
-loadings, residual variances) look reasonable. So, the data seem to support this
-measurement structure.</li>
+<li>Yes, the model fits the data well, and the measurement parameters (e.g., factor loadings, residual variances) look
+reasonable. So, the data seem to support this measurement structure.</li>
 <li>Yes, all three latent variables are significantly, positively correlated.</li>
 <li>Yes.
 <ul>
-<li>The measurement structure is supported, so we can use the latent variables
-to represent the respective constructs in our subsequent SEM.</li>
-<li>The TORA doesn’t actually say anything about the associations between these
-three factors, but it makes sense that they would be positively associated.
-So, we should find this result comforting.</li>
+<li>The measurement structure is supported, so we can use the latent variables to represent the respective constructs
+in our subsequent SEM.</li>
+<li>The TORA doesn’t actually say anything about the associations between these three factors, but it makes sense that
+they would be positively associated. So, we should find this result comforting.</li>
 </ul>
 </details></li>
 </ul>
 </details>
 <hr />
+<p>The basic TORA model implies the following structural relations.</p>
+<ul>
+<li><em>intention</em> predicts <em>behavior</em></li>
+<li><em>attitudes</em> and <em>norms</em> predict <em>intention</em></li>
+<li><em>attitudes</em> and <em>norms</em> covary</li>
+</ul>
+<p>We’ll use observed scores to quantify <em>behavior</em> (<span class="math inline">\(Y_{behave}\)</span>) and <em>intention</em> (<span class="math inline">\(Y_{intent}\)</span>) while we have latent
+factors to represent <em>attitudes</em> (<span class="math inline">\(\eta_{attitudes}\)</span>) and <em>norms</em> (<span class="math inline">\(\eta_{norms}\)</span>). Thus, we can represent the TORA
+model via the following equations.</p>
+<p><span class="math display">\[
+\begin{align*}
+Y_{behave} &amp;= \beta_{11} Y_{intent}\\[8pt]
+Y_{intent} &amp;= \beta_{21} \eta_{attitudes} + \beta_{22} \eta_{norms}\\[8pt]
+\begin{bmatrix}
+Y_{behave}\\
+Y_{intent}\\
+\eta_{attitudes}\\
+\eta_{norms}
+\end{bmatrix}
+&amp;\sim N \left(
+\begin{bmatrix}
+0\\
+0\\
+0\\
+0
+\end{bmatrix},
+\begin{bmatrix}
+\psi_{11} &amp;           &amp;           &amp;          \\
+0         &amp; \psi_{22} &amp;           &amp;          \\
+0         &amp; 0         &amp; \psi_{33} &amp;          \\
+0         &amp; 0         &amp; \psi_{43} &amp; \psi_{44}
+\end{bmatrix}
+\right)
+\end{align*}
+\]</span></p>
+<p>The first two equations describe the latent regression structure. The third line shows the latent covariance structure
+in terms of the multivariate normal distribution that we assume for the focal variables.</p>
+<hr />
 </div>
 <div id="section-84" class="section level3" number="7.4.3">
 <h3><span class="header-section-number">7.4.3</span> </h3>
-<p>Estimate the basic TORA model as an SEM.</p>
+<p>Draw a path diagram representing the structural part of our TORA model.</p>
 <ul>
-<li>Predict <em>intention</em> from <em>attitudes</em> and <em>norms</em>.</li>
-<li>Predict <em>condom use</em> from <em>intention</em>.</li>
-<li>Use the latent versions of <em>attitudes</em> and <em>norms</em>.</li>
-<li>Covary the <em>attitudes</em> and <em>norms</em> factors.</li>
+<li>Do not diagram the measurement model.
+<ul>
+<li>I.e., don’t include the observed indicators, factor loadings, or residual factors/variances.</li>
+</ul></li>
+<li>Draw the diagram by hand, on paper.</li>
+</ul>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>If you don’t explicitly diagram the variances, your diagram should look something like the following.</p>
+<p><img src="assets/images/tora1_structure_diagram.png" /></p>
+</details>
+<hr />
+</div>
+<div id="tora1Estimation" class="section level3" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> </h3>
+<p>Estimate the basic TORA model as an SEM, and use the result to evaluate the TORA.</p>
+<ul>
 <li>Does the model fit well?</li>
 <li>Do the estimates align with the TORA?</li>
-<li>How much variance in <em>intention</em> and <em>condom use</em> are explained by the model?</li>
+<li>How much variance in <em>intention</em> and <em>behavior</em> are explained by the model?</li>
 </ul>
 <details>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="in-class-exercises-5.html#cb240-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb240-2"><a href="in-class-exercises-5.html#cb240-2" tabindex="-1"></a><span class="st">## Define the latent variables:</span></span>
-<span id="cb240-3"><a href="in-class-exercises-5.html#cb240-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1 + attit_2 + attit_3</span></span>
-<span id="cb240-4"><a href="in-class-exercises-5.html#cb240-4" tabindex="-1"></a><span class="st">norms     =~ norm_1  + norm_2  + norm_3</span></span>
-<span id="cb240-5"><a href="in-class-exercises-5.html#cb240-5" tabindex="-1"></a></span>
-<span id="cb240-6"><a href="in-class-exercises-5.html#cb240-6" tabindex="-1"></a><span class="st">## Define the structural model:         </span></span>
-<span id="cb240-7"><a href="in-class-exercises-5.html#cb240-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
-<span id="cb240-8"><a href="in-class-exercises-5.html#cb240-8" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
-<span id="cb240-9"><a href="in-class-exercises-5.html#cb240-9" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb240-10"><a href="in-class-exercises-5.html#cb240-10" tabindex="-1"></a></span>
-<span id="cb240-11"><a href="in-class-exercises-5.html#cb240-11" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> condom)</span>
-<span id="cb240-12"><a href="in-class-exercises-5.html#cb240-12" tabindex="-1"></a></span>
-<span id="cb240-13"><a href="in-class-exercises-5.html#cb240-13" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="in-class-exercises-5.html#cb239-1" tabindex="-1"></a>mod_tora1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb239-2"><a href="in-class-exercises-5.html#cb239-2" tabindex="-1"></a><span class="st">## Define the latent variables:</span></span>
+<span id="cb239-3"><a href="in-class-exercises-5.html#cb239-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1 + attit_2 + attit_3</span></span>
+<span id="cb239-4"><a href="in-class-exercises-5.html#cb239-4" tabindex="-1"></a><span class="st">norms     =~ norm_1  + norm_2  + norm_3</span></span>
+<span id="cb239-5"><a href="in-class-exercises-5.html#cb239-5" tabindex="-1"></a></span>
+<span id="cb239-6"><a href="in-class-exercises-5.html#cb239-6" tabindex="-1"></a><span class="st">## Define the structural model:</span></span>
+<span id="cb239-7"><a href="in-class-exercises-5.html#cb239-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
+<span id="cb239-8"><a href="in-class-exercises-5.html#cb239-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
+<span id="cb239-9"><a href="in-class-exercises-5.html#cb239-9" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb239-10"><a href="in-class-exercises-5.html#cb239-10" tabindex="-1"></a></span>
+<span id="cb239-11"><a href="in-class-exercises-5.html#cb239-11" tabindex="-1"></a>out_tora1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora1, <span class="at">data =</span> condom)</span>
+<span id="cb239-12"><a href="in-class-exercises-5.html#cb239-12" tabindex="-1"></a></span>
+<span id="cb239-13"><a href="in-class-exercises-5.html#cb239-13" tabindex="-1"></a><span class="fu">summary</span>(out_tora1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 24 iterations
 ## 
 ##   Estimator                                         ML
@@ -733,11 +793,11 @@ Click to show code
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   behavior ~                                          
+##     intent            0.746    0.045   16.443    0.000
 ##   intent ~                                            
 ##     attitudes         0.439    0.063    6.990    0.000
 ##     norms             0.693    0.077    8.977    0.000
-##   behavior ~                                          
-##     intent            0.746    0.045   16.443    0.000
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
@@ -752,8 +812,8 @@ Click to show code
 ##    .norm_1            0.483    0.064    7.581    0.000
 ##    .norm_2            0.521    0.065    7.954    0.000
 ##    .norm_3            0.610    0.070    8.713    0.000
-##    .intent            0.423    0.048    8.769    0.000
 ##    .behavior          0.603    0.054   11.180    0.000
+##    .intent            0.423    0.048    8.769    0.000
 ##     attitudes         0.884    0.116    7.614    0.000
 ##     norms             0.765    0.113    6.767    0.000
 ## 
@@ -765,53 +825,103 @@ Click to show code
 ##     norm_1            0.613
 ##     norm_2            0.587
 ##     norm_3            0.523
-##     intent            0.639
-##     behavior          0.520</code></pre>
+##     behavior          0.520
+##     intent            0.639</code></pre>
 <details>
 <summary>
 Click for explanation
 </summary>
 <ul>
 <li><p>Yes, the model still fits the data very well.</p></li>
-<li><p>Yes, the estimates all align with the TORA. Specifically, <em>attitudes</em> and
-<em>norms</em> both significantly predict <em>intention</em>, and <em>intention</em> significantly
-predicts <em>condom use</em>.</p></li>
-<li><p>The model explains 63.93% of the variance in
-<em>intention</em> and 51.96% of the variance in
-<em>condom use</em>.</p>
+<li><p>Yes, the estimates all align with the TORA. Specifically, <em>attitudes</em> and <em>norms</em> both significantly predict
+<em>intention</em>, and <em>intention</em> significantly predicts <em>condom use</em>.</p></li>
+<li><p>The model explains 63.93% of the variance in <em>intention</em> and
+51.96% of the variance in <em>behavior</em>.</p>
 </details></li>
 </ul>
 </details>
 <hr />
-</div>
-<div id="updatedModel" class="section level3" number="7.4.4">
-<h3><span class="header-section-number">7.4.4</span> </h3>
-<p>Update your model to represent the extended TORA model that includes
-<em>perceived behavioral control</em>.</p>
+<p>Now, we’ll update the model to represent the extended TORA model that includes <em>perceived behavioral control</em>. Modify
+the basic TORA model from <a href="in-class-exercises-5.html#tora1Estimation">7.4.4</a> as follows.</p>
 <ul>
-<li>Regress <em>condom use</em> onto <em>perceived behavioral control</em>.</li>
-<li>Use the latent variable representation of <em>control</em>.</li>
-<li>Covary all three exogenous latent factors.</li>
+<li>Add <em>control</em> as a second predictor of <em>behavior</em></li>
+<li>Allow all three exogenous latent factors covary</li>
+</ul>
+<p>We can represent the extended TORA model via the following equations.</p>
+<p><span class="math display">\[
+\begin{align*}
+Y_{behave} &amp;= \beta_{11} Y_{intent} + \beta_{12} \eta_{control}\\[8pt]
+Y_{intent} &amp;= \beta_{21} \eta_{attitudes} + \beta_{22} \eta_{norms}\\[8pt]
+\begin{bmatrix}
+Y_{behavior}\\
+Y_{inent}\\
+\eta_{attitudes}\\
+\eta_{norms}\\
+\eta_{control}
+\end{bmatrix}
+&amp;\sim N \left(
+\begin{bmatrix}
+0\\
+0\\
+0\\
+0\\
+0
+\end{bmatrix},
+\begin{bmatrix}
+\psi_{11} &amp;           &amp;           &amp;           &amp;          \\
+0         &amp; \psi_{22} &amp;           &amp;           &amp;          \\
+0         &amp; 0         &amp; \psi_{33} &amp;           &amp;          \\
+0         &amp; 0         &amp; \psi_{43} &amp; \psi_{44} &amp;          \\
+0         &amp; 0         &amp; \psi_{53} &amp; \psi_{54} &amp; \psi_{55}
+\end{bmatrix}
+\right)
+\end{align*}
+\]</span></p>
+<hr />
+</div>
+<div id="section-85" class="section level3" number="7.4.5">
+<h3><span class="header-section-number">7.4.5</span> </h3>
+<p>Draw a path diagram representing the structural part of our extended TORA model.</p>
+<ul>
+<li>Do not diagram the measurement model.
+<ul>
+<li>I.e., don’t include the observed indicators, factor loadings, or residual factors/variances.</li>
+</ul></li>
+<li>Draw the diagram by hand, on paper.</li>
+</ul>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>If you don’t explicitly diagram the variances, your diagram should look something like the following.</p>
+<p><img src="assets/images/tora2_structure_diagram.png" /></p>
+</details>
+<hr />
+</div>
+<div id="updatedModel" class="section level3" number="7.4.6">
+<h3><span class="header-section-number">7.4.6</span> </h3>
+<p>Estimate the extended TORA model described above.</p>
+<ul>
 <li>Does the model fit well?</li>
-<li>Do the estimates align with the updated TORA?</li>
-<li>How much variance in <em>intention</em> and <em>condom use</em> are explained by the model?</li>
+<li>Do the estimates align with the extended TORA?</li>
+<li>How much variance in <em>intention</em> and <em>behavior</em> are explained by the model?</li>
 </ul>
 <details>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="in-class-exercises-5.html#cb242-1" tabindex="-1"></a>mod_tora <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb242-2"><a href="in-class-exercises-5.html#cb242-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb242-3"><a href="in-class-exercises-5.html#cb242-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb242-4"><a href="in-class-exercises-5.html#cb242-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb242-5"><a href="in-class-exercises-5.html#cb242-5" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb242-6"><a href="in-class-exercises-5.html#cb242-6" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
-<span id="cb242-7"><a href="in-class-exercises-5.html#cb242-7" tabindex="-1"></a><span class="st">behavior ~ intent + control</span></span>
-<span id="cb242-8"><a href="in-class-exercises-5.html#cb242-8" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb242-9"><a href="in-class-exercises-5.html#cb242-9" tabindex="-1"></a></span>
-<span id="cb242-10"><a href="in-class-exercises-5.html#cb242-10" tabindex="-1"></a>fit_tora <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora, <span class="at">data =</span> condom)</span>
-<span id="cb242-11"><a href="in-class-exercises-5.html#cb242-11" tabindex="-1"></a></span>
-<span id="cb242-12"><a href="in-class-exercises-5.html#cb242-12" tabindex="-1"></a><span class="fu">summary</span>(fit_tora, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="in-class-exercises-5.html#cb241-1" tabindex="-1"></a>mod_tora2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb241-2"><a href="in-class-exercises-5.html#cb241-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb241-3"><a href="in-class-exercises-5.html#cb241-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb241-4"><a href="in-class-exercises-5.html#cb241-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb241-5"><a href="in-class-exercises-5.html#cb241-5" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb241-6"><a href="in-class-exercises-5.html#cb241-6" tabindex="-1"></a><span class="st">behavior ~ intent + control</span></span>
+<span id="cb241-7"><a href="in-class-exercises-5.html#cb241-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
+<span id="cb241-8"><a href="in-class-exercises-5.html#cb241-8" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb241-9"><a href="in-class-exercises-5.html#cb241-9" tabindex="-1"></a></span>
+<span id="cb241-10"><a href="in-class-exercises-5.html#cb241-10" tabindex="-1"></a>out_tora2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora2, <span class="at">data =</span> condom)</span>
+<span id="cb241-11"><a href="in-class-exercises-5.html#cb241-11" tabindex="-1"></a></span>
+<span id="cb241-12"><a href="in-class-exercises-5.html#cb241-12" tabindex="-1"></a><span class="fu">summary</span>(out_tora2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 31 iterations
 ## 
 ##   Estimator                                         ML
@@ -881,12 +991,12 @@ Click to show code
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##   intent ~                                            
-##     attitudes         0.447    0.063    7.100    0.000
-##     norms             0.706    0.078    9.078    0.000
 ##   behavior ~                                          
 ##     intent            0.563    0.063    8.923    0.000
 ##     control           0.454    0.119    3.805    0.000
+##   intent ~                                            
+##     attitudes         0.447    0.063    7.100    0.000
+##     norms             0.706    0.078    9.078    0.000
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
@@ -907,8 +1017,8 @@ Click to show code
 ##    .control_1         0.625    0.075    8.372    0.000
 ##    .control_2         0.876    0.090    9.757    0.000
 ##    .control_3         0.746    0.084    8.874    0.000
-##    .intent            0.409    0.047    8.769    0.000
 ##    .behavior          0.542    0.052   10.423    0.000
+##    .intent            0.409    0.047    8.769    0.000
 ##     attitudes         0.872    0.115    7.566    0.000
 ##     norms             0.751    0.112    6.709    0.000
 ##     control           0.485    0.096    5.059    0.000
@@ -924,41 +1034,32 @@ Click to show code
 ##     control_1         0.437
 ##     control_2         0.290
 ##     control_3         0.392
-##     intent            0.651
-##     behavior          0.566</code></pre>
+##     behavior          0.566
+##     intent            0.651</code></pre>
 <details>
 <summary>
 Click for explanation
 </summary>
 <ul>
 <li><p>Yes, the model still fits the data very well.</p></li>
-<li><p>Yes, the estimates all align with the updated TORA. Specifically, <em>attitudes</em>
-and <em>norms</em> both significantly predict <em>intention</em>, while <em>intention</em> and
-<em>control</em> both significantly predict <em>condom use</em>.</p></li>
-<li><p>The model explains 65.11% of the variance in
-<em>intention</em> and 56.62% of the variance in
-<em>condom use</em>.</p>
+<li><p>Yes, the estimates all align with the updated TORA. Specifically, <em>attitudes</em> and <em>norms</em> both significantly predict
+<em>intention</em>, while <em>intention</em> and <em>control</em> both significantly predict <em>behavior</em>.</p></li>
+<li><p>The model explains 65.11% of the variance in <em>intention</em> and
+56.62% of the variance in <em>behavior</em>.</p>
 </details></li>
 </ul>
 </details>
 <hr />
-<p>The TORA model explicitly forbids direct paths from <em>attitudes</em> and <em>norms</em> to
-<em>behaviors</em>; these effects should be fully mediated by the <em>behavioral intention</em>.
-The theory does not specify how <em>perceived behavioral control</em> should affect
-<em>behaviors</em>. There may be a direct effect of <em>control</em> on <em>behavior</em>, or the
-effect may be (partially) mediated by <em>intention</em>.</p>
+<p>The TORA model explicitly forbids direct paths from <em>attitudes</em> and <em>norms</em> to <em>behavior</em>: these effects should be fully
+mediated by the <em>intention</em>. The theory does not specify how <em>control</em> should affect <em>behavior</em>. There may be a direct
+effect of <em>control</em> on <em>behavior</em>, or the effect may be (partially) mediated by <em>intention</em>.</p>
 <hr />
 </div>
-<div id="section-85" class="section level3" number="7.4.5">
-<h3><span class="header-section-number">7.4.5</span> </h3>
-<p>Evaluate the hypothesized indirect effects of <em>attitudes</em> and <em>norms</em>.</p>
+<div id="section-86" class="section level3" number="7.4.7">
+<h3><span class="header-section-number">7.4.7</span> </h3>
+<p>Use the extended TORA model to evaluate the hypothesized indirect effects of <em>attitudes</em> and <em>norms</em>.</p>
 <ul>
-<li>Include <em>attitudes</em>, <em>norms</em>, and <em>control</em> in your model as in <a href="in-class-exercises-5.html#updatedModel">7.4.4</a>.</li>
-<li>Does <em>intention</em> significantly mediate the effects of <em>attitudes</em> and <em>norms</em>
-on <em>behavior</em>?
-<ul>
-<li>Don’t forget to follow all the steps we covered for testing mediation.</li>
-</ul></li>
+<li>Does <em>intention</em> significantly mediate the effects of <em>attitudes</em> and <em>norms</em> on <em>behavior</em>?</li>
 <li>Are both of the above effects completely mediated?</li>
 <li>Do these results comport with the TORA? Why or why not?</li>
 </ul>
@@ -966,23 +1067,23 @@ on <em>behavior</em>?
 <summary>
 Click for explanation
 </summary>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="in-class-exercises-5.html#cb244-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb244-2"><a href="in-class-exercises-5.html#cb244-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb244-3"><a href="in-class-exercises-5.html#cb244-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb244-4"><a href="in-class-exercises-5.html#cb244-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb244-5"><a href="in-class-exercises-5.html#cb244-5" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb244-6"><a href="in-class-exercises-5.html#cb244-6" tabindex="-1"></a><span class="st">intent   ~ a1 * attitudes + a2 * norms</span></span>
-<span id="cb244-7"><a href="in-class-exercises-5.html#cb244-7" tabindex="-1"></a><span class="st">behavior ~ b * intent + control + attitudes + norms</span></span>
-<span id="cb244-8"><a href="in-class-exercises-5.html#cb244-8" tabindex="-1"></a></span>
-<span id="cb244-9"><a href="in-class-exercises-5.html#cb244-9" tabindex="-1"></a><span class="st">ie_att  := a1 * b</span></span>
-<span id="cb244-10"><a href="in-class-exercises-5.html#cb244-10" tabindex="-1"></a><span class="st">ie_norm := a2 * b</span></span>
-<span id="cb244-11"><a href="in-class-exercises-5.html#cb244-11" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb244-12"><a href="in-class-exercises-5.html#cb244-12" tabindex="-1"></a></span>
-<span id="cb244-13"><a href="in-class-exercises-5.html#cb244-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
-<span id="cb244-14"><a href="in-class-exercises-5.html#cb244-14" tabindex="-1"></a></span>
-<span id="cb244-15"><a href="in-class-exercises-5.html#cb244-15" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
-<span id="cb244-16"><a href="in-class-exercises-5.html#cb244-16" tabindex="-1"></a></span>
-<span id="cb244-17"><a href="in-class-exercises-5.html#cb244-17" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="in-class-exercises-5.html#cb243-1" tabindex="-1"></a>mod_ie <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb243-2"><a href="in-class-exercises-5.html#cb243-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb243-3"><a href="in-class-exercises-5.html#cb243-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb243-4"><a href="in-class-exercises-5.html#cb243-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb243-5"><a href="in-class-exercises-5.html#cb243-5" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb243-6"><a href="in-class-exercises-5.html#cb243-6" tabindex="-1"></a><span class="st">behavior ~ b*intent + control + attitudes + norms</span></span>
+<span id="cb243-7"><a href="in-class-exercises-5.html#cb243-7" tabindex="-1"></a><span class="st">intent   ~ a1*attitudes + a2*norms</span></span>
+<span id="cb243-8"><a href="in-class-exercises-5.html#cb243-8" tabindex="-1"></a></span>
+<span id="cb243-9"><a href="in-class-exercises-5.html#cb243-9" tabindex="-1"></a><span class="st">ie_att  := a1 * b</span></span>
+<span id="cb243-10"><a href="in-class-exercises-5.html#cb243-10" tabindex="-1"></a><span class="st">ie_norm := a2 * b</span></span>
+<span id="cb243-11"><a href="in-class-exercises-5.html#cb243-11" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb243-12"><a href="in-class-exercises-5.html#cb243-12" tabindex="-1"></a></span>
+<span id="cb243-13"><a href="in-class-exercises-5.html#cb243-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
+<span id="cb243-14"><a href="in-class-exercises-5.html#cb243-14" tabindex="-1"></a></span>
+<span id="cb243-15"><a href="in-class-exercises-5.html#cb243-15" tabindex="-1"></a>out_ie <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_ie, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
+<span id="cb243-16"><a href="in-class-exercises-5.html#cb243-16" tabindex="-1"></a></span>
+<span id="cb243-17"><a href="in-class-exercises-5.html#cb243-17" tabindex="-1"></a><span class="fu">summary</span>(out_ie, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 36 iterations
 ## 
 ##   Estimator                                         ML
@@ -1020,14 +1121,14 @@ Click for explanation
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   intent ~                                                              
-##     attitudes (a1)    0.447    0.067    6.674    0.000    0.324    0.585
-##     norms     (a2)    0.706    0.078    9.094    0.000    0.569    0.878
 ##   behavior ~                                                            
 ##     intent     (b)    0.545    0.075    7.282    0.000    0.389    0.686
 ##     control           0.428    0.232    1.847    0.065    0.046    0.934
 ##     attitudes         0.010    0.122    0.084    0.933   -0.249    0.226
 ##     norms             0.041    0.118    0.345    0.730   -0.194    0.266
+##   intent ~                                                              
+##     attitudes (a1)    0.447    0.067    6.674    0.000    0.324    0.585
+##     norms     (a2)    0.706    0.078    9.094    0.000    0.569    0.878
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
@@ -1048,8 +1149,8 @@ Click for explanation
 ##    .control_1         0.624    0.076    8.216    0.000    0.477    0.763
 ##    .control_2         0.875    0.092    9.495    0.000    0.686    1.052
 ##    .control_3         0.745    0.079    9.398    0.000    0.574    0.889
-##    .intent            0.409    0.050    8.169    0.000    0.309    0.507
 ##    .behavior          0.544    0.058    9.379    0.000    0.415    0.639
+##    .intent            0.409    0.050    8.169    0.000    0.309    0.507
 ##     attitudes         0.872    0.104    8.387    0.000    0.675    1.077
 ##     norms             0.751    0.099    7.557    0.000    0.556    0.941
 ##     control           0.486    0.096    5.042    0.000    0.303    0.684
@@ -1060,25 +1161,23 @@ Click for explanation
 ##     ie_norm           0.385    0.066    5.835    0.000    0.268    0.527</code></pre>
 <ul>
 <li>Yes, both indirect effects are significant according to the 95% bootstrapped CIs.</li>
-<li>Yes, both effects are completely mediated by <em>behavioral intention</em>. We can
-infer as much because the direct effects of <em>attitudes</em> and <em>norms</em> on <em>condom
-use</em> are both nonsignificant.</li>
-<li>Yes, these results comport with the TORA. Both effects are fully mediated, as
-the theory stipulates.</li>
+<li>Yes, both effects are completely mediated by <em>intention</em>. We can infer as much because the direct effects of
+<em>attitudes</em> and <em>norms</em> on <em>behavior</em> are both nonsignificant.</li>
+<li>Yes, these results comport with the TORA. Both effects are fully mediated, as the theory stipulates.</li>
 </ul>
 </details>
 <hr />
-<p>In addition to evaluating the significance of the indirect and direct effects,
-we can also take a model-comparison perspective. We can use model comparisons to
-test if removing the direct effects of <em>attitudes</em> and <em>norms</em> on <em>condom use</em>
-significantly decreases model fit. In other words, are those paths needed to
-accurately represent the data, or are they “dead weight”.</p>
+<p>In addition to evaluating the significance of the indirect and direct effects, we can also take a model-comparison
+perspective. We can use model comparisons to test if removing the direct effects of <em>attitudes</em> and <em>norms</em> on
+<em>behavior</em> significantly decreases model fit. In other words, are those paths needed to accurately represent the data,
+or are they “dead weight”.</p>
+<p>Use the extended TORA model to answer the remaining questions.</p>
 <hr />
 </div>
-<div id="section-86" class="section level3" number="7.4.6">
-<h3><span class="header-section-number">7.4.6</span> </h3>
-<p>Use a <span class="math inline">\(\Delta \chi^2\)</span> test to evaluate the necessity of including the direct
-effects of <em>attitudes</em> and <em>norms</em> on <em>condom use</em> in the model.</p>
+<div id="section-87" class="section level3" number="7.4.8">
+<h3><span class="header-section-number">7.4.8</span> </h3>
+<p>Use a <span class="math inline">\(\Delta \chi^2\)</span> test to evaluate the necessity of including the direct effects of <em>attitudes</em> and <em>norms</em> on
+<em>behavior</em> in the model.</p>
 <ul>
 <li>What is your conclusion?</li>
 </ul>
@@ -1086,35 +1185,31 @@ effects of <em>attitudes</em> and <em>norms</em> on <em>condom use</em> in the m
 <summary>
 Click for explanation
 </summary>
-<p>We only need to compare the fit of the model with the direct effects included
-to the fit of the model without the direct effects. We’ve already estimated both
-models, so we can simply submit the fitted <strong>lavaan</strong> objects to the <code>anova()</code>
+<p>We only need to compare the fit of the model with the direct effects included to the fit of the model without the direct
+effects. We’ve already estimated both models, so we can simply submit the fitted <strong>lavaan</strong> objects to the <code>anova()</code>
 function.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="in-class-exercises-5.html#cb246-1" tabindex="-1"></a><span class="fu">anova</span>(fit, fit_tora)</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Chisq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Chisq diff"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSEA"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Df diff"],"name":[7],"type":["int"],"align":["right"]},{"label":["Pr(>Chisq)"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"37","2":"7160.192","3":"7262.314","4":"48.62879","5":"NA","6":"NA","7":"NA","8":"NA","_rn_":"fit"},{"1":"39","2":"7156.320","3":"7251.400","4":"48.75720","5":"0.1284159","6":"0","7":"2","8":"0.9378099","_rn_":"fit_tora"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<p>The <span class="math inline">\(\Delta \chi^2\)</span> test is not significant. So, we have not lost a significant
-amount of fit by fixing the direct effects to zero. In other words, the complete
-mediation model explains the data just as well as the partial mediation model. So,
-we should probably prefer the more parsimonious model.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="in-class-exercises-5.html#cb245-1" tabindex="-1"></a><span class="fu">anova</span>(out_tora1, out_tora2)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##           Df    AIC    BIC  Chisq Chisq diff RMSEA Df diff Pr(&gt;Chisq)
+## out_tora1 18 5103.2 5166.6 27.890                                    
+## out_tora2 39 7156.3 7251.4 48.757     20.867     0      21     0.4671</code></pre>
+<p>The <span class="math inline">\(\Delta \chi^2\)</span> test is not significant. So, we have not lost a significant amount of fit by fixing the direct
+effects to zero. In other words, the complete mediation model explains the data just as well as the partial mediation
+model. So, we should probably prefer the more parsimonious model.</p>
 </details>
 <hr />
 </div>
-<div id="section-87" class="section level3" number="7.4.7">
-<h3><span class="header-section-number">7.4.7</span> </h3>
-<p>Use some statistical means of evaluating the most plausible way to include
-<em>perceived behavioral control</em> into the model.</p>
+<div id="section-88" class="section level3" number="7.4.9">
+<h3><span class="header-section-number">7.4.9</span> </h3>
+<p>Use some statistical means of evaluating the most plausible way to include <em>control</em> into the model.</p>
 <ul>
 <li>Choose between the following three options:
 <ol style="list-style-type: decimal">
 <li><em>control</em> predicts <em>behavior</em> via a direct, un-mediated effect.</li>
-<li><em>control</em> predicts <em>behavior</em> via an indirect effect that is completely
-mediated by <em>intention</em>.</li>
-<li><em>control</em> predicts <em>behavior</em> via both an indirect effect through
-<em>intention</em> and a residual direct effect.</li>
+<li><em>control</em> predicts <em>behavior</em> via an indirect effect that is completely mediated by <em>intention</em>.</li>
+<li><em>control</em> predicts <em>behavior</em> via both an indirect effect through <em>intention</em> and a residual direct effect.</li>
 </ol></li>
 </ul>
 <p><em>Hint:</em> There is more than one way to approach this problem.</p>
@@ -1132,8 +1227,8 @@ Click to show code
 <span id="cb247-4"><a href="in-class-exercises-5.html#cb247-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
 <span id="cb247-5"><a href="in-class-exercises-5.html#cb247-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
 <span id="cb247-6"><a href="in-class-exercises-5.html#cb247-6" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb247-7"><a href="in-class-exercises-5.html#cb247-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + a * control</span></span>
-<span id="cb247-8"><a href="in-class-exercises-5.html#cb247-8" tabindex="-1"></a><span class="st">behavior ~ b * intent + c * control</span></span>
+<span id="cb247-7"><a href="in-class-exercises-5.html#cb247-7" tabindex="-1"></a><span class="st">behavior ~ b*intent + c*control</span></span>
+<span id="cb247-8"><a href="in-class-exercises-5.html#cb247-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + a*control</span></span>
 <span id="cb247-9"><a href="in-class-exercises-5.html#cb247-9" tabindex="-1"></a></span>
 <span id="cb247-10"><a href="in-class-exercises-5.html#cb247-10" tabindex="-1"></a><span class="st">ie    := a * b</span></span>
 <span id="cb247-11"><a href="in-class-exercises-5.html#cb247-11" tabindex="-1"></a><span class="st">total := ie + c</span></span>
@@ -1141,8 +1236,8 @@ Click to show code
 <span id="cb247-13"><a href="in-class-exercises-5.html#cb247-13" tabindex="-1"></a></span>
 <span id="cb247-14"><a href="in-class-exercises-5.html#cb247-14" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
 <span id="cb247-15"><a href="in-class-exercises-5.html#cb247-15" tabindex="-1"></a></span>
-<span id="cb247-16"><a href="in-class-exercises-5.html#cb247-16" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod1, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
-<span id="cb247-17"><a href="in-class-exercises-5.html#cb247-17" tabindex="-1"></a><span class="fu">summary</span>(fit1, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb247-16"><a href="in-class-exercises-5.html#cb247-16" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod1, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
+<span id="cb247-17"><a href="in-class-exercises-5.html#cb247-17" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 33 iterations
 ## 
 ##   Estimator                                         ML
@@ -1180,13 +1275,13 @@ Click to show code
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+##   behavior ~                                                            
+##     intent     (b)    0.551    0.074    7.487    0.000    0.391    0.683
+##     control    (c)    0.469    0.142    3.298    0.001    0.231    0.791
 ##   intent ~                                                              
 ##     attitudes         0.357    0.115    3.113    0.002    0.146    0.603
 ##     norms             0.646    0.095    6.794    0.000    0.473    0.859
 ##     control    (a)    0.199    0.199    1.002    0.317   -0.188    0.633
-##   behavior ~                                                            
-##     intent     (b)    0.551    0.074    7.487    0.000    0.391    0.683
-##     control    (c)    0.469    0.142    3.298    0.001    0.231    0.791
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
@@ -1207,8 +1302,8 @@ Click to show code
 ##    .control_1         0.626    0.074    8.429    0.000    0.479    0.761
 ##    .control_2         0.875    0.092    9.522    0.000    0.689    1.049
 ##    .control_3         0.748    0.078    9.532    0.000    0.579    0.893
-##    .intent            0.412    0.050    8.283    0.000    0.307    0.504
 ##    .behavior          0.541    0.055    9.873    0.000    0.423    0.639
+##    .intent            0.412    0.050    8.283    0.000    0.307    0.504
 ##     attitudes         0.875    0.104    8.385    0.000    0.676    1.081
 ##     norms             0.757    0.099    7.616    0.000    0.560    0.949
 ##     control           0.484    0.095    5.092    0.000    0.306    0.683
@@ -1221,48 +1316,38 @@ Click to show code
 <summary>
 Click for explanation
 </summary>
-<p>From the above results, we can see that the direct and total effects are both
-significant, but the indirect effect is not. Hence, it probably makes the most
-sense to include <em>control</em> via a direct (non-mediated) effect on <em>behavior</em>.</p>
+<p>From the above results, we can see that the direct and total effects are both significant, but the indirect effect is
+not. Hence, it probably makes the most sense to include <em>control</em> via a direct (non-mediated) effect on <em>behavior</em>.</p>
 </details>
 </details>
 <hr />
 </div>
-<div id="approach-2.1-nested-model-comparison" class="section level4 unnumbered hasAnchor">
-<h4>Approach 2.1: Nested Model Comparison<a href="in-class-exercises-5.html#approach-2.1-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="approach-2-nested-model-comparison" class="section level4 unnumbered hasAnchor">
+<h4>Approach 2: Nested Model Comparison<a href="in-class-exercises-5.html#approach-2-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click to show code
 </summary>
-<p>We can also approach this problem from a model-comparison perspective. We can
-fit models that encode each pattern of constraints and check which one best
-represents the data.</p>
+<p>We can also approach this problem from a model-comparison perspective. We can fit models that encode each pattern of
+constraints and check which one best represents the data.</p>
+<ul>
+<li>The extended TORA model from <a href="in-class-exercises-5.html#updatedModel">7.4.6</a> already encodes the non-mediated direct effect.</li>
+</ul>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="in-class-exercises-5.html#cb249-1" tabindex="-1"></a><span class="do">## Force complete mediation:</span></span>
 <span id="cb249-2"><a href="in-class-exercises-5.html#cb249-2" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
 <span id="cb249-3"><a href="in-class-exercises-5.html#cb249-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
 <span id="cb249-4"><a href="in-class-exercises-5.html#cb249-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
 <span id="cb249-5"><a href="in-class-exercises-5.html#cb249-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
 <span id="cb249-6"><a href="in-class-exercises-5.html#cb249-6" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb249-7"><a href="in-class-exercises-5.html#cb249-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + control</span></span>
-<span id="cb249-8"><a href="in-class-exercises-5.html#cb249-8" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
+<span id="cb249-7"><a href="in-class-exercises-5.html#cb249-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
+<span id="cb249-8"><a href="in-class-exercises-5.html#cb249-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + control</span></span>
 <span id="cb249-9"><a href="in-class-exercises-5.html#cb249-9" tabindex="-1"></a><span class="st">&#39;</span></span>
 <span id="cb249-10"><a href="in-class-exercises-5.html#cb249-10" tabindex="-1"></a></span>
-<span id="cb249-11"><a href="in-class-exercises-5.html#cb249-11" tabindex="-1"></a><span class="do">## Force no mediation:</span></span>
-<span id="cb249-12"><a href="in-class-exercises-5.html#cb249-12" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb249-13"><a href="in-class-exercises-5.html#cb249-13" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb249-14"><a href="in-class-exercises-5.html#cb249-14" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb249-15"><a href="in-class-exercises-5.html#cb249-15" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb249-16"><a href="in-class-exercises-5.html#cb249-16" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb249-17"><a href="in-class-exercises-5.html#cb249-17" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
-<span id="cb249-18"><a href="in-class-exercises-5.html#cb249-18" tabindex="-1"></a><span class="st">behavior ~ intent + control</span></span>
-<span id="cb249-19"><a href="in-class-exercises-5.html#cb249-19" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb249-20"><a href="in-class-exercises-5.html#cb249-20" tabindex="-1"></a></span>
-<span id="cb249-21"><a href="in-class-exercises-5.html#cb249-21" tabindex="-1"></a><span class="do">## Estimate the two restricted models:</span></span>
-<span id="cb249-22"><a href="in-class-exercises-5.html#cb249-22" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod2, <span class="at">data =</span> condom)</span>
-<span id="cb249-23"><a href="in-class-exercises-5.html#cb249-23" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod3, <span class="at">data =</span> condom)</span>
-<span id="cb249-24"><a href="in-class-exercises-5.html#cb249-24" tabindex="-1"></a></span>
-<span id="cb249-25"><a href="in-class-exercises-5.html#cb249-25" tabindex="-1"></a><span class="do">## Check the results:</span></span>
-<span id="cb249-26"><a href="in-class-exercises-5.html#cb249-26" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div>
+<span id="cb249-11"><a href="in-class-exercises-5.html#cb249-11" tabindex="-1"></a><span class="do">## Estimate the two restricted models:</span></span>
+<span id="cb249-12"><a href="in-class-exercises-5.html#cb249-12" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod2, <span class="at">data =</span> condom)</span>
+<span id="cb249-13"><a href="in-class-exercises-5.html#cb249-13" tabindex="-1"></a></span>
+<span id="cb249-14"><a href="in-class-exercises-5.html#cb249-14" tabindex="-1"></a><span class="do">## Check the results:</span></span>
+<span id="cb249-15"><a href="in-class-exercises-5.html#cb249-15" tabindex="-1"></a><span class="fu">summary</span>(out2)</span></code></pre></div>
 <pre><code>## lavaan 0.6-19 ended normally after 33 iterations
 ## 
 ##   Estimator                                         ML
@@ -1300,12 +1385,12 @@ represents the data.</p>
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   behavior ~                                          
+##     intent            0.746    0.045   16.443    0.000
 ##   intent ~                                            
 ##     attitudes         0.352    0.096    3.669    0.000
 ##     norms             0.644    0.088    7.347    0.000
 ##     control           0.207    0.163    1.268    0.205
-##   behavior ~                                          
-##     intent            0.746    0.045   16.443    0.000
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
@@ -1326,151 +1411,77 @@ represents the data.</p>
 ##    .control_1         0.610    0.076    8.015    0.000
 ##    .control_2         0.861    0.090    9.580    0.000
 ##    .control_3         0.769    0.086    8.938    0.000
-##    .intent            0.412    0.046    8.890    0.000
 ##    .behavior          0.603    0.054   11.180    0.000
+##    .intent            0.412    0.046    8.890    0.000
 ##     attitudes         0.877    0.115    7.596    0.000
 ##     norms             0.757    0.112    6.733    0.000
 ##     control           0.500    0.098    5.076    0.000</code></pre>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="in-class-exercises-5.html#cb251-1" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 31 iterations
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="in-class-exercises-5.html#cb251-1" tabindex="-1"></a><span class="do">## Does the full-mediation model fit worse than the partial mediation model?</span></span>
+<span id="cb251-2"><a href="in-class-exercises-5.html#cb251-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out2)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
 ## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                        27
+##      Df    AIC    BIC  Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)
+## out1 38 7157.0 7255.6 47.389                                      
+## out2 39 7170.4 7265.4 62.797     15.408 0.24007       1  8.662e-05</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="in-class-exercises-5.html#cb253-1" tabindex="-1"></a><span class="do">## Does the no-mediation model fit worse than the partial mediation model?</span></span>
+<span id="cb253-2"><a href="in-class-exercises-5.html#cb253-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out_tora2)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
 ## 
-##   Number of observations                           250
-## 
-## Model Test User Model:
-##                                                       
-##   Test statistic                                48.757
-##   Degrees of freedom                                39
-##   P-value (Chi-square)                           0.136
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                             Standard
-##   Information                                 Expected
-##   Information saturated (h1) model          Structured
-## 
-## Latent Variables:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##   attitudes =~                                        
-##     attit_1           1.000                           
-##     attit_2           1.033    0.068   15.221    0.000
-##     attit_3          -1.025    0.068  -15.097    0.000
-##   norms =~                                            
-##     norm_1            1.000                           
-##     norm_2            0.984    0.087   11.256    0.000
-##     norm_3            0.955    0.088   10.881    0.000
-##   control =~                                          
-##     control_1         1.000                           
-##     control_2         0.859    0.127    6.789    0.000
-##     control_3         0.997    0.131    7.609    0.000
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##   intent ~                                            
-##     attitudes         0.447    0.063    7.100    0.000
-##     norms             0.706    0.078    9.078    0.000
-##   behavior ~                                          
-##     intent            0.563    0.063    8.923    0.000
-##     control           0.454    0.119    3.805    0.000
-## 
-## Covariances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##   attitudes ~~                                        
-##     norms             0.342    0.068    5.011    0.000
-##     control           0.474    0.072    6.548    0.000
-##   norms ~~                                            
-##     control           0.352    0.064    5.521    0.000
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .attit_1           0.432    0.052    8.381    0.000
-##    .attit_2           0.330    0.046    7.220    0.000
-##    .attit_3           0.344    0.046    7.439    0.000
-##    .norm_1            0.496    0.063    7.820    0.000
-##    .norm_2            0.533    0.065    8.152    0.000
-##    .norm_3            0.595    0.069    8.643    0.000
-##    .control_1         0.625    0.075    8.372    0.000
-##    .control_2         0.876    0.090    9.757    0.000
-##    .control_3         0.746    0.084    8.874    0.000
-##    .intent            0.409    0.047    8.769    0.000
-##    .behavior          0.542    0.052   10.423    0.000
-##     attitudes         0.872    0.115    7.566    0.000
-##     norms             0.751    0.112    6.709    0.000
-##     control           0.485    0.096    5.059    0.000</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="in-class-exercises-5.html#cb253-1" tabindex="-1"></a><span class="do">## Do either of the restricted models fit worse than the partial mediation model?</span></span>
-<span id="cb253-2"><a href="in-class-exercises-5.html#cb253-2" tabindex="-1"></a><span class="fu">anova</span>(fit1, fit2)</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Chisq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Chisq diff"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSEA"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Df diff"],"name":[7],"type":["int"],"align":["right"]},{"label":["Pr(>Chisq)"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"38","2":"7156.952","3":"7255.553","4":"47.38864","5":"NA","6":"NA","7":"NA","8":"NA","_rn_":"fit1"},{"1":"39","2":"7170.360","3":"7265.439","4":"62.79676","5":"15.40812","6":"0.2400676","7":"1","8":"8.661552e-05","_rn_":"fit2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="in-class-exercises-5.html#cb254-1" tabindex="-1"></a><span class="fu">anova</span>(fit1, fit3)</span></code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Chisq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Chisq diff"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSEA"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Df diff"],"name":[7],"type":["int"],"align":["right"]},{"label":["Pr(>Chisq)"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"38","2":"7156.952","3":"7255.553","4":"47.38864","5":"NA","6":"NA","7":"NA","8":"NA","_rn_":"fit1"},{"1":"39","2":"7156.320","3":"7251.400","4":"48.75720","5":"1.368561","6":"0.03839587","7":"1","8":"0.2420593","_rn_":"fit3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+##           Df    AIC    BIC  Chisq Chisq diff    RMSEA Df diff Pr(&gt;Chisq)
+## out1      38 7157.0 7255.6 47.389                                       
+## out_tora2 39 7156.3 7251.4 48.757     1.3686 0.038396       1     0.2421</code></pre>
 <details>
 <summary>
 Click for explanation
 </summary>
-<p>The above <span class="math inline">\(\Delta \chi^2\)</span> tests tell us that the full mediation model fits
-significantly worse than the partial mediation model. Hence, forcing full
-mediation by fixing the direct effect to zero is an unreasonable restraint. The
-total effect model, on the other hand, does not fit significantly worse than the
-partial mediation model. So, we can conclude that removing the indirect effect
-and modeling the influence of <em>control</em> on <em>behavior</em> as an un-mediated direct
-association represents the data just as well as a model that allows for both
-indirect and direct effects. Hence, we should prefer the more parsimonious total
-effects model.</p>
+<p>The above <span class="math inline">\(\Delta \chi^2\)</span> tests tell us that the full mediation model fits significantly worse than the partial
+mediation model. Hence, forcing full mediation by fixing the direct effect to zero is an unreasonable constraint. The
+total effect model, on the other hand, does not fit significantly worse than the partial mediation model. So, we can
+conclude that removing the indirect effect and modeling the influence of <em>control</em> on <em>behavior</em> as an un-mediated
+direct association represents the data just as well as a model that allows for both indirect and direct effects. Hence,
+we should prefer the more parsimonious total effects model.</p>
 </details>
 </details>
 <hr />
 </div>
-<div id="approach-2.2-non-nested-model-comparison" class="section level4 unnumbered hasAnchor">
-<h4>Approach 2.2: Non-Nested Model Comparison<a href="in-class-exercises-5.html#approach-2.2-non-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="approach-3-non-nested-model-comparison" class="section level4 unnumbered hasAnchor">
+<h4>Approach 3: Non-Nested Model Comparison<a href="in-class-exercises-5.html#approach-3-non-nested-model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <details>
 <summary>
 Click to show code
 </summary>
-<p>We can also use <em>information criteria</em> to compare our models. The two most
-popular information criteria are the <em>Akaike’s Information Criterion</em> (AIC) and
-the <em>Bayesian Information Criterion</em> (BIC).</p>
+<p>We can also use <em>information criteria</em> to compare our models. The two most popular information criteria are the
+<em>Akaike’s Information Criterion</em> (AIC) and the <em>Bayesian Information Criterion</em> (BIC).</p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="in-class-exercises-5.html#cb255-1" tabindex="-1"></a><span class="do">## Which model is the most parsimonious representation of the data?</span></span>
-<span id="cb255-2"><a href="in-class-exercises-5.html#cb255-2" tabindex="-1"></a><span class="fu">AIC</span>(fit1, fit2, fit3)</span></code></pre></div>
+<span id="cb255-2"><a href="in-class-exercises-5.html#cb255-2" tabindex="-1"></a><span class="fu">AIC</span>(out1, out2, out_tora2)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7156.952","_rn_":"fit1"},{"1":"27","2":"7170.360","_rn_":"fit2"},{"1":"27","2":"7156.320","_rn_":"fit3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7156.952","_rn_":"out1"},{"1":"27","2":"7170.360","_rn_":"out2"},{"1":"27","2":"7156.320","_rn_":"out_tora2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="in-class-exercises-5.html#cb256-1" tabindex="-1"></a><span class="fu">BIC</span>(fit1, fit2, fit3)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="in-class-exercises-5.html#cb256-1" tabindex="-1"></a><span class="fu">BIC</span>(out1, out2, out_tora2)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7255.553","_rn_":"fit1"},{"1":"27","2":"7265.439","_rn_":"fit2"},{"1":"27","2":"7251.400","_rn_":"fit3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7255.553","_rn_":"out1"},{"1":"27","2":"7265.439","_rn_":"out2"},{"1":"27","2":"7251.400","_rn_":"out_tora2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <details>
 <summary>
 Click for explanation
 </summary>
-<p>While the effect tests and the nested model comparisons both lead us to prefer
-the non-mediated model, we cannot directly say that the complete mediation
-model fits significantly worse than the non-mediated model. We have not directly
-compared those two models, and we cannot do so with the <span class="math inline">\(\Delta \chi^2\)</span>. We
-cannot do such a test because these two models are not nested: we must both add
-and remove a path to get from one model specification to the other. Also, both
-models have the same degrees of freedom, so we cannot define a sampling
-distribution against which we would compare the <span class="math inline">\(\Delta \chi^2\)</span>, anyway.</p>
-<p>We can use information criteria to get around this problem, though. Information
-criteria can be used to compare both nested and non-nested models. These criteria
-are designed to rank models by balancing their fit to the data and their complexity.
-When comparing models based on information criteria, a lower value indicates a
-better model in the sense of a better balance of fit and parsimony. The above
-results show that both the AIC and the BIC agree that the no-mediation model is
-the best.</p>
+<p>While the effect tests and the nested model comparisons both lead us to prefer the non-mediated model, we cannot
+directly say that the complete mediation model fits significantly worse than the non-mediated model. We have not
+directly compared those two models, and we cannot do so with the <span class="math inline">\(\Delta \chi^2\)</span>. We cannot do such a test because these
+two models are not nested: we must both add and remove a path to get from one model specification to the other. Also,
+both models have the same degrees of freedom, so we cannot define a sampling distribution against which we would compare
+the <span class="math inline">\(\Delta \chi^2\)</span>, anyway.</p>
+<p>We can use information criteria to get around this problem, though. Information criteria can be used to compare both
+nested and non-nested models. These criteria are designed to rank models by balancing their fit to the data and their
+complexity. When comparing models based on information criteria, a lower value indicates a better, more parsimonious
+model in the sense of a better balance of fit and complexity. The above results show that both the AIC and the BIC agree
+that the no-mediation model is the best.</p>
 </details>
 </details>
 <hr />
@@ -1481,9 +1492,8 @@ the best.</p>
 <summary>
 Click for explanation
 </summary>
-<p>So, in the end, regardless of how we approach the question, all of our results
-suggest modeling <em>perceived behavioral control</em> as a direct, non-mediated
-predictor of <em>condom</em> use.</p>
+<p>So, in the end, regardless of how we approach the question, all of our results suggest the best model includes <em>control</em>
+as a direct, non-mediated predictor of <em>behavior</em>.</p>
 </details>
 <!------------------------------------------------------------------------------
 
@@ -2089,21 +2099,31 @@ fit_full <- sem(mod_tora,
                 group = "sex", 
                 group.equal = c("loadings", "intercepts")
                 )
+```
 
+```
+## Error in eval(sc, parent.frame()): object 'mod_tora' not found
+```
+
+``` r
 fit_res <- sem(mod_tora, 
                data = condom, 
                group = "sex", 
                group.equal = c("loadings", "intercepts", "regressions")
                )
+```
 
+```
+## Error in eval(sc, parent.frame()): object 'mod_tora' not found
+```
+
+``` r
 anova(fit_full, fit_res)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Chisq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Chisq diff"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSEA"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Df diff"],"name":[7],"type":["int"],"align":["right"]},{"label":["Pr(>Chisq)"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"92","2":"7065.756","3":"7284.087","4":"141.9027","5":"NA","6":"NA","7":"NA","8":"NA","_rn_":"fit_full"},{"1":"96","2":"7110.616","3":"7314.860","4":"194.7621","5":"52.85934","6":"0.3125999","7":"4","8":"9.119284e-11","_rn_":"fit_res"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'anova': object 'fit_full' not found
+```
 
 Equating all regression paths across groups produces a significant loss of fit.
 Therefore, *sex* must moderate at least some of these paths.
@@ -2114,6 +2134,9 @@ Therefore, *sex* must moderate at least some of these paths.
 <hr />
 <p>End of In-Class Exercises</p>
 <hr />
+<!-- [mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html -->
+<!-- [van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740 -->
+<!-- [putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004 -->
 
 </div>
 </div>

@@ -182,10 +182,12 @@ in-class-exercises-5
 section-83
 toraCFA
 section-84
-updatedModel
+tora1Estimation
 section-85
+updatedModel
 section-86
 section-87
+section-88
 multiple-group-models
 lecture-6
 reading-6
