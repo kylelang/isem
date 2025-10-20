@@ -480,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will need two datasets to complete the following exercises.</p>
 <ul>
 <li>The processed PGD dataset you created and saved in <a href="at-home-exercises-6.html#processPgdData">8.3.2.2</a></li>
-<li><a href="https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3">toradata.csv</a></li>
+<li><a href="https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download">toradata.csv</a></li>
 </ul>
 <p><strong>Packages:</strong></p>
 <p>You will also need to install the <strong>semTools</strong> package.</p>
@@ -870,7 +870,7 @@ Click to show code
 ##    .b5pss5            0.361    0.034   10.700    0.000
 ##     grief             0.561    0.065    8.586    0.000</code></pre>
 <div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="in-class-exercises-6.html#cb291-1" tabindex="-1"></a><span class="do">## Test invariance through model comparison tests:</span></span>
-<span id="cb291-2"><a href="in-class-exercises-6.html#cb291-2" tabindex="-1"></a><span class="fu">compareFit</span>(configOut, weakOut, strongOut) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<span id="cb291-2"><a href="in-class-exercises-6.html#cb291-2" tabindex="-1"></a><span class="fu">compareFit</span>(configOut, weakOut, strongOut) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## ################### Nested Model Comparison #########################
 ## 
 ## Chi-Squared Difference Test
@@ -1094,8 +1094,7 @@ multiple-group analysis that includes latent variables is measurement invariance
 <ul>
 <li>Test configural, weak, and strong invariance.</li>
 <li>Test for invariance in all three latent factors simultaneously.</li>
-<li>Is full measurement invariance (i.e., up to and including strong invariance)
-supported?</li>
+<li>Is full measurement invariance (i.e., up to and including strong invariance) supported?</li>
 </ul>
 <details>
 <summary>
@@ -1516,7 +1515,7 @@ Click to show code
 ##     norms             0.830    0.186    4.455    0.000
 ##     control           0.445    0.136    3.280    0.001</code></pre>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="in-class-exercises-6.html#cb304-1" tabindex="-1"></a><span class="do">## Test measurement invariance:</span></span>
-<span id="cb304-2"><a href="in-class-exercises-6.html#cb304-2" tabindex="-1"></a><span class="fu">compareFit</span>(config, weak, strong) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<span id="cb304-2"><a href="in-class-exercises-6.html#cb304-2" tabindex="-1"></a><span class="fu">compareFit</span>(config, weak, strong) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## ################### Nested Model Comparison #########################
 ## 
 ## Chi-Squared Difference Test

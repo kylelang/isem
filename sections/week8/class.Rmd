@@ -1,10 +1,6 @@
 ## In-Class Exercises
 
 ```{r include = FALSE}
-library(haven)
-library(dplyr)
-library(lavaan)
-
 source(here::here("code", "supportFunctions.R"))
 ```
 
@@ -17,7 +13,7 @@ source(here::here("code", "supportFunctions.R"))
 You will need two datasets to complete the following exercises.
 
 - The processed PGD dataset you created and saved in \@ref(processPgdData)
-- [toradata.csv](https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3)
+- [toradata.csv][tora_data]
 
 **Packages:**
 
@@ -138,7 +134,7 @@ summary(weakOut)
 summary(strongOut)
 
 ## Test invariance through model comparison tests:
-compareFit(configOut, weakOut, strongOut) %>% summary()
+compareFit(configOut, weakOut, strongOut) |> summary()
 ```
 
 ```{r, echo = FALSE}
@@ -146,33 +142,33 @@ fit1 <- fitMeasures(configOut,
                     c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
                     )
 
-cChi2 <- fit1["chisq"] %>% round(2)
+cChi2 <- fit1["chisq"] |> round(2)
 cDf <- fit1["df"]
-cP <- fit1["pvalue"] %>% round(3)
-rmsea <- fit1["rmsea"] %>% round(3)
-cfi <- fit1["cfi"] %>% round(3)
-srmr <- fit1["srmr"] %>% round(3)
+cP <- fit1["pvalue"] |> prettyPValue()
+rmsea <- fit1["rmsea"] |> round(3)
+cfi <- fit1["cfi"] |> round(3)
+srmr <- fit1["srmr"] |> round(3)
 
 tmp <- anova(configOut, weakOut, strongOut)
   
-wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
+wChi2 <- tmp[2, "Chisq diff"] |> round(2)
 wDf   <- tmp[2, "Df diff"]
-wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+wP    <- tmp[2, "Pr(>Chisq)"] |> prettyPValue()
 
-sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
+sChi2 <- tmp[3, "Chisq diff"] |> round(2)
 sDf   <- tmp[3, "Df diff"]
-sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
+sP    <- tmp[3, "Pr(>Chisq)"] |> prettyPValue()
 
 fit2 <- fitMeasures(strongOut, 
                     c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
                     )
 
-strongChi2 <- fit2["chisq"] %>% round(2)
+strongChi2 <- fit2["chisq"] |> round(2)
 strongDf <- fit2["df"]
-strongP <- fit2["pvalue"] %>% round(3)
-strongRmsea <- fit2["rmsea"] %>% round(3)
-strongCfi <- fit2["cfi"] %>% round(3)
-strongSrmr <- fit2["srmr"] %>% round(3)
+strongP <- fit2["pvalue"] |> prettyPValue()
+strongRmsea <- fit2["rmsea"] |> round(3)
+strongCfi <- fit2["cfi"] |> round(3)
+strongSrmr <- fit2["srmr"] |> round(3)
 ```
 
   <details>
@@ -181,21 +177,21 @@ strongSrmr <- fit2["srmr"] %>% round(3)
 - Configural invariance holds.
    - The unrestricted, two-group model fits the data very well 
      $(\chi^2[`r cDf`] = `r cChi2`,$
-     $p = `r cP`,$
+     $`r cP`,$
      $\textit{RMSEA} = `r rmsea`,$
      $\textit{CFI} = `r cfi`,$
      $\textit{SRMR} = `r srmr`).$
 - Weak invariance holds.
    - The model comparison test shows a non-significant loss of fit between the configural and weak models
      $(\Delta \chi^2[`r wDf`] = `r wChi2`,$
-     $p = `r wP`).$
+     $`r wP`).$
 - Strong invariance holds.
    - The model comparison test shows a non-significant loss of fit between the weak and strong models
      $(\Delta \chi^2[`r sDf`] = `r sChi2`,$
-     $p = `r sP`).$
+     $`r sP`).$
    - The strongly invariant model still fits the data well
      ($\chi^2[`r strongDf`] = `r strongChi2`,$
-     $p = `r strongP`,$
+     $`r strongP`,$
      $\textit{RMSEA} = `r strongRmsea`,$
      $\textit{CFI} = `r strongCfi`,$
      $\textit{SRMR} = `r strongSrmr`).$
@@ -252,9 +248,9 @@ anova(strongOut, resOut)
 ```{r echo = FALSE}
 tmp <- anova(strongOut, resOut)
   
-chi2 <- tmp[2, "Chisq diff"] %>% round(2)
+chi2 <- tmp[2, "Chisq diff"] |> round(2)
 df   <- tmp[2, "Df diff"]
-p    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+p    <- tmp[2, "Pr(>Chisq)"] |> prettyPValue()
 ```
 
   <details>
@@ -265,7 +261,7 @@ this constrained model to the strong invariance model to get our test of mean di
 
 In this case, the means of the `grief` factor do not significantly differ between `Kin2` groups
 $(\Delta \chi^2[`r df`] = `r chi2`,$
-$p = `r p`),$
+$`r p`),$
 assuming we adopt an alpha-level of 0.05 or lower for the test.
 
   </details>
@@ -309,8 +305,7 @@ Test for measurement invariance across *sex* groups in the three latent variable
 
 - Test configural, weak, and strong invariance.
 - Test for invariance in all three latent factors simultaneously.
-- Is full measurement invariance (i.e., up to and including strong invariance)
-supported?
+- Is full measurement invariance (i.e., up to and including strong invariance) supported?
 
 <details>
   <summary>Click to show code</summary>
@@ -337,7 +332,7 @@ summary(weak)
 summary(strong)
 
 ## Test measurement invariance:
-compareFit(config, weak, strong) %>% summary()
+compareFit(config, weak, strong) |> summary()
 ```
 
 ```{r, echo = FALSE}
@@ -345,33 +340,33 @@ fit1 <- fitMeasures(config,
                     c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
                     )
 
-chi2 <- fit1["chisq"] %>% round(2)
+chi2 <- fit1["chisq"] |> round(2)
 df <- fit1["df"]
-p <- fit1["pvalue"] %>% round(3)
-rmsea <- fit1["rmsea"] %>% round(3)
-cfi <- fit1["cfi"] %>% round(3)
-srmr <- fit1["srmr"] %>% round(3)
+p <- fit1["pvalue"] |> prettyPValue()
+rmsea <- fit1["rmsea"] |> round(3)
+cfi <- fit1["cfi"] |> round(3)
+srmr <- fit1["srmr"] |> round(3)
 
 tmp <- anova(config, weak, strong)
   
-wChi2 <- tmp[2, "Chisq diff"] %>% round(2)
+wChi2 <- tmp[2, "Chisq diff"] |> round(2)
 wDf   <- tmp[2, "Df diff"]
-wP    <- tmp[2, "Pr(>Chisq)"] %>% round(3)
+wP    <- tmp[2, "Pr(>Chisq)"] |> prettyPValue()
 
-sChi2 <- tmp[3, "Chisq diff"] %>% round(2)
+sChi2 <- tmp[3, "Chisq diff"] |> round(2)
 sDf   <- tmp[3, "Df diff"]
-sP    <- tmp[3, "Pr(>Chisq)"] %>% round(3)
+sP    <- tmp[3, "Pr(>Chisq)"] |> prettyPValue()
 
 fit2 <- fitMeasures(strong, 
                     c("chisq", "df", "pvalue", "rmsea", "cfi", "tli", "srmr")
                     )
 
-strongChi2 <- fit2["chisq"] %>% round(2)
+strongChi2 <- fit2["chisq"] |> round(2)
 strongDf <- fit2["df"]
-strongP <- fit2["pvalue"] %>% round(3)
-strongRmsea <- fit2["rmsea"] %>% round(3)
-strongCfi <- fit2["cfi"] %>% round(3)
-strongSrmr <- fit2["srmr"] %>% round(3)
+strongP <- fit2["pvalue"] |> prettyPValue()
+strongRmsea <- fit2["rmsea"] |> round(3)
+strongCfi <- fit2["cfi"] |> round(3)
+strongSrmr <- fit2["srmr"] |> round(3)
 ```
 
   <details>
@@ -382,21 +377,21 @@ Yes, we can establish full measurement invariance.
 - Configural invariance holds.
    - The unrestricted, multiple-group model fits the data well 
      $(\chi^2[`r df`] = `r chi2`,$
-     $p = `r p`,$
+     $`r p`,$
      $\textit{RMSEA} = `r rmsea`,$
      $\textit{CFI} = `r cfi`,$
      $\textit{SRMR} = `r srmr`).$
 - Weak invariance holds.
    - The model comparison test shows a non-significant loss of fit between the configural and weak models
      $(\Delta \chi^2[`r wDf`] = `r wChi2`,$
-     $p = `r wP`).$
+     $`r wP`).$
 - Strong invariance holds.
    - The model comparison test shows a non-significant loss of fit between the weak and strong models
      $(\Delta \chi^2[`r sDf`] = `r sChi2`,$
-     $p = `r sP`).$
+     $`r sP`).$
    - The strongly invariant model still fits the data well
      $(\chi^2[`r strongDf`] = `r strongChi2`,$
-     $p = `r strongP`,$
+     $`r strongP`,$
      $\textit{RMSEA} = `r strongRmsea`,$
      $\textit{CFI} = `r strongCfi`,$
      $\textit{SRMR} = `r strongSrmr`).$
@@ -542,10 +537,7 @@ End of In-Class Exercises
 
 ------------------------------------------------------------------------------------------------------------------------
 
-[sesam2_data]: https://surfdrive.surf.nl/files/index.php/s/dfzC7Tf5HHiTX8M/download
-[pgd_data]: https://surfdrive.surf.nl/files/index.php/s/xxkp4gZY682AGyY/download
 [tora_data]: https://surfdrive.surf.nl/files/index.php/s/I8IxckbNJlY5bQ3/download
-[boelen_et_al_2010]: https://doi.org/10.1016/j.jad.2010.01.076
 [mi_tutorial]: https://www.lavaan.ugent.be/tutorial/groups.html
 [van_de_schoot_et_al]: https://doi.org/10.1080/17405629.2012.686740
 [putnick_bornstein]: https://doi.org/10.1016/j.dr.2016.06.004
