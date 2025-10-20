@@ -29,6 +29,6 @@ knit_child(here::here("sections", thisWeek, "reading.Rmd"), quiet = TRUE) |> cat
 knit_child(here::here("sections", thisWeek, "home.Rmd"), quiet = TRUE) |> cat(sep = "\n")
 # knit_child(here::here("sections", "home-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
 
-# knit_child(here::here("sections", thisWeek, "class.Rmd"), quiet = TRUE) |> cat(sep = "\n")
-knit_child(here::here("sections", "class-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+knit_child(here::here("sections", thisWeek, "class.Rmd"), quiet = TRUE) |> cat(sep = "\n")
+# knit_child(here::here("sections", "class-placeholder.Rmd"), quiet = TRUE) |> cat(sep = "\n")
 ```
