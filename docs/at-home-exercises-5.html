@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.3 At-Home Exercises | Introduction to Structural Equation Modeling</title>
+  <meta name="description" content="7.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
+  
+  
+  
+
+<meta name="author" content="Kyle M. Lang" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reading-5.html"/>
+<link rel="next" href="in-class-exercises-5.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="assets/html/style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Introduction to SEM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Information</a>
+<ul>
+<li class="chapter" data-level="" data-path="acknowledgement.html"><a href="acknowledgement.html"><i class="fa fa-check"></i>Acknowledgement</a></li>
+<li class="chapter" data-level="" data-path="instructors.html"><a href="instructors.html"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="course-overview.html"><a href="course-overview.html"><i class="fa fa-check"></i>Course overview</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="learning-goals.html"><a href="learning-goals.html"><i class="fa fa-check"></i>Learning goals</a>
+<ul>
+<li class="chapter" data-level="" data-path="learning-goals.html"><a href="learning-goals.html#background"><i class="fa fa-check"></i>Background knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i>Resources</a>
+<ul>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#literature"><i class="fa fa-check"></i>Literature</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#reading-questions"><i class="fa fa-check"></i>Reading questions</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#software"><i class="fa fa-check"></i>Software</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
+<ul>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
+<ul>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#ai-index"><i class="fa fa-check"></i>AI index</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#acceptable-usage-in-this-course"><i class="fa fa-check"></i>Acceptable usage in this course</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#including-ai-generated-content-in-your-work"><i class="fa fa-check"></i>Including AI-generated content in your work</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#a1_components"><i class="fa fa-check"></i>Required Components</a></li>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#evaluation-1"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#submission"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a>
+<ul>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#a2_components"><i class="fa fa-check"></i>Required Components</a></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#evaluation-2"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#submission-1"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html"><i class="fa fa-check"></i>Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#coping-with-covid"><i class="fa fa-check"></i>Coping with Covid</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#feminist-perspectives-scale"><i class="fa fa-check"></i>Feminist Perspectives Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#hypersensitive-narcissism-scale-dirty-dozen"><i class="fa fa-check"></i>Hypersensitive Narcissism Scale &amp; Dirty Dozen</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#kentucky-inventory-of-mindfulness-skills"><i class="fa fa-check"></i>Kentucky Inventory of Mindfulness Skills</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#depression-anxiety-stress-scale"><i class="fa fa-check"></i>Depression Anxiety Stress Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#nomophobia"><i class="fa fa-check"></i>Nomophobia</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#recycled-water-acceptance"><i class="fa fa-check"></i>Recycled Water Acceptance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
+<ul>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#collaboration"><i class="fa fa-check"></i>Collaboration</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#academic-integrity"><i class="fa fa-check"></i>Academic integrity</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#genai-disclosure-statement"><i class="fa fa-check"></i>GenAI disclosure statement</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#strict-stuff"><i class="fa fa-check"></i>Strict stuff</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html"><i class="fa fa-check"></i>Installing software</a>
+<ul>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-rstudio"><i class="fa fa-check"></i>Installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="course-data.html"><a href="course-data.html"><i class="fa fa-check"></i>Course Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="note-on-data-updates.html"><a href="note-on-data-updates.html"><i class="fa fa-check"></i>Note on Data Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="lecture.html"><a href="lecture.html"><i class="fa fa-check"></i><b>1.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="lecture.html"><a href="lecture.html#recordings"><i class="fa fa-check"></i><b>1.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="1.1.2" data-path="lecture.html"><a href="lecture.html#slides"><i class="fa fa-check"></i><b>1.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading.html"><a href="reading.html"><i class="fa fa-check"></i><b>1.2</b> Reading</a></li>
+<li class="chapter" data-level="1.3" data-path="at-home-exercises.html"><a href="at-home-exercises.html"><i class="fa fa-check"></i><b>1.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="1.4" data-path="in-class-exercises.html"><a href="in-class-exercises.html"><i class="fa fa-check"></i><b>1.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="" data-path="in-class-exercises.html"><a href="in-class-exercises.html#recap"><i class="fa fa-check"></i>Recap</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="statistical-modeling-path-analysis.html"><a href="statistical-modeling-path-analysis.html"><i class="fa fa-check"></i><b>2</b> Statistical Modeling &amp; Path Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="lecture-1.html"><a href="lecture-1.html"><i class="fa fa-check"></i><b>2.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="lecture-1.html"><a href="lecture-1.html#recordings-1"><i class="fa fa-check"></i><b>2.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="2.1.2" data-path="lecture-1.html"><a href="lecture-1.html#slides-1"><i class="fa fa-check"></i><b>2.1.2</b> Slides</a></li>
+<li class="chapter" data-level="2.1.3" data-path="lecture-1.html"><a href="lecture-1.html#materials-from-the-lecture-meeting"><i class="fa fa-check"></i><b>2.1.3</b> Materials from the lecture meeting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="reading-1.html"><a href="reading-1.html"><i class="fa fa-check"></i><b>2.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#reference"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#questions"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#answers"><i class="fa fa-check"></i>Answers</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#suggested-reading-optional"><i class="fa fa-check"></i>Suggested Reading (Optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html"><i class="fa fa-check"></i><b>2.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#setup"><i class="fa fa-check"></i><b>2.3.1</b> Setup</a></li>
+<li class="chapter" data-level="2.3.2" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section"><i class="fa fa-check"></i><b>2.3.2</b> </a></li>
+<li class="chapter" data-level="2.3.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-1"><i class="fa fa-check"></i><b>2.3.3</b> </a></li>
+<li class="chapter" data-level="2.3.4" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr1"><i class="fa fa-check"></i><b>2.3.4</b> </a></li>
+<li class="chapter" data-level="2.3.5" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr2"><i class="fa fa-check"></i><b>2.3.5</b> </a></li>
+<li class="chapter" data-level="2.3.6" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr3"><i class="fa fa-check"></i><b>2.3.6</b> </a></li>
+<li class="chapter" data-level="2.3.7" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#mlr"><i class="fa fa-check"></i><b>2.3.7</b> </a></li>
+<li class="chapter" data-level="2.3.8" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-2"><i class="fa fa-check"></i><b>2.3.8</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html"><i class="fa fa-check"></i><b>2.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#setup-1"><i class="fa fa-check"></i><b>2.4.1</b> Setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#data-exploration"><i class="fa fa-check"></i><b>2.4.2</b> Data Exploration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#linear-modeling"><i class="fa fa-check"></i><b>2.4.3</b> Linear Modeling</a></li>
+<li class="chapter" data-level="2.4.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#categorical-ivs"><i class="fa fa-check"></i><b>2.4.4</b> Categorical IVs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mediation-moderation.html"><a href="mediation-moderation.html"><i class="fa fa-check"></i><b>3</b> Mediation &amp; Moderation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture-2.html"><a href="lecture-2.html"><i class="fa fa-check"></i><b>3.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="lecture-2.html"><a href="lecture-2.html#recordings-2"><i class="fa fa-check"></i><b>3.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="3.1.2" data-path="lecture-2.html"><a href="lecture-2.html#slides-2"><i class="fa fa-check"></i><b>3.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="reading-2.html"><a href="reading-2.html"><i class="fa fa-check"></i><b>3.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-1"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-1"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#answers-1"><i class="fa fa-check"></i>Answers</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-2"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-2"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#answers-2"><i class="fa fa-check"></i>Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html"><i class="fa fa-check"></i><b>3.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#setup-2"><i class="fa fa-check"></i><b>3.3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.3.2" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#mediation"><i class="fa fa-check"></i><b>3.3.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#moderation"><i class="fa fa-check"></i><b>3.3.3</b> Moderation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html"><i class="fa fa-check"></i><b>3.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#setup-3"><i class="fa fa-check"></i><b>3.4.1</b> Setup</a></li>
+<li class="chapter" data-level="3.4.2" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#mediation-1"><i class="fa fa-check"></i><b>3.4.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#moderation-1"><i class="fa fa-check"></i><b>3.4.3</b> Moderation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cfa-i.html"><a href="cfa-i.html"><i class="fa fa-check"></i><b>4</b> CFA I</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture-3.html"><a href="lecture-3.html"><i class="fa fa-check"></i><b>4.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="lecture-3.html"><a href="lecture-3.html#recordings-3"><i class="fa fa-check"></i><b>4.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lecture-3.html"><a href="lecture-3.html#slides-3"><i class="fa fa-check"></i><b>4.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="reading-3.html"><a href="reading-3.html"><i class="fa fa-check"></i><b>4.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#reference-3"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#questions-3"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#answers-3"><i class="fa fa-check"></i>Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html"><i class="fa fa-check"></i><b>4.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#setup-4"><i class="fa fa-check"></i><b>4.3.1</b> Setup</a></li>
+<li class="chapter" data-level="4.3.2" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-45"><i class="fa fa-check"></i><b>4.3.2</b> </a></li>
+<li class="chapter" data-level="4.3.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-46"><i class="fa fa-check"></i><b>4.3.3</b> </a></li>
+<li class="chapter" data-level="4.3.4" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#df"><i class="fa fa-check"></i><b>4.3.4</b> </a></li>
+<li class="chapter" data-level="4.3.5" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaSyntax1"><i class="fa fa-check"></i><b>4.3.5</b> </a></li>
+<li class="chapter" data-level="4.3.6" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimationHome1"><i class="fa fa-check"></i><b>4.3.6</b> </a></li>
+<li class="chapter" data-level="4.3.7" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-47"><i class="fa fa-check"></i><b>4.3.7</b> </a></li>
+<li class="chapter" data-level="4.3.8" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-48"><i class="fa fa-check"></i><b>4.3.8</b> </a></li>
+<li class="chapter" data-level="4.3.9" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-49"><i class="fa fa-check"></i><b>4.3.9</b> </a></li>
+<li class="chapter" data-level="4.3.10" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaSyntax2"><i class="fa fa-check"></i><b>4.3.10</b> </a></li>
+<li class="chapter" data-level="4.3.11" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimation2"><i class="fa fa-check"></i><b>4.3.11</b> </a></li>
+<li class="chapter" data-level="4.3.12" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-50"><i class="fa fa-check"></i><b>4.3.12</b> </a></li>
+<li class="chapter" data-level="4.3.13" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-51"><i class="fa fa-check"></i><b>4.3.13</b> </a></li>
+<li class="chapter" data-level="4.3.14" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-52"><i class="fa fa-check"></i><b>4.3.14</b> </a></li>
+<li class="chapter" data-level="4.3.15" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimation3"><i class="fa fa-check"></i><b>4.3.15</b> </a></li>
+<li class="chapter" data-level="4.3.16" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-53"><i class="fa fa-check"></i><b>4.3.16</b> </a></li>
+<li class="chapter" data-level="4.3.17" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-54"><i class="fa fa-check"></i><b>4.3.17</b> </a></li>
+<li class="chapter" data-level="4.3.18" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-55"><i class="fa fa-check"></i><b>4.3.18</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html"><i class="fa fa-check"></i><b>4.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-56"><i class="fa fa-check"></i><b>4.4.1</b> </a></li>
+<li class="chapter" data-level="4.4.2" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#dfClass"><i class="fa fa-check"></i><b>4.4.2</b> </a></li>
+<li class="chapter" data-level="4.4.3" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaSyntaxClass1"><i class="fa fa-check"></i><b>4.4.3</b> </a></li>
+<li class="chapter" data-level="4.4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaEstimationClass1"><i class="fa fa-check"></i><b>4.4.4</b> </a></li>
+<li class="chapter" data-level="4.4.5" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-57"><i class="fa fa-check"></i><b>4.4.5</b> </a></li>
+<li class="chapter" data-level="4.4.6" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-58"><i class="fa fa-check"></i><b>4.4.6</b> </a></li>
+<li class="chapter" data-level="4.4.7" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-59"><i class="fa fa-check"></i><b>4.4.7</b> </a></li>
+<li class="chapter" data-level="4.4.8" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-60"><i class="fa fa-check"></i><b>4.4.8</b> </a></li>
+<li class="chapter" data-level="4.4.9" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-61"><i class="fa fa-check"></i><b>4.4.9</b> </a></li>
+<li class="chapter" data-level="4.4.10" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-62"><i class="fa fa-check"></i><b>4.4.10</b> </a></li>
+<li class="chapter" data-level="4.4.11" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaEstimationClass2"><i class="fa fa-check"></i><b>4.4.11</b> </a></li>
+<li class="chapter" data-level="4.4.12" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-63"><i class="fa fa-check"></i><b>4.4.12</b> </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cfa-ii.html"><a href="cfa-ii.html"><i class="fa fa-check"></i><b>5</b> CFA II</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="lecture-4.html"><a href="lecture-4.html"><i class="fa fa-check"></i><b>5.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="lecture-4.html"><a href="lecture-4.html#recordings-4"><i class="fa fa-check"></i><b>5.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="5.1.2" data-path="lecture-4.html"><a href="lecture-4.html#slides-4"><i class="fa fa-check"></i><b>5.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reading-4.html"><a href="reading-4.html"><i class="fa fa-check"></i><b>5.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-4.html"><a href="reading-4.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html"><i class="fa fa-check"></i><b>5.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-64"><i class="fa fa-check"></i><b>5.3.1</b> </a></li>
+<li class="chapter" data-level="5.3.2" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#cfaSyntax"><i class="fa fa-check"></i><b>5.3.2</b> </a></li>
+<li class="chapter" data-level="5.3.3" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#estimateCfa3F"><i class="fa fa-check"></i><b>5.3.3</b> </a></li>
+<li class="chapter" data-level="5.3.4" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-65"><i class="fa fa-check"></i><b>5.3.4</b> </a></li>
+<li class="chapter" data-level="5.3.5" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-66"><i class="fa fa-check"></i><b>5.3.5</b> </a></li>
+<li class="chapter" data-level="5.3.6" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#estimateCfa1F"><i class="fa fa-check"></i><b>5.3.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html"><i class="fa fa-check"></i><b>5.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#basic-cfa"><i class="fa fa-check"></i><b>5.4.1</b> Basic CFA</a></li>
+<li class="chapter" data-level="5.4.2" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#post-hoc-model-modifications"><i class="fa fa-check"></i><b>5.4.2</b> Post-Hoc Model Modifications</a></li>
+<li class="chapter" data-level="5.4.3" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#model-comparisons"><i class="fa fa-check"></i><b>5.4.3</b> Model Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="extra-resources.html"><a href="extra-resources.html"><i class="fa fa-check"></i><b>5.5</b> Extra Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fall-break.html"><a href="fall-break.html"><i class="fa fa-check"></i><b>6</b> Fall Break</a></li>
+<li class="chapter" data-level="7" data-path="full-sem.html"><a href="full-sem.html"><i class="fa fa-check"></i><b>7</b> Full SEM</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture-5.html"><a href="lecture-5.html"><i class="fa fa-check"></i><b>7.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="lecture-5.html"><a href="lecture-5.html#recording"><i class="fa fa-check"></i><b>7.1.1</b> Recording</a></li>
+<li class="chapter" data-level="7.1.2" data-path="lecture-5.html"><a href="lecture-5.html#slides-5"><i class="fa fa-check"></i><b>7.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="reading-5.html"><a href="reading-5.html"><i class="fa fa-check"></i><b>7.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-5.html"><a href="reading-5.html#reference-4"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-5.html"><a href="reading-5.html#questions-4"><i class="fa fa-check"></i>Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html"><i class="fa fa-check"></i><b>7.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-76"><i class="fa fa-check"></i><b>7.3.1</b> </a></li>
+<li class="chapter" data-level="7.3.2" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-77"><i class="fa fa-check"></i><b>7.3.2</b> </a></li>
+<li class="chapter" data-level="7.3.3" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-78"><i class="fa fa-check"></i><b>7.3.3</b> </a></li>
+<li class="chapter" data-level="7.3.4" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#semEstimation"><i class="fa fa-check"></i><b>7.3.4</b> </a></li>
+<li class="chapter" data-level="7.3.5" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-79"><i class="fa fa-check"></i><b>7.3.5</b> </a></li>
+<li class="chapter" data-level="7.3.6" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-80"><i class="fa fa-check"></i><b>7.3.6</b> </a></li>
+<li class="chapter" data-level="7.3.7" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-81"><i class="fa fa-check"></i><b>7.3.7</b> </a></li>
+<li class="chapter" data-level="7.3.8" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-82"><i class="fa fa-check"></i><b>7.3.8</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html"><i class="fa fa-check"></i><b>7.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-83"><i class="fa fa-check"></i><b>7.4.1</b> </a></li>
+<li class="chapter" data-level="7.4.2" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#toraCFA"><i class="fa fa-check"></i><b>7.4.2</b> </a></li>
+<li class="chapter" data-level="7.4.3" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-84"><i class="fa fa-check"></i><b>7.4.3</b> </a></li>
+<li class="chapter" data-level="7.4.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#tora1Estimation"><i class="fa fa-check"></i><b>7.4.4</b> </a></li>
+<li class="chapter" data-level="7.4.5" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-85"><i class="fa fa-check"></i><b>7.4.5</b> </a></li>
+<li class="chapter" data-level="7.4.6" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#updatedModel"><i class="fa fa-check"></i><b>7.4.6</b> </a></li>
+<li class="chapter" data-level="7.4.7" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-86"><i class="fa fa-check"></i><b>7.4.7</b> </a></li>
+<li class="chapter" data-level="7.4.8" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-87"><i class="fa fa-check"></i><b>7.4.8</b> </a></li>
+<li class="chapter" data-level="7.4.9" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-88"><i class="fa fa-check"></i><b>7.4.9</b> </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-group-models.html"><a href="multiple-group-models.html"><i class="fa fa-check"></i><b>8</b> Multiple Group Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lecture-6.html"><a href="lecture-6.html"><i class="fa fa-check"></i><b>8.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="lecture-6.html"><a href="lecture-6.html#recordings-5"><i class="fa fa-check"></i><b>8.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lecture-6.html"><a href="lecture-6.html#slides-6"><i class="fa fa-check"></i><b>8.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="reading-6.html"><a href="reading-6.html"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html"><i class="fa fa-check"></i><b>8.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgPathAnalysis"><i class="fa fa-check"></i><b>8.3.1</b> Multiple-Group Path Analysis</a></li>
+<li class="chapter" data-level="8.3.2" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgCFA"><i class="fa fa-check"></i><b>8.3.2</b> Multiple-Group CFA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html"><i class="fa fa-check"></i><b>8.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#setup-5"><i class="fa fa-check"></i><b>8.4.1</b> Setup</a></li>
+<li class="chapter" data-level="8.4.2" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#w8MeasurementInvariance"><i class="fa fa-check"></i><b>8.4.2</b> Measurement Invariance</a></li>
+<li class="chapter" data-level="8.4.3" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#testing-between-group-differences"><i class="fa fa-check"></i><b>8.4.3</b> Testing Between-Group Differences</a></li>
+<li class="chapter" data-level="8.4.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#multiple-group-sem-for-moderation"><i class="fa fa-check"></i><b>8.4.4</b> Multiple-Group SEM for Moderation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Structural Equation Modeling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="at-home-exercises-5" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> At-Home Exercises<a href="at-home-exercises-5.html#at-home-exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week, we’ll take another look at the Kestilä (2006) results. During this practical, you will use SEM to conduct a
+regression analysis of the <em>Trust in Politics</em> factors that you estimated in the
+<a href="at-home-exercises-4.html">Week 5 At-Home Exercises</a>.</p>
+<hr />
+<div id="section-76" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> </h3>
+<p>Load the Finnish subsample of ESS data.</p>
+<ul>
+<li>The relevant data are contained in the <a href="https://surfdrive.surf.nl/files/index.php/s/rN8FuscpJTLsB4h/download"><em>ess_finland.rds</em></a> file.</li>
+<li>This dataset comprises the Finnish subsample from the Week 5 exercise data.
+<ul>
+<li>The missing values have been imputed with a single round of predictive mean matching.</li>
+</ul></li>
+</ul>
+<p><em>Note:</em> Unless otherwise noted, all the following analyses use these data.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="at-home-exercises-5.html#cb213-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb213-2"><a href="at-home-exercises-5.html#cb213-2" tabindex="-1"></a>ess_fin <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;ess_finland.rds&quot;</span>))</span></code></pre></div>
+</details>
+<hr />
+<p>We need to do a little data processing before we can fit the regression model. At the moment, <code>lavaan</code> will not
+automatically convert a factor variable into dummy codes. So, we need to create explicit dummy codes for the two factors
+we’ll use as predictors in our regression analysis: <em>sex</em> and <em>political orientation</em>.</p>
+<hr />
+</div>
+<div id="section-77" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> </h3>
+<p>Convert the <em>sex</em> and <em>political interest</em> factors into dummy codes.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="at-home-exercises-5.html#cb214-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb214-2"><a href="at-home-exercises-5.html#cb214-2" tabindex="-1"></a></span>
+<span id="cb214-3"><a href="at-home-exercises-5.html#cb214-3" tabindex="-1"></a><span class="do">## Create a dummy codes by broadcasting a logical test on the factor levels:</span></span>
+<span id="cb214-4"><a href="at-home-exercises-5.html#cb214-4" tabindex="-1"></a>ess_fin <span class="ot">&lt;-</span> <span class="fu">mutate</span>(ess_fin,</span>
+<span id="cb214-5"><a href="at-home-exercises-5.html#cb214-5" tabindex="-1"></a>                  <span class="at">female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb214-6"><a href="at-home-exercises-5.html#cb214-6" tabindex="-1"></a>                  <span class="at">hi_pol_interest =</span> <span class="fu">ifelse</span>(polintr_bin <span class="sc">==</span> <span class="st">&quot;High Interest&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb214-7"><a href="at-home-exercises-5.html#cb214-7" tabindex="-1"></a>                  )</span>
+<span id="cb214-8"><a href="at-home-exercises-5.html#cb214-8" tabindex="-1"></a></span>
+<span id="cb214-9"><a href="at-home-exercises-5.html#cb214-9" tabindex="-1"></a><span class="do">## Check the results:</span></span>
+<span id="cb214-10"><a href="at-home-exercises-5.html#cb214-10" tabindex="-1"></a><span class="fu">with</span>(ess_fin, <span class="fu">table</span>(<span class="at">dummy =</span> female, <span class="at">factor =</span> sex))</span></code></pre></div>
+<pre><code>##      factor
+## dummy Male Female
+##     0  960      0
+##     1    0   1040</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="at-home-exercises-5.html#cb216-1" tabindex="-1"></a><span class="fu">with</span>(ess_fin, <span class="fu">table</span>(<span class="at">dummy =</span> hi_pol_interest, <span class="at">factor =</span> polintr_bin))</span></code></pre></div>
+<pre><code>##      factor
+## dummy Low Interest High Interest
+##     0         1070             0
+##     1            0           930</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>In R, we have several ways of converting a factor into an appropriate set of dummy codes.</p>
+<ul>
+<li>We could use the <code>dplyr::recode()</code> function.</li>
+<li>We can use the <code>model.matrix()</code> function to define a design matrix based on the inherent contrast attribute of the
+factor.
+<ul>
+<li>Missing data will cause problems here.</li>
+</ul></li>
+<li>We can us <code>as.numeric()</code> to revert the factor to its underlying numeric representation {Male = 1, Female = 2} and use
+arithmetic to convert {1, 2} <span class="math inline">\(\rightarrow\)</span> {0, 1}.</li>
+</ul>
+<p>When our factor only has two levels, though, the <code>ifelse()</code> function is the simplest way.</p>
+</details>
+</details>
+<hr />
+<p>We are now ready to estimate our latent regression model. Specifically, we want to estimate a single SEM to regress the
+three <em>Trust in Politics</em> factors onto the following predictors:</p>
+<ul>
+<li><em>Sex</em></li>
+<li><em>Age</em></li>
+<li><em>Years of Education</em></li>
+<li><em>High vs. Low Political Interest</em></li>
+<li><em>Placement on the Left-Right Political Scale</em></li>
+</ul>
+<p>The following path diagram shows the intended theoretical model.</p>
+<p><img src="isem_files/figure-html/unnamed-chunk-425-1.png" alt="" width="672" /></p>
+<p>Although the variances are not included in this path diagram, all variables in the model (including the observed
+predictor variables) are random.</p>
+<hr />
+</div>
+<div id="section-78" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> </h3>
+<p>Define the <code>lavaan</code> model syntax for the SEM shown above.</p>
+<ul>
+<li>Use the definition of the <code>institutions</code>, <code>satsifaction</code>, and <code>politicians</code>
+factors from <a href="at-home-exercises-4.html#cfaSyntax">5.3.2</a> to define the DVs.</li>
+<li>Covary the three latent factors.</li>
+<li>Covary the five predictors.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="at-home-exercises-5.html#cb218-1" tabindex="-1"></a>mod_sem <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb218-2"><a href="at-home-exercises-5.html#cb218-2" tabindex="-1"></a><span class="st">## Define the latent DVs:</span></span>
+<span id="cb218-3"><a href="at-home-exercises-5.html#cb218-3" tabindex="-1"></a><span class="st">institutions =~ trstlgl + trstplc + trstun + trstep + trstprl</span></span>
+<span id="cb218-4"><a href="at-home-exercises-5.html#cb218-4" tabindex="-1"></a><span class="st">satisfaction =~ stfhlth + stfedu  + stfeco + stfgov + stfdem</span></span>
+<span id="cb218-5"><a href="at-home-exercises-5.html#cb218-5" tabindex="-1"></a><span class="st">politicians  =~ pltinvt + pltcare + trstplt</span></span>
+<span id="cb218-6"><a href="at-home-exercises-5.html#cb218-6" tabindex="-1"></a></span>
+<span id="cb218-7"><a href="at-home-exercises-5.html#cb218-7" tabindex="-1"></a><span class="st">## Specify the structural relations:</span></span>
+<span id="cb218-8"><a href="at-home-exercises-5.html#cb218-8" tabindex="-1"></a><span class="st">institutions ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb218-9"><a href="at-home-exercises-5.html#cb218-9" tabindex="-1"></a><span class="st">satisfaction ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb218-10"><a href="at-home-exercises-5.html#cb218-10" tabindex="-1"></a><span class="st">politicians  ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb218-11"><a href="at-home-exercises-5.html#cb218-11" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li><p>We simply need to add a three lines defining the latent regression paths to our old CFA syntax.</p></li>
+<li><p>We don’t need to specify the covariances in the syntax. We can use options in the <code>sem()</code> function to request those
+estimates.</p>
+</details></li>
+</ul>
+</details>
+<hr />
+</div>
+<div id="semEstimation" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> </h3>
+<p>Estimate the SEM, and summarize the results.</p>
+<ul>
+<li>Fit the model to the processed Finnish subsample from above.</li>
+<li>Estimate the model using <code>lavaan::sem()</code>.</li>
+<li>Use the fixed-factor method to identify the model.</li>
+<li>Request the standardized parameter estimates with the summary.</li>
+<li>Request the <span class="math inline">\(R^2\)</span> estimates with the summary.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="at-home-exercises-5.html#cb219-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb219-2"><a href="at-home-exercises-5.html#cb219-2" tabindex="-1"></a></span>
+<span id="cb219-3"><a href="at-home-exercises-5.html#cb219-3" tabindex="-1"></a><span class="do">## Fit the SEM:</span></span>
+<span id="cb219-4"><a href="at-home-exercises-5.html#cb219-4" tabindex="-1"></a>out_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_sem, <span class="at">data =</span> ess_fin, <span class="at">std.lv =</span> <span class="cn">TRUE</span>, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb219-5"><a href="at-home-exercises-5.html#cb219-5" tabindex="-1"></a></span>
+<span id="cb219-6"><a href="at-home-exercises-5.html#cb219-6" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
+<span id="cb219-7"><a href="at-home-exercises-5.html#cb219-7" tabindex="-1"></a><span class="fu">summary</span>(out_sem, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 56 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        59
+## 
+##   Number of observations                          2000
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                              1496.911
+##   Degrees of freedom                               112
+##   P-value (Chi-square)                           0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                             12585.801
+##   Degrees of freedom                               143
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.889
+##   Tucker-Lewis Index (TLI)                       0.858
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -67186.539
+##   Loglikelihood unrestricted model (H1)     -66438.083
+##                                                       
+##   Akaike (AIC)                              134491.078
+##   Bayesian (BIC)                            134821.531
+##   Sample-size adjusted Bayesian (SABIC)     134634.085
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.079
+##   90 Percent confidence interval - lower         0.075
+##   90 Percent confidence interval - upper         0.082
+##   P-value H_0: RMSEA &lt;= 0.050                    0.000
+##   P-value H_0: RMSEA &gt;= 0.080                    0.267
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.045
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   institutions =~                                                       
+##     trstlgl           1.421    0.043   32.812    0.000    1.473    0.676
+##     trstplc           0.886    0.037   23.972    0.000    0.918    0.523
+##     trstun            1.255    0.042   29.956    0.000    1.301    0.629
+##     trstep            1.609    0.042   38.286    0.000    1.668    0.758
+##     trstprl           1.727    0.039   43.722    0.000    1.790    0.832
+##   satisfaction =~                                                       
+##     stfhlth           0.965    0.043   22.428    0.000    0.999    0.499
+##     stfedu            0.637    0.032   20.082    0.000    0.659    0.452
+##     stfeco            1.251    0.038   32.805    0.000    1.294    0.682
+##     stfgov            1.606    0.036   44.697    0.000    1.662    0.854
+##     stfdem            1.501    0.036   41.212    0.000    1.553    0.806
+##   politicians =~                                                        
+##     pltinvt           0.557    0.021   26.903    0.000    0.588    0.579
+##     pltcare           0.543    0.019   28.427    0.000    0.573    0.606
+##     trstplt           1.813    0.039   46.980    0.000    1.916    0.908
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   institutions ~                                                        
+##     female            0.023    0.049    0.464    0.642    0.022    0.011
+##     age              -0.006    0.001   -3.765    0.000   -0.005   -0.099
+##     eduyrs            0.025    0.007    3.595    0.000    0.025    0.096
+##     hi_pol_interst    0.275    0.051    5.360    0.000    0.265    0.132
+##     lrscale           0.077    0.012    6.262    0.000    0.074    0.150
+##   satisfaction ~                                                        
+##     female           -0.111    0.049   -2.254    0.024   -0.107   -0.053
+##     age              -0.007    0.001   -4.997    0.000   -0.007   -0.131
+##     eduyrs            0.000    0.007    0.065    0.948    0.000    0.002
+##     hi_pol_interst    0.168    0.051    3.313    0.001    0.163    0.081
+##     lrscale           0.104    0.012    8.465    0.000    0.101    0.203
+##   politicians ~                                                         
+##     female            0.047    0.049    0.949    0.342    0.044    0.022
+##     age              -0.009    0.001   -5.797    0.000   -0.008   -0.150
+##     eduyrs            0.014    0.007    1.993    0.046    0.013    0.052
+##     hi_pol_interst    0.512    0.052    9.854    0.000    0.485    0.242
+##     lrscale           0.070    0.012    5.736    0.000    0.067    0.135
+## 
+## Covariances:
+##                      Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##  .institutions ~~                                                         
+##    .satisfaction        0.794    0.013   60.535    0.000    0.794    0.794
+##    .politicians         0.911    0.011   81.926    0.000    0.911    0.911
+##  .satisfaction ~~                                                         
+##    .politicians         0.705    0.016   42.897    0.000    0.705    0.705
+##   female ~~                                                               
+##     age                 0.281    0.207    1.361    0.174    0.281    0.030
+##     eduyrs              0.122    0.044    2.782    0.005    0.122    0.062
+##     hi_pol_interst     -0.019    0.006   -3.453    0.001   -0.019   -0.077
+##     lrscale            -0.023    0.023   -0.997    0.319   -0.023   -0.022
+##   age ~~                                                                  
+##     eduyrs            -27.303    1.724  -15.833    0.000  -27.303   -0.379
+##     hi_pol_interst      1.151    0.208    5.539    0.000    1.151    0.125
+##     lrscale             1.707    0.837    2.040    0.041    1.707    0.046
+##   eduyrs ~~                                                               
+##     hi_pol_interst      0.318    0.044    7.207    0.000    0.318    0.163
+##     lrscale             0.827    0.177    4.665    0.000    0.827    0.105
+##   hi_pol_interest ~~                                                      
+##     lrscale             0.027    0.023    1.212    0.225    0.027    0.027
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .trstlgl           2.584    0.090   28.711    0.000    2.584    0.543
+##    .trstplc           2.242    0.074   30.339    0.000    2.242    0.727
+##    .trstun            2.584    0.088   29.367    0.000    2.584    0.604
+##    .trstep            2.062    0.077   26.863    0.000    2.062    0.426
+##    .trstprl           1.430    0.061   23.428    0.000    1.430    0.308
+##    .stfhlth           3.011    0.100   30.187    0.000    3.011    0.751
+##    .stfedu            1.689    0.055   30.510    0.000    1.689    0.795
+##    .stfeco            1.925    0.069   27.788    0.000    1.925    0.535
+##    .stfgov            1.028    0.053   19.519    0.000    1.028    0.271
+##    .stfdem            1.297    0.056   23.151    0.000    1.297    0.350
+##    .pltinvt           0.685    0.023   29.682    0.000    0.685    0.664
+##    .pltcare           0.566    0.019   29.373    0.000    0.566    0.632
+##    .trstplt           0.781    0.067   11.572    0.000    0.781    0.175
+##    .institutions      1.000                               0.930    0.930
+##    .satisfaction      1.000                               0.934    0.934
+##    .politicians       1.000                               0.896    0.896
+##     female            0.250    0.008   31.623    0.000    0.250    1.000
+##     age             341.765   10.808   31.623    0.000  341.765    1.000
+##     eduyrs           15.222    0.481   31.623    0.000   15.222    1.000
+##     hi_pol_interst    0.249    0.008   31.623    0.000    0.249    1.000
+##     lrscale           4.089    0.129   31.623    0.000    4.089    1.000
+## 
+## R-Square:
+##                    Estimate
+##     trstlgl           0.457
+##     trstplc           0.273
+##     trstun            0.396
+##     trstep            0.574
+##     trstprl           0.692
+##     stfhlth           0.249
+##     stfedu            0.205
+##     stfeco            0.465
+##     stfgov            0.729
+##     stfdem            0.650
+##     pltinvt           0.336
+##     pltcare           0.368
+##     trstplt           0.825
+##     institutions      0.070
+##     satisfaction      0.066
+##     politicians       0.104</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The <code>fixed.x = FALSE</code> argument tells <strong>lavaan</strong> to model the predictors as random variables. By default, <strong>lavaan</strong> will
+covary any random predictor variables. So, we don’t need to make any other changes to the usual procedure.</p>
+</details>
+</details>
+<hr />
+<p>In the final part of these exercises, you will rerun the above SEM as a path model wherein the observed mean scores
+representing <em>Trust in Institutions</em>, <em>Satisfaction with Political Systems</em>, and <em>Trust in Politicians</em> act as the DVs.
+The <code>scoreItems()</code> function from the <strong>psych</strong> package makes it very easy to create scale scores.</p>
+<hr />
+</div>
+<div id="section-79" class="section level3" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> </h3>
+<p>Read the documentation for the <code>psych::scoreItems()</code> function.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="at-home-exercises-5.html#cb221-1" tabindex="-1"></a>?psych<span class="sc">::</span>scoreItems</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-80" class="section level3" number="7.3.6">
+<h3><span class="header-section-number">7.3.6</span> </h3>
+<p>Use the <code>psych::scoreItems()</code> function to create mean scores to represent the three latent constructs in the above SEM.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="at-home-exercises-5.html#cb222-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb222-2"><a href="at-home-exercises-5.html#cb222-2" tabindex="-1"></a></span>
+<span id="cb222-3"><a href="at-home-exercises-5.html#cb222-3" tabindex="-1"></a><span class="do">## Create a list to define the item-to-score mapping</span></span>
+<span id="cb222-4"><a href="at-home-exercises-5.html#cb222-4" tabindex="-1"></a>scaleKeys <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb222-5"><a href="at-home-exercises-5.html#cb222-5" tabindex="-1"></a>  <span class="at">ins_score =</span> <span class="fu">c</span>(<span class="st">&quot;trstlgl&quot;</span>, <span class="st">&quot;trstplc&quot;</span>, <span class="st">&quot;trstun&quot;</span>, <span class="st">&quot;trstep&quot;</span>, <span class="st">&quot;trstprl&quot;</span>),</span>
+<span id="cb222-6"><a href="at-home-exercises-5.html#cb222-6" tabindex="-1"></a>  <span class="at">sat_score =</span> <span class="fu">c</span>(<span class="st">&quot;stfhlth&quot;</span>, <span class="st">&quot;stfedu&quot;</span>, <span class="st">&quot;stfeco&quot;</span>, <span class="st">&quot;stfgov&quot;</span>, <span class="st">&quot;stfdem&quot;</span>),</span>
+<span id="cb222-7"><a href="at-home-exercises-5.html#cb222-7" tabindex="-1"></a>  <span class="at">pol_score  =</span> <span class="fu">c</span>(<span class="st">&quot;pltinvt&quot;</span>, <span class="st">&quot;pltcare&quot;</span>, <span class="st">&quot;trstplt&quot;</span>)</span>
+<span id="cb222-8"><a href="at-home-exercises-5.html#cb222-8" tabindex="-1"></a>  )</span>
+<span id="cb222-9"><a href="at-home-exercises-5.html#cb222-9" tabindex="-1"></a></span>
+<span id="cb222-10"><a href="at-home-exercises-5.html#cb222-10" tabindex="-1"></a><span class="do">## Create the scale scores</span></span>
+<span id="cb222-11"><a href="at-home-exercises-5.html#cb222-11" tabindex="-1"></a>scaleScores <span class="ot">&lt;-</span> <span class="fu">scoreItems</span>(<span class="at">keys =</span> scaleKeys, <span class="at">items =</span> ess_fin, <span class="at">impute =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb222-12"><a href="at-home-exercises-5.html#cb222-12" tabindex="-1"></a></span>
+<span id="cb222-13"><a href="at-home-exercises-5.html#cb222-13" tabindex="-1"></a><span class="do">## If we print the &#39;scaleScores&#39; object, we get a bunch of interesting psychometric information</span></span>
+<span id="cb222-14"><a href="at-home-exercises-5.html#cb222-14" tabindex="-1"></a>scaleScores</span></code></pre></div>
+<pre><code>## Call: scoreItems(keys = scaleKeys, items = ess_fin, impute = &quot;none&quot;)
+## 
+## (Standardized) Alpha:
+##       ins_score sat_score pol_score
+## alpha      0.82       0.8      0.69
+## 
+## Standard errors of unstandardized Alpha:
+##       ins_score sat_score pol_score
+## ASE       0.013     0.014     0.023
+## 
+## Standardized Alpha of observed scales:
+##      ins_score sat_score pol_score
+## [1,]      0.82       0.8      0.69
+## 
+## Average item correlation:
+##           ins_score sat_score pol_score
+## average.r      0.48      0.44      0.42
+## 
+## Median item correlation:
+## ins_score sat_score pol_score 
+##      0.48      0.38      0.53 
+## 
+##  Guttman 6* reliability: 
+##          ins_score sat_score pol_score
+## Lambda.6      0.83      0.79      0.78
+## 
+## Signal/Noise based upon av.r : 
+##              ins_score sat_score pol_score
+## Signal/Noise       4.7       3.9       2.2
+## 
+## Scale intercorrelations corrected for attenuation 
+##  raw correlations below the diagonal, alpha on the diagonal 
+##  corrected correlations above the diagonal:
+## 
+## Note that these are the correlations of the complete scales based on the correlation matrix,
+##  not the observed scales based on the raw items.
+##           ins_score sat_score pol_score
+## ins_score      0.82      0.79      0.93
+## sat_score      0.64      0.80      0.74
+## pol_score      0.70      0.55      0.69
+## 
+##  Average adjusted correlations within and between scales (MIMS)
+##           ins_s st_sc pl_sc
+## ins_score 0.48             
+## sat_score 1.41  0.44       
+## pol_score 1.28  0.87  0.42 
+## 
+##  Average adjusted item x scale correlations within and between scales (MIMT)
+##           ins_s st_sc pl_sc
+## ins_score 0.77             
+## sat_score 0.47  0.74       
+## pol_score 0.53  0.42  0.82 
+## 
+##  In order to see the item by scale loadings and frequency counts of the data
+##  print with the short option = FALSE</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="at-home-exercises-5.html#cb224-1" tabindex="-1"></a><span class="do">## Add the scores to the ESS dataset</span></span>
+<span id="cb224-2"><a href="at-home-exercises-5.html#cb224-2" tabindex="-1"></a>ess_fin <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ess_fin, scaleScores<span class="sc">$</span>scores)</span></code></pre></div>
+</details>
+<hr />
+</div>
+<div id="section-81" class="section level3" number="7.3.7">
+<h3><span class="header-section-number">7.3.7</span> </h3>
+<p>Use the mean scores you created above to estimate a path analytic version of the SEM from <a href="at-home-exercises-5.html#semEstimation">7.3.4</a>.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="at-home-exercises-5.html#cb225-1" tabindex="-1"></a><span class="do">## Specify the model syntax for the path model:</span></span>
+<span id="cb225-2"><a href="at-home-exercises-5.html#cb225-2" tabindex="-1"></a>mod_pa <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb225-3"><a href="at-home-exercises-5.html#cb225-3" tabindex="-1"></a><span class="st">## Specify the structural relations:</span></span>
+<span id="cb225-4"><a href="at-home-exercises-5.html#cb225-4" tabindex="-1"></a><span class="st">ins_score ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb225-5"><a href="at-home-exercises-5.html#cb225-5" tabindex="-1"></a><span class="st">sat_score ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb225-6"><a href="at-home-exercises-5.html#cb225-6" tabindex="-1"></a><span class="st">pol_score ~ female + age + eduyrs + hi_pol_interest + lrscale</span></span>
+<span id="cb225-7"><a href="at-home-exercises-5.html#cb225-7" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb225-8"><a href="at-home-exercises-5.html#cb225-8" tabindex="-1"></a></span>
+<span id="cb225-9"><a href="at-home-exercises-5.html#cb225-9" tabindex="-1"></a><span class="do">## Fit the path analytic model:</span></span>
+<span id="cb225-10"><a href="at-home-exercises-5.html#cb225-10" tabindex="-1"></a>out_pa <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_pa, <span class="at">data =</span> ess_fin, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb225-11"><a href="at-home-exercises-5.html#cb225-11" tabindex="-1"></a></span>
+<span id="cb225-12"><a href="at-home-exercises-5.html#cb225-12" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
+<span id="cb225-13"><a href="at-home-exercises-5.html#cb225-13" tabindex="-1"></a><span class="fu">summary</span>(out_pa, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 43 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        36
+## 
+##   Number of observations                          2000
+## 
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                              2812.483
+##   Degrees of freedom                                18
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    1.000
+##   Tucker-Lewis Index (TLI)                       1.000
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -30059.623
+##   Loglikelihood unrestricted model (H1)     -30059.623
+##                                                       
+##   Akaike (AIC)                               60191.246
+##   Bayesian (BIC)                             60392.879
+##   Sample-size adjusted Bayesian (SABIC)      60278.505
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.000
+##   90 Percent confidence interval - lower         0.000
+##   90 Percent confidence interval - upper         0.000
+##   P-value H_0: RMSEA &lt;= 0.050                       NA
+##   P-value H_0: RMSEA &gt;= 0.080                       NA
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   ins_score ~                                                           
+##     female            0.050    0.070    0.715    0.475    0.050    0.016
+##     age              -0.007    0.002   -3.334    0.001   -0.007   -0.081
+##     eduyrs            0.034    0.010    3.434    0.001    0.034    0.084
+##     hi_pol_interst    0.332    0.072    4.588    0.000    0.332    0.104
+##     lrscale           0.106    0.017    6.133    0.000    0.106    0.135
+##   sat_score ~                                                           
+##     female           -0.136    0.061   -2.248    0.025   -0.136   -0.049
+##     age              -0.010    0.002   -5.350    0.000   -0.010   -0.129
+##     eduyrs           -0.008    0.009   -0.936    0.349   -0.008   -0.023
+##     hi_pol_interst    0.160    0.062    2.560    0.010    0.160    0.058
+##     lrscale           0.135    0.015    9.031    0.000    0.135    0.198
+##   pol_score ~                                                           
+##     female            0.045    0.049    0.915    0.360    0.045    0.020
+##     age              -0.010    0.001   -6.889    0.000   -0.010   -0.162
+##     eduyrs            0.020    0.007    2.878    0.004    0.020    0.069
+##     hi_pol_interst    0.541    0.050   10.722    0.000    0.541    0.236
+##     lrscale           0.064    0.012    5.270    0.000    0.064    0.113
+## 
+## Covariances:
+##                      Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##  .ins_score ~~                                                            
+##    .sat_score           1.317    0.055   23.934    0.000    1.317    0.634
+##    .pol_score           1.152    0.046   25.303    0.000    1.152    0.686
+##  .sat_score ~~                                                            
+##    .pol_score           0.782    0.037   21.263    0.000    0.782    0.540
+##   female ~~                                                               
+##     age                 0.281    0.207    1.361    0.174    0.281    0.030
+##     eduyrs              0.121    0.044    2.782    0.005    0.121    0.062
+##     hi_pol_interst     -0.019    0.006   -3.453    0.001   -0.019   -0.077
+##     lrscale            -0.023    0.023   -0.997    0.319   -0.023   -0.022
+##   age ~~                                                                  
+##     eduyrs            -27.303    1.724  -15.833    0.000  -27.303   -0.379
+##     hi_pol_interst      1.151    0.208    5.539    0.000    1.151    0.125
+##     lrscale             1.707    0.837    2.040    0.041    1.707    0.046
+##   eduyrs ~~                                                               
+##     hi_pol_interst      0.318    0.044    7.207    0.000    0.318    0.163
+##     lrscale             0.827    0.177    4.665    0.000    0.827    0.105
+##   hi_pol_interest ~~                                                      
+##     lrscale             0.027    0.023    1.212    0.225    0.027    0.027
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .ins_score         2.410    0.076   31.623    0.000    2.410    0.949
+##    .sat_score         1.792    0.057   31.623    0.000    1.792    0.943
+##    .pol_score         1.169    0.037   31.623    0.000    1.169    0.895
+##     female            0.250    0.008   31.623    0.000    0.250    1.000
+##     age             341.765   10.808   31.623    0.000  341.765    1.000
+##     eduyrs           15.222    0.481   31.623    0.000   15.222    1.000
+##     hi_pol_interst    0.249    0.008   31.623    0.000    0.249    1.000
+##     lrscale           4.089    0.129   31.623    0.000    4.089    1.000
+## 
+## R-Square:
+##                    Estimate
+##     ins_score         0.051
+##     sat_score         0.057
+##     pol_score         0.105</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-82" class="section level3" number="7.3.8">
+<h3><span class="header-section-number">7.3.8</span> </h3>
+<p>Compare the results from the path analysis to the SEM-based results.</p>
+<ul>
+<li>Does it matter whether we use a latent variable or a factor score to define the DV?</li>
+</ul>
+<p><em>Hint:</em> When comparing parameter estimates, use the fully standardized estimates (i.e., the values in the column labeled
+<code>Std.all</code>).</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<p><em>Note:</em> The “supportFunction.R” script that we source below isn’t a necessary part of the solution. This script defines
+a bunch of convenience functions. One of these functions, <code>partSummary()</code>, allows us to print selected pieces of the
+model summary.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="at-home-exercises-5.html#cb227-1" tabindex="-1"></a><span class="do">## Source the script that defines the partSummary() convenience function:</span></span>
+<span id="cb227-2"><a href="at-home-exercises-5.html#cb227-2" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;supportFunctions.R&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="at-home-exercises-5.html#cb228-1" tabindex="-1"></a><span class="do">## View the regression estimates from the SEM:</span></span>
+<span id="cb228-2"><a href="at-home-exercises-5.html#cb228-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_sem, <span class="dv">8</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   institutions ~                                                        
+##     female            0.023    0.049    0.464    0.642    0.022    0.011
+##     age              -0.006    0.001   -3.765    0.000   -0.005   -0.099
+##     eduyrs            0.025    0.007    3.595    0.000    0.025    0.096
+##     hi_pol_interst    0.275    0.051    5.360    0.000    0.265    0.132
+##     lrscale           0.077    0.012    6.262    0.000    0.074    0.150
+##   satisfaction ~                                                        
+##     female           -0.111    0.049   -2.254    0.024   -0.107   -0.053
+##     age              -0.007    0.001   -4.997    0.000   -0.007   -0.131
+##     eduyrs            0.000    0.007    0.065    0.948    0.000    0.002
+##     hi_pol_interst    0.168    0.051    3.313    0.001    0.163    0.081
+##     lrscale           0.104    0.012    8.465    0.000    0.101    0.203
+##   politicians ~                                                         
+##     female            0.047    0.049    0.949    0.342    0.044    0.022
+##     age              -0.009    0.001   -5.797    0.000   -0.008   -0.150
+##     eduyrs            0.014    0.007    1.993    0.046    0.013    0.052
+##     hi_pol_interst    0.512    0.052    9.854    0.000    0.485    0.242
+##     lrscale           0.070    0.012    5.736    0.000    0.067    0.135</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="at-home-exercises-5.html#cb230-1" tabindex="-1"></a><span class="do">## View the regression estimates from the path analysis:</span></span>
+<span id="cb230-2"><a href="at-home-exercises-5.html#cb230-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_pa, <span class="dv">7</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   ins_score ~                                                           
+##     female            0.050    0.070    0.715    0.475    0.050    0.016
+##     age              -0.007    0.002   -3.334    0.001   -0.007   -0.081
+##     eduyrs            0.034    0.010    3.434    0.001    0.034    0.084
+##     hi_pol_interst    0.332    0.072    4.588    0.000    0.332    0.104
+##     lrscale           0.106    0.017    6.133    0.000    0.106    0.135
+##   sat_score ~                                                           
+##     female           -0.136    0.061   -2.248    0.025   -0.136   -0.049
+##     age              -0.010    0.002   -5.350    0.000   -0.010   -0.129
+##     eduyrs           -0.008    0.009   -0.936    0.349   -0.008   -0.023
+##     hi_pol_interst    0.160    0.062    2.560    0.010    0.160    0.058
+##     lrscale           0.135    0.015    9.031    0.000    0.135    0.198
+##   pol_score ~                                                           
+##     female            0.045    0.049    0.915    0.360    0.045    0.020
+##     age              -0.010    0.001   -6.889    0.000   -0.010   -0.162
+##     eduyrs            0.020    0.007    2.878    0.004    0.020    0.069
+##     hi_pol_interst    0.541    0.050   10.722    0.000    0.541    0.236
+##     lrscale           0.064    0.012    5.270    0.000    0.064    0.113</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="at-home-exercises-5.html#cb232-1" tabindex="-1"></a><span class="do">## View the R-squared estimates from the SEM:</span></span>
+<span id="cb232-2"><a href="at-home-exercises-5.html#cb232-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_sem, <span class="dv">11</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## R-Square:
+##                    Estimate
+##     trstlgl           0.457
+##     trstplc           0.273
+##     trstun            0.396
+##     trstep            0.574
+##     trstprl           0.692
+##     stfhlth           0.249
+##     stfedu            0.205
+##     stfeco            0.465
+##     stfgov            0.729
+##     stfdem            0.650
+##     pltinvt           0.336
+##     pltcare           0.368
+##     trstplt           0.825
+##     institutions      0.070
+##     satisfaction      0.066
+##     politicians       0.104</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="at-home-exercises-5.html#cb234-1" tabindex="-1"></a><span class="do">## View the R-squared estimates from the SEM:</span></span>
+<span id="cb234-2"><a href="at-home-exercises-5.html#cb234-2" tabindex="-1"></a><span class="fu">partSummary</span>(out_pa, <span class="dv">10</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## R-Square:
+##                    Estimate
+##     ins_score         0.051
+##     sat_score         0.057
+##     pol_score         0.105</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The two approaches reach the same substantive conclusions, but we do see differences. For example, the standardized
+regression weights mostly suggests larger effect sizes in the SEM model.</p>
+<div id="dv-institutions" class="section level4 unnumbered hasAnchor">
+<h4>DV = Institutions<a href="at-home-exercises-5.html#dv-institutions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">X</th>
+<th align="right">SEM</th>
+<th align="right">PA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">female</td>
+<td align="right">0.011</td>
+<td align="right">0.016</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="right">-0.099</td>
+<td align="right">-0.081</td>
+</tr>
+<tr class="odd">
+<td align="left">eduyrs</td>
+<td align="right">0.096</td>
+<td align="right">0.084</td>
+</tr>
+<tr class="even">
+<td align="left">hi_pol_interest</td>
+<td align="right">0.132</td>
+<td align="right">0.104</td>
+</tr>
+<tr class="odd">
+<td align="left">lrscale</td>
+<td align="right">0.150</td>
+<td align="right">0.135</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dv-satisfaction" class="section level4 unnumbered hasAnchor">
+<h4>DV = Satisfaction<a href="at-home-exercises-5.html#dv-satisfaction" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">X</th>
+<th align="right">SEM</th>
+<th align="right">PA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">female</td>
+<td align="right">-0.053</td>
+<td align="right">-0.049</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="right">-0.131</td>
+<td align="right">-0.129</td>
+</tr>
+<tr class="odd">
+<td align="left">eduyrs</td>
+<td align="right">0.002</td>
+<td align="right">-0.023</td>
+</tr>
+<tr class="even">
+<td align="left">hi_pol_interest</td>
+<td align="right">0.081</td>
+<td align="right">0.058</td>
+</tr>
+<tr class="odd">
+<td align="left">lrscale</td>
+<td align="right">0.203</td>
+<td align="right">0.198</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dv-politicians" class="section level4 unnumbered hasAnchor">
+<h4>DV = Politicians<a href="at-home-exercises-5.html#dv-politicians" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">X</th>
+<th align="right">SEM</th>
+<th align="right">PA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">female</td>
+<td align="right">0.022</td>
+<td align="right">0.020</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="right">-0.150</td>
+<td align="right">-0.162</td>
+</tr>
+<tr class="odd">
+<td align="left">eduyrs</td>
+<td align="right">0.052</td>
+<td align="right">0.069</td>
+</tr>
+<tr class="even">
+<td align="left">hi_pol_interest</td>
+<td align="right">0.242</td>
+<td align="right">0.236</td>
+</tr>
+<tr class="odd">
+<td align="left">lrscale</td>
+<td align="right">0.135</td>
+<td align="right">0.113</td>
+</tr>
+</tbody>
+</table>
+<p>The <span class="math inline">\(R^2\)</span> values from the SEM are also larger than those from the path analysis for two out of three factors and
+approximately equal for the <em>Politicians</em> factor.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">SEM</th>
+<th align="right">PA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">institutions</td>
+<td align="right">0.070</td>
+<td align="right">0.051</td>
+</tr>
+<tr class="even">
+<td align="left">satisfaction</td>
+<td align="right">0.066</td>
+<td align="right">0.057</td>
+</tr>
+<tr class="odd">
+<td align="left">politicians</td>
+<td align="right">0.104</td>
+<td align="right">0.105</td>
+</tr>
+</tbody>
+</table>
+</details>
+</details>
+<hr />
+<p>End of At-Home Exercises</p>
+<hr />
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="in-class-exercises-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": false,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "search": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

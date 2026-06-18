@@ -5,19 +5,20 @@ CHAPTERS = $(filter-out index.Rmd, $(wildcard *.Rmd))
 
 VPATH = docs/
 
-all: index.html syllabus.pdf assignments.pdf
+all: index.html syllabus.pdf
 
 ## Update book:
-# index.html: index.Rmd chapters
-# 	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook', config_file = '_gitbook.yml')" 
+index.html: index.Rmd chapters
+	Rscript -e "bookdown::render_book('$<', output_format = 'bookdown::gitbook')" 
 
 ## Update syllabus PDF:
 syllabus.pdf: index.Rmd assignments.Rmd sections/assignments/*
-	Rscript -e "bookdown::render_book('$<', output_format = 'bookdown::pdf_book')"
+	Rscript -e "bookdown::render_book('$<', output_format = 'bookdown::pdf_book', output_dir = 'pdf')"
+	mv pdf/isem.pdf pdf/syllabus.pdf
 
-## Update assignment PDF:
+## Update assignments PDF:
 # assignments.pdf: assignments.Rmd _assignments.yml
-# 	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', config_file = '_assignments.yml')" 
+# 	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', config_file = '_assignments.yml')"
 
 ## Update chapters:
 chapters: $(CHAPTERS)
@@ -44,4 +45,3 @@ clean:
 	#if [ -n "$(ls -A docs/*)" ]; then rm -r docs/*; fi
 	if [ -e isem.Rmd ]; then rm isem.Rmd; fi
 	if [ -e assignment_guidelines.Rmd ]; then rm assignment_guidelines.Rmd; fi
-	if [ -e syllabus.Rmd ]; then rm sillabus.Rmd; fi

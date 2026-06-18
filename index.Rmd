@@ -87,7 +87,7 @@ Your mastery of these themes will be evaluated with a two data analysis assignme
 
 ## Schedule {-}
 
-```{r print_schedule_xtable, results = "asis", echo = FALSE}
+```{r print_schedule_xtable, results = "asis", echo = FALSE, eval = is_latex_output()}
 library(xtable)
 options(xtable.include.rownames = FALSE)
 bold <- function(x) paste0("\\textbf{", x, "}")
@@ -116,7 +116,7 @@ print(schedule,
 )
 ```
 
-```{r print_schedule_kable, results = "asis", echo = FALSE, eval = FALSE}
+```{r print_schedule_kable, results = "asis", echo = FALSE, eval = is_html_output()}
 options(knitr.kable.NA = "")
 readxl::read_excel(here::here("assets", "schedule.xlsx")) |>
   knitr::kable(
@@ -126,9 +126,7 @@ readxl::read_excel(here::here("assets", "schedule.xlsx")) |>
 			"Lecture/Practical Topic",
 			"Workgroup Activity",
 			"Assignment Deadline"
-		),
-		format = "markdown",
-		booktabs = TRUE
+		)
   )
 ```
 

@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.4 In-Class Exercises | Introduction to Structural Equation Modeling</title>
+  <meta name="description" content="5.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
+  
+  
+  
+
+<meta name="author" content="Kyle M. Lang" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="at-home-exercises-4.html"/>
+<link rel="next" href="extra-resources.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="assets/html/style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Introduction to SEM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Information</a>
+<ul>
+<li class="chapter" data-level="" data-path="acknowledgement.html"><a href="acknowledgement.html"><i class="fa fa-check"></i>Acknowledgement</a></li>
+<li class="chapter" data-level="" data-path="instructors.html"><a href="instructors.html"><i class="fa fa-check"></i>Instructors</a></li>
+<li class="chapter" data-level="" data-path="course-overview.html"><a href="course-overview.html"><i class="fa fa-check"></i>Course overview</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="learning-goals.html"><a href="learning-goals.html"><i class="fa fa-check"></i>Learning goals</a>
+<ul>
+<li class="chapter" data-level="" data-path="learning-goals.html"><a href="learning-goals.html#background"><i class="fa fa-check"></i>Background knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i>Resources</a>
+<ul>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#literature"><i class="fa fa-check"></i>Literature</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#reading-questions"><i class="fa fa-check"></i>Reading questions</a></li>
+<li class="chapter" data-level="" data-path="resources.html"><a href="resources.html#software"><i class="fa fa-check"></i>Software</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
+<ul>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
+<ul>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#ai-index"><i class="fa fa-check"></i>AI index</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#acceptable-usage-in-this-course"><i class="fa fa-check"></i>Acceptable usage in this course</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#including-ai-generated-content-in-your-work"><i class="fa fa-check"></i>Including AI-generated content in your work</a></li>
+<li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#a1_components"><i class="fa fa-check"></i>Required Components</a></li>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#evaluation-1"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a1.html"><a href="a1.html#submission"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a>
+<ul>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#a2_components"><i class="fa fa-check"></i>Required Components</a></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#evaluation-2"><i class="fa fa-check"></i>Evaluation</a></li>
+<li class="chapter" data-level="" data-path="a2.html"><a href="a2.html#submission-1"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html"><i class="fa fa-check"></i>Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#coping-with-covid"><i class="fa fa-check"></i>Coping with Covid</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#feminist-perspectives-scale"><i class="fa fa-check"></i>Feminist Perspectives Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#hypersensitive-narcissism-scale-dirty-dozen"><i class="fa fa-check"></i>Hypersensitive Narcissism Scale &amp; Dirty Dozen</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#kentucky-inventory-of-mindfulness-skills"><i class="fa fa-check"></i>Kentucky Inventory of Mindfulness Skills</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#depression-anxiety-stress-scale"><i class="fa fa-check"></i>Depression Anxiety Stress Scale</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#nomophobia"><i class="fa fa-check"></i>Nomophobia</a></li>
+<li class="chapter" data-level="" data-path="data_options.html"><a href="data_options.html#recycled-water-acceptance"><i class="fa fa-check"></i>Recycled Water Acceptance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
+<ul>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#collaboration"><i class="fa fa-check"></i>Collaboration</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#academic-integrity"><i class="fa fa-check"></i>Academic integrity</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#genai-disclosure-statement"><i class="fa fa-check"></i>GenAI disclosure statement</a></li>
+<li class="chapter" data-level="" data-path="rules.html"><a href="rules.html#strict-stuff"><i class="fa fa-check"></i>Strict stuff</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html"><i class="fa fa-check"></i>Installing software</a>
+<ul>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-r"><i class="fa fa-check"></i>Installing R</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-rstudio"><i class="fa fa-check"></i>Installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="installing-software.html"><a href="installing-software.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="course-data.html"><a href="course-data.html"><i class="fa fa-check"></i>Course Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="note-on-data-updates.html"><a href="note-on-data-updates.html"><i class="fa fa-check"></i>Note on Data Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="lecture.html"><a href="lecture.html"><i class="fa fa-check"></i><b>1.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="lecture.html"><a href="lecture.html#recordings"><i class="fa fa-check"></i><b>1.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="1.1.2" data-path="lecture.html"><a href="lecture.html#slides"><i class="fa fa-check"></i><b>1.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading.html"><a href="reading.html"><i class="fa fa-check"></i><b>1.2</b> Reading</a></li>
+<li class="chapter" data-level="1.3" data-path="at-home-exercises.html"><a href="at-home-exercises.html"><i class="fa fa-check"></i><b>1.3</b> At-Home Exercises</a></li>
+<li class="chapter" data-level="1.4" data-path="in-class-exercises.html"><a href="in-class-exercises.html"><i class="fa fa-check"></i><b>1.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="" data-path="in-class-exercises.html"><a href="in-class-exercises.html#recap"><i class="fa fa-check"></i>Recap</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="statistical-modeling-path-analysis.html"><a href="statistical-modeling-path-analysis.html"><i class="fa fa-check"></i><b>2</b> Statistical Modeling &amp; Path Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="lecture-1.html"><a href="lecture-1.html"><i class="fa fa-check"></i><b>2.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="lecture-1.html"><a href="lecture-1.html#recordings-1"><i class="fa fa-check"></i><b>2.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="2.1.2" data-path="lecture-1.html"><a href="lecture-1.html#slides-1"><i class="fa fa-check"></i><b>2.1.2</b> Slides</a></li>
+<li class="chapter" data-level="2.1.3" data-path="lecture-1.html"><a href="lecture-1.html#materials-from-the-lecture-meeting"><i class="fa fa-check"></i><b>2.1.3</b> Materials from the lecture meeting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="reading-1.html"><a href="reading-1.html"><i class="fa fa-check"></i><b>2.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#reference"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#questions"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#answers"><i class="fa fa-check"></i>Answers</a></li>
+<li class="chapter" data-level="" data-path="reading-1.html"><a href="reading-1.html#suggested-reading-optional"><i class="fa fa-check"></i>Suggested Reading (Optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html"><i class="fa fa-check"></i><b>2.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#setup"><i class="fa fa-check"></i><b>2.3.1</b> Setup</a></li>
+<li class="chapter" data-level="2.3.2" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section"><i class="fa fa-check"></i><b>2.3.2</b> </a></li>
+<li class="chapter" data-level="2.3.3" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-1"><i class="fa fa-check"></i><b>2.3.3</b> </a></li>
+<li class="chapter" data-level="2.3.4" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr1"><i class="fa fa-check"></i><b>2.3.4</b> </a></li>
+<li class="chapter" data-level="2.3.5" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr2"><i class="fa fa-check"></i><b>2.3.5</b> </a></li>
+<li class="chapter" data-level="2.3.6" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#slr3"><i class="fa fa-check"></i><b>2.3.6</b> </a></li>
+<li class="chapter" data-level="2.3.7" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#mlr"><i class="fa fa-check"></i><b>2.3.7</b> </a></li>
+<li class="chapter" data-level="2.3.8" data-path="at-home-exercises-1.html"><a href="at-home-exercises-1.html#section-2"><i class="fa fa-check"></i><b>2.3.8</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html"><i class="fa fa-check"></i><b>2.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#setup-1"><i class="fa fa-check"></i><b>2.4.1</b> Setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#data-exploration"><i class="fa fa-check"></i><b>2.4.2</b> Data Exploration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#linear-modeling"><i class="fa fa-check"></i><b>2.4.3</b> Linear Modeling</a></li>
+<li class="chapter" data-level="2.4.4" data-path="in-class-exercises-1.html"><a href="in-class-exercises-1.html#categorical-ivs"><i class="fa fa-check"></i><b>2.4.4</b> Categorical IVs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mediation-moderation.html"><a href="mediation-moderation.html"><i class="fa fa-check"></i><b>3</b> Mediation &amp; Moderation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture-2.html"><a href="lecture-2.html"><i class="fa fa-check"></i><b>3.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="lecture-2.html"><a href="lecture-2.html#recordings-2"><i class="fa fa-check"></i><b>3.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="3.1.2" data-path="lecture-2.html"><a href="lecture-2.html#slides-2"><i class="fa fa-check"></i><b>3.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="reading-2.html"><a href="reading-2.html"><i class="fa fa-check"></i><b>3.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-1"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-1"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#answers-1"><i class="fa fa-check"></i>Answers</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#reference-2"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#questions-2"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-2.html"><a href="reading-2.html#answers-2"><i class="fa fa-check"></i>Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html"><i class="fa fa-check"></i><b>3.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#setup-2"><i class="fa fa-check"></i><b>3.3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.3.2" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#mediation"><i class="fa fa-check"></i><b>3.3.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="at-home-exercises-2.html"><a href="at-home-exercises-2.html#moderation"><i class="fa fa-check"></i><b>3.3.3</b> Moderation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html"><i class="fa fa-check"></i><b>3.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#setup-3"><i class="fa fa-check"></i><b>3.4.1</b> Setup</a></li>
+<li class="chapter" data-level="3.4.2" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#mediation-1"><i class="fa fa-check"></i><b>3.4.2</b> Mediation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="in-class-exercises-2.html"><a href="in-class-exercises-2.html#moderation-1"><i class="fa fa-check"></i><b>3.4.3</b> Moderation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cfa-i.html"><a href="cfa-i.html"><i class="fa fa-check"></i><b>4</b> CFA I</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture-3.html"><a href="lecture-3.html"><i class="fa fa-check"></i><b>4.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="lecture-3.html"><a href="lecture-3.html#recordings-3"><i class="fa fa-check"></i><b>4.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lecture-3.html"><a href="lecture-3.html#slides-3"><i class="fa fa-check"></i><b>4.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="reading-3.html"><a href="reading-3.html"><i class="fa fa-check"></i><b>4.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#reference-3"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#questions-3"><i class="fa fa-check"></i>Questions</a></li>
+<li class="chapter" data-level="" data-path="reading-3.html"><a href="reading-3.html#answers-3"><i class="fa fa-check"></i>Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html"><i class="fa fa-check"></i><b>4.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#setup-4"><i class="fa fa-check"></i><b>4.3.1</b> Setup</a></li>
+<li class="chapter" data-level="4.3.2" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-45"><i class="fa fa-check"></i><b>4.3.2</b> </a></li>
+<li class="chapter" data-level="4.3.3" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-46"><i class="fa fa-check"></i><b>4.3.3</b> </a></li>
+<li class="chapter" data-level="4.3.4" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#df"><i class="fa fa-check"></i><b>4.3.4</b> </a></li>
+<li class="chapter" data-level="4.3.5" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaSyntax1"><i class="fa fa-check"></i><b>4.3.5</b> </a></li>
+<li class="chapter" data-level="4.3.6" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimationHome1"><i class="fa fa-check"></i><b>4.3.6</b> </a></li>
+<li class="chapter" data-level="4.3.7" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-47"><i class="fa fa-check"></i><b>4.3.7</b> </a></li>
+<li class="chapter" data-level="4.3.8" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-48"><i class="fa fa-check"></i><b>4.3.8</b> </a></li>
+<li class="chapter" data-level="4.3.9" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-49"><i class="fa fa-check"></i><b>4.3.9</b> </a></li>
+<li class="chapter" data-level="4.3.10" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaSyntax2"><i class="fa fa-check"></i><b>4.3.10</b> </a></li>
+<li class="chapter" data-level="4.3.11" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimation2"><i class="fa fa-check"></i><b>4.3.11</b> </a></li>
+<li class="chapter" data-level="4.3.12" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-50"><i class="fa fa-check"></i><b>4.3.12</b> </a></li>
+<li class="chapter" data-level="4.3.13" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-51"><i class="fa fa-check"></i><b>4.3.13</b> </a></li>
+<li class="chapter" data-level="4.3.14" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-52"><i class="fa fa-check"></i><b>4.3.14</b> </a></li>
+<li class="chapter" data-level="4.3.15" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#cfaEstimation3"><i class="fa fa-check"></i><b>4.3.15</b> </a></li>
+<li class="chapter" data-level="4.3.16" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-53"><i class="fa fa-check"></i><b>4.3.16</b> </a></li>
+<li class="chapter" data-level="4.3.17" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-54"><i class="fa fa-check"></i><b>4.3.17</b> </a></li>
+<li class="chapter" data-level="4.3.18" data-path="at-home-exercises-3.html"><a href="at-home-exercises-3.html#section-55"><i class="fa fa-check"></i><b>4.3.18</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html"><i class="fa fa-check"></i><b>4.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-56"><i class="fa fa-check"></i><b>4.4.1</b> </a></li>
+<li class="chapter" data-level="4.4.2" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#dfClass"><i class="fa fa-check"></i><b>4.4.2</b> </a></li>
+<li class="chapter" data-level="4.4.3" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaSyntaxClass1"><i class="fa fa-check"></i><b>4.4.3</b> </a></li>
+<li class="chapter" data-level="4.4.4" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaEstimationClass1"><i class="fa fa-check"></i><b>4.4.4</b> </a></li>
+<li class="chapter" data-level="4.4.5" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-57"><i class="fa fa-check"></i><b>4.4.5</b> </a></li>
+<li class="chapter" data-level="4.4.6" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-58"><i class="fa fa-check"></i><b>4.4.6</b> </a></li>
+<li class="chapter" data-level="4.4.7" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-59"><i class="fa fa-check"></i><b>4.4.7</b> </a></li>
+<li class="chapter" data-level="4.4.8" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-60"><i class="fa fa-check"></i><b>4.4.8</b> </a></li>
+<li class="chapter" data-level="4.4.9" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-61"><i class="fa fa-check"></i><b>4.4.9</b> </a></li>
+<li class="chapter" data-level="4.4.10" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-62"><i class="fa fa-check"></i><b>4.4.10</b> </a></li>
+<li class="chapter" data-level="4.4.11" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#cfaEstimationClass2"><i class="fa fa-check"></i><b>4.4.11</b> </a></li>
+<li class="chapter" data-level="4.4.12" data-path="in-class-exercises-3.html"><a href="in-class-exercises-3.html#section-63"><i class="fa fa-check"></i><b>4.4.12</b> </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cfa-ii.html"><a href="cfa-ii.html"><i class="fa fa-check"></i><b>5</b> CFA II</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="lecture-4.html"><a href="lecture-4.html"><i class="fa fa-check"></i><b>5.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="lecture-4.html"><a href="lecture-4.html#recordings-4"><i class="fa fa-check"></i><b>5.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="5.1.2" data-path="lecture-4.html"><a href="lecture-4.html#slides-4"><i class="fa fa-check"></i><b>5.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reading-4.html"><a href="reading-4.html"><i class="fa fa-check"></i><b>5.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-4.html"><a href="reading-4.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html"><i class="fa fa-check"></i><b>5.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-64"><i class="fa fa-check"></i><b>5.3.1</b> </a></li>
+<li class="chapter" data-level="5.3.2" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#cfaSyntax"><i class="fa fa-check"></i><b>5.3.2</b> </a></li>
+<li class="chapter" data-level="5.3.3" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#estimateCfa3F"><i class="fa fa-check"></i><b>5.3.3</b> </a></li>
+<li class="chapter" data-level="5.3.4" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-65"><i class="fa fa-check"></i><b>5.3.4</b> </a></li>
+<li class="chapter" data-level="5.3.5" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#section-66"><i class="fa fa-check"></i><b>5.3.5</b> </a></li>
+<li class="chapter" data-level="5.3.6" data-path="at-home-exercises-4.html"><a href="at-home-exercises-4.html#estimateCfa1F"><i class="fa fa-check"></i><b>5.3.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html"><i class="fa fa-check"></i><b>5.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#basic-cfa"><i class="fa fa-check"></i><b>5.4.1</b> Basic CFA</a></li>
+<li class="chapter" data-level="5.4.2" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#post-hoc-model-modifications"><i class="fa fa-check"></i><b>5.4.2</b> Post-Hoc Model Modifications</a></li>
+<li class="chapter" data-level="5.4.3" data-path="in-class-exercises-4.html"><a href="in-class-exercises-4.html#model-comparisons"><i class="fa fa-check"></i><b>5.4.3</b> Model Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="extra-resources.html"><a href="extra-resources.html"><i class="fa fa-check"></i><b>5.5</b> Extra Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fall-break.html"><a href="fall-break.html"><i class="fa fa-check"></i><b>6</b> Fall Break</a></li>
+<li class="chapter" data-level="7" data-path="full-sem.html"><a href="full-sem.html"><i class="fa fa-check"></i><b>7</b> Full SEM</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture-5.html"><a href="lecture-5.html"><i class="fa fa-check"></i><b>7.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="lecture-5.html"><a href="lecture-5.html#recording"><i class="fa fa-check"></i><b>7.1.1</b> Recording</a></li>
+<li class="chapter" data-level="7.1.2" data-path="lecture-5.html"><a href="lecture-5.html#slides-5"><i class="fa fa-check"></i><b>7.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="reading-5.html"><a href="reading-5.html"><i class="fa fa-check"></i><b>7.2</b> Reading</a>
+<ul>
+<li class="chapter" data-level="" data-path="reading-5.html"><a href="reading-5.html#reference-4"><i class="fa fa-check"></i>Reference</a></li>
+<li class="chapter" data-level="" data-path="reading-5.html"><a href="reading-5.html#questions-4"><i class="fa fa-check"></i>Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html"><i class="fa fa-check"></i><b>7.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-76"><i class="fa fa-check"></i><b>7.3.1</b> </a></li>
+<li class="chapter" data-level="7.3.2" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-77"><i class="fa fa-check"></i><b>7.3.2</b> </a></li>
+<li class="chapter" data-level="7.3.3" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-78"><i class="fa fa-check"></i><b>7.3.3</b> </a></li>
+<li class="chapter" data-level="7.3.4" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#semEstimation"><i class="fa fa-check"></i><b>7.3.4</b> </a></li>
+<li class="chapter" data-level="7.3.5" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-79"><i class="fa fa-check"></i><b>7.3.5</b> </a></li>
+<li class="chapter" data-level="7.3.6" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-80"><i class="fa fa-check"></i><b>7.3.6</b> </a></li>
+<li class="chapter" data-level="7.3.7" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-81"><i class="fa fa-check"></i><b>7.3.7</b> </a></li>
+<li class="chapter" data-level="7.3.8" data-path="at-home-exercises-5.html"><a href="at-home-exercises-5.html#section-82"><i class="fa fa-check"></i><b>7.3.8</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html"><i class="fa fa-check"></i><b>7.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-83"><i class="fa fa-check"></i><b>7.4.1</b> </a></li>
+<li class="chapter" data-level="7.4.2" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#toraCFA"><i class="fa fa-check"></i><b>7.4.2</b> </a></li>
+<li class="chapter" data-level="7.4.3" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-84"><i class="fa fa-check"></i><b>7.4.3</b> </a></li>
+<li class="chapter" data-level="7.4.4" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#tora1Estimation"><i class="fa fa-check"></i><b>7.4.4</b> </a></li>
+<li class="chapter" data-level="7.4.5" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-85"><i class="fa fa-check"></i><b>7.4.5</b> </a></li>
+<li class="chapter" data-level="7.4.6" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#updatedModel"><i class="fa fa-check"></i><b>7.4.6</b> </a></li>
+<li class="chapter" data-level="7.4.7" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-86"><i class="fa fa-check"></i><b>7.4.7</b> </a></li>
+<li class="chapter" data-level="7.4.8" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-87"><i class="fa fa-check"></i><b>7.4.8</b> </a></li>
+<li class="chapter" data-level="7.4.9" data-path="in-class-exercises-5.html"><a href="in-class-exercises-5.html#section-88"><i class="fa fa-check"></i><b>7.4.9</b> </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multiple-group-models.html"><a href="multiple-group-models.html"><i class="fa fa-check"></i><b>8</b> Multiple Group Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lecture-6.html"><a href="lecture-6.html"><i class="fa fa-check"></i><b>8.1</b> Lecture</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="lecture-6.html"><a href="lecture-6.html#recordings-5"><i class="fa fa-check"></i><b>8.1.1</b> Recordings</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lecture-6.html"><a href="lecture-6.html#slides-6"><i class="fa fa-check"></i><b>8.1.2</b> Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="reading-6.html"><a href="reading-6.html"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html"><i class="fa fa-check"></i><b>8.3</b> At-Home Exercises</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgPathAnalysis"><i class="fa fa-check"></i><b>8.3.1</b> Multiple-Group Path Analysis</a></li>
+<li class="chapter" data-level="8.3.2" data-path="at-home-exercises-6.html"><a href="at-home-exercises-6.html#mgCFA"><i class="fa fa-check"></i><b>8.3.2</b> Multiple-Group CFA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html"><i class="fa fa-check"></i><b>8.4</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#setup-5"><i class="fa fa-check"></i><b>8.4.1</b> Setup</a></li>
+<li class="chapter" data-level="8.4.2" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#w8MeasurementInvariance"><i class="fa fa-check"></i><b>8.4.2</b> Measurement Invariance</a></li>
+<li class="chapter" data-level="8.4.3" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#testing-between-group-differences"><i class="fa fa-check"></i><b>8.4.3</b> Testing Between-Group Differences</a></li>
+<li class="chapter" data-level="8.4.4" data-path="in-class-exercises-6.html"><a href="in-class-exercises-6.html#multiple-group-sem-for-moderation"><i class="fa fa-check"></i><b>8.4.4</b> Multiple-Group SEM for Moderation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Structural Equation Modeling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="in-class-exercises-4" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> In-Class Exercises<a href="in-class-exercises-4.html#in-class-exercises-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In these exercises, we’ll continue the factor analysis of the ESS data that we started in the At-Home Exercises.</p>
+<hr />
+<div id="basic-cfa" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Basic CFA<a href="in-class-exercises-4.html#basic-cfa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<div id="section-67" class="section level4" number="5.4.1.1">
+<h4><span class="header-section-number">5.4.1.1</span> </h4>
+<p>Load the ESS data.</p>
+<ul>
+<li>The relevant data are contained in the <a href="https://surfdrive.surf.nl/files/index.php/s/an0GVjaMiZYA73u"><em>ess_round1.rds</em></a> file.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="in-class-exercises-4.html#cb179-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb179-2"><a href="in-class-exercises-4.html#cb179-2" tabindex="-1"></a>ess <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;ess_round1.rds&quot;</span>))</span></code></pre></div>
+</details>
+<hr />
+<p>We are going to extend our existing three-factor CFA by adding the five-factor representation of the <em>Attitudes toward
+Immigration</em> items suggested by Kestilä (2006). The hypothesized factor-to-item mapping is given below.</p>
+<p><strong>Trust in Institutions</strong></p>
+<ul>
+<li><code>trstlgl</code>: Trust in the legal system</li>
+<li><code>trstplc</code>: Trust in the police</li>
+<li><code>trstun</code>: Trust in the United Nations</li>
+<li><code>trustep</code>: Trust in the European Parliament</li>
+<li><code>trustprl</code>: Trust in country’s parliament</li>
+</ul>
+<p><strong>Satisfaction with the Political Situation</strong></p>
+<ul>
+<li><code>stfhlth</code>: State of health services in country nowadays</li>
+<li><code>stfedu</code>: State of education in country nowadays</li>
+<li><code>stfeco</code>: How satisfied with present state of economy in country</li>
+<li><code>stfgov</code>: How satisfied with the national government</li>
+<li><code>stfdem</code>: How satisfied with the way democracy works in country</li>
+</ul>
+<p><strong>Trust in Politicians</strong></p>
+<ul>
+<li><code>pltinvt</code>: Politicians interested in votes rather than peoples opinions</li>
+<li><code>pltcare</code>: Politicians in general care what people like respondent think</li>
+<li><code>trstplt</code>: Trust in politicians</li>
+</ul>
+<p><strong>Immigration Policy</strong></p>
+<ul>
+<li><code>imrcntr</code>: Allow many/few immigrants from richer countries outside Europe</li>
+<li><code>eimrcnt</code>: Allow many/few immigrants from richer countries in Europe</li>
+<li><code>eimpcnt</code>: Allow many/few immigrants from poorer countries in Europe</li>
+<li><code>imsmetn</code>: Allow many/few immigrants of same race/ethnic group as majority</li>
+<li><code>impcntr</code>: Allow many/few immigrants from poorer countries outside Europe</li>
+<li><code>imdfetn</code>: Allow many/few immigrants of different race/ethnic group from majority</li>
+</ul>
+<p><strong>Social Threat</strong></p>
+<ul>
+<li><code>imbgeco</code>: Immigration bad or good for country’s economy</li>
+<li><code>imbleco</code>: Taxes and services: immigrants take out more than they put in or less</li>
+<li><code>imwbcnt</code>: Immigrants make country worse or better place to live</li>
+<li><code>imwbcrm</code>: Immigrants make country’s crime problems worse or better</li>
+<li><code>imtcjob</code>: Immigrants take jobs away in country or create new jobs</li>
+<li><code>imueclt</code>: Country’s cultural life undermined or enriched by immigrants</li>
+</ul>
+<p><strong>Refugee Policy</strong></p>
+<ul>
+<li><code>gvrfgap</code>: Government should be generous judging applications for refugee status</li>
+<li><code>imrsprc</code>: Richer countries should be responsible for accepting people from poorer countries</li>
+<li><code>rfgbfml</code>: Granted refugees should be entitled to bring close family members</li>
+<li><code>rfggvfn</code>: Financial support to refugee applicants while cases considered</li>
+<li><code>rfgawrk</code>: People applying refugee status allowed to work while cases considered</li>
+<li><code>rfgfrpc</code>: Most refugee applicants not in real fear of persecution own countries</li>
+<li><code>shrrfg</code>: Country has more than its fair share of people applying refugee status</li>
+</ul>
+<p><strong>Cultural Threat</strong></p>
+<ul>
+<li><code>qfimchr</code>: Qualification for immigration: christian background</li>
+<li><code>qfimwht</code>: Qualification for immigration: be white</li>
+<li><code>pplstrd</code>: Better for a country if almost everyone share customs and traditions</li>
+<li><code>vrtrlg</code>: Better for a country if a variety of different religions</li>
+</ul>
+<p><strong>Economic Threat</strong></p>
+<ul>
+<li><code>imwgdwn</code>: Average wages/salaries generally brought down by immigrants</li>
+<li><code>imhecop</code>: Immigrants harm economic prospects of the poor more than the rich</li>
+</ul>
+<hr />
+</div>
+<div id="section-68" class="section level4" number="5.4.1.2">
+<h4><span class="header-section-number">5.4.1.2</span> </h4>
+<p>Calculate the following quantities for the CFA described above.</p>
+<ol style="list-style-type: decimal">
+<li>The number of model parameters</li>
+<li>The pieces of available information provided by the data</li>
+<li>The degrees of freedom after sufficiently identifying the model</li>
+</ol>
+<p>Assume:</p>
+<ul>
+<li>Simple structure with no cross-loadings</li>
+<li>Enough constraints to locally identify each construct</li>
+<li>No mean structure</li>
+</ul>
+<details>
+<summary>
+Click to show answer
+</summary>
+<p>Our model will have 38 observed indicators and 8 latent constructs, so we get the following values.</p>
+<p><strong>Model Parameters</strong></p>
+<ul>
+<li>8 (8 - 1) / 2 = 28 latent covariances</li>
+<li>8 latent variances</li>
+<li>38 factor loadings</li>
+<li>38 residual variances</li>
+</ul>
+<p>Total = 28 + 8 + 2 <span class="math inline">\(\times\)</span> 38 = 112</p>
+<p><strong>Available Information</strong></p>
+<p>38 (38 + 1) / 2 = 741</p>
+<p><strong>Degrees of Freedom</strong></p>
+<p>To identify the model, we need to constrain one parameter in each construct’s sub-model. We also need to constrain
+another parameter in the sub-model for <em>Economic Threat</em>, because that construct has only two indicators. So, we need to
+constrain 9 parameters.</p>
+<p>df = 741 - 112 + 9 = 638</p>
+</details>
+<hr />
+</div>
+<div id="cfaSyntaxClass5.1" class="section level4" number="5.4.1.3">
+<h4><span class="header-section-number">5.4.1.3</span> </h4>
+<p>Define the <code>lavaan</code> model syntax for the CFA described above.</p>
+<ul>
+<li>Enforce a simple structure: do not allow any cross-loadings.</li>
+<li>Covary all latent factors.</li>
+<li>Do not specify any mean structure.</li>
+<li>Save this model syntax as an object in your environment.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="in-class-exercises-4.html#cb180-1" tabindex="-1"></a>mod_trust_att <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb180-2"><a href="in-class-exercises-4.html#cb180-2" tabindex="-1"></a><span class="st">## Trust in Institutions:</span></span>
+<span id="cb180-3"><a href="in-class-exercises-4.html#cb180-3" tabindex="-1"></a><span class="st">inst =~ trstlgl + trstplc + trstun + trstep + trstprl</span></span>
+<span id="cb180-4"><a href="in-class-exercises-4.html#cb180-4" tabindex="-1"></a></span>
+<span id="cb180-5"><a href="in-class-exercises-4.html#cb180-5" tabindex="-1"></a><span class="st">## Satisfaction with the Political Situation:</span></span>
+<span id="cb180-6"><a href="in-class-exercises-4.html#cb180-6" tabindex="-1"></a><span class="st">sat =~ stfhlth + stfedu  + stfeco + stfgov + stfdem</span></span>
+<span id="cb180-7"><a href="in-class-exercises-4.html#cb180-7" tabindex="-1"></a></span>
+<span id="cb180-8"><a href="in-class-exercises-4.html#cb180-8" tabindex="-1"></a><span class="st">## Trust in Politicians:</span></span>
+<span id="cb180-9"><a href="in-class-exercises-4.html#cb180-9" tabindex="-1"></a><span class="st">pol =~ pltinvt + pltcare + trstplt</span></span>
+<span id="cb180-10"><a href="in-class-exercises-4.html#cb180-10" tabindex="-1"></a></span>
+<span id="cb180-11"><a href="in-class-exercises-4.html#cb180-11" tabindex="-1"></a><span class="st">## Immigration Policy:</span></span>
+<span id="cb180-12"><a href="in-class-exercises-4.html#cb180-12" tabindex="-1"></a><span class="st">immi =~ imrcntr + eimrcnt + eimpcnt + imsmetn + impcntr + imdfetn </span></span>
+<span id="cb180-13"><a href="in-class-exercises-4.html#cb180-13" tabindex="-1"></a></span>
+<span id="cb180-14"><a href="in-class-exercises-4.html#cb180-14" tabindex="-1"></a><span class="st">## Social Threat:</span></span>
+<span id="cb180-15"><a href="in-class-exercises-4.html#cb180-15" tabindex="-1"></a><span class="st">social =~ imbgeco + imbleco + imwbcnt + imwbcrm + imtcjob + imueclt</span></span>
+<span id="cb180-16"><a href="in-class-exercises-4.html#cb180-16" tabindex="-1"></a></span>
+<span id="cb180-17"><a href="in-class-exercises-4.html#cb180-17" tabindex="-1"></a><span class="st">## Refugee Policy:</span></span>
+<span id="cb180-18"><a href="in-class-exercises-4.html#cb180-18" tabindex="-1"></a><span class="st">refugee =~ gvrfgap + imrsprc + rfgbfml + rfggvfn + rfgawrk + rfgfrpc + shrrfg</span></span>
+<span id="cb180-19"><a href="in-class-exercises-4.html#cb180-19" tabindex="-1"></a></span>
+<span id="cb180-20"><a href="in-class-exercises-4.html#cb180-20" tabindex="-1"></a><span class="st">## Cultural Threat:</span></span>
+<span id="cb180-21"><a href="in-class-exercises-4.html#cb180-21" tabindex="-1"></a><span class="st">cult =~ qfimchr + qfimwht + pplstrd + vrtrlg</span></span>
+<span id="cb180-22"><a href="in-class-exercises-4.html#cb180-22" tabindex="-1"></a></span>
+<span id="cb180-23"><a href="in-class-exercises-4.html#cb180-23" tabindex="-1"></a><span class="st">## Economic Threat:</span></span>
+<span id="cb180-24"><a href="in-class-exercises-4.html#cb180-24" tabindex="-1"></a><span class="st">econ =~ l*imwgdwn + l*imhecop </span></span>
+<span id="cb180-25"><a href="in-class-exercises-4.html#cb180-25" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<p><em>Note:</em> We equate the factor loadings for the <em>Economic Threat</em> factor because that construct is under-identified
+without the extra constraints.</p>
+</details>
+<hr />
+</div>
+<div id="estimateCfaTrustAtt" class="section level4" number="5.4.1.4">
+<h4><span class="header-section-number">5.4.1.4</span> </h4>
+<p>Estimate the CFA model you defined above, and summarize the results.</p>
+<ul>
+<li>Use the <code>lavaan::cfa()</code> function to estimate the model.</li>
+<li>Use the fixed-factor method of identification</li>
+<li>Use the default settings for the <code>cfa()</code> function.</li>
+<li>Request the model fit statistics and standardized parameter estimates by specifying <code>fit.measures = TRUE</code> and
+<code>standardized = TRUE</code> in <code>summary()</code>.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="in-class-exercises-4.html#cb181-1" tabindex="-1"></a><span class="do">## Load the lavaan package:</span></span>
+<span id="cb181-2"><a href="in-class-exercises-4.html#cb181-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb181-3"><a href="in-class-exercises-4.html#cb181-3" tabindex="-1"></a></span>
+<span id="cb181-4"><a href="in-class-exercises-4.html#cb181-4" tabindex="-1"></a><span class="do">## Estimate the CFA model:</span></span>
+<span id="cb181-5"><a href="in-class-exercises-4.html#cb181-5" tabindex="-1"></a>out_trust_att <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb181-6"><a href="in-class-exercises-4.html#cb181-6" tabindex="-1"></a></span>
+<span id="cb181-7"><a href="in-class-exercises-4.html#cb181-7" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
+<span id="cb181-8"><a href="in-class-exercises-4.html#cb181-8" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 55 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                       104
+##   Number of equality constraints                     1
+## 
+##                                                   Used       Total
+##   Number of observations                         11716       19690
+## 
+## Model Test User Model:
+##                                                        
+##   Test statistic                              27329.813
+##   Degrees of freedom                                638
+##   P-value (Chi-square)                            0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                            201900.916
+##   Degrees of freedom                               703
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.867
+##   Tucker-Lewis Index (TLI)                       0.854
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)            -715042.663
+##   Loglikelihood unrestricted model (H1)    -701377.756
+##                                                       
+##   Akaike (AIC)                             1430291.326
+##   Bayesian (BIC)                           1431050.303
+##   Sample-size adjusted Bayesian (SABIC)    1430722.981
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.060
+##   90 Percent confidence interval - lower         0.059
+##   90 Percent confidence interval - upper         0.060
+##   P-value H_0: RMSEA &lt;= 0.050                    0.000
+##   P-value H_0: RMSEA &gt;= 0.080                    0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.047
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst =~                                                               
+##     trstlgl           1.620    0.020   79.815    0.000    1.620    0.684
+##     trstplc           1.221    0.019   62.808    0.000    1.221    0.565
+##     trstun            1.474    0.020   73.333    0.000    1.474    0.641
+##     trstep            1.438    0.019   75.526    0.000    1.438    0.656
+##     trstprl           1.824    0.018  100.336    0.000    1.824    0.808
+##   sat =~                                                                
+##     stfhlth           1.172    0.021   56.841    0.000    1.172    0.527
+##     stfedu            1.312    0.020   64.794    0.000    1.312    0.588
+##     stfeco            1.661    0.020   83.163    0.000    1.661    0.716
+##     stfgov            1.716    0.019   88.898    0.000    1.716    0.753
+##     stfdem            1.592    0.019   84.464    0.000    1.592    0.725
+##   pol =~                                                                
+##     pltinvt           0.652    0.009   70.334    0.000    0.652    0.621
+##     pltcare           0.669    0.009   73.562    0.000    0.669    0.643
+##     trstplt           1.896    0.017  110.890    0.000    1.896    0.881
+##   immi =~                                                               
+##     imrcntr           0.608    0.007   92.813    0.000    0.608    0.744
+##     eimrcnt           0.576    0.007   84.260    0.000    0.576    0.693
+##     eimpcnt           0.694    0.006  125.076    0.000    0.694    0.903
+##     imsmetn           0.597    0.006  101.338    0.000    0.597    0.791
+##     impcntr           0.706    0.006  124.789    0.000    0.706    0.902
+##     imdfetn           0.695    0.006  121.790    0.000    0.695    0.889
+##   social =~                                                             
+##     imbgeco           1.552    0.018   84.572    0.000    1.552    0.716
+##     imbleco           1.290    0.019   68.735    0.000    1.290    0.610
+##     imwbcnt           1.642    0.017   96.402    0.000    1.642    0.787
+##     imwbcrm           1.119    0.018   62.137    0.000    1.119    0.561
+##     imtcjob           1.174    0.018   66.689    0.000    1.174    0.595
+##     imueclt           1.539    0.019   79.783    0.000    1.539    0.685
+##   refugee =~                                                            
+##     gvrfgap           0.669    0.009   71.516    0.000    0.669    0.644
+##     imrsprc           0.560    0.010   57.975    0.000    0.560    0.541
+##     rfgbfml           0.671    0.011   63.653    0.000    0.671    0.586
+##     rfggvfn           0.540    0.010   56.399    0.000    0.540    0.529
+##     rfgawrk           0.395    0.010   39.036    0.000    0.395    0.381
+##     rfgfrpc          -0.546    0.009  -58.125    0.000   -0.546   -0.543
+##     shrrfg           -0.666    0.009  -70.298    0.000   -0.666   -0.635
+##   cult =~                                                               
+##     qfimchr           1.853    0.028   65.256    0.000    1.853    0.637
+##     qfimwht           1.702    0.025   67.388    0.000    1.702    0.656
+##     pplstrd          -0.663    0.011  -61.247    0.000   -0.663   -0.602
+##     vrtrlg            0.467    0.010   44.859    0.000    0.467    0.456
+##   econ =~                                                               
+##     imwgdwn    (l)    0.754    0.008   98.037    0.000    0.754    0.706
+##     imhecop    (l)    0.754    0.008   98.037    0.000    0.754    0.719
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst ~~                                                               
+##     sat               0.746    0.006  116.573    0.000    0.746    0.746
+##     pol               0.877    0.005  179.842    0.000    0.877    0.877
+##     immi             -0.243    0.010  -24.412    0.000   -0.243   -0.243
+##     social            0.402    0.010   41.526    0.000    0.402    0.402
+##     refugee          -0.369    0.010  -35.468    0.000   -0.369   -0.369
+##     cult             -0.094    0.012   -7.715    0.000   -0.094   -0.094
+##     econ              0.276    0.012   23.469    0.000    0.276    0.276
+##   sat ~~                                                                
+##     pol               0.723    0.007  106.311    0.000    0.723    0.723
+##     immi             -0.110    0.010  -10.581    0.000   -0.110   -0.110
+##     social            0.315    0.010   30.574    0.000    0.315    0.315
+##     refugee          -0.257    0.011  -23.161    0.000   -0.257   -0.257
+##     cult              0.052    0.012    4.228    0.000    0.052    0.052
+##     econ              0.235    0.012   19.571    0.000    0.235    0.235
+##   pol ~~                                                                
+##     immi             -0.256    0.010  -25.970    0.000   -0.256   -0.256
+##     social            0.404    0.010   41.846    0.000    0.404    0.404
+##     refugee          -0.358    0.010  -34.120    0.000   -0.358   -0.358
+##     cult             -0.121    0.012  -10.005    0.000   -0.121   -0.121
+##     econ              0.325    0.012   28.256    0.000    0.325    0.325
+##   immi ~~                                                               
+##     social           -0.595    0.007  -83.022    0.000   -0.595   -0.595
+##     refugee           0.639    0.007   88.761    0.000    0.639    0.639
+##     cult              0.557    0.009   63.875    0.000    0.557    0.557
+##     econ             -0.453    0.010  -45.844    0.000   -0.453   -0.453
+##   social ~~                                                             
+##     refugee          -0.788    0.006 -128.400    0.000   -0.788   -0.788
+##     cult             -0.538    0.010  -55.915    0.000   -0.538   -0.538
+##     econ              0.575    0.010   59.830    0.000    0.575    0.575
+##   refugee ~~                                                            
+##     cult              0.507    0.010   48.402    0.000    0.507    0.507
+##     econ             -0.498    0.011  -46.003    0.000   -0.498   -0.498
+##   cult ~~                                                               
+##     econ             -0.445    0.012  -37.251    0.000   -0.445   -0.445
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .trstlgl           2.987    0.045   66.827    0.000    2.987    0.532
+##    .trstplc           3.182    0.045   71.420    0.000    3.182    0.681
+##    .trstun            3.121    0.045   68.893    0.000    3.121    0.590
+##    .trstep            2.744    0.040   68.246    0.000    2.744    0.570
+##    .trstprl           1.773    0.032   55.239    0.000    1.773    0.348
+##    .stfhlth           3.569    0.050   71.183    0.000    3.569    0.722
+##    .stfedu            3.250    0.047   69.144    0.000    3.250    0.654
+##    .stfeco            2.622    0.043   61.664    0.000    2.622    0.487
+##    .stfgov            2.255    0.039   58.027    0.000    2.255    0.434
+##    .stfdem            2.293    0.038   60.912    0.000    2.293    0.475
+##    .pltinvt           0.678    0.010   69.415    0.000    0.678    0.615
+##    .pltcare           0.633    0.009   68.463    0.000    0.633    0.586
+##    .trstplt           1.037    0.030   34.404    0.000    1.037    0.224
+##    .imrcntr           0.298    0.004   70.936    0.000    0.298    0.446
+##    .eimrcnt           0.359    0.005   72.369    0.000    0.359    0.519
+##    .eimpcnt           0.109    0.002   56.162    0.000    0.109    0.185
+##    .imsmetn           0.213    0.003   68.969    0.000    0.213    0.375
+##    .impcntr           0.115    0.002   56.455    0.000    0.115    0.187
+##    .imdfetn           0.128    0.002   59.199    0.000    0.128    0.210
+##    .imbgeco           2.292    0.036   64.371    0.000    2.292    0.487
+##    .imbleco           2.808    0.040   69.742    0.000    2.808    0.628
+##    .imwbcnt           1.662    0.029   57.651    0.000    1.662    0.381
+##    .imwbcrm           2.721    0.038   71.269    0.000    2.721    0.685
+##    .imtcjob           2.512    0.036   70.250    0.000    2.512    0.646
+##    .imueclt           2.673    0.040   66.319    0.000    2.673    0.530
+##    .gvrfgap           0.633    0.010   65.187    0.000    0.633    0.586
+##    .imrsprc           0.757    0.011   69.954    0.000    0.757    0.707
+##    .rfgbfml           0.863    0.013   68.222    0.000    0.863    0.657
+##    .rfggvfn           0.751    0.011   70.380    0.000    0.751    0.720
+##    .rfgawrk           0.923    0.012   73.870    0.000    0.923    0.855
+##    .rfgfrpc           0.714    0.010   69.912    0.000    0.714    0.706
+##    .shrrfg            0.656    0.010   65.716    0.000    0.656    0.597
+##    .qfimchr           5.027    0.086   58.121    0.000    5.027    0.594
+##    .qfimwht           3.844    0.068   56.187    0.000    3.844    0.570
+##    .pplstrd           0.772    0.013   61.259    0.000    0.772    0.637
+##    .vrtrlg            0.829    0.012   69.599    0.000    0.829    0.792
+##    .imwgdwn           0.571    0.011   52.914    0.000    0.571    0.501
+##    .imhecop           0.531    0.010   50.907    0.000    0.531    0.483
+##     inst              1.000                               1.000    1.000
+##     sat               1.000                               1.000    1.000
+##     pol               1.000                               1.000    1.000
+##     immi              1.000                               1.000    1.000
+##     social            1.000                               1.000    1.000
+##     refugee           1.000                               1.000    1.000
+##     cult              1.000                               1.000    1.000
+##     econ              1.000                               1.000    1.000</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-69" class="section level4" number="5.4.1.5">
+<h4><span class="header-section-number">5.4.1.5</span> </h4>
+<p>Evaluate the model you estimated in <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a>. Do you think this measurement model is a reasonable
+representation of the data?</p>
+<details>
+<summary>
+Click for explanation
+</summary>
+<div id="model-fit" class="section level5 unnumbered hasAnchor">
+<h5>Model Fit<a href="in-class-exercises-4.html#model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The model fit is ambiguous
+<span class="math inline">\((\chi^2 = 27329.81,\)</span>
+<span class="math inline">\(\textit{df} = 638,\)</span>
+<span class="math inline">\(p &lt; 0.001,\)</span>
+<span class="math inline">\(\textrm{RMSEA} = 0.06,\)</span>
+<span class="math inline">\(\textrm{CFI} = 0.867,\)</span>
+<span class="math inline">\(\textrm{SRMR} = 0.047)\)</span>.</p>
+<ul>
+<li>The SRMR and RMSEA look good.</li>
+<li>The CFI indicates poor fit.</li>
+<li>The <span class="math inline">\(\chi^2\)</span> is highly significant, but we don’t care.</li>
+</ul>
+<p>Two out of our three preferred approximate fit indices suggest a good model, but we need to be cautious. The RMSEA can
+be overly optimistic when computed from large models with many degrees of freedom. So, we have a bit of a tie:</p>
+<ul>
+<li>One good-looking index (SRMR)</li>
+<li>One bad-looking index (CFI)</li>
+<li>One good-looking, but not entirely trustworthy, index (RMSEA)</li>
+</ul>
+</div>
+<div id="parameter-estimates" class="section level5 unnumbered hasAnchor">
+<h5>Parameter Estimates<a href="in-class-exercises-4.html#parameter-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The standardized factor loadings and residual variances seem fine.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="in-class-exercises-4.html#cb183-1" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(out_trust_att, <span class="st">&quot;standardized&quot;</span>)</span>
+<span id="cb183-2"><a href="in-class-exercises-4.html#cb183-2" tabindex="-1"></a><span class="fu">cbind</span>(est<span class="sc">$</span>lambda, <span class="at">Resid_Var =</span> <span class="fu">diag</span>(est<span class="sc">$</span>theta)) <span class="sc">|&gt;</span></span>
+<span id="cb183-3"><a href="in-class-exercises-4.html#cb183-3" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb183-4"><a href="in-class-exercises-4.html#cb183-4" tabindex="-1"></a>  Matrix<span class="sc">::</span><span class="fu">Matrix</span>(<span class="at">sparse =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 38 x 9 sparse Matrix of class &quot;dgCMatrix&quot;
+##          inst   sat   pol  immi social refugee   cult  econ Resid_Var
+## trstlgl 0.684 .     .     .      .       .      .     .         0.532
+## trstplc 0.565 .     .     .      .       .      .     .         0.681
+## trstun  0.641 .     .     .      .       .      .     .         0.590
+## trstep  0.656 .     .     .      .       .      .     .         0.570
+## trstprl 0.808 .     .     .      .       .      .     .         0.348
+## stfhlth .     0.527 .     .      .       .      .     .         0.722
+## stfedu  .     0.588 .     .      .       .      .     .         0.654
+## stfeco  .     0.716 .     .      .       .      .     .         0.487
+## stfgov  .     0.753 .     .      .       .      .     .         0.434
+## stfdem  .     0.725 .     .      .       .      .     .         0.475
+## pltinvt .     .     0.621 .      .       .      .     .         0.615
+## pltcare .     .     0.643 .      .       .      .     .         0.586
+## trstplt .     .     0.881 .      .       .      .     .         0.224
+## imrcntr .     .     .     0.744  .       .      .     .         0.446
+## eimrcnt .     .     .     0.693  .       .      .     .         0.519
+## eimpcnt .     .     .     0.903  .       .      .     .         0.185
+## imsmetn .     .     .     0.791  .       .      .     .         0.375
+## impcntr .     .     .     0.902  .       .      .     .         0.187
+## imdfetn .     .     .     0.889  .       .      .     .         0.210
+## imbgeco .     .     .     .      0.716   .      .     .         0.487
+## imbleco .     .     .     .      0.610   .      .     .         0.628
+## imwbcnt .     .     .     .      0.787   .      .     .         0.381
+## imwbcrm .     .     .     .      0.561   .      .     .         0.685
+## imtcjob .     .     .     .      0.595   .      .     .         0.646
+## imueclt .     .     .     .      0.685   .      .     .         0.530
+## gvrfgap .     .     .     .      .       0.644  .     .         0.586
+## imrsprc .     .     .     .      .       0.541  .     .         0.707
+## rfgbfml .     .     .     .      .       0.586  .     .         0.657
+## rfggvfn .     .     .     .      .       0.529  .     .         0.720
+## rfgawrk .     .     .     .      .       0.381  .     .         0.855
+## rfgfrpc .     .     .     .      .      -0.543  .     .         0.706
+## shrrfg  .     .     .     .      .      -0.635  .     .         0.597
+## qfimchr .     .     .     .      .       .      0.637 .         0.594
+## qfimwht .     .     .     .      .       .      0.656 .         0.570
+## pplstrd .     .     .     .      .       .     -0.602 .         0.637
+## vrtrlg  .     .     .     .      .       .      0.456 .         0.792
+## imwgdwn .     .     .     .      .       .      .     0.706     0.501
+## imhecop .     .     .     .      .       .      .     0.719     0.483</code></pre>
+<p>The latent correlations look sensible.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="in-class-exercises-4.html#cb185-1" tabindex="-1"></a><span class="fu">round</span>(est<span class="sc">$</span>psi, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           inst    sat    pol   immi social refuge   cult   econ
+## inst     1.000                                                 
+## sat      0.746  1.000                                          
+## pol      0.877  0.723  1.000                                   
+## immi    -0.243 -0.110 -0.256  1.000                            
+## social   0.402  0.315  0.404 -0.595  1.000                     
+## refugee -0.369 -0.257 -0.358  0.639 -0.788  1.000              
+## cult    -0.094  0.052 -0.121  0.557 -0.538  0.507  1.000       
+## econ     0.276  0.235  0.325 -0.453  0.575 -0.498 -0.445  1.000</code></pre>
+<p>The balance of evidence suggests that this model is probably useful, but we’re definitely in a gray area. In practice,
+we would need to consider the context of our analysis. For example, we should ask ourselves questions like the following.</p>
+<p><strong><em>How noisy are the data?</em></strong></p>
+<p>Do we have high-quality data that should support an unambiguously good model? If so, these results don’t stack up. On
+the other hand, we might not have high expectations because we know that our data are very noisy. If we’re just using
+this analysis to provide some vague guidance toward next steps in our research line, we may be fine with this model.</p>
+<p><strong><em>What are the stakes of “getting it wrong”?</em></strong></p>
+<p>We don’t want to use this quality of result to make mission-critical inference. For example, if our results will
+influence real-world policy or impact the design of subsequent projects in our research line, this model isn’t good
+enough.</p>
+<p><strong><em>What are the standards in our field?</em></strong></p>
+<p>If we’re working in a field where noisy data and weak theory are unavoidable, then this model is probably good enough to
+provide some meaningful insight. That’s not to say that we should employ questionable research practices. If good
+measurement and rigorous theory are possible, we should shoot for those more lofty objectives. Frequently, however, we
+really don’t have any hope of a good fitting model. In such situations, we should make the most of the data we can get.</p>
+</details>
+<hr />
+<p>If we fail to support the measurement model that we hypothesized a priori, the confirmatory phase of our analysis is
+over. At this point, we’ve essentially rejected our hypothesized measurement structure, and that’s the conclusion of our
+analysis. We don’t have to throw up our hands in despair, however. We can still contribute something useful by modifying
+the theoretical measurement model through an exploratory, data-driven, post-hoc analysis.</p>
+<p>We’ll give that a shot below.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="post-hoc-model-modifications" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Post-Hoc Model Modifications<a href="in-class-exercises-4.html#post-hoc-model-modifications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>We should avoid making any post-hoc model modifications until we don’t have any other choice (i.e., our hypothesized
+model is clearly rejected). Unfortunately, such cases arise frequently in real-world data analysis. So, we want to
+make the most of these bad situations.</p>
+<div id="modification-indices" class="section level4 unnumbered hasAnchor">
+<h4>Modification Indices<a href="in-class-exercises-4.html#modification-indices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If we’re going to modify our hypothesized model structure, the <em>modification indices</em> can help guide us.</p>
+<p>Modification indices estimate the improvement in model fit that we’d get from freeing parameters that are fixed in the
+current model. If a parameter has a large modification index, we expect substantially better fit for a model that freely
+estimates that parameter. Hence, we can use the modification indices to help us choose which parameter estimates to add
+when modifying our hypothesized model.</p>
+<p>The following code will compute the modification indices for the three-factor model of <em>Trust in Politics</em> from the
+At-Home Exercises.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="in-class-exercises-4.html#cb187-1" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_3f, <span class="at">sort. =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##              lhs op     rhs       mi    epc sepc.lv sepc.all sepc.nox
+## 59       trstlgl ~~ trstplc 2753.812  1.537   1.537    0.487    0.487
+## 134      pltinvt ~~ pltcare 2621.216  0.325   0.325    0.478    0.478
+## 40  institutions =~ trstplt 2084.710  4.552   4.552    2.085    2.085
+## 109      stfhlth ~~  stfedu 1455.243  1.221   1.221    0.346    0.346
+## 53   politicians =~ trstprl 1027.071  1.751   1.751    0.772    0.772
+## 82        trstun ~~  trstep  996.711  0.890   0.890    0.299    0.299
+## 37  institutions =~  stfdem  729.215  0.810   0.810    0.365    0.365
+## 108      trstprl ~~ trstplt  486.325  0.440   0.440    0.334    0.334
+## 136      pltcare ~~ trstplt  483.441 -0.332  -0.332   -0.410   -0.410
+## 38  institutions =~ pltinvt  450.035 -0.612  -0.612   -0.581   -0.581
+## 50   politicians =~ trstplc  391.601 -1.039  -1.039   -0.475   -0.475
+## 58   politicians =~  stfdem  376.384  0.545   0.545    0.246    0.246
+## 49   politicians =~ trstlgl  373.158 -1.074  -1.074   -0.451   -0.451
+## 73       trstplc ~~ trstprl  355.687 -0.480  -0.480   -0.200   -0.200
+## 66       trstlgl ~~  stfgov  342.140 -0.481  -0.481   -0.183   -0.183
+## 39  institutions =~ pltcare  341.059 -0.540  -0.540   -0.514   -0.514
+## 135      pltinvt ~~ trstplt  335.389 -0.269  -0.269   -0.327   -0.327
+## 100       trstep ~~ trstplt  334.042  0.383   0.383    0.232    0.232
+## 122       stfeco ~~  stfgov  289.112  0.510   0.510    0.208    0.208
+## 83        trstun ~~ trstprl  244.948 -0.416  -0.416   -0.174   -0.174
+## 75       trstplc ~~  stfedu  234.905  0.449   0.449    0.136    0.136
+## 35  institutions =~  stfeco  192.059 -0.436  -0.436   -0.187   -0.187
+## 55   politicians =~  stfedu  187.535 -0.405  -0.405   -0.180   -0.180
+## 123       stfeco ~~  stfdem  187.119 -0.395  -0.395   -0.160   -0.160
+## 130       stfgov ~~ trstplt  184.809  0.270   0.270    0.182    0.182
+## 54   politicians =~ stfhlth  184.734 -0.411  -0.411   -0.183   -0.183
+## 45  satisfaction =~ trstprl  181.843  0.395   0.395    0.174    0.174
+## 48  satisfaction =~ trstplt  169.626  0.461   0.461    0.211    0.211
+## 72       trstplc ~~  trstep  169.376 -0.360  -0.360   -0.120   -0.120
+## 111      stfhlth ~~  stfgov  166.723 -0.384  -0.384   -0.133   -0.133
+## 117       stfedu ~~  stfgov  162.149 -0.372  -0.372   -0.135   -0.135
+## 102      trstprl ~~  stfedu  155.333 -0.302  -0.302   -0.123   -0.123
+## 67       trstlgl ~~  stfdem  151.853  0.316   0.316    0.119    0.119
+## 95        trstep ~~  stfeco  150.583 -0.317  -0.317   -0.117   -0.117
+## 33  institutions =~ stfhlth  129.599 -0.366  -0.366   -0.162   -0.162
+## 44  satisfaction =~  trstep  110.076 -0.313  -0.313   -0.141   -0.141
+## 61       trstlgl ~~  trstep  109.492 -0.294  -0.294   -0.101   -0.101
+## 80       trstplc ~~ pltcare  105.424 -0.135  -0.135   -0.092   -0.092
+## 46  satisfaction =~ pltinvt   96.142 -0.140  -0.140   -0.133   -0.133
+## 70       trstlgl ~~ trstplt   93.869 -0.216  -0.216   -0.125   -0.125
+## 99        trstep ~~ pltcare   90.438 -0.118  -0.118   -0.087   -0.087
+## 98        trstep ~~ pltinvt   87.922 -0.119  -0.119   -0.085   -0.085
+## 104      trstprl ~~  stfgov   86.286  0.202   0.202    0.101    0.101
+## 81       trstplc ~~ trstplt   79.026 -0.193  -0.193   -0.108   -0.108
+## 34  institutions =~  stfedu   78.398 -0.279  -0.279   -0.124   -0.124
+## 56   politicians =~  stfeco   72.665 -0.251  -0.251   -0.108   -0.108
+## 79       trstplc ~~ pltinvt   72.446 -0.114  -0.114   -0.076   -0.076
+## 64       trstlgl ~~  stfedu   69.353  0.243   0.243    0.076    0.076
+## 57   politicians =~  stfgov   66.831  0.238   0.238    0.104    0.104
+## 78       trstplc ~~  stfdem   65.909  0.208   0.208    0.076    0.076
+## 105      trstprl ~~  stfdem   64.747  0.172   0.172    0.085    0.085
+## 84        trstun ~~ stfhlth   63.625 -0.244  -0.244   -0.071   -0.071
+## 51   politicians =~  trstun   59.376 -0.422  -0.422   -0.181   -0.181
+## 77       trstplc ~~  stfgov   45.505 -0.175  -0.175   -0.065   -0.065
+## 112      stfhlth ~~  stfdem   44.248 -0.193  -0.193   -0.066   -0.066
+## 68       trstlgl ~~ pltinvt   43.667 -0.088  -0.088   -0.061   -0.061
+## 118       stfedu ~~  stfdem   43.348 -0.188  -0.188   -0.068   -0.068
+## 92        trstep ~~ trstprl   41.997 -0.163  -0.163   -0.073   -0.073
+## 43  satisfaction =~  trstun   41.642 -0.204  -0.204   -0.088   -0.088
+## 120       stfedu ~~ pltcare   40.124 -0.085  -0.085   -0.057   -0.057
+## 116       stfedu ~~  stfeco   40.032  0.190   0.190    0.064    0.064
+## 76       trstplc ~~  stfeco   39.121 -0.171  -0.171   -0.058   -0.058
+## 121       stfedu ~~ trstplt   37.208 -0.133  -0.133   -0.073   -0.073
+## 47  satisfaction =~ pltcare   34.519 -0.084  -0.084   -0.080   -0.080
+## 113      stfhlth ~~ pltinvt   33.159 -0.081  -0.081   -0.051   -0.051
+## 52   politicians =~  trstep   32.712  0.297   0.297    0.134    0.134
+## 69       trstlgl ~~ pltcare   32.141 -0.075  -0.075   -0.052   -0.052
+## 71       trstplc ~~  trstun   31.756  0.166   0.166    0.051    0.051
+## 63       trstlgl ~~ stfhlth   28.271  0.161   0.161    0.048    0.048
+## 91        trstun ~~ trstplt   26.254 -0.114  -0.114   -0.064   -0.064
+## 110      stfhlth ~~  stfeco   24.378  0.152   0.152    0.048    0.048
+## 119       stfedu ~~ pltinvt   23.704 -0.066  -0.066   -0.043   -0.043
+## 114      stfhlth ~~ pltcare   22.339 -0.066  -0.066   -0.042   -0.042
+## 62       trstlgl ~~ trstprl   21.168 -0.124  -0.124   -0.053   -0.053
+## 132       stfdem ~~ pltcare   19.063  0.051   0.051    0.042    0.042
+## 88        trstun ~~  stfdem   15.864  0.103   0.103    0.038    0.038
+## 101      trstprl ~~ stfhlth   15.560 -0.099  -0.099   -0.039   -0.039
+## 74       trstplc ~~ stfhlth   15.552  0.120   0.120    0.035    0.035
+## 133       stfdem ~~ trstplt   13.537 -0.072  -0.072   -0.048   -0.048
+## 42  satisfaction =~ trstplc   12.801  0.110   0.110    0.050    0.050
+## 115      stfhlth ~~ trstplt   11.862 -0.078  -0.078   -0.041   -0.041
+## 86        trstun ~~  stfeco   11.563 -0.094  -0.094   -0.032   -0.032
+## 41  satisfaction =~ trstlgl   11.161 -0.106  -0.106   -0.045   -0.045
+## 125       stfeco ~~ pltcare   10.877  0.041   0.041    0.031    0.031
+## 131       stfdem ~~ pltinvt    7.474  0.033   0.033    0.026    0.026
+## 87        trstun ~~  stfgov    6.905 -0.069  -0.069   -0.026   -0.026
+## 107      trstprl ~~ pltcare    6.349  0.028   0.028    0.026    0.026
+## 97        trstep ~~  stfdem    6.022 -0.060  -0.060   -0.024   -0.024
+## 103      trstprl ~~  stfeco    4.819  0.050   0.050    0.023    0.023
+## 65       trstlgl ~~  stfeco    4.576 -0.058  -0.058   -0.020   -0.020
+## 60       trstlgl ~~  trstun    3.665 -0.057  -0.057   -0.018   -0.018
+## 129       stfgov ~~ pltcare    3.590 -0.023  -0.023   -0.018   -0.018
+## 128       stfgov ~~ pltinvt    3.449 -0.022  -0.022   -0.018   -0.018
+## 127       stfgov ~~  stfdem    2.218 -0.043  -0.043   -0.019   -0.019
+## 85        trstun ~~  stfedu    2.063  0.042   0.042    0.013    0.013
+## 90        trstun ~~ pltcare    1.846 -0.018  -0.018   -0.012   -0.012
+## 93        trstep ~~ stfhlth    1.426  0.034   0.034    0.011    0.011
+## 36  institutions =~  stfgov    0.856  0.029   0.029    0.013    0.013
+## 89        trstun ~~ pltinvt    0.572  0.010   0.010    0.007    0.007
+## 106      trstprl ~~ pltinvt    0.504 -0.008  -0.008   -0.007   -0.007
+## 96        trstep ~~  stfgov    0.486  0.017   0.017    0.007    0.007
+## 124       stfeco ~~ pltinvt    0.384  0.008   0.008    0.006    0.006
+## 94        trstep ~~  stfedu    0.196 -0.012  -0.012   -0.004   -0.004
+## 126       stfeco ~~ trstplt    0.001 -0.001  -0.001    0.000    0.000</code></pre>
+<p>As you can see, the <code>modificationInices()</code> function will usually produce a lot of output, but we only care about the
+largest modification indices. So, we can simplify by printing only the first few rows.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="in-class-exercises-4.html#cb189-1" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_3f, <span class="at">sort. =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##              lhs op     rhs       mi   epc sepc.lv sepc.all sepc.nox
+## 59       trstlgl ~~ trstplc 2753.812 1.537   1.537    0.487    0.487
+## 134      pltinvt ~~ pltcare 2621.216 0.325   0.325    0.478    0.478
+## 40  institutions =~ trstplt 2084.710 4.552   4.552    2.085    2.085
+## 109      stfhlth ~~  stfedu 1455.243 1.221   1.221    0.346    0.346
+## 53   politicians =~ trstprl 1027.071 1.751   1.751    0.772    0.772
+## 82        trstun ~~  trstep  996.711 0.890   0.890    0.299    0.299</code></pre>
+<p>Alternatively, we can request only those modification indices that exceed some minimum threshold. We can use 10% of the
+model <span class="math inline">\(\chi^2\)</span> as a useful rule-of-thumb.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="in-class-exercises-4.html#cb191-1" tabindex="-1"></a>thresh <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fu">fitMeasures</span>(out_3f, <span class="st">&quot;chisq&quot;</span>)</span>
+<span id="cb191-2"><a href="in-class-exercises-4.html#cb191-2" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_3f, <span class="at">sort. =</span> <span class="cn">TRUE</span>, <span class="at">minimum.value =</span> thresh)</span></code></pre></div>
+<pre><code>##              lhs op     rhs       mi   epc sepc.lv sepc.all sepc.nox
+## 59       trstlgl ~~ trstplc 2753.812 1.537   1.537    0.487    0.487
+## 134      pltinvt ~~ pltcare 2621.216 0.325   0.325    0.478    0.478
+## 40  institutions =~ trstplt 2084.710 4.552   4.552    2.085    2.085
+## 109      stfhlth ~~  stfedu 1455.243 1.221   1.221    0.346    0.346</code></pre>
+<p>So, we can infer that freeing the covariance between <code>trstlgl</code> and <code>trstplc</code> would reduce the model <span class="math inline">\(\chi^2\)</span> by 2753.81, for example.</p>
+</div>
+<div id="using-modification-indices" class="section level4 unnumbered hasAnchor">
+<h4>Using Modification Indices<a href="in-class-exercises-4.html#using-modification-indices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We need to be very careful here; it’s surprisingly easy to go wrong with modification indices. It’s no secret that
+humans are hardwired to recognize patterns (even where none exist) and to bootstrap explanatory stories from meaningless
+coincidence. Yet, we often seem to forget these most fundamental aspect of our nature when faced with the opportunity to
+adjust an a priori theory to better align with contradictory evidence. We all seem to agree that most other people are
+weak-willed, HARKing monsters, but we’re certainly not. In our own minds, we’ve each somehow ascended beyond these baser
+instincts to the rarefied heights of truly disinterested observers for whom a priori model specification and post-hoc
+model modification are equivalent.</p>
+<p>I’m being a bit facetious here, but only a bit. If you allow yourself to do so, I can all but guarantee that you’ll be
+able to justify enough modifications to get a well-fitting model. So, we need to police our own behavior. To keep our
+modifications in check, we should follow the guidelines below when using modification indices to help choose which
+parameters to free.</p>
+<ul>
+<li>Only consider parameters with modification indices larger than 10% of the model <span class="math inline">\(\chi^2\)</span>.
+<ul>
+<li>Don’t sell your soul too cheaply.</li>
+</ul></li>
+<li>Only consider parameters that make obvious theoretical sense.
+<ul>
+<li>You should be kicking yourself for not including the parameter in your original model.</li>
+<li>If you have to think through why the parameter should be estimated, don’t estimate it.</li>
+</ul></li>
+<li>Only consider parameters that you believe to be part of the true model.
+<ul>
+<li>You’re not trying to get good fit; you’re proposing a new model structure. This is serious!</li>
+</ul></li>
+</ul>
+<p>The final guideline is particularly important. The goal of post-hoc model modification is not getting the model to fit
+our data: that ship has already sailed. We’re proposing changes to the theoretical model for the benefit of future
+research on our topic. That’s a heavy task. We can only make a justified post-hoc model modification if we can honestly
+agree with the following statements.</p>
+<ul>
+<li>The model that I initially hypothesized was misspecified.</li>
+<li>Whoever proposed the model that I originally tested was wrong.</li>
+<li>These modifications are part of the true population model that I’m trying to estimate.</li>
+<li>All future analyses should use this modified version of the model as the a priori model.</li>
+</ul>
+<p>To give you a sense of the gravity of these decisions, consider the following humble-brag. I’ve been doing this type of
+modeling in some professional capacity for more than 15 years, and I can’t recall a single case where I’ve been able to
+make a truly justifiable post-hoc model modification. That’s not to say that I haven’t modified my fair share of
+models, but this is one of those “do as I say, not as I do” type situations.</p>
+<hr />
+</div>
+<div id="section-70" class="section level4" number="5.4.2.1">
+<h4><span class="header-section-number">5.4.2.1</span> </h4>
+<p>Calculate the modification indices for the model you estimated in <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a>.</p>
+<ul>
+<li>Which estimate would most improve the model fit?</li>
+<li>How much would freeing the above estimate decrease the model <span class="math inline">\(\chi^2\)</span>.</li>
+<li>Can you see an obvious reason why this parameter estimate would improve the model?
+<ul>
+<li>If so, explain the reason.</li>
+</ul></li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="in-class-exercises-4.html#cb193-1" tabindex="-1"></a>thresh <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fu">fitMeasures</span>(out_trust_att, <span class="st">&quot;chisq&quot;</span>)</span>
+<span id="cb193-2"><a href="in-class-exercises-4.html#cb193-2" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_trust_att, <span class="at">sort. =</span> <span class="cn">TRUE</span>, <span class="at">minimum.value =</span> thresh)</span></code></pre></div>
+<pre><code>##         lhs op     rhs       mi   epc sepc.lv sepc.all sepc.nox
+## 783 imrcntr ~~ eimrcnt 5114.364 0.232   0.232    0.711    0.711</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li><p>Freeing the covariance between <code>imrcntr</code> and <code>eimrcnt</code> would produce the largest improvement in model fit.</p></li>
+<li><p>After freeing this parameter, we’d expect the model <span class="math inline">\(\chi^2\)</span> to decrease by 5114.36.</p></li>
+<li><p>Yes. Both of these items ask about attitudes towards immigrants from rich countries. None of the other items
+explicitly address immigration from rich countries.</p>
+</details></li>
+</ul>
+</details>
+<hr />
+</div>
+<div id="estimateCfaTrustAtt2" class="section level4" number="5.4.2.2">
+<h4><span class="header-section-number">5.4.2.2</span> </h4>
+<p>Estimate a modified version of the CFA from <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a>.</p>
+<ul>
+<li>Modify the model to estimate the parameter associated with the largest modification index that you found above.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="in-class-exercises-4.html#cb195-1" tabindex="-1"></a><span class="do">## Add the residual covariance to the model syntax:</span></span>
+<span id="cb195-2"><a href="in-class-exercises-4.html#cb195-2" tabindex="-1"></a>mod_trust_att2 <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_trust_att, <span class="st">&quot;imrcntr ~~ eimrcnt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb195-3"><a href="in-class-exercises-4.html#cb195-3" tabindex="-1"></a></span>
+<span id="cb195-4"><a href="in-class-exercises-4.html#cb195-4" tabindex="-1"></a><span class="do">## Estimate and summarize the modified model:</span></span>
+<span id="cb195-5"><a href="in-class-exercises-4.html#cb195-5" tabindex="-1"></a>out_trust_att2 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att2, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb195-6"><a href="in-class-exercises-4.html#cb195-6" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 52 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                       105
+##   Number of equality constraints                     1
+## 
+##                                                   Used       Total
+##   Number of observations                         11716       19690
+## 
+## Model Test User Model:
+##                                                        
+##   Test statistic                              21317.825
+##   Degrees of freedom                                637
+##   P-value (Chi-square)                            0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                            201900.916
+##   Degrees of freedom                               703
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.897
+##   Tucker-Lewis Index (TLI)                       0.887
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)            -712036.669
+##   Loglikelihood unrestricted model (H1)    -701377.756
+##                                                       
+##   Akaike (AIC)                             1424281.337
+##   Bayesian (BIC)                           1425047.683
+##   Sample-size adjusted Bayesian (SABIC)    1424717.183
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.053
+##   90 Percent confidence interval - lower         0.052
+##   90 Percent confidence interval - upper         0.053
+##   P-value H_0: RMSEA &lt;= 0.050                    0.000
+##   P-value H_0: RMSEA &gt;= 0.080                    0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.046
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst =~                                                               
+##     trstlgl           1.620    0.020   79.813    0.000    1.620    0.684
+##     trstplc           1.222    0.019   62.814    0.000    1.222    0.565
+##     trstun            1.474    0.020   73.333    0.000    1.474    0.641
+##     trstep            1.438    0.019   75.527    0.000    1.438    0.656
+##     trstprl           1.824    0.018  100.329    0.000    1.824    0.808
+##   sat =~                                                                
+##     stfhlth           1.172    0.021   56.853    0.000    1.172    0.527
+##     stfedu            1.312    0.020   64.800    0.000    1.312    0.588
+##     stfeco            1.661    0.020   83.167    0.000    1.661    0.716
+##     stfgov            1.716    0.019   88.890    0.000    1.716    0.753
+##     stfdem            1.592    0.019   84.465    0.000    1.592    0.724
+##   pol =~                                                                
+##     pltinvt           0.652    0.009   70.338    0.000    0.652    0.621
+##     pltcare           0.669    0.009   73.560    0.000    0.669    0.643
+##     trstplt           1.896    0.017  110.891    0.000    1.896    0.881
+##   immi =~                                                               
+##     imrcntr           0.582    0.007   87.515    0.000    0.582    0.713
+##     eimrcnt           0.544    0.007   78.074    0.000    0.544    0.654
+##     eimpcnt           0.699    0.006  126.441    0.000    0.699    0.909
+##     imsmetn           0.589    0.006   99.365    0.000    0.589    0.780
+##     impcntr           0.714    0.006  127.196    0.000    0.714    0.912
+##     imdfetn           0.696    0.006  122.143    0.000    0.696    0.890
+##   social =~                                                             
+##     imbgeco           1.552    0.018   84.530    0.000    1.552    0.716
+##     imbleco           1.290    0.019   68.750    0.000    1.290    0.610
+##     imwbcnt           1.643    0.017   96.413    0.000    1.643    0.787
+##     imwbcrm           1.120    0.018   62.163    0.000    1.120    0.562
+##     imtcjob           1.174    0.018   66.686    0.000    1.174    0.595
+##     imueclt           1.539    0.019   79.775    0.000    1.539    0.685
+##   refugee =~                                                            
+##     gvrfgap           0.669    0.009   71.574    0.000    0.669    0.644
+##     imrsprc           0.562    0.010   58.148    0.000    0.562    0.543
+##     rfgbfml           0.670    0.011   63.626    0.000    0.670    0.585
+##     rfggvfn           0.539    0.010   56.388    0.000    0.539    0.529
+##     rfgawrk           0.395    0.010   39.005    0.000    0.395    0.380
+##     rfgfrpc          -0.546    0.009  -58.183    0.000   -0.546   -0.543
+##     shrrfg           -0.665    0.009  -70.227    0.000   -0.665   -0.634
+##   cult =~                                                               
+##     qfimchr           1.853    0.028   65.285    0.000    1.853    0.637
+##     qfimwht           1.703    0.025   67.457    0.000    1.703    0.656
+##     pplstrd          -0.662    0.011  -61.206    0.000   -0.662   -0.602
+##     vrtrlg            0.467    0.010   44.851    0.000    0.467    0.456
+##   econ =~                                                               
+##     imwgdwn    (l)    0.754    0.008   98.038    0.000    0.754    0.706
+##     imhecop    (l)    0.754    0.008   98.038    0.000    0.754    0.719
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##  .imrcntr ~~                                                            
+##    .eimrcnt           0.234    0.004   55.365    0.000    0.234    0.650
+##   inst ~~                                                               
+##     sat               0.746    0.006  116.570    0.000    0.746    0.746
+##     pol               0.877    0.005  179.839    0.000    0.877    0.877
+##     immi             -0.239    0.010  -24.025    0.000   -0.239   -0.239
+##     social            0.402    0.010   41.526    0.000    0.402    0.402
+##     refugee          -0.369    0.010  -35.463    0.000   -0.369   -0.369
+##     cult             -0.094    0.012   -7.708    0.000   -0.094   -0.094
+##     econ              0.276    0.012   23.469    0.000    0.276    0.276
+##   sat ~~                                                                
+##     pol               0.723    0.007  106.308    0.000    0.723    0.723
+##     immi             -0.106    0.010  -10.162    0.000   -0.106   -0.106
+##     social            0.315    0.010   30.576    0.000    0.315    0.315
+##     refugee          -0.257    0.011  -23.157    0.000   -0.257   -0.257
+##     cult              0.052    0.012    4.234    0.000    0.052    0.052
+##     econ              0.235    0.012   19.571    0.000    0.235    0.235
+##   pol ~~                                                                
+##     immi             -0.255    0.010  -25.776    0.000   -0.255   -0.255
+##     social            0.404    0.010   41.848    0.000    0.404    0.404
+##     refugee          -0.358    0.010  -34.116    0.000   -0.358   -0.358
+##     cult             -0.121    0.012   -9.995    0.000   -0.121   -0.121
+##     econ              0.325    0.012   28.256    0.000    0.325    0.325
+##   immi ~~                                                               
+##     social           -0.597    0.007  -83.319    0.000   -0.597   -0.597
+##     refugee           0.644    0.007   90.122    0.000    0.644    0.644
+##     cult              0.560    0.009   64.356    0.000    0.560    0.560
+##     econ             -0.453    0.010  -45.885    0.000   -0.453   -0.453
+##   social ~~                                                             
+##     refugee          -0.788    0.006 -128.375    0.000   -0.788   -0.788
+##     cult             -0.538    0.010  -55.878    0.000   -0.538   -0.538
+##     econ              0.575    0.010   59.829    0.000    0.575    0.575
+##   refugee ~~                                                            
+##     cult              0.507    0.010   48.359    0.000    0.507    0.507
+##     econ             -0.498    0.011  -45.991    0.000   -0.498   -0.498
+##   cult ~~                                                               
+##     econ             -0.445    0.012  -37.240    0.000   -0.445   -0.445
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .trstlgl           2.987    0.045   66.826    0.000    2.987    0.532
+##    .trstplc           3.181    0.045   71.418    0.000    3.181    0.681
+##    .trstun            3.121    0.045   68.891    0.000    3.121    0.590
+##    .trstep            2.744    0.040   68.244    0.000    2.744    0.570
+##    .trstprl           1.773    0.032   55.240    0.000    1.773    0.348
+##    .stfhlth           3.568    0.050   71.182    0.000    3.568    0.722
+##    .stfedu            3.250    0.047   69.145    0.000    3.250    0.654
+##    .stfeco            2.622    0.043   61.667    0.000    2.622    0.487
+##    .stfgov            2.255    0.039   58.039    0.000    2.255    0.434
+##    .stfdem            2.293    0.038   60.917    0.000    2.293    0.475
+##    .pltinvt           0.678    0.010   69.415    0.000    0.678    0.615
+##    .pltcare           0.633    0.009   68.465    0.000    0.633    0.586
+##    .trstplt           1.037    0.030   34.407    0.000    1.037    0.224
+##    .imrcntr           0.328    0.005   71.799    0.000    0.328    0.491
+##    .eimrcnt           0.395    0.005   73.059    0.000    0.395    0.572
+##    .eimpcnt           0.103    0.002   54.129    0.000    0.103    0.174
+##    .imsmetn           0.223    0.003   69.398    0.000    0.223    0.391
+##    .impcntr           0.103    0.002   53.211    0.000    0.103    0.168
+##    .imdfetn           0.127    0.002   58.548    0.000    0.127    0.207
+##    .imbgeco           2.294    0.036   64.387    0.000    2.294    0.488
+##    .imbleco           2.807    0.040   69.737    0.000    2.807    0.628
+##    .imwbcnt           1.661    0.029   57.638    0.000    1.661    0.381
+##    .imwbcrm           2.720    0.038   71.262    0.000    2.720    0.685
+##    .imtcjob           2.512    0.036   70.249    0.000    2.512    0.646
+##    .imueclt           2.673    0.040   66.320    0.000    2.673    0.530
+##    .gvrfgap           0.632    0.010   65.209    0.000    0.632    0.585
+##    .imrsprc           0.756    0.011   69.934    0.000    0.756    0.706
+##    .rfgbfml           0.863    0.013   68.265    0.000    0.863    0.658
+##    .rfggvfn           0.751    0.011   70.408    0.000    0.751    0.721
+##    .rfgawrk           0.924    0.013   73.885    0.000    0.924    0.855
+##    .rfgfrpc           0.714    0.010   69.924    0.000    0.714    0.705
+##    .shrrfg            0.657    0.010   65.790    0.000    0.657    0.598
+##    .qfimchr           5.025    0.086   58.121    0.000    5.025    0.594
+##    .qfimwht           3.840    0.068   56.148    0.000    3.840    0.570
+##    .pplstrd           0.772    0.013   61.307    0.000    0.772    0.638
+##    .vrtrlg            0.829    0.012   69.609    0.000    0.829    0.792
+##    .imwgdwn           0.571    0.011   52.917    0.000    0.571    0.501
+##    .imhecop           0.531    0.010   50.901    0.000    0.531    0.483
+##     inst              1.000                               1.000    1.000
+##     sat               1.000                               1.000    1.000
+##     pol               1.000                               1.000    1.000
+##     immi              1.000                               1.000    1.000
+##     social            1.000                               1.000    1.000
+##     refugee           1.000                               1.000    1.000
+##     cult              1.000                               1.000    1.000
+##     econ              1.000                               1.000    1.000</code></pre>
+</details>
+<hr />
+</div>
+<div id="section-71" class="section level4" number="5.4.2.3">
+<h4><span class="header-section-number">5.4.2.3</span> </h4>
+<p>Calculate the modification indices for the model you estimated in <a href="in-class-exercises-4.html#estimateCfaTrustAtt2">5.4.2.2</a>.</p>
+<ul>
+<li>Which estimate would most improve the model fit?</li>
+<li>How much would freeing the above estimate decrease the model <span class="math inline">\(\chi^2\)</span>.</li>
+<li>Can you see an obvious reason why this parameter estimate would improve the model?
+<ul>
+<li>If so, explain the reason.</li>
+</ul></li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="in-class-exercises-4.html#cb197-1" tabindex="-1"></a>thresh <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fu">fitMeasures</span>(out_trust_att2, <span class="st">&quot;chisq&quot;</span>)</span>
+<span id="cb197-2"><a href="in-class-exercises-4.html#cb197-2" tabindex="-1"></a><span class="fu">modificationIndices</span>(out_trust_att2, <span class="at">sort. =</span> <span class="cn">TRUE</span>, <span class="at">minimum.value =</span> thresh)</span></code></pre></div>
+<pre><code>##         lhs op     rhs       mi   epc sepc.lv sepc.all sepc.nox
+## 381 trstlgl ~~ trstplc 2132.874 1.484   1.484    0.481    0.481</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ul>
+<li><p>Freeing the covariance between <code>trstlgl</code> and <code>trstplc</code> would produce the largest improvement in model fit.</p></li>
+<li><p>After freeing this parameter, we’d expect the model <span class="math inline">\(\chi^2\)</span> to decrease by 2132.87.</p></li>
+<li><p>Yes. Both of these items ask about trust in parts of the legal system. None of the other questions address trust in
+courts or police.</p>
+</details></li>
+</ul>
+</details>
+<hr />
+</div>
+<div id="estimateCfaTrustAtt3" class="section level4" number="5.4.2.4">
+<h4><span class="header-section-number">5.4.2.4</span> </h4>
+<p>Estimate a modified version of the CFA from <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a>.</p>
+<ul>
+<li>Modify the model to estimate the parameter associated with the largest modification index that you found above.</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="in-class-exercises-4.html#cb199-1" tabindex="-1"></a><span class="do">## Add the residual covariance to the model syntax:</span></span>
+<span id="cb199-2"><a href="in-class-exercises-4.html#cb199-2" tabindex="-1"></a>mod_trust_att3 <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_trust_att2, <span class="st">&quot;trstlgl ~~ trstplc&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb199-3"><a href="in-class-exercises-4.html#cb199-3" tabindex="-1"></a></span>
+<span id="cb199-4"><a href="in-class-exercises-4.html#cb199-4" tabindex="-1"></a><span class="do">## Estimate and summarize the modified model:</span></span>
+<span id="cb199-5"><a href="in-class-exercises-4.html#cb199-5" tabindex="-1"></a>out_trust_att3 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att3, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb199-6"><a href="in-class-exercises-4.html#cb199-6" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att3, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 57 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                       106
+##   Number of equality constraints                     1
+## 
+##                                                   Used       Total
+##   Number of observations                         11716       19690
+## 
+## Model Test User Model:
+##                                                        
+##   Test statistic                              19150.640
+##   Degrees of freedom                                636
+##   P-value (Chi-square)                            0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                            201900.916
+##   Degrees of freedom                               703
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.908
+##   Tucker-Lewis Index (TLI)                       0.898
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)            -710953.076
+##   Loglikelihood unrestricted model (H1)    -701377.756
+##                                                       
+##   Akaike (AIC)                             1422116.153
+##   Bayesian (BIC)                           1422889.867
+##   Sample-size adjusted Bayesian (SABIC)    1422556.190
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.050
+##   90 Percent confidence interval - lower         0.049
+##   90 Percent confidence interval - upper         0.050
+##   P-value H_0: RMSEA &lt;= 0.050                    0.659
+##   P-value H_0: RMSEA &gt;= 0.080                    0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.045
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst =~                                                               
+##     trstlgl           1.520    0.021   73.365    0.000    1.520    0.642
+##     trstplc           1.092    0.020   54.775    0.000    1.092    0.505
+##     trstun            1.455    0.020   72.080    0.000    1.455    0.632
+##     trstep            1.449    0.019   76.215    0.000    1.449    0.661
+##     trstprl           1.853    0.018  102.191    0.000    1.853    0.820
+##   sat =~                                                                
+##     stfhlth           1.170    0.021   56.754    0.000    1.170    0.526
+##     stfedu            1.307    0.020   64.503    0.000    1.307    0.586
+##     stfeco            1.664    0.020   83.335    0.000    1.664    0.717
+##     stfgov            1.721    0.019   89.255    0.000    1.721    0.755
+##     stfdem            1.588    0.019   84.171    0.000    1.588    0.723
+##   pol =~                                                                
+##     pltinvt           0.648    0.009   69.981    0.000    0.648    0.617
+##     pltcare           0.665    0.009   73.215    0.000    0.665    0.640
+##     trstplt           1.905    0.017  112.062    0.000    1.905    0.885
+##   immi =~                                                               
+##     imrcntr           0.582    0.007   87.519    0.000    0.582    0.713
+##     eimrcnt           0.544    0.007   78.076    0.000    0.544    0.654
+##     eimpcnt           0.699    0.006  126.440    0.000    0.699    0.909
+##     imsmetn           0.589    0.006   99.367    0.000    0.589    0.780
+##     impcntr           0.714    0.006  127.195    0.000    0.714    0.912
+##     imdfetn           0.696    0.006  122.143    0.000    0.696    0.890
+##   social =~                                                             
+##     imbgeco           1.552    0.018   84.523    0.000    1.552    0.716
+##     imbleco           1.290    0.019   68.770    0.000    1.290    0.610
+##     imwbcnt           1.642    0.017   96.400    0.000    1.642    0.787
+##     imwbcrm           1.120    0.018   62.175    0.000    1.120    0.562
+##     imtcjob           1.174    0.018   66.687    0.000    1.174    0.595
+##     imueclt           1.538    0.019   79.758    0.000    1.538    0.685
+##   refugee =~                                                            
+##     gvrfgap           0.670    0.009   71.608    0.000    0.670    0.644
+##     imrsprc           0.562    0.010   58.155    0.000    0.562    0.543
+##     rfgbfml           0.670    0.011   63.580    0.000    0.670    0.585
+##     rfggvfn           0.539    0.010   56.366    0.000    0.539    0.528
+##     rfgawrk           0.395    0.010   39.017    0.000    0.395    0.380
+##     rfgfrpc          -0.546    0.009  -58.207    0.000   -0.546   -0.543
+##     shrrfg           -0.665    0.009  -70.199    0.000   -0.665   -0.634
+##   cult =~                                                               
+##     qfimchr           1.854    0.028   65.299    0.000    1.854    0.637
+##     qfimwht           1.705    0.025   67.518    0.000    1.705    0.657
+##     pplstrd          -0.662    0.011  -61.176    0.000   -0.662   -0.602
+##     vrtrlg            0.466    0.010   44.808    0.000    0.466    0.456
+##   econ =~                                                               
+##     imwgdwn    (l)    0.754    0.008   98.038    0.000    0.754    0.706
+##     imhecop    (l)    0.754    0.008   98.038    0.000    0.754    0.719
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##  .imrcntr ~~                                                            
+##    .eimrcnt           0.234    0.004   55.364    0.000    0.234    0.650
+##  .trstlgl ~~                                                            
+##    .trstplc           1.486    0.038   39.462    0.000    1.486    0.438
+##   inst ~~                                                               
+##     sat               0.749    0.006  115.495    0.000    0.749    0.749
+##     pol               0.900    0.005  189.078    0.000    0.900    0.900
+##     immi             -0.249    0.010  -24.888    0.000   -0.249   -0.249
+##     social            0.408    0.010   41.876    0.000    0.408    0.408
+##     refugee          -0.373    0.010  -35.511    0.000   -0.373   -0.373
+##     cult             -0.104    0.012   -8.485    0.000   -0.104   -0.104
+##     econ              0.288    0.012   24.356    0.000    0.288    0.288
+##   sat ~~                                                                
+##     pol               0.722    0.007  106.524    0.000    0.722    0.722
+##     immi             -0.106    0.010  -10.148    0.000   -0.106   -0.106
+##     social            0.315    0.010   30.548    0.000    0.315    0.315
+##     refugee          -0.257    0.011  -23.140    0.000   -0.257   -0.257
+##     cult              0.052    0.012    4.270    0.000    0.052    0.052
+##     econ              0.235    0.012   19.565    0.000    0.235    0.235
+##   pol ~~                                                                
+##     immi             -0.253    0.010  -25.612    0.000   -0.253   -0.253
+##     social            0.402    0.010   41.703    0.000    0.402    0.402
+##     refugee          -0.356    0.010  -33.979    0.000   -0.356   -0.356
+##     cult             -0.118    0.012   -9.831    0.000   -0.118   -0.118
+##     econ              0.323    0.011   28.104    0.000    0.323    0.323
+##   immi ~~                                                               
+##     social           -0.597    0.007  -83.318    0.000   -0.597   -0.597
+##     refugee           0.644    0.007   90.123    0.000    0.644    0.644
+##     cult              0.560    0.009   64.346    0.000    0.560    0.560
+##     econ             -0.453    0.010  -45.885    0.000   -0.453   -0.453
+##   social ~~                                                             
+##     refugee          -0.788    0.006 -128.365    0.000   -0.788   -0.788
+##     cult             -0.538    0.010  -55.840    0.000   -0.538   -0.538
+##     econ              0.575    0.010   59.831    0.000    0.575    0.575
+##   refugee ~~                                                            
+##     cult              0.507    0.010   48.330    0.000    0.507    0.507
+##     econ             -0.498    0.011  -45.989    0.000   -0.498   -0.498
+##   cult ~~                                                               
+##     econ             -0.445    0.012  -37.233    0.000   -0.445   -0.445
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .trstlgl           3.302    0.048   68.683    0.000    3.302    0.588
+##    .trstplc           3.482    0.048   72.538    0.000    3.482    0.745
+##    .trstun            3.176    0.046   69.134    0.000    3.176    0.600
+##    .trstep            2.712    0.040   67.892    0.000    2.712    0.564
+##    .trstprl           1.667    0.032   52.150    0.000    1.667    0.327
+##    .stfhlth           3.572    0.050   71.190    0.000    3.572    0.723
+##    .stfedu            3.262    0.047   69.210    0.000    3.262    0.656
+##    .stfeco            2.613    0.042   61.524    0.000    2.613    0.485
+##    .stfgov            2.236    0.039   57.714    0.000    2.236    0.430
+##    .stfdem            2.305    0.038   61.040    0.000    2.305    0.478
+##    .pltinvt           0.684    0.010   69.854    0.000    0.684    0.619
+##    .pltcare           0.638    0.009   68.964    0.000    0.638    0.591
+##    .trstplt           1.004    0.030   33.902    0.000    1.004    0.217
+##    .imrcntr           0.328    0.005   71.799    0.000    0.328    0.491
+##    .eimrcnt           0.395    0.005   73.059    0.000    0.395    0.572
+##    .eimpcnt           0.103    0.002   54.132    0.000    0.103    0.174
+##    .imsmetn           0.223    0.003   69.398    0.000    0.223    0.391
+##    .impcntr           0.103    0.002   53.213    0.000    0.103    0.168
+##    .imdfetn           0.127    0.002   58.548    0.000    0.127    0.207
+##    .imbgeco           2.294    0.036   64.384    0.000    2.294    0.488
+##    .imbleco           2.807    0.040   69.728    0.000    2.807    0.628
+##    .imwbcnt           1.662    0.029   57.639    0.000    1.662    0.381
+##    .imwbcrm           2.720    0.038   71.258    0.000    2.720    0.684
+##    .imtcjob           2.512    0.036   70.246    0.000    2.512    0.646
+##    .imueclt           2.674    0.040   66.322    0.000    2.674    0.530
+##    .gvrfgap           0.632    0.010   65.184    0.000    0.632    0.585
+##    .imrsprc           0.756    0.011   69.926    0.000    0.756    0.706
+##    .rfgbfml           0.864    0.013   68.273    0.000    0.864    0.658
+##    .rfggvfn           0.751    0.011   70.409    0.000    0.751    0.721
+##    .rfgawrk           0.924    0.013   73.881    0.000    0.924    0.855
+##    .rfgfrpc           0.714    0.010   69.911    0.000    0.714    0.705
+##    .shrrfg            0.657    0.010   65.792    0.000    0.657    0.598
+##    .qfimchr           5.024    0.086   58.109    0.000    5.024    0.594
+##    .qfimwht           3.835    0.068   56.091    0.000    3.835    0.569
+##    .pplstrd           0.773    0.013   61.330    0.000    0.773    0.638
+##    .vrtrlg            0.830    0.012   69.625    0.000    0.830    0.792
+##    .imwgdwn           0.571    0.011   52.911    0.000    0.571    0.501
+##    .imhecop           0.531    0.010   50.897    0.000    0.531    0.483
+##     inst              1.000                               1.000    1.000
+##     sat               1.000                               1.000    1.000
+##     pol               1.000                               1.000    1.000
+##     immi              1.000                               1.000    1.000
+##     social            1.000                               1.000    1.000
+##     refugee           1.000                               1.000    1.000
+##     cult              1.000                               1.000    1.000
+##     econ              1.000                               1.000    1.000</code></pre>
+</details>
+<hr />
+</div>
+</div>
+<div id="model-comparisons" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Model Comparisons<a href="in-class-exercises-4.html#model-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<hr />
+<p>For the At-Home Exercises, you qualitatively compared the fit of a three-factor model to the fit of a one-factor
+version. This type of qualitative comparison is fine, but we’d like to have an actual statistical test for these fit
+differences. As it happens, we have just such a test: a nested model <span class="math inline">\(\Delta \chi^2\)</span> test (AKA, chi-squared difference
+test, change in chi-squared test, likelihood ratio test).</p>
+<p>In the coming weeks, we’ll cover nested models and tests thereof, but it will be useful to start thinking about these
+concepts now. Two models are said to be <em>nested</em> if you can define one model by placing constraints on the other model.</p>
+<p>By way of example, consider the following two CFA models.</p>
+<p><img src="isem_files/figure-html/unnamed-chunk-371-1.png" alt="" width="672" /><img src="isem_files/figure-html/unnamed-chunk-371-2.png" alt="" width="672" /></p>
+<p>The second model is nested within the first model, because we can define the second model by fixing the latent
+covariance to zero in the first model.</p>
+<p>Notice that the data contain <span class="math inline">\(6(6 + 1) / 2 = 21\)</span> unique pieces of information. The first model estimates
+13 parameters, and the second model estimates 12 parameters. Hence the first
+model has 8 degrees of freedom, and the second model has 9 degrees of freedom.</p>
+<p>In general, the following must hold whenever <em>Model B</em> is nested within <em>Model A</em>.</p>
+<ul>
+<li>Model B will have <em>fewer</em> estimated parameters than Model A.</li>
+<li>Model B will have <em>more</em> degrees of freedom than Model A.</li>
+<li>Model A will be <em>more</em> complex than model B.</li>
+<li>Model A will fit the data <em>better</em> than model B.</li>
+</ul>
+<hr />
+<p><strong>Saturated Model</strong></p>
+<p>All models are nested within the saturated model, because the saturated model estimates all possible relations among the
+variables. Regardless of what model we may be considering, we can always convert that model to a saturated model by
+estimating all possible associations. Hence, all models are nested within the saturated model.</p>
+<p><img src="isem_files/figure-html/unnamed-chunk-372-1.png" alt="" width="672" /></p>
+<hr />
+<p><strong>Baseline Model</strong></p>
+<p>Similarly, the baseline model (AKA, independence model) is nested within all other models. In the baseline model, we
+only estimate the variances of the observed items; all associations are constrained to zero. We can always convert our
+model to the baseline model by fixing all associations to zero. Hence, the baseline model is nested within all other
+models.</p>
+<p><img src="isem_files/figure-html/unnamed-chunk-373-1.png" alt="" width="672" /></p>
+<hr />
+<p>When two models are nested, we can use a <span class="math inline">\(\Delta \chi^2\)</span> test to check if the nested model fits <em>significantly worse</em>
+than its parent model. Whenever we place constraints on the model, the fit will deteriorate, but we want to know if the
+constraints we imposed to define the nested model have produced <em>too much</em> loss of fit.</p>
+<p>We can use the <code>anova()</code> function to easily conduct <span class="math inline">\(\Delta \chi^2\)</span> tests comparing models that we’ve estimated with
+<code>cfa()</code> or <code>sem()</code>.</p>
+<hr />
+<div id="section-72" class="section level4" number="5.4.3.1">
+<h4><span class="header-section-number">5.4.3.1</span> </h4>
+<p>Use the <code>anova()</code> function to compare the three-factor model of <em>Trust in Politics</em> from <a href="at-home-exercises-4.html#estimateCfa3F">5.3.3</a> to the
+one-factor model version <a href="at-home-exercises-4.html#estimateCfa1F">5.3.6</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Explain what <code>Df</code>, <code>Chisq</code>, <code>Chisq diff</code>, <code>Df diff</code>, and <code>Pr(&gt;Chisq)</code> mean.</li>
+<li>Which model is more complex?</li>
+<li>Which model fits better?</li>
+<li>What is the conclusion of the test?</li>
+</ol>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="in-class-exercises-4.html#cb201-1" tabindex="-1"></a><span class="fu">anova</span>(out_1f, out_3f)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##        Df    AIC    BIC Chisq Chisq diff  RMSEA Df diff Pr(&gt;Chisq)
+## out_3f 62 742867 743088 10652                                     
+## out_1f 65 749876 750074 17667     7015.1 0.3977       3  &lt; 2.2e-16</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p><strong>Q1:</strong></p>
+<p>The <code>Df</code> column contains the degrees of freedom of each model.</p>
+<ul>
+<li>More df <span class="math inline">\(\Rightarrow\)</span> Fewer estimated parameters <span class="math inline">\(\Rightarrow\)</span> Less complex model</li>
+</ul>
+<p>The <code>Chisq</code> column shows the <span class="math inline">\(\chi^2\)</span> statistics (AKA, likelihood ratio statistics) for each model.</p>
+<ul>
+<li>Larger <span class="math inline">\(\chi^2\)</span> <span class="math inline">\(\Rightarrow\)</span> Worse fit</li>
+</ul>
+<p><code>Chisq diff</code> is the difference between the two <span class="math inline">\(\chi^2\)</span> values (i.e., <span class="math inline">\(\Delta \chi^2\)</span>).</p>
+<ul>
+<li>How much better the more complex model fits the data</li>
+<li>Larger <span class="math inline">\(\Delta \chi^2\)</span> values indicate greater losses of fit induced by the constraints in the nested model.</li>
+</ul>
+<p><code>Df diff</code> is the difference in the degrees of freedom between the models.</p>
+<ul>
+<li>Since both models must be estimated from the same pool of variables, this difference also represents the number of
+parameters that were constrained to define the nested model.</li>
+</ul>
+<p><code>Pr(&gt;Chisq)</code> is a p-value for the <span class="math inline">\(\Delta \chi^2\)</span> test.</p>
+<ul>
+<li><span class="math inline">\(H_0: \Delta \chi^2 = 0\)</span></li>
+<li><span class="math inline">\(H_1: \Delta \chi^2 &gt; 0\)</span></li>
+</ul>
+<p><strong>Q2:</strong></p>
+<p>The three-factor model has fewer degrees of freedom <span class="math inline">\((\textit{df} = 62)\)</span> than the one-factor model
+<span class="math inline">\((\textit{df} = 65)\)</span>. So, the three-factor model is more complex.</p>
+<p><strong>Q3:</strong></p>
+<p>The three-factor model fits better than the one-factor model <span class="math inline">\((\chi_{3F}^2 = 10652.21\)</span> vs. <span class="math inline">\(\chi_{1F}^2 = 17667.30)\)</span>.</p>
+<p><strong>Q4:</strong></p>
+<p>The three-factor model is more complex than the one-factor model, but the extra complexity is justified. The
+three-factor model fits significantly better than the one-factor model
+<span class="math inline">\((\Delta\chi^2 = 7015.1,\)</span>
+<span class="math inline">\(\textit{df} = 3,\)</span>
+<span class="math inline">\(p &lt; 0.001).\)</span></p>
+</details>
+</details>
+<hr />
+</div>
+<div id="section-73" class="section level4" number="5.4.3.2">
+<h4><span class="header-section-number">5.4.3.2</span> </h4>
+<p>Use the <span class="math inline">\(\Delta\chi^2\)</span> to test if the additional parameter estimates you added in <a href="in-class-exercises-4.html#estimateCfaTrustAtt2">5.4.2.2</a> and
+<a href="in-class-exercises-4.html#estimateCfaTrustAtt3">5.4.2.4</a> significantly improve the model fit.</p>
+<ul>
+<li>Did the model fit significantly improve?</li>
+<li>Is the fit of the modified model acceptable?</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="in-class-exercises-4.html#cb203-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att3)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##                 Df     AIC     BIC Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)
+## out_trust_att3 636 1422116 1422890 19151                                      
+## out_trust_att  638 1430291 1431050 27330     8179.2 0.59074       2  &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="in-class-exercises-4.html#cb205-1" tabindex="-1"></a><span class="fu">fitMeasures</span>(out_trust_att3)</span></code></pre></div>
+<pre><code>##                  npar                  fmin                 chisq 
+##               105.000                 0.817             19150.640 
+##                    df                pvalue        baseline.chisq 
+##               636.000                 0.000            201900.916 
+##           baseline.df       baseline.pvalue                   cfi 
+##               703.000                 0.000                 0.908 
+##                   tli                  nnfi                   rfi 
+##                 0.898                 0.898                 0.895 
+##                   nfi                  pnfi                   ifi 
+##                 0.905                 0.819                 0.908 
+##                   rni                  logl     unrestricted.logl 
+##                 0.908           -710953.076           -701377.756 
+##                   aic                   bic                ntotal 
+##           1422116.153           1422889.867             11716.000 
+##                  bic2                 rmsea        rmsea.ci.lower 
+##           1422556.190                 0.050                 0.049 
+##        rmsea.ci.upper        rmsea.ci.level          rmsea.pvalue 
+##                 0.050                 0.900                 0.659 
+##        rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0 
+##                 0.050                 0.000                 0.080 
+##                   rmr            rmr_nomean                  srmr 
+##                 0.152                 0.152                 0.045 
+##          srmr_bentler   srmr_bentler_nomean                  crmr 
+##                 0.045                 0.045                 0.046 
+##           crmr_nomean            srmr_mplus     srmr_mplus_nomean 
+##                 0.046                 0.045                 0.045 
+##                 cn_05                 cn_01                   gfi 
+##               426.664               442.644                 0.914 
+##                  agfi                  pgfi                   mfi 
+##                 0.900                 0.785                 0.454 
+##                  ecvi 
+##                 1.652</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>Yes, these modifications significantly improve the model fit
+<span class="math inline">\((\Delta\chi^2 = 8179.17,\)</span>
+<span class="math inline">\(\textit{df} = 2,\)</span>
+<span class="math inline">\(p &lt; 0.001).\)</span>
+In this case, the original 8-factor model is nested within the modified model. So, our <span class="math inline">\(\Delta \chi^2\)</span> test is
+evaluating the improvement in fit contributed by freeing the two residual covariances. The <span class="math inline">\(\Delta \chi^2\)</span> test is
+significant, so we can conclude that including the two new parameter estimates has significantly improved the model fit.</p>
+<ul>
+<li>I.e., Estimating these two residual covariances is “worth it” in the sense of balancing model fit and model complexity.</li>
+</ul>
+<p>Also, the overall fit of the modified model is now more unambiguously acceptable
+<span class="math inline">\((\chi^2 = 19150.64,\)</span>
+<span class="math inline">\(\textit{df} = 636,\)</span>
+<span class="math inline">\(p &lt; 0.001,\)</span>
+<span class="math inline">\(\textrm{RMSEA} = 0.05,\)</span>
+<span class="math inline">\(\textrm{CFI} = 0.908,\)</span>
+<span class="math inline">\(\textrm{SRMR} = 0.045)\)</span>.</p>
+<p><strong>Very Important Caveat!</strong></p>
+<p>If we had found this result when testing our original model, we would be well-situated to proceed with our analysis. In
+this case, however, we are no longer justified in generalizing these estimates to the population. We only arrived at
+this well-fitting model by modifying our original theoretical model to better fit the data using estimates derived from
+those same data to guide our model modifications.</p>
+<p>We’ve conducted this post-hoc analysis to help inform future research, and this result is useful as a starting point for
+future studies. Now, anyone analyzing these scales in the future could incorporate these residual covariances into their
+initial theoretical model. Basically, we conduct these types of post-hoc analyses to help future researchers learn from
+our mistakes.</p>
+</details>
+</details>
+<hr />
+</div>
+<div id="estimateCfaTrustAtt0" class="section level4" number="5.4.3.3">
+<h4><span class="header-section-number">5.4.3.3</span> </h4>
+<p>Estimate a restricted version of the 8-factor CFA from <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a>.</p>
+<ul>
+<li>Remove all latent covariances between the three <em>Trust in Politics</em> factors and the five <em>Attitudes Toward
+Immigration</em> factors.</li>
+<li>Retain all other aspects of the original CFA.</li>
+</ul>
+<p>Summarize the estimated model to check that everything worked.</p>
+<details>
+<summary>
+Click to show code
+</summary>
+<p>First, we’ll define a syntax snippet to enforce the constraints.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="in-class-exercises-4.html#cb207-1" tabindex="-1"></a>constraints <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb207-2"><a href="in-class-exercises-4.html#cb207-2" tabindex="-1"></a><span class="st">inst ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-3"><a href="in-class-exercises-4.html#cb207-3" tabindex="-1"></a><span class="st">sat  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-4"><a href="in-class-exercises-4.html#cb207-4" tabindex="-1"></a><span class="st">pol  ~~ 0*immi + 0*social + 0*refugee + 0*cult + 0*econ</span></span>
+<span id="cb207-5"><a href="in-class-exercises-4.html#cb207-5" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<p>Now, we’ll add the constraint syntax to the CFA syntax.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="in-class-exercises-4.html#cb208-1" tabindex="-1"></a>mod_trust_att0 <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_trust_att, constraints, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>Finally, we’ll estimate and summarize the restricted model.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="in-class-exercises-4.html#cb209-1" tabindex="-1"></a>out_trust_att0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_trust_att0, <span class="at">data =</span> ess, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb209-2"><a href="in-class-exercises-4.html#cb209-2" tabindex="-1"></a><span class="fu">summary</span>(out_trust_att0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-21 ended normally after 48 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        89
+##   Number of equality constraints                     1
+## 
+##                                                   Used       Total
+##   Number of observations                         11716       19690
+## 
+## Model Test User Model:
+##                                                        
+##   Test statistic                              29767.296
+##   Degrees of freedom                                653
+##   P-value (Chi-square)                            0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                            201900.916
+##   Degrees of freedom                               703
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.855
+##   Tucker-Lewis Index (TLI)                       0.844
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)            -716261.405
+##   Loglikelihood unrestricted model (H1)    -701377.756
+##                                                       
+##   Akaike (AIC)                             1432698.809
+##   Bayesian (BIC)                           1433347.256
+##   Sample-size adjusted Bayesian (SABIC)    1433067.602
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.062
+##   90 Percent confidence interval - lower         0.061
+##   90 Percent confidence interval - upper         0.062
+##   P-value H_0: RMSEA &lt;= 0.050                    0.000
+##   P-value H_0: RMSEA &gt;= 0.080                    0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.099
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst =~                                                               
+##     trstlgl           1.612    0.020   79.232    0.000    1.612    0.680
+##     trstplc           1.222    0.019   62.799    0.000    1.222    0.565
+##     trstun            1.471    0.020   73.119    0.000    1.471    0.639
+##     trstep            1.443    0.019   75.800    0.000    1.443    0.658
+##     trstprl           1.827    0.018  100.514    0.000    1.827    0.809
+##   sat =~                                                                
+##     stfhlth           1.170    0.021   56.653    0.000    1.170    0.526
+##     stfedu            1.305    0.020   64.284    0.000    1.305    0.585
+##     stfeco            1.652    0.020   82.421    0.000    1.652    0.712
+##     stfgov            1.716    0.019   88.703    0.000    1.716    0.752
+##     stfdem            1.604    0.019   85.172    0.000    1.604    0.730
+##   pol =~                                                                
+##     pltinvt           0.641    0.009   68.958    0.000    0.641    0.610
+##     pltcare           0.655    0.009   71.708    0.000    0.655    0.630
+##     trstplt           1.924    0.017  112.828    0.000    1.924    0.894
+##   immi =~                                                               
+##     imrcntr           0.608    0.007   92.827    0.000    0.608    0.744
+##     eimrcnt           0.576    0.007   84.288    0.000    0.576    0.693
+##     eimpcnt           0.694    0.006  125.076    0.000    0.694    0.903
+##     imsmetn           0.597    0.006  101.333    0.000    0.597    0.791
+##     impcntr           0.706    0.006  124.785    0.000    0.706    0.902
+##     imdfetn           0.695    0.006  121.763    0.000    0.695    0.889
+##   social =~                                                             
+##     imbgeco           1.561    0.018   85.019    0.000    1.561    0.720
+##     imbleco           1.296    0.019   69.034    0.000    1.296    0.613
+##     imwbcnt           1.640    0.017   95.993    0.000    1.640    0.786
+##     imwbcrm           1.120    0.018   62.069    0.000    1.120    0.562
+##     imtcjob           1.165    0.018   65.986    0.000    1.165    0.591
+##     imueclt           1.535    0.019   79.363    0.000    1.535    0.684
+##   refugee =~                                                            
+##     gvrfgap           0.673    0.009   71.904    0.000    0.673    0.647
+##     imrsprc           0.561    0.010   58.037    0.000    0.561    0.542
+##     rfgbfml           0.670    0.011   63.492    0.000    0.670    0.585
+##     rfggvfn           0.538    0.010   56.144    0.000    0.538    0.527
+##     rfgawrk           0.399    0.010   39.337    0.000    0.399    0.384
+##     rfgfrpc          -0.544    0.009  -57.796    0.000   -0.544   -0.540
+##     shrrfg           -0.664    0.009  -70.015    0.000   -0.664   -0.633
+##   cult =~                                                               
+##     qfimchr           1.839    0.029   64.271    0.000    1.839    0.632
+##     qfimwht           1.704    0.025   66.979    0.000    1.704    0.656
+##     pplstrd          -0.663    0.011  -60.862    0.000   -0.663   -0.602
+##     vrtrlg            0.471    0.010   45.094    0.000    0.471    0.460
+##   econ =~                                                               
+##     imwgdwn    (l)    0.754    0.008   98.038    0.000    0.754    0.706
+##     imhecop    (l)    0.754    0.008   98.038    0.000    0.754    0.719
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   inst ~~                                                               
+##     immi              0.000                               0.000    0.000
+##     social            0.000                               0.000    0.000
+##     refugee           0.000                               0.000    0.000
+##     cult              0.000                               0.000    0.000
+##     econ              0.000                               0.000    0.000
+##   sat ~~                                                                
+##     immi              0.000                               0.000    0.000
+##     social            0.000                               0.000    0.000
+##     refugee           0.000                               0.000    0.000
+##     cult              0.000                               0.000    0.000
+##     econ              0.000                               0.000    0.000
+##   pol ~~                                                                
+##     immi              0.000                               0.000    0.000
+##     social            0.000                               0.000    0.000
+##     refugee           0.000                               0.000    0.000
+##     cult              0.000                               0.000    0.000
+##     econ              0.000                               0.000    0.000
+##   inst ~~                                                               
+##     sat               0.747    0.006  117.182    0.000    0.747    0.747
+##     pol               0.877    0.005  180.127    0.000    0.877    0.877
+##   sat ~~                                                                
+##     pol               0.722    0.007  106.761    0.000    0.722    0.722
+##   immi ~~                                                               
+##     social           -0.595    0.007  -82.989    0.000   -0.595   -0.595
+##     refugee           0.639    0.007   88.681    0.000    0.639    0.639
+##     cult              0.558    0.009   64.001    0.000    0.558    0.558
+##     econ             -0.453    0.010  -45.844    0.000   -0.453   -0.453
+##   social ~~                                                             
+##     refugee          -0.787    0.006 -128.158    0.000   -0.787   -0.787
+##     cult             -0.540    0.010  -56.068    0.000   -0.540   -0.540
+##     econ              0.575    0.010   59.797    0.000    0.575    0.575
+##   refugee ~~                                                            
+##     cult              0.508    0.010   48.504    0.000    0.508    0.508
+##     econ             -0.498    0.011  -45.912    0.000   -0.498   -0.498
+##   cult ~~                                                               
+##     econ             -0.446    0.012  -37.300    0.000   -0.446   -0.446
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .trstlgl           3.014    0.045   66.962    0.000    3.014    0.537
+##    .trstplc           3.181    0.045   71.384    0.000    3.181    0.681
+##    .trstun            3.129    0.045   68.897    0.000    3.129    0.591
+##    .trstep            2.731    0.040   68.099    0.000    2.731    0.568
+##    .trstprl           1.763    0.032   54.918    0.000    1.763    0.346
+##    .stfhlth           3.573    0.050   71.120    0.000    3.573    0.723
+##    .stfedu            3.268    0.047   69.144    0.000    3.268    0.658
+##    .stfeco            2.653    0.043   61.756    0.000    2.653    0.493
+##    .stfgov            2.256    0.039   57.742    0.000    2.256    0.434
+##    .stfdem            2.254    0.037   60.124    0.000    2.254    0.467
+##    .pltinvt           0.692    0.010   69.925    0.000    0.692    0.627
+##    .pltcare           0.651    0.009   69.157    0.000    0.651    0.603
+##    .trstplt           0.931    0.031   30.402    0.000    0.931    0.201
+##    .imrcntr           0.298    0.004   70.928    0.000    0.298    0.446
+##    .eimrcnt           0.358    0.005   72.361    0.000    0.358    0.519
+##    .eimpcnt           0.109    0.002   56.138    0.000    0.109    0.185
+##    .imsmetn           0.213    0.003   68.962    0.000    0.213    0.375
+##    .impcntr           0.115    0.002   56.436    0.000    0.115    0.187
+##    .imdfetn           0.129    0.002   59.202    0.000    0.129    0.210
+##    .imbgeco           2.266    0.036   63.765    0.000    2.266    0.482
+##    .imbleco           2.792    0.040   69.449    0.000    2.792    0.624
+##    .imwbcnt           1.669    0.029   57.317    0.000    1.669    0.383
+##    .imwbcrm           2.720    0.038   71.120    0.000    2.720    0.684
+##    .imtcjob           2.532    0.036   70.225    0.000    2.532    0.651
+##    .imueclt           2.685    0.041   66.151    0.000    2.685    0.533
+##    .gvrfgap           0.628    0.010   64.853    0.000    0.628    0.581
+##    .imrsprc           0.756    0.011   69.846    0.000    0.756    0.706
+##    .rfgbfml           0.864    0.013   68.161    0.000    0.864    0.658
+##    .rfggvfn           0.752    0.011   70.363    0.000    0.752    0.722
+##    .rfgawrk           0.921    0.012   73.787    0.000    0.921    0.853
+##    .rfgfrpc           0.717    0.010   69.913    0.000    0.717    0.708
+##    .shrrfg            0.658    0.010   65.685    0.000    0.658    0.599
+##    .qfimchr           5.078    0.088   58.004    0.000    5.078    0.600
+##    .qfimwht           3.838    0.069   55.460    0.000    3.838    0.569
+##    .pplstrd           0.772    0.013   60.764    0.000    0.772    0.637
+##    .vrtrlg            0.825    0.012   69.206    0.000    0.825    0.788
+##    .imwgdwn           0.571    0.011   52.720    0.000    0.571    0.501
+##    .imhecop           0.531    0.010   50.693    0.000    0.531    0.483
+##     inst              1.000                               1.000    1.000
+##     sat               1.000                               1.000    1.000
+##     pol               1.000                               1.000    1.000
+##     immi              1.000                               1.000    1.000
+##     social            1.000                               1.000    1.000
+##     refugee           1.000                               1.000    1.000
+##     cult              1.000                               1.000    1.000
+##     econ              1.000                               1.000    1.000</code></pre>
+</details>
+<hr />
+<p>Below, you will conduct a <span class="math inline">\(\Delta\chi^2\)</span> test to compare the full 8-factor CFA from <a href="in-class-exercises-4.html#estimateCfaTrustAtt">5.4.1.4</a> to the
+restricted version you estimated in <a href="in-class-exercises-4.html#estimateCfaTrustAtt0">5.4.3.3</a>. All remaining questions refer to this test.</p>
+<hr />
+</div>
+<div id="section-74" class="section level4" number="5.4.3.4">
+<h4><span class="header-section-number">5.4.3.4</span> </h4>
+<ol style="list-style-type: decimal">
+<li>Which model is more complex?</li>
+<li>Which model has more degrees of freedom?</li>
+<li>What is the difference in the degrees of freedom between the models?</li>
+<li>How many degrees of freedom will we have for this test?</li>
+</ol>
+<details>
+<summary>
+Click for explanation
+</summary>
+<ol style="list-style-type: decimal">
+<li>The unrestricted CFA is more complex: We estimate more parameters in that model.</li>
+<li>The restricted model will have more degrees of freedom: We lose one degree of freedom for every estimated parameter.</li>
+<li><span class="math inline">\(\Delta \textit{df} = 24\)</span>: We fixed 24 latent covariances to define the restricted model, so the restricted model has
+24 more degrees of freedom.</li>
+<li>Our <span class="math inline">\(\chi^2\)</span> test will have <span class="math inline">\(\textit{df} = 24\)</span>: The df for a <span class="math inline">\(\Delta\chi^2\)</span> is equal to the <span class="math inline">\(\Delta \textit{df}\)</span>
+between the compared models.</li>
+</ol>
+</details>
+<hr />
+</div>
+<div id="section-75" class="section level4" number="5.4.3.5">
+<h4><span class="header-section-number">5.4.3.5</span> </h4>
+<p>Use R to conduct the <span class="math inline">\(\Delta\chi^2\)</span> test.</p>
+<ul>
+<li>What is the conclusion of the test?</li>
+<li>Support your claim with appropriate statistics</li>
+</ul>
+<details>
+<summary>
+Click to show code
+</summary>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="in-class-exercises-4.html#cb211-1" tabindex="-1"></a><span class="fu">anova</span>(out_trust_att, out_trust_att0)</span></code></pre></div>
+<pre><code>## 
+## Chi-Squared Difference Test
+## 
+##                 Df     AIC     BIC Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)
+## out_trust_att  638 1430291 1431050 27330                                      
+## out_trust_att0 653 1432699 1433347 29767     2437.5 0.11741      15  &lt; 2.2e-16</code></pre>
+<details>
+<summary>
+Click for explanation
+</summary>
+<p>The unrestricted CFA fits significantly better than the restricted CFA
+<span class="math inline">\((\Delta\chi^2 = 2437.48,\)</span>
+<span class="math inline">\(\textit{df} = 15,\)</span>
+<span class="math inline">\(p &lt; 0.001).\)</span>
+Hence, the constraints imposed on the restricted model are untenable. The unrestricted CFA produces a significantly
+better representation of the data.</p>
+</details>
+</details>
+<hr />
+<p>End of In-Class Exercises</p>
+<hr />
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="at-home-exercises-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extra-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": false,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "search": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
