@@ -1,17 +1,19 @@
 book_filename: "isem.Rmd"
-rmd_files: [
-  "index.Rmd",
-  "assignments.Rmd",
-  "week0.Rmd", # Prep
-  "week1.Rmd", # Intro to R
-  "week2.Rmd", # Path analysis
-  "week3.Rmd", # Mediation & moderation
-  "week4.Rmd", # CFA I
-  "week5.Rmd", # CFA II
-  "week6.Rmd", # No class
-  "week7.Rmd", # SEM
-  "week8.Rmd"  # Multiple group models
-  ]
+rmd_files:
+  html: [
+      "index.Rmd",
+      "assignments.Rmd",
+      "week0.Rmd", # Prep
+      "week1.Rmd", # Intro to R
+      "week2.Rmd", # Path analysis
+      "week3.Rmd", # Mediation & moderation
+      "week4.Rmd", # CFA I
+      "week5.Rmd", # CFA II
+      "week6.Rmd", # No class
+      "week7.Rmd", # SEM
+      "week8.Rmd", # Multiple group models
+    ]
+  latex: ["index.Rmd", "assignments.Rmd"]
 delete_merged_file: true
 documentclass: book
 output_dir: "docs"

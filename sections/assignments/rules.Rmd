@@ -1,7 +1,5 @@
 ## Rules {-}
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Resources {-}
 
 For both assignments, you may use any reference materials you like, including:
@@ -28,8 +26,6 @@ group).
 - Such cases of fraud will be addressed according to the 
 [University's standard policy](https://students.uu.nl/en/practical-information/policies-and-procedures/fraud-and-plagiarism).
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Academic integrity {-}
 
 Hopefully, you also feel a moral obligation to obey the rules. For this course, we have implemented an examination that
@@ -42,8 +38,6 @@ your future courses and/or career.
 
 However, this format also assumes that you complete the assignments in good faith. So, I simply ask that you hold up
 your end of the bargain, and submit your original work to show us what you’ve learned.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### GenAI disclosure statement {-}
 
@@ -59,8 +53,6 @@ to providing a valid citation, you must also explain how you used the AI tool. S
 1. Modify content that you created (e.g., use CoPilot to debug your R code)
 
 Provide this information in a separate *GenAI Disclosure Statement* section at the end of your report.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Strict stuff {-}
 

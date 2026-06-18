@@ -2,7 +2,8 @@
 title: "Introduction to Structural Equation Modeling"
 author: "Kyle M. Lang"
 date: "Last updated: `r Sys.Date()`"
-site: bookdown::bookdown_site
+params:
+  base_url: "https://www.kylemlang.com/isem/"
 ---
 
 \newcommand{\va}{\\[12pt]}
@@ -12,6 +13,8 @@ site: bookdown::bookdown_site
 
 ```{r global_options, include = FALSE}
 library(knitr)
+
+source(here::here("code", "website_helpers.R"))
 
 opts_chunk$set(warning = FALSE, message = FALSE)
 ```
@@ -84,15 +87,48 @@ Your mastery of these themes will be evaluated with a two data analysis assignme
 
 ## Schedule {-}
 
-```{r print_schedule, echo = FALSE}
-options(knitr.kable.NA = "")
+```{r print_schedule_xtable, results = "asis", echo = FALSE}
+library(xtable)
+options(xtable.include.rownames = FALSE)
+bold <- function(x) paste0("\\textbf{", x, "}")
 
+schedule <- readxl::read_excel(here::here("assets", "schedule.xlsx"))
+schedule <- xtable(schedule, 
+                   align = c("m{0.00\\textwidth}",
+                             "L{0.10\\textwidth}",
+                             "L{0.10\\textwidth}",
+                             "Y",
+                             "L{0.15\\textwidth}",
+                             "L{0.15\\textwidth}"),
+                   display = c(rep("d", 3), rep("s", 3))
+)
+
+print(schedule,
+      tabular.environment = "tabularx",
+      width = "\\textwidth",
+      booktabs = TRUE,
+      floating = TRUE,
+      table.placement = "H",
+      sanitize.text.function = identity,
+      sanitize.colnames.function = bold,
+      add.to.row = list(pos = list(1, 3, 5, 7, 9), command = rep("\\rowcolor[gray]{0.9}", 5)),
+      comment = FALSE
+)
+```
+
+```{r print_schedule_kable, results = "asis", echo = FALSE, eval = FALSE}
+options(knitr.kable.NA = "")
 readxl::read_excel(here::here("assets", "schedule.xlsx")) |>
-  knitr::kable(col.names = c("Course Week",
-                             "Calendar Week",
-                             "Lecture/Practical Topic",
-                             "Workgroup Activity",
-                             "Assignment Deadline")
+  knitr::kable(
+		col.names = c(
+			"Course Week",
+			"Calendar Week",
+			"Lecture/Practical Topic",
+			"Workgroup Activity",
+			"Assignment Deadline"
+		),
+		format = "markdown",
+		booktabs = TRUE
   )
 ```
 
@@ -118,8 +154,6 @@ After completing the course, you will be able to:
    the benefits of doing so.
 1. Reflect critically on the decisions involved in defining and estimating structural equation models.
 
----
-
 ### Background knowledge {- #background}
 
 We assume you have basic knowledge about multivariate statistics before entering this course. You do not need any prior
@@ -138,8 +172,6 @@ options:
 
 ## Resources {-}
 
----
-
 ### Literature {-}
 
 **You do not need a separate book for this course!** 
@@ -153,8 +185,6 @@ campus or through an appropriate VPN). All readings are linked in this GitBook v
 If you run into any trouble accessing a given article, searching for the title using [Google Scholar][gs] or the
 [University Library][uu_lib] will probably due the trick.
 
----
-
 ### Reading questions {-}
 
 Along with every article, we will provide reading questions. You will not be graded on the reading questions, but it is
@@ -164,8 +194,6 @@ important to prepare the reading questions before every lecture. The reading que
 -	Help you recognize and understand the key terms and concepts
 -	Make you aware of important publications that shaped the field
 - Help you extract the relevant insights from the literature
-
----
 
 ### Software {-}
 
@@ -179,15 +207,11 @@ tutorial](https://lavaan.ugent.be/tutorial/).
 
 ## Logistics {-}
 
----
-
 ### Weekly preparation {-}
 
 Before every class meeting (both lectures and practicals) you need to do the assigned homework (delineated in the
 GitBook chapter for that week). This course follows a *flipped classroom* procedure, so you must complete the weekly
 homework to meaningfully participate in, and benefit from, the class meetings.
-
----
 
 ### Evaluation {-}
 
@@ -203,9 +227,7 @@ Your grade for the course is based on a “portfolio” composed of the two data
     - Individual assignment
     - Comprises your entire numeric course grade
 
-**The specifics of the assignments will be explicated in the [Assignments](assignments.html) chapter of this GitBook**
-
----
+**The specifics of the assignments will be explicated in the [Assignments](#assignments) chapter of this GitBook**
 
 ### Attendance {-}
 
@@ -221,8 +243,6 @@ meeting, please make sure you have caught up with the material before the next s
 Utrecht University (UU) has a set of general [policies and guidelines][uu_ai_policy] regarding GenAI use in UU courses.
 Yet, the specifics are largely left for the instructors to decide on a course-by-course basis. So, in this section, we
 describe how you may use GenAI in this course.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### AI index {-}
 
@@ -269,8 +289,6 @@ problems. Students and educators Co design assessments to explore unique AI appl
 
 **You should use AI creatively to solve the task, potentially co- designing new approaches with your instructor.**
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Acceptable usage in this course {-}
 
 This course falls into [Scenario C](#ai_index_c) of the FSBS AI Index.
@@ -296,8 +314,6 @@ course goals.
 Finally, this isn't a "vibe coding" course, we won't teach you how to use AI tools, and we don't care how good you are
 at using any given AI tool. So, Scenario E is clearly inappropriate
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Including AI-generated content in your work {-}
 
 You are free to use GenAI to brainstorm ideas, draft text, prototype code, etc. However, you are always responsible for
@@ -320,8 +336,6 @@ Although you shouldn't need to synthesize any data for this course, be aware of 
 
 - You may use AI tools to assist you in generating code that results in reproducible data sets.
 - You may not use AI tools to directly generate data sets.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Referencing and academic integrity {-}
 

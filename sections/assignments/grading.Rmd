@@ -1,6 +1,4 @@
-## Grading {-}
-
-------------------------------------------------------------------------------------------------------------------------
+## Grading {- #assignment_grading}
 
 ### Group Assignments {-}
 
@@ -16,8 +14,6 @@ Assignment 1 is simply graded as pass/fail. To pass, you must:
 1. Submit your assignment before the deadline
 
 Otherwise, you will fail the assignment.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Individual Assignment {-}
 
@@ -42,8 +38,6 @@ components listed [above](#a2_components).
 apportioned.
 
 Assuming your group passes the first assignment, your final course grade will simply be your Assignment 2 grade.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Resits {-}
 
@@ -86,12 +80,10 @@ the degree you earn from UU to be a meaningful marker of the skills and knowledg
 impart. So, if you did not achieve the learning goals for this course, you should not pass the course, even though
 that's an unpleasant outcome for all parties.
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Example Assignment {-}
 
 You can find an example of a good submission (for an older version of Assignment 2)
-[here](assets/assignments/a1_example.pdf).
+[here](`r makeCourseUrl("assets/assignments/a1_example.pdf")`).
 
 This example is not perfect (no paper ever is), and several points could be improved. That being said, this submission
 exemplifies what we're looking for in your project reports. So, following the spirit of this example would earn you a
