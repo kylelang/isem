@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Elaboration &amp; Tips | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="Elaboration &amp; Tips | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Elaboration &amp; Tips | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -58,8 +58,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -69,7 +70,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -211,12 +212,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html"><i class="fa fa-check"></i>Grading</a>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
 <ul>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
 <ul>
@@ -473,7 +474,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="elaboration-tips" class="section level2 unnumbered hasAnchor">
 <h2>Elaboration &amp; Tips<a href="elaboration-tips.html#elaboration-tips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<hr />
 <div id="progression" class="section level3 unnumbered hasAnchor">
 <h3>Progression<a href="elaboration-tips.html#progression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The two assignments are meant to build upon one another. So, you should plan on analyzing the same dataset for both
@@ -500,7 +500,8 @@ variables that will be latent constructs in A2).</li>
 <li><em>EXCEPTION:</em> You may specify an interaction between a scale score/latent construct and a nominal grouping variable
 (e.g., sex, nationality, ethnicity).
 <ul>
-<li>You will learn how to test this type of hypothesis via multiple-group SEM in <a href="multiple-group-models.html">Week 8</a>.</li>
+<li>You will learn how to test this type of hypothesis via multiple-group SEM in
+<a href="https://www.kylemlang.com/isem/multiple-group-models.html">Week 8</a>.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -514,7 +515,7 @@ statement, however.</p>
 <ul>
 <li>When reusing prior work, make sure to address any feedback that you received on that work.
 <ul>
-<li>Uncorrected mistakes in copied passages will incur especially harsh penalties in the <a href="grading.html">grading process</a>.</li>
+<li>Uncorrected mistakes in copied passages will incur especially harsh penalties in the <a href="assignment_grading.html#assignment_grading">grading process</a>.</li>
 </ul></li>
 <li>Make sure to update any recycled passages to suit the most recent analyses.
 <ul>
@@ -526,7 +527,6 @@ statement, however.</p>
 <li>Your grade will be penalized for including extraneous information.</li>
 </ul></li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="rq" class="section level3 unnumbered hasAnchor">
@@ -566,8 +566,7 @@ extensive literature review.</li>
 <li>Don’t specify a theoretical model that requires an interaction involving a latent construct.</li>
 </ul>
 <p>There is one exception to the above prohibition. If the moderator is an observed grouping variable, you can estimate the
-model as a multiple-group model. We’ll cover these methods in <a href="multiple-group-models.html">Week 8</a>.</p>
-<hr />
+model as a multiple-group model. We’ll cover these methods in <a href="https://www.kylemlang.com/isem/multiple-group-models.html">Week 8</a>.</p>
 </div>
 </div>
 <div id="model_assumptions" class="section level3 unnumbered hasAnchor">
@@ -618,7 +617,6 @@ variables other than fixed predictors) for normality.</p>
 </ul></li>
 </ul></li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="reporting_standards" class="section level3 unnumbered hasAnchor">

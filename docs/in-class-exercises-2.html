@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.4 In-Class Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="3.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -58,8 +58,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -69,7 +70,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -211,12 +212,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html"><i class="fa fa-check"></i>Grading</a>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
 <ul>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
 <ul>
@@ -559,7 +560,7 @@ aggression).</p>
 </ol>
 <hr />
 <p>To evaluate these hypotheses, we will use <strong>lavaan</strong> to estimate the following multiple mediator model as a path model.</p>
-<p><img src="isem_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-206-1.png" alt="" width="672" /></p>
 <!-- ![](images/week5_home_full_model.png) -->
 <hr />
 </div>
@@ -605,7 +606,7 @@ Click to show code
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="in-class-exercises-2.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
 <span id="cb93-2"><a href="in-class-exercises-2.html#cb93-2" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod0, <span class="at">data =</span> seData)</span>
 <span id="cb93-3"><a href="in-class-exercises-2.html#cb93-3" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 16 iterations
+<pre><code>## lavaan 0.6-21 ended normally after 16 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -732,7 +733,7 @@ Click to show code
 </summary>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="in-class-exercises-2.html#cb96-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, <span class="at">data =</span> seData)</span>
 <span id="cb96-2"><a href="in-class-exercises-2.html#cb96-2" tabindex="-1"></a><span class="fu">summary</span>(out)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 16 iterations
+<pre><code>## lavaan 0.6-21 ended normally after 16 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -838,7 +839,7 @@ Click to show code
 <span id="cb98-6"><a href="in-class-exercises-2.html#cb98-6" tabindex="-1"></a></span>
 <span id="cb98-7"><a href="in-class-exercises-2.html#cb98-7" tabindex="-1"></a><span class="do">## Summarize the model:</span></span>
 <span id="cb98-8"><a href="in-class-exercises-2.html#cb98-8" tabindex="-1"></a><span class="fu">summary</span>(out_boot)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 16 iterations
+<pre><code>## lavaan 0.6-21 ended normally after 16 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -895,8 +896,8 @@ Click to show code
 ## 
 ## Defined Parameters:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##     ie_pro            0.037    0.019    1.891    0.059
-##     ie_agg           -0.017    0.011   -1.638    0.101</code></pre>
+##     ie_pro            0.037    0.019    1.892    0.059
+##     ie_agg           -0.017    0.011   -1.639    0.101</code></pre>
 <details>
 <summary>
 Click for explanation
@@ -951,7 +952,7 @@ Click to show code
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="in-class-exercises-2.html#cb101-1" tabindex="-1"></a><span class="fu">parameterEstimates</span>(out_boot, <span class="at">ci =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="fl">0.9</span>)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["lhs"],"name":[1],"type":["chr"],"align":["left"]},{"label":["op"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rhs"],"name":[3],"type":["chr"],"align":["left"]},{"label":["label"],"name":[4],"type":["chr"],"align":["left"]},{"label":["est"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["se"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["pvalue"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["ci.lower"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["ci.upper"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"SelfEst","2":"~","3":"ProSoc","4":"y_m21","5":"0.25200921","6":"0.09963949","7":"2.5292102","8":"1.143196e-02","9":"0.078240770","10":"0.406909335"},{"1":"SelfEst","2":"~","3":"Aggr","4":"y_m22","5":"0.18525728","6":"0.08519934","7":"2.1743980","8":"2.967526e-02","9":"0.048696592","10":"0.330608640"},{"1":"SelfEst","2":"~","3":"Emp","4":"","5":"0.14323882","6":"0.09501828","7":"1.5074870","8":"1.316859e-01","9":"-0.009821063","10":"0.301494536"},{"1":"SelfEst","2":"~","3":"ParAtt","4":"","5":"0.24426409","6":"0.07906617","7":"3.0893630","8":"2.005862e-03","9":"0.111064552","10":"0.370537719"},{"1":"SelfEst","2":"~","3":"PeerAtt","4":"","5":"0.05057274","6":"0.09539926","7":"0.5301166","8":"5.960311e-01","9":"-0.117819122","10":"0.203412111"},{"1":"ProSoc","2":"~","3":"PeerAtt","4":"m21_x2","5":"-0.03743961","6":"0.08207241","7":"-0.4561778","8":"6.482622e-01","9":"-0.167288671","10":"0.105560640"},{"1":"ProSoc","2":"~","3":"ParAtt","4":"","5":"0.19267407","6":"0.06804978","7":"2.8313694","8":"4.634916e-03","9":"0.079964319","10":"0.295787284"},{"1":"ProSoc","2":"~","3":"Emp","4":"m21_m1","5":"0.47748439","6":"0.07837987","7":"6.0919264","8":"1.115599e-09","9":"0.343242250","10":"0.606249440"},{"1":"Aggr","2":"~","3":"PeerAtt","4":"m22_x2","5":"-0.09454515","6":"0.08652282","7":"-1.0927192","8":"2.745171e-01","9":"-0.225325182","10":"0.048949876"},{"1":"Aggr","2":"~","3":"ParAtt","4":"","5":"-0.03397870","6":"0.07591138","7":"-0.4476101","8":"6.544346e-01","9":"-0.165991422","10":"0.088036588"},{"1":"Aggr","2":"~","3":"Emp","4":"m22_m1","5":"-0.30878775","6":"0.09200262","7":"-3.3562931","8":"7.899481e-04","9":"-0.459702819","10":"-0.161096242"},{"1":"Emp","2":"~","3":"ParAtt","4":"","5":"0.07807473","6":"0.07150023","7":"1.0919507","8":"2.748548e-01","9":"-0.050603666","10":"0.188517449"},{"1":"Emp","2":"~","3":"PeerAtt","4":"m1_x2","5":"0.30581697","6":"0.07850092","7":"3.8957118","8":"9.791078e-05","9":"0.169833754","10":"0.434463188"},{"1":"ProSoc","2":"~~","3":"Aggr","4":"","5":"-0.08619117","6":"0.05771400","7":"-1.4934187","8":"1.353276e-01","9":"-0.179244977","10":"0.011231884"},{"1":"ParAtt","2":"~~","3":"PeerAtt","4":"","5":"0.53737654","6":"0.12809325","7":"4.1951979","8":"2.726335e-05","9":"0.323857572","10":"0.758577787"},{"1":"SelfEst","2":"~~","3":"SelfEst","4":"","5":"0.79618780","6":"0.08209715","7":"9.6981173","8":"0.000000e+00","9":"0.637887125","10":"0.908495254"},{"1":"ProSoc","2":"~~","3":"ProSoc","4":"","5":"0.61802926","6":"0.06781430","7":"9.1135536","8":"0.000000e+00","9":"0.489266898","10":"0.717211072"},{"1":"Aggr","2":"~~","3":"Aggr","4":"","5":"0.77720501","6":"0.10395973","7":"7.4760198","8":"7.660539e-14","9":"0.590913189","10":"0.932588725"},{"1":"Emp","2":"~~","3":"Emp","4":"","5":"0.77910040","6":"0.09005432","7":"8.6514493","8":"0.000000e+00","9":"0.618425792","10":"0.913945717"},{"1":"ParAtt","2":"~~","3":"ParAtt","4":"","5":"1.27669945","6":"0.19724327","7":"6.4727148","8":"9.625745e-11","9":"0.967138000","10":"1.626379871"},{"1":"PeerAtt","2":"~~","3":"PeerAtt","4":"","5":"0.96308503","6":"0.10464834","7":"9.2030608","8":"0.000000e+00","9":"0.789314475","10":"1.131509117"},{"1":"ie_pro","2":":=","3":"m1_x2*m21_m1*y_m21","4":"ie_pro","5":"0.03679910","6":"0.01946258","7":"1.8907621","8":"5.865611e-02","9":"0.008958209","10":"0.071529937"},{"1":"ie_agg","2":":=","3":"m1_x2*m22_m1*y_m22","4":"ie_agg","5":"-0.01749431","6":"0.01067788","7":"-1.6383700","8":"1.013445e-01","9":"-0.038636976","10":"-0.003329914"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["lhs"],"name":[1],"type":["chr"],"align":["left"]},{"label":["op"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rhs"],"name":[3],"type":["chr"],"align":["left"]},{"label":["label"],"name":[4],"type":["chr"],"align":["left"]},{"label":["est"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["se"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["pvalue"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["ci.lower"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["ci.upper"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"SelfEst","2":"~","3":"ProSoc","4":"y_m21","5":"0.25200921","6":"0.09963949","7":"2.5292102","8":"1.143196e-02","9":"0.078240770","10":"0.406909335"},{"1":"SelfEst","2":"~","3":"Aggr","4":"y_m22","5":"0.18525728","6":"0.08519934","7":"2.1743980","8":"2.967526e-02","9":"0.048696591","10":"0.330608640"},{"1":"SelfEst","2":"~","3":"Emp","4":"","5":"0.14323882","6":"0.09501828","7":"1.5074870","8":"1.316859e-01","9":"-0.009821063","10":"0.301494536"},{"1":"SelfEst","2":"~","3":"ParAtt","4":"","5":"0.24426409","6":"0.07906616","7":"3.0893630","8":"2.005862e-03","9":"0.111064552","10":"0.370537719"},{"1":"SelfEst","2":"~","3":"PeerAtt","4":"","5":"0.05057274","6":"0.09539926","7":"0.5301166","8":"5.960311e-01","9":"-0.117819122","10":"0.203412111"},{"1":"ProSoc","2":"~","3":"PeerAtt","4":"m21_x2","5":"-0.03743961","6":"0.08207241","7":"-0.4561778","8":"6.482622e-01","9":"-0.167288671","10":"0.105560640"},{"1":"ProSoc","2":"~","3":"ParAtt","4":"","5":"0.19267407","6":"0.06804978","7":"2.8313694","8":"4.634916e-03","9":"0.079964319","10":"0.295787284"},{"1":"ProSoc","2":"~","3":"Emp","4":"m21_m1","5":"0.47748439","6":"0.07837987","7":"6.0919264","8":"1.115600e-09","9":"0.343242250","10":"0.606249440"},{"1":"Aggr","2":"~","3":"PeerAtt","4":"m22_x2","5":"-0.09454515","6":"0.08652282","7":"-1.0927192","8":"2.745171e-01","9":"-0.225325182","10":"0.048949876"},{"1":"Aggr","2":"~","3":"ParAtt","4":"","5":"-0.03397870","6":"0.07591138","7":"-0.4476101","8":"6.544346e-01","9":"-0.165991405","10":"0.088036588"},{"1":"Aggr","2":"~","3":"Emp","4":"m22_m1","5":"-0.30878775","6":"0.09200262","7":"-3.3562931","8":"7.899481e-04","9":"-0.459702819","10":"-0.161096242"},{"1":"Emp","2":"~","3":"ParAtt","4":"","5":"0.07807473","6":"0.07150023","7":"1.0919507","8":"2.748548e-01","9":"-0.050603666","10":"0.188517449"},{"1":"Emp","2":"~","3":"PeerAtt","4":"m1_x2","5":"0.30581697","6":"0.07850092","7":"3.8957118","8":"9.791077e-05","9":"0.169833754","10":"0.434463188"},{"1":"ProSoc","2":"~~","3":"Aggr","4":"","5":"-0.08619117","6":"0.05771400","7":"-1.4934187","8":"1.353276e-01","9":"-0.179244977","10":"0.011231884"},{"1":"ParAtt","2":"~~","3":"PeerAtt","4":"","5":"0.53737654","6":"0.12809325","7":"4.1951979","8":"2.726335e-05","9":"0.323857572","10":"0.758577787"},{"1":"SelfEst","2":"~~","3":"SelfEst","4":"","5":"0.79618780","6":"0.08209715","7":"9.6981172","8":"0.000000e+00","9":"0.637887125","10":"0.908495254"},{"1":"ProSoc","2":"~~","3":"ProSoc","4":"","5":"0.61802926","6":"0.06781430","7":"9.1135536","8":"0.000000e+00","9":"0.489266898","10":"0.717211072"},{"1":"Aggr","2":"~~","3":"Aggr","4":"","5":"0.77720501","6":"0.10395973","7":"7.4760198","8":"7.660539e-14","9":"0.590913189","10":"0.932588725"},{"1":"Emp","2":"~~","3":"Emp","4":"","5":"0.77910040","6":"0.09005432","7":"8.6514493","8":"0.000000e+00","9":"0.618425792","10":"0.913945717"},{"1":"ParAtt","2":"~~","3":"ParAtt","4":"","5":"1.27669945","6":"0.19724327","7":"6.4727148","8":"9.625745e-11","9":"0.967138000","10":"1.626379869"},{"1":"PeerAtt","2":"~~","3":"PeerAtt","4":"","5":"0.96308503","6":"0.10464834","7":"9.2030608","8":"0.000000e+00","9":"0.789314475","10":"1.131509117"},{"1":"ie_pro","2":":=","3":"m1_x2*m21_m1*y_m21","4":"ie_pro","5":"0.03679910","6":"0.01945284","7":"1.8917082","8":"5.852987e-02","9":"0.008958209","10":"0.071529937"},{"1":"ie_agg","2":":=","3":"m1_x2*m22_m1*y_m22","4":"ie_agg","5":"-0.01749431","6":"0.01067254","7":"-1.6391898","8":"1.011737e-01","9":"-0.038636976","10":"-0.003329914"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <details>
@@ -1125,7 +1126,7 @@ as the focal effect.</li>
 <summary>
 Click for explanation
 </summary>
-<p><img src="assets/images/lab5_conceptual1.png" width="1334" /></p>
+<p><img src="assets/images/lab5_conceptual1.png" alt="" width="1334" /></p>
 </details>
 <hr />
 </div>
@@ -1220,7 +1221,7 @@ Click to show code
 <span id="cb111-5"><a href="in-class-exercises-2.html#cb111-5" tabindex="-1"></a>                    <span class="at">plotx    =</span> <span class="st">&quot;success&quot;</span>, </span>
 <span id="cb111-6"><a href="in-class-exercises-2.html#cb111-6" tabindex="-1"></a>                    <span class="at">modx     =</span> <span class="st">&quot;disillusion&quot;</span>,</span>
 <span id="cb111-7"><a href="in-class-exercises-2.html#cb111-7" tabindex="-1"></a>                    <span class="at">modxVals =</span> <span class="st">&quot;std.dev&quot;</span>)</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-224-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="in-class-exercises-2.html#cb112-1" tabindex="-1"></a><span class="do">## Test the simple slopes:</span></span>
 <span id="cb112-2"><a href="in-class-exercises-2.html#cb112-2" tabindex="-1"></a>tsOut <span class="ot">&lt;-</span> <span class="fu">testSlopes</span>(psOut)</span></code></pre></div>
 <pre><code>## Values of disillusion OUTSIDE this interval:
@@ -1283,7 +1284,7 @@ Click to show code
 Click to show code
 </summary>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="in-class-exercises-2.html#cb117-1" tabindex="-1"></a><span class="fu">summary</span>(pathFit)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+<pre><code>## lavaan 0.6-21 ended normally after 1 iteration
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1384,7 +1385,7 @@ Click to show code
 <span id="cb123-5"><a href="in-class-exercises-2.html#cb123-5" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">&quot;Progress toward American Dream&quot;</span>,</span>
 <span id="cb123-6"><a href="in-class-exercises-2.html#cb123-6" tabindex="-1"></a>          <span class="at">legendArgs =</span> <span class="fu">list</span>(<span class="at">legend =</span> <span class="fu">names</span>(condVals))</span>
 <span id="cb123-7"><a href="in-class-exercises-2.html#cb123-7" tabindex="-1"></a>          )</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-228-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation

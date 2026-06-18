@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.4 In-Class Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="2.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -58,8 +58,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -69,7 +70,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -211,12 +212,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
 <li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html"><i class="fa fa-check"></i>Grading</a>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
 <ul>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
-<li class="chapter" data-level="" data-path="grading.html"><a href="grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#group-assignments"><i class="fa fa-check"></i>Group Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#individual-assignment"><i class="fa fa-check"></i>Individual Assignment</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#resits"><i class="fa fa-check"></i>Resits</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#example-assignment"><i class="fa fa-check"></i>Example Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i>Rules</a>
 <ul>
@@ -664,11 +665,11 @@ Click to show code
 <span id="cb23-5"><a href="in-class-exercises-1.html#cb23-5" tabindex="-1"></a></span>
 <span id="cb23-6"><a href="in-class-exercises-1.html#cb23-6" tabindex="-1"></a><span class="do">## Add some appropriate geoms:</span></span>
 <span id="cb23-7"><a href="in-class-exercises-1.html#cb23-7" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-88-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="in-class-exercises-1.html#cb24-1" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-88-2.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="in-class-exercises-1.html#cb25-1" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-87-3.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-88-3.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -698,7 +699,7 @@ Click to show code
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="in-class-exercises-1.html#cb26-1" tabindex="-1"></a><span class="do">## Create a scatterplot of the pre- and post-test number knowledge</span></span>
 <span id="cb26-2"><a href="in-class-exercises-1.html#cb26-2" tabindex="-1"></a><span class="fu">ggplot</span>(sesam, <span class="fu">aes</span>(<span class="at">x =</span> prenumb, <span class="at">y =</span> postnumb)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="in-class-exercises-1.html#cb26-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-89-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -949,7 +950,7 @@ Click to show code
 Click to show code
 </summary>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="in-class-exercises-1.html#cb43-1" tabindex="-1"></a><span class="fu">summary</span>(lavOut1)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+<pre><code>## lavaan 0.6-21 ended normally after 1 iteration
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1027,7 +1028,7 @@ Click to show code
 Click to show code
 </summary>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="in-class-exercises-1.html#cb46-1" tabindex="-1"></a><span class="fu">summary</span>(lavOut2)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 26 iterations
+<pre><code>## lavaan 0.6-21 ended normally after 27 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1069,7 +1070,7 @@ Click to show code
 ##     age              39.291    3.587   10.954    0.000
 ##     prenumb         113.702   10.379   10.954    0.000</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="in-class-exercises-1.html#cb48-1" tabindex="-1"></a><span class="fu">summary</span>(lavOut1)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+<pre><code>## lavaan 0.6-21 ended normally after 1 iteration
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1132,7 +1133,7 @@ Click to show code
 <li>How many variances are estimated?</li>
 <li>How many covariances are estimated?</li>
 </ul>
-<p><img src="isem_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-98-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -1142,7 +1143,7 @@ Click for explanation
 <li>Four (residual) variances (blue)</li>
 <li>No covariances</li>
 </ul>
-<p><img src="isem_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-99-1.png" alt="" width="672" /></p>
 </details>
 <hr />
 </div>
@@ -1195,7 +1196,7 @@ Click to show code
 </summary>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="in-class-exercises-1.html#cb53-1" tabindex="-1"></a><span class="fu">ggplot</span>(drivers, <span class="fu">aes</span>(<span class="at">x =</span> RT)) <span class="sc">+</span></span>
 <span id="cb53-2"><a href="in-class-exercises-1.html#cb53-2" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-102-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -1220,7 +1221,7 @@ Click to show code
 <p><em>Hint</em>: To modify the transparency of the densities, use the aesthetic <code>alpha</code>.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="in-class-exercises-1.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(drivers, <span class="fu">aes</span>(<span class="at">x =</span> RT, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
 <span id="cb54-2"><a href="in-class-exercises-1.html#cb54-2" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>)</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="isem_files/figure-html/unnamed-chunk-103-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -1340,7 +1341,7 @@ Click to show code
 <span id="cb58-14"><a href="in-class-exercises-1.html#cb58-14" tabindex="-1"></a></span>
 <span id="cb58-15"><a href="in-class-exercises-1.html#cb58-15" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
 <span id="cb58-16"><a href="in-class-exercises-1.html#cb58-16" tabindex="-1"></a><span class="fu">summary</span>(lavOut)</span></code></pre></div>
-<pre><code>## lavaan 0.6-19 ended normally after 1 iteration
+<pre><code>## lavaan 0.6-21 ended normally after 1 iteration
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB

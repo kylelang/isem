@@ -2,7 +2,7 @@ bookdown::gitbook:
   css: [assets/html/style.css, font-awesome.min.css]
   split_by: section
   df_print: paged
-  config: 
+  config:
     toc:
       before: |
         <li><a href="./index.html">Introduction to SEM</a></li>
@@ -10,3 +10,17 @@ bookdown::gitbook:
       search: yes
     download: null
     sharing: false
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  pandoc_args:
+    - "--toc-depth"
+    - "3"
+    - "--variable"
+    - "colorlinks"
+    - "--top-level-division"
+    - "chapter"
+    - "--variable"
+    - "classoption=oneside"
+    - "--variable"
+    - "pagestyle=plain"

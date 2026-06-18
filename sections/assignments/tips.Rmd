@@ -1,7 +1,5 @@
 ## Elaboration & Tips {-}
 
-------------------------------------------------------------------------------------------------------------------------
-
 ### Progression {- #progression}
 
 The two assignments are meant to build upon one another. So, you should plan on analyzing the same dataset for both
@@ -22,7 +20,8 @@ act as in IV in your model.
    variables that will be latent constructs in A2).
    - *EXCEPTION:* You may specify an interaction between a scale score/latent construct and a nominal grouping variable
    (e.g., sex, nationality, ethnicity).
-      - You will learn how to test this type of hypothesis via multiple-group SEM in [Week 8](multiple-group-models.html).
+      - You will learn how to test this type of hypothesis via multiple-group SEM in
+			[Week 8](`r makeCourseUrl("multiple-group-models.html")`).
 
 #### Recycling Prior Work {-}
 
@@ -34,14 +33,12 @@ Yes. You're free to reuse parts of your reports across all three assignments. Th
 statement, however.
 
 - When reusing prior work, make sure to address any feedback that you received on that work.
-   - Uncorrected mistakes in copied passages will incur especially harsh penalties in the [grading process](grading.html).
+   - Uncorrected mistakes in copied passages will incur especially harsh penalties in the [grading process](#assignment_grading).
 - Make sure to update any recycled passages to suit the most recent analyses.
    - A path diagram from A1 won't be valid for A2.
    - A description of your theoretical model from A1 that refers to "scale scores", won't be valid for A2.
 - Don't keep irrelevant parts of past assignments.
    - Your grade will be penalized for including extraneous information.
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Theoretical Model & Research Question {- #rq}
 
@@ -77,9 +74,7 @@ We will not cover methods for latent variable interactions.
 - Don't specify a theoretical model that requires an interaction involving a latent construct.
 
 There is one exception to the above prohibition. If the moderator is an observed grouping variable, you can estimate the
-model as a multiple-group model. We'll cover these methods in [Week 8](multiple-group-models.html).
-
-------------------------------------------------------------------------------------------------------------------------
+model as a multiple-group model. We'll cover these methods in [Week 8](`r makeCourseUrl("multiple-group-models.html")`).
 
 ### Assumptions {- #model_assumptions}
 
@@ -119,8 +114,6 @@ To summarize, we're looking for the following.
      - Normal QQ-Plots
      - Histograms
      - Kernel Density Plots
-
-------------------------------------------------------------------------------------------------------------------------
 
 ### Reporting Standards {- #reporting_standards}
 

@@ -1,0 +1,5 @@
+book_filename: "assignment_guidelines.Rmd"
+rmd_files: ["index.Rmd", "assignments.Rmd"]
+documentclass: book
+delete_merged_file: true
+output_dir: "pdf"

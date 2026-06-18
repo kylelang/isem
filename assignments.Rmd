@@ -1,4 +1,4 @@
-# Assignments {-}
+# Assignments {- #assignments}
 
 This chapter contains the details and binding information about the two data analysis assignments that comprise the
 portfolio upon which your course grade is based.
@@ -27,8 +27,8 @@ knit_child(here::here("sections", "assignments", "rules.Rmd"),      quiet = TRUE
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
-[a1]: https://uu.brightspace.com/d2l/le/lessons/43049/topics/338900
-[a2]: https://uu.brightspace.com/d2l/le/lessons/43049/topics/338905
+<!-- [a1]: https://uu.brightspace.com/d2l/le/lessons/43049/topics/338900 -->
+<!-- [a2]: https://uu.brightspace.com/d2l/le/lessons/43049/topics/338905 -->
 <!-- [groups]: https://uu.blackboard.com/webapps/bb-group-mgmt-LEARN/execute/groupContentList?course_id=_154060_1&action=list&mode=view# -->
 [covid_data]: https://surfdrive.surf.nl/files/index.php/s/UAtnDoYbvmtzhm5/download
 [covid_reg]: https://surfdrive.surf.nl/files/index.php/s/JCwYJUVz1nH1mT0/download
