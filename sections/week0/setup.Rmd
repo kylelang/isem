@@ -14,9 +14,9 @@ your computer ready for the course.
 Throughout this GitBook, we (try to) use a consistent set of typographic conventions:
 
 - Functions are typeset in a code font, and the name of the function is always followed by parentheses.
-    - E.g., `sum()`, `mean()`
+  - E.g., `sum()`, `mean()`
 - Other R objects (e.g., data objects, function arguments) are in also typeset in a code font but without parentheses.
-    - E.g., `seTE`, `method.tau`
+  - E.g., `seTE`, `method.tau`
 - Sometimes, we’ll use the package name followed by two colons (`::`, the so-called *scope-resolution operator), like
   `lavaan::sem()`. This command is valid R code and will run if you copy it into your R console. The `lavaan::` part of
   the command tells R that we want to use the `sem()` from the `lavaan` package.
@@ -28,8 +28,8 @@ Throughout this GitBook, we (try to) use a consistent set of typographic convent
 Before we start the course, we have to install two crucial pieces of software:
 
 - **R**: A free program for statistical programming
-- **RStudio**: An integrated development environment (IDE) which makes it easier 
-to work with R. 
+- **RStudio**: An integrated development environment (IDE) which makes it easier
+to work with R.
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -39,9 +39,9 @@ The latest version of R is available [here](https://cran.r-project.org).
 
 - Click the appropriate link for your operating system and follow the instructions for installing the latest stable
 release.
-- Depending on which OS you select, you may be given an option to install 
+- Depending on which OS you select, you may be given an option to install
 different components (e.g., *base*, *contrib*, *Rtools*).
-   - For this course, you will only need the *base* package. 
+   - For this course, you will only need the *base* package.
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -54,8 +54,8 @@ img <- readPNG(here::here("assets", "images", "rstudiologo.png"))
 grid.raster(img)
 ```
 
-Download the Free Desktop version of RStudio from the [download page](https://www.rstudio.com/products/rstudio/download/)
-of the [Posit website](https://www.posit.co/).
+Download the Free Desktop version of RStudio from the [download
+page](https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads) of the [Posit website](https://www.posit.co/).
 
 ------------------------------------------------------------------------------------------------------------------------
 

@@ -345,8 +345,10 @@ f <- f[1] |> round(3)
   <details>
     <summary>Click for explanation</summary>
 
-  - Yes, *age* and *prenumb* explain a significant amount of variability in *postnumb* ($R^2 = `r r2`$,
-  $F[`r df1`, `r df2`] = `r f`$, $p < 0.001$).
+  - Yes, *age* and *prenumb* explain a significant amount of variability in *postnumb*
+  $(R^2 = `r r2`,$
+  $F[`r df1`, `r df2`] = `r f`,$
+  $p < 0.001).$
   - We use the F statistic for the overall test of model fit to support this conclusion.
   - The variables *age* and *prenumb* together explain `r 100 * r2`% of the variability in *postnumb*.
 
@@ -514,7 +516,6 @@ prepare_graph(res,
   if_edges({to == "postnumb" & op == "~"}, {connect_to = c("top", "left", "bottom")}) |>
   if_edges({to == "postnumb" & op == "~~"}, {connect_to = "right"; connect_from = "right"}) |>
   plot()
-
 ```
 
 <details>
@@ -610,11 +611,11 @@ milliseconds) during a driving simulation.
 
 ####
 
-Use the package `ggplot2` to create a density plot for the variable *RT*. 
+Use the package `ggplot2` to create a density plot for the variable *RT*.
 
--   What concept are we representing with this plot? 
+- What concept are we representing with this plot?
 
-*Hint:* Consider the lap times example from 
+*Hint:* Consider the lap times example from
 [the statistical modeling section](#statistical-modeling) of Lecture 2.
 
 <details>
@@ -624,12 +625,12 @@ Use the package `ggplot2` to create a density plot for the variable *RT*.
 ggplot(drivers, aes(x = RT)) +
   geom_density()
 ```
- 
+
   <details>
     <summary>Click for explanation</summary>
- 
-  This shows the distribution of all the combined reaction times from drivers in all three categories. 
- 
+
+  This shows the distribution of all the combined reaction times from drivers in all three categories.
+
   </details>
 </details>
 
@@ -639,7 +640,7 @@ ggplot(drivers, aes(x = RT)) +
 
 Modify this density plot by mapping the variable *condition* from your data to the `fill` aesthetic in `ggplot`.
 
-- What is the difference between this plot and the previous plot? 
+- What is the difference between this plot and the previous plot?
 - Do you think there is evidence for differences between the groups?
 - How might we test this by fitting a model to our sample?
 
@@ -655,17 +656,17 @@ ggplot(drivers, aes(x = RT, fill = condition)) +
  
   <details>
     <summary>Click for explanation</summary>
- 
+
   This figure models the conditional distribution of reaction time, where the type of cell phone usage is the grouping
-  factor. 
- 
+  factor.
+
   Things you can look at to visually assess whether the three groups differ are the amount of overlap of the
   distributions, how much distance there is between the individual means, and whether the combined distribution is much
   different than the conditional distributions.
 
   If we are willing to assume that these conditional distributions are normally distributed and have equivalent
-  variances, we could use a linear model with dummy-coded predictors. 
- 
+  variances, we could use a linear model with dummy-coded predictors.
+
   </details>
 </details>
 
@@ -679,10 +680,10 @@ the focus of the analysis.
 
 - ANOVA is really a type of statistical test wherein we are testing hypotheses about the effects of some set of nominal
 grouping factors on some continuous outcome.
-   - When doing an ANOVA, we usually don't interact directly with the parameter estimates from the underlying model.
+  - When doing an ANOVA, we usually don't interact directly with the parameter estimates from the underlying model.
 - Regression is a type of statistical model (i.e., a way to represent a univariate distribution with a conditional mean
 and fixed variance).
-   - When we do a regression analysis, we primarily focus on the estimated parameters of the underling linear model.
+  - When we do a regression analysis, we primarily focus on the estimated parameters of the underling linear model.
 
 When doing ANOVA in R, we estimate the model exactly as we would for linear regression; we simply summarize the results
 differently.
@@ -720,14 +721,14 @@ anova(lmOut)
   
 ```{r, include = FALSE}
   tmp <- anova(lmOut)
-  
+ 
   f <- tmp[1, 4] |> round(2)
   df1 <- tmp[1, 1]
   df2 <- tmp[2, 1]
   p <- tmp[1, 5] |> round(3)
 ```
   
-  The effect of *condition* on *RT* is nonsignificant ($F[`r df1`, `r df2`] = `r f`$, $p = `r p`$). Therefore, based on
+  The effect of *condition* on *RT* is nonsignificant $(F[`r df1`, `r df2`] = `r f`,$ $p = `r p`).$ Therefore, based on
   these results, we do not have evidence for an effect of mobile phone usage on driving performance.
 
   </details>
@@ -764,7 +765,7 @@ lavOut <- sem(mod, data = drivers2)
 summary(lavOut)
 ```
 
-Alternatively, we can combine the data processing and model estimation into a single pipeline, as shown below. 
+Alternatively, we can combine the data processing and model estimation into a single pipeline, as shown below.
 
 - This type of combined approach might be preferable if we do not want to permanently add the dummy codes to the
 `drivers` dataset.
