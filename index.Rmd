@@ -50,17 +50,17 @@ pedagogy should probably go to Caspar.
 
 **Coordinator:**
 
-[dr. Kyle M. Lang](https://www.kylemlang.com)
+[dr. Beth Grandfield](https://www.uu.nl/staff/EMGrandfield)
 
 **Lectures:**
 
-[dr. Kyle M. Lang](https://www.kylemlang.com)
+[dr. Beth Grandfield](https://www.uu.nl/staff/EMGrandfield)
 
 **Practicals:**
 
-[dr. Beth Grandfield](https://www.uu.nl/staff/EMGrandfield)
+[dr. Kyle M. Lang](https://www.kylemlang.com)
 
-[dr. Noémi Schuurman](https://www.nkschuurman.com/)
+<!-- [dr. Noémi Schuurman](https://www.nkschuurman.com/) -->
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -73,6 +73,8 @@ This course comprises three parts:
 1. *Factor analysis*: You will learn different ways of defining and estimating latent (unobserved) constructs.
 1. *Full structural equation modeling*: You will combine the first two topics to estimate path models describing the
    associations among latent constructs.
+
+<!----------------------------------------------------------------------------------------------------------------------
 
 Your mastery of these themes will be evaluated with a two data analysis assignments. 
 
@@ -92,15 +94,22 @@ library(xtable)
 options(xtable.include.rownames = FALSE)
 bold <- function(x) paste0("\\textbf{", x, "}")
 
-schedule <- readxl::read_excel(here::here("assets", "schedule.xlsx"))
+schedule <- readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Short")
+# schedule <- xtable(schedule, 
+#                    align = c("m{0.00\\textwidth}",
+#                              "L{0.10\\textwidth}",
+#                              "L{0.10\\textwidth}",
+#                              "Y",
+#                              "L{0.15\\textwidth}",
+#                              "L{0.15\\textwidth}"),
+#                    display = c(rep("d", 3), rep("s", 3))
+# )
 schedule <- xtable(schedule, 
                    align = c("m{0.00\\textwidth}",
                              "L{0.10\\textwidth}",
                              "L{0.10\\textwidth}",
-                             "Y",
-                             "L{0.15\\textwidth}",
-                             "L{0.15\\textwidth}"),
-                   display = c(rep("d", 3), rep("s", 3))
+                             "Y"),
+                   display = c(rep("d", 3), "s")
 )
 
 print(schedule,
@@ -118,15 +127,15 @@ print(schedule,
 
 ```{r print_schedule_kable, results = "asis", echo = FALSE, eval = is_html_output()}
 options(knitr.kable.NA = "")
-readxl::read_excel(here::here("assets", "schedule.xlsx")) |>
+readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Short") |>
   knitr::kable(
-		col.names = c(
-			"Course Week",
-			"Calendar Week",
-			"Lecture/Practical Topic",
-			"Workgroup Activity",
-			"Assignment Deadline"
-		)
+    col.names = c(
+      "Course Week",
+      "Calendar Week",
+      "Lecture/Practical Topic" #,
+      # "Workgroup Activity",
+      # "Assignment Deadline"
+    )
   )
 ```
 
@@ -156,7 +165,7 @@ After completing the course, you will be able to:
 
 We assume you have basic knowledge about multivariate statistics before entering this course. You do not need any prior
 experience working with R. If you wish to refresh your knowledge, Andy Field’s [*Discovering Statistics using R*][field]
-is quite a popular and well-respected introductory stats book. 
+is quite a popular and well-respected introductory stats book.
 
 If you cannot access the Field book, many other introductory statistics textbooks cover these topics equally well. So,
 use whatever you have lying around from past statistics courses. You could also try one of the following open-access
@@ -172,13 +181,13 @@ options:
 
 ### Literature {-}
 
-**You do not need a separate book for this course!** 
+**You do not need a separate book for this course!**
 
 Most of the information is contained within this GitBook and the course readings (which you will be able to access via
-links in this GitBook). 
+links in this GitBook).
 
 All literature is freely available online, as long as you are logging in from within the UU-domain (i.e., from the UU
-campus or through an appropriate VPN). All readings are linked in this GitBook via either direct download links or DOIs. 
+campus or through an appropriate VPN). All readings are linked in this GitBook via either direct download links or DOIs.
 
 If you run into any trouble accessing a given article, searching for the title using [Google Scholar][gs] or the
 [University Library][uu_lib] will probably due the trick.
@@ -188,9 +197,9 @@ If you run into any trouble accessing a given article, searching for the title u
 Along with every article, we will provide reading questions. You will not be graded on the reading questions, but it is
 important to prepare the reading questions before every lecture. The reading questions serve several important purposes:
 
--	Provide relevant background knowledge for the lecture
--	Help you recognize and understand the key terms and concepts
--	Make you aware of important publications that shaped the field
+- Provide relevant background knowledge for the lecture
+- Help you recognize and understand the key terms and concepts
+- Make you aware of important publications that shaped the field
 - Help you extract the relevant insights from the literature
 
 ### Software {-}
@@ -199,7 +208,7 @@ You will do all of your statistical analyses with the statistical programming la
 package [`lavaan`][lavaan].
 
 - If you want to expand your learning, you can follow this optional [`lavaan`
-tutorial](https://lavaan.ugent.be/tutorial/). 
+tutorial](https://lavaan.ugent.be/tutorial/).
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -211,21 +220,23 @@ Before every class meeting (both lectures and practicals) you need to do the ass
 GitBook chapter for that week). This course follows a *flipped classroom* procedure, so you must complete the weekly
 homework to meaningfully participate in, and benefit from, the class meetings.
 
+<!--
 ### Evaluation {-}
 
 Your grade for the course is based on a “portfolio” composed of the two data analysis projects:
 
-1. Path modeling 
+1. Path modeling
     - Deadline: Sunday 2025-10-05 at 23:59
     - Group assignment
     - Pass/Fail
 
-1. Structural equation modeling 
+1. Structural equation modeling
     - Deadline: Sunday 2025-11-02 at 23:59
     - Individual assignment
     - Comprises your entire numeric course grade
 
 **The specifics of the assignments will be explicated in the [Assignments](#assignments) chapter of this GitBook**
+-->
 
 ### Attendance {-}
 
@@ -365,7 +376,7 @@ own any “mistakes” that wily AI models induce in your work.
 [stats_with_r]: https://book.stat420.org/
 [modern_stats]: https://openintro-ims.netlify.app/
 [isl]: https://www.statlearning.com
-[uu_ai_policy]: https://www.uu.nl/en/education/educational-vision/teaching/generative-ai
+[uu_ai_policy]: https://www.uu.nl/en/organisation/ai-policy
 [uu_ai_index]: https://www.uu.nl/en/organisation/ai-policy/students/ai-index
 [fsbs_ai_index]: https://doi.org/10.48550/arXiv.2412.09029
 [uu_ai_citing]: https://www.uu.nl/en/organisation/ai-policy/researchers/citing-genai-in-your-work

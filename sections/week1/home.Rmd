@@ -5,10 +5,12 @@ available at <https://www.openstatprog.com>. These exercises work through the ba
 you should already have R working, this week's practical exercises don't require that you have R installed since you'll
 be able to complete the R practice problems in your web browser.
 
-You can access the two parts of the At-Home Exercises via the following links.
+You can access the four parts of the At-Home Exercises via the following links.
 
-- <a href="https://openstatprog.com/first-steps/index.html" target="_blank">Part 1: First Steps in R</a>
-- <a href="https://openstatprog.com/data-types/index.html" target="_blank">Part 2: R Data Types</a>
+- <a href="https://openstatprog.com/basics/index.html" target="_blank">Part 1: Basic R Commands</a>
+- <a href="https://openstatprog.com/functions/index.html" target="_blank">Part 2: R Functions</a>
+- <a href="https://openstatprog.com/packages/index.html" target="_blank">Part 3: R Packages & Documentation</a>
+- <a href="https://openstatprog.com/data-types/index.html" target="_blank">Part 4: R Data Types</a>
 
 <!------------------------------------------------------------------------------
 
