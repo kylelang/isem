@@ -1,6 +1,6 @@
 ## Assignment 1: Path Analysis {- #a1}
 
-For the first assignment, **you will work in groups** to apply a *path model* that describes how several (observed)
+For the first assignment, **you will work individually** to apply a *path model* that describes how several (observed)
 variables could be causally related. 
 
 ### Required Components {- #a1_components}
@@ -48,6 +48,6 @@ responses to the five components described above.
 
 ### Submission {-}
 
-Assignment 1 is due at 23:59 on Sunday 5 October 2025.
+Assignment 1 is due at 23:59 on Friday 9 October 2026.
 
 - Submit your report via the *Assignments Page* on Brightspace.

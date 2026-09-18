@@ -3,7 +3,7 @@ title: "Introduction to Structural Equation Modeling"
 author: "Kyle M. Lang"
 date: "Last updated: `r Sys.Date()`"
 params:
-  base_url: "https://www.kylemlang.com/isem/"
+  base_url: "https://uu-fsw-isem.github.io/isem/"
 ---
 
 \newcommand{\va}{\\[12pt]}
@@ -74,15 +74,15 @@ This course comprises three parts:
 1. *Full structural equation modeling*: You will combine the first two topics to estimate path models describing the
    associations among latent constructs.
 
-<!----------------------------------------------------------------------------------------------------------------------
+<!--------------------------------------------------------------------------------------------------------------------->
 
 Your mastery of these themes will be evaluated with a two data analysis assignments. 
 
 1. The [first assignment](#a1) covers path analysis.
-   - You will complete this assignment in a group of three students.
+   - You will complete this assignment individually.
    - This assignment will be graded on a pass/fail basis. 
 1. The [second assignment](#a2) covers latent variable modeling.
-   - This is an individual assignment.
+   - You will complete this assignment in groups of three.
    - Your course grade will be based on your second assignment grade.
 
 <!--------------------------------------------------------------------------------------------------------------------->
@@ -94,23 +94,23 @@ library(xtable)
 options(xtable.include.rownames = FALSE)
 bold <- function(x) paste0("\\textbf{", x, "}")
 
-schedule <- readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Short")
-# schedule <- xtable(schedule, 
-#                    align = c("m{0.00\\textwidth}",
-#                              "L{0.10\\textwidth}",
-#                              "L{0.10\\textwidth}",
-#                              "Y",
-#                              "L{0.15\\textwidth}",
-#                              "L{0.15\\textwidth}"),
-#                    display = c(rep("d", 3), rep("s", 3))
-# )
+schedule <- readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Full")
 schedule <- xtable(schedule, 
                    align = c("m{0.00\\textwidth}",
                              "L{0.10\\textwidth}",
                              "L{0.10\\textwidth}",
-                             "Y"),
-                   display = c(rep("d", 3), "s")
+                             "Y",
+                             "L{0.15\\textwidth}",
+                             "L{0.15\\textwidth}"),
+                   display = c(rep("d", 3), rep("s", 3))
 )
+# schedule <- xtable(schedule, 
+#                    align = c("m{0.00\\textwidth}",
+#                              "L{0.10\\textwidth}",
+#                              "L{0.10\\textwidth}",
+#                              "Y"),
+#                    display = c(rep("d", 3), "s")
+# )
 
 print(schedule,
       tabular.environment = "tabularx",
@@ -127,14 +127,14 @@ print(schedule,
 
 ```{r print_schedule_kable, results = "asis", echo = FALSE, eval = is_html_output()}
 options(knitr.kable.NA = "")
-readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Short") |>
+readxl::read_excel(here::here("assets", "schedule.xlsx"), sheet = "Full") |>
   knitr::kable(
     col.names = c(
       "Course Week",
       "Calendar Week",
-      "Lecture/Practical Topic" #,
-      # "Workgroup Activity",
-      # "Assignment Deadline"
+      "Lecture/Practical Topic",
+      "Workgroup Activity",
+      "Assignment Deadline"
     )
   )
 ```
@@ -220,23 +220,21 @@ Before every class meeting (both lectures and practicals) you need to do the ass
 GitBook chapter for that week). This course follows a *flipped classroom* procedure, so you must complete the weekly
 homework to meaningfully participate in, and benefit from, the class meetings.
 
-<!--
 ### Evaluation {-}
 
 Your grade for the course is based on a “portfolio” composed of the two data analysis projects:
 
 1. Path modeling
-    - Deadline: Sunday 2025-10-05 at 23:59
-    - Group assignment
+    - Deadline: Friday 2026-10-09 at 23:59
+    - Individual assignment
     - Pass/Fail
 
 1. Structural equation modeling
-    - Deadline: Sunday 2025-11-02 at 23:59
-    - Individual assignment
+    - Deadline: TBD
+    - Group assignment
     - Comprises your entire numeric course grade
 
 **The specifics of the assignments will be explicated in the [Assignments](#assignments) chapter of this GitBook**
--->
 
 ### Attendance {-}
 

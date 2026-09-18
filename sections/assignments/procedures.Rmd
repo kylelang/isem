@@ -1,5 +1,7 @@
 ## Procedures {-}
 
+---
+
 ### Formatting {- #formatting}
 
 Your assignment submissions must follow certain formatting guidelines. Failing to correctly format your submissions can
@@ -7,19 +9,11 @@ impact your grade.
 
 #### Report {-}
 
-You must submit your Assignment 1 & 2 reports in PDF format.
+You must submit your Assignment 1 report in PDF format. Each report must include your name
 
-- Each report must include the following information:
-    - The names of all assignment authors (i.e., all group members for Assignment 1, your name for Assignment 2).
-    - The Assignment Group number (only for Assignment 1).
-
-Your reports should include appendicies containing the lavaan syntax used to estimate each model include in the
-respective report.
-
-- Include only the lavaan syntax string and the call to the estimation function used to fit the model (e.g., `cfa()`,
-`sem()`, `lavaan()`).
-
-For example, the following snippets would be appropriate.
+Your report should include appendices containing the lavaan syntax used to estimate each model include in the report.
+Include only the lavaan syntax string and the call to the estimation function used to fit the model (e.g., `cfa()`,
+`sem()`, `lavaan()`). For example, the following snippets would be appropriate.
 
 ```{r, eval = FALSE}
 cfaMod <- '
@@ -41,7 +35,7 @@ f1 ~ f2 + x
 semOut <- sem(semMod, data = dat1, std.lv = TRUE)
 ```
 
-The snippet below, however, contains additional unecessary commands related to data ingest/processing and summarizing
+The snippet below, however, contains additional unnecessary commands related to data ingest/processing and summarizing
 the model.
 
 ```{r, eval = FALSE}
@@ -73,6 +67,8 @@ Clean the script before submitting.
    - In theory, I should be able to source your script (i.e., run the entire script in "batch mode") to reproduce your
    results.
 
+---
+
 ### Length {-}
 
 You may use as many words as necessary to adequately explain yourself, but concision and parsimony are encouraged. Note
@@ -80,19 +76,88 @@ that the assignments are **not** intended to be full-blown research papers! The 
 your model, how this model relates to theory (introduction), and what you have learned from your estimated model
 (discussion).
 
-For both assignments, you should be able to get the job done in fewer than 10 pages of text (excluding title page,
-figures, appendices, and references).
+You should be able to get the job done in fewer than 10 pages of text (excluding title page, figures, appendices, and
+references).
+
+---
 
 ### Submission {-}
 
-You will submit your reports through Brightspace.
+You will submit your A1 report through Brightspace.
 
-- Each assignment has a corresponding item in the "Assignments" section of the Brightspace page through which you will
-submit your reports.
-- For Assignment 1, you may only submit one report per group.
-   - Designate one group member to submit the report.
-   - The grade for this submission will apply to all group members.
+- You can find a submission portal in the "Assignments" section of the Brightspace page.
 - If something goes wrong with the submission, or you notice a mistake (before the deadline) that you want to correct,
 you may upload a new version of your report. 
    - We will grade the final submitted version.
-- The submissions will be screened with *TurnItIn* to check for plagarism.
+- The submissions will be screened with *TurnItIn* to check for plagiarism.
+
+---
+
+### Rules {-}
+
+#### Resources {-}
+
+For both assignments, you may use any reference materials you like, including:
+
+- All course materials
+- The course GitBook
+- Additional books and papers
+- The internet
+
+#### Collaboration {-}
+
+You will complete the first assignment individually. 
+
+- For this assignment, you may not work with anyone else.
+
+You will complete the second assignment in groups.
+
+- Although you will work in groups, your group may not work together with other groups.
+
+For both assignments, you are obligated to submit original work (i.e., work conducted for this course by you or your
+group). 
+
+- Submitting an assignment that violates this condition constitutes fraud.
+- Such cases of fraud will be addressed according to the 
+[University's standard policy](https://students.uu.nl/en/practical-information/policies-and-procedures/fraud-and-plagiarism).
+
+#### Academic integrity {-}
+
+Hopefully, you also feel a moral obligation to obey the rules. For this course, we have implemented an examination that
+allows you to showcase what you have learned in a more realistic way than a written exam would allow. 
+
+- This assessment format spares you the stress of long exams and the attendant studying/cramming. 
+- The assignments will also help you assess your ability to independently analyse data, which is important to know for
+your future courses and/or career.
+
+However, this format also assumes that you complete the assignments in good faith. So, I simply ask that you hold up
+your end of the bargain, and submit your original work to show us what you've learned.
+
+#### GenAI disclosure statement {-}
+
+Naturally, all of the [course policies on GenAI](#ai_policy) also apply to the data analysis assignments. In addition to
+these general policies, you must include a GenAI disclosure statement in each of your assignments.
+
+You are free to use AI tools like ChatGPT, Claude, or CoPilot, but you must cite the tools you used in the same way that
+you would cite any other software. As with citing any other source, properly citing AI tools both attributes the
+appropriate credit to the tool’s developers and helps you clearly and accurately describe your own work. In addition to
+providing a valid citation, you must also explain how you used the AI tool. Specifically, did you use AI to:
+
+1. Create new content (e.g., use ChatGPT to draft some parts of the text)
+1. Modify content that you created (e.g., use Claude to debug your R code)
+
+Provide this information in a separate *GenAI Disclosure Statement* section at the end of your report.
+
+#### Strict stuff {-}
+
+By submitting your assignments (both group and individual), you confirm the following:
+
+1. You have completed the assignment yourself (or with your group)
+1. You are submitting work that you have written yourself (or with your group)
+1. You are using your own UU credentials to submit the assignment
+1. You have not had outside help that violates the conditions delineated above while completing the assignment
+
+All assignments will be submitted via TurnItIn in Brightspace and, thereby, checked for plagiarism. If fraud or
+plagiarism is detected or suspected, we will inform the Board of Examiners in the usual manner. In the event of
+demonstrable fraud, the sanctions delineated in Article 5.15 of the [Education and Examination Regulations
+(EER)](https://students.uu.nl/en/fss/education-and-examination-regulations-eer) will apply. 

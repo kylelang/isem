@@ -1,12 +1,14 @@
 ## Grading {- #assignment_grading}
 
-### Group Assignments {-}
+---
+
+### Assignment 1 {-}
 
 Assignment 1 is simply graded as pass/fail. To pass, you must:
 
-1. Make a reasonable effort to complete all required work
-   - Include all required components listed [above](#a1_components) in your A1 report
-1. Demonstrate a satisfactory ability to apply path analysis
+1. Make a reasonable effort to complete all required work.
+   - Include all required components listed in the [assignment guidelines](#a1_components) in your A1 report.
+1. Demonstrate a satisfactory ability to apply path analysis.
    - Does your work demonstrate that you understand what you're doing?
       - Mindlessly implementing a sequence of memorized actions is not sufficient.
    - Does your report show that you understand what you've done, why you've done it, and the implications of your results?
@@ -15,8 +17,13 @@ Assignment 1 is simply graded as pass/fail. To pass, you must:
 
 Otherwise, you will fail the assignment.
 
-### Individual Assignment {-}
+---
 
+### Assignment 2 {-}
+
+***Details coming soon!***
+
+<!--
 Assignment 2 will be fully graded on the usual 10-point scale. We will follow the procedure described below to compute
 your A2 grade.
 
@@ -88,3 +95,4 @@ You can find an example of a good submission (for an older version of Assignment
 This example is not perfect (no paper ever is), and several points could be improved. That being said, this submission
 exemplifies what we're looking for in your project reports. So, following the spirit of this example would earn you a
 high grade.
+-->

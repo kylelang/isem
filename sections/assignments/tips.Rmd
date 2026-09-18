@@ -1,5 +1,7 @@
 ## Elaboration & Tips {-}
 
+---
+
 ### Progression {- #progression}
 
 The two assignments are meant to build upon one another. So, you should plan on analyzing the same dataset for both
@@ -7,7 +9,7 @@ assignments and choose a theoretical model that will satisfy the requirements of
 progression, consider the following points.
 
 - For A2, your theoretical model must include two or more latent constructs. At least one of the latent constructs must
-act as in IV in your model.
+act as an IV in your model.
    - When specifying your model for A1, ensure that you use at least two scale scores constructed from three or more
    items each.
    - Make sure to include at least one of these scale scores as an IV.
@@ -18,19 +20,20 @@ act as in IV in your model.
 - We will not cover methods for latent variable interactions.
    - When specifying your theoretical model in A1, do not include any interactions involving scale scores (i.e.,
    variables that will be latent constructs in A2).
+- Although we *will* cover multiple-group models, you will not have enough time to incorporate those methods into your
+A2 analysis. So, you *should not* specify research questions involving group-mean differences or moderation by group.
+<!--
    - *EXCEPTION:* You may specify an interaction between a scale score/latent construct and a nominal grouping variable
    (e.g., sex, nationality, ethnicity).
       - You will learn how to test this type of hypothesis via multiple-group SEM in
 			[Week 8](`r makeCourseUrl("multiple-group-models.html")`).
+-->
 
 #### Recycling Prior Work {-}
 
 Since A2 builds on A1, you'll inevitably find yourself in the position of needing to document exactly the same things
-across assignments. In such circumstances, you'll undoubtedly be wondering if you can reuse some of your previous
-writing. 
-
-Yes. You're free to reuse parts of your reports across all three assignments. There are some minor caveats to this
-statement, however.
+across assignments. In such circumstances, you're free to reuse parts of your reports across both assignments. There are
+some minor caveats to this statement, however.
 
 - When reusing prior work, make sure to address any feedback that you received on that work.
    - Uncorrected mistakes in copied passages will incur especially harsh penalties in the [grading process](#assignment_grading).
@@ -39,6 +42,8 @@ statement, however.
    - A description of your theoretical model from A1 that refers to "scale scores", won't be valid for A2.
 - Don't keep irrelevant parts of past assignments.
    - Your grade will be penalized for including extraneous information.
+
+---
 
 ### Theoretical Model & Research Question {- #rq}
 
@@ -58,7 +63,7 @@ model (as opposed to randomly combining variables until **lavaan** returns a pre
 
 You are free to test any plausible model that meets the size requirements.
 
-- You can derive your own model/research question or you can replicate a published analysis.
+- You can derive your own model/research question, or you can replicate a published analysis.
 
 #### Model Specifications {-}
 
@@ -67,14 +72,18 @@ We will not cover methods for modeling categorical outcome variables. So, use on
 - DVs in path models and the structural parts of SEMs
 - Observed indicators of latent factors in CFA/SEM
 
-*NOTE:* You may treat ordinal items with five or more levesl as continuous, for the purposes of these assignments.
+*NOTE:* You may treat ordinal items with five or more levels as continuous, for the purposes of these assignments.
 
 We will not cover methods for latent variable interactions.
 
 - Don't specify a theoretical model that requires an interaction involving a latent construct.
 
+<!--
 There is one exception to the above prohibition. If the moderator is an observed grouping variable, you can estimate the
 model as a multiple-group model. We'll cover these methods in [Week 8](`r makeCourseUrl("multiple-group-models.html")`).
+-->
+
+---
 
 ### Assumptions {- #model_assumptions}
 
@@ -114,6 +123,8 @@ To summarize, we're looking for the following.
      - Normal QQ-Plots
      - Histograms
      - Kernel Density Plots
+
+---
 
 ### Reporting Standards {- #reporting_standards}
 
@@ -167,7 +178,7 @@ Judging model fit is always a subjective process. The key to success is providin
 to support the claimed degree of fit.
 
 - Always report the $\chi^2$, its degrees of freedom, and the associated p-value.
-   - Don't interpret the $\chi^2$: it's testing an uninteresting hypothsis that we don't expect to hold.
+   - Don't interpret the $\chi^2$: it's testing an uninteresting hypothesis that we don't expect to hold.
 - Report at least two additional, non-redundant fit indices (i.e., indices that quantify fit in different ways).
    - If you don't have a particular preference, I'd recommend CFI, RMSEA (and its 90% CI), and SRMR
 

@@ -1,6 +1,6 @@
 ## Assignment 2: Structural Equation Modeling {- #a2}
 
-In the second assignment, **you will work individually** to apply a structural equation model (SEM) that describes how
+In the second assignment, **you will work in groups** to apply a structural equation model (SEM) that describes how
 several (latent) variables could be causally related. 
 
 Before estimating your SEM, you will evaluate the validity of your latent variables by using confirmatory factor
@@ -14,18 +14,21 @@ validity of the measurement model by reporting your CFA results.
 The obligatory aspects of the second assignment are described below.
 
 1. Choose a suitable dataset, and describe the data.
-   - Unless you have a good reason to switch, you should work with the same data that you analyzed in Assignment 1.
+	 - Unless you have a good reason to switch, you should work with the same data that someone in your group analyzed for
+	 Assignment 1.
    - If you need to switch, you can use any of the 8 datasets linked [below](#data_options).
 1. State the [research question](#rq); define and explicate the theoretical SEM. 
    - The structural component of this model must include, at least, three variables.
    - The structural model must include, at least, two latent variables.
    - At least one independent variable in your model must be latent.
-   - You do not need to explicate a separate theory/research question/hypothsis for your measurement model.
+   - You do not need to explicate a separate theory/research question/hypothesis for your measurement model.
 1. Translate your hypothesized measurement model into **lavaan** syntax, and estimate the CFA model.
+<!--
    - Submit the [(clean) R script](#analysis_script) along with your report.
       - Submit this R script as a separate file, not part of your report.
    - Include the lavaan syntax used to estimate your CFA models in your report.
       - Place these syntax snippets in [an appendix](#formatting).
+-->
 1. Report the results of your CFA.
    - Provide relevant output in a [suitable format](#reporting_standards).
    - Include suitable parameter estimates.
@@ -33,10 +36,12 @@ The obligatory aspects of the second assignment are described below.
    - Include measures of model fit.
    - Evaluate the model [assumptions](#model_assumptions).
 1. Translate your theoretical SEM into **lavaan** syntax, and estimate the model.
+<!--
    - Submit the [(clean) R script](#analysis_script) along with your report.
       - Submit this R script as a separate file, not part of your report.
    - Include the lavaan syntax used to estimate your SEM model in your report.
       - Place these syntax snippets in [an appendix](#formatting).
+-->
 1. Report the results of your SEM.
    - Provide relevant output in a [suitable format](#reporting_standards).
    - Include suitable parameter estimates.
@@ -49,15 +54,23 @@ The obligatory aspects of the second assignment are described below.
 
 ### Evaluation {-}
 
+***Details coming soon!***
+
+<!--
 See the [Grading](#assignment_grading) section below for more information on how Assignment 2 will be evaluated.
 
 You can access an evaluation matrix for Assignment 2 [here](`r makeCourseUrl("assets/assignments/a2_guidelines.pdf")`).
 
 - This matrix gives an indication of what level of work constitutes *insufficient*, *sufficient*, and *excellent*
 responses to the seven components described above.
+-->
 
 ### Submission {-}
 
+***Details coming soon!***
+
+<!--
 Assignment 2 is due at 23:59 on Sunday 2 November 2025.
 
 - Submit your report via the *Assignments Page* on Brightspace.
+-->

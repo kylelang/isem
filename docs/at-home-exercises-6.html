@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.3 At-Home Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="8.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -53,8 +53,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -164,6 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
 <ul>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
@@ -174,7 +173,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html"><i class="fa fa-check"></i>Assignment Guidelines</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a1"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a2"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#data_options"><i class="fa fa-check"></i>Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#rules"><i class="fa fa-check"></i>Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-1"><i class="fa fa-check"></i>Assignment 1</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
 <ul>
 <li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
@@ -434,11 +460,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="at-home-exercises-6.html#cb254-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb254-2"><a href="at-home-exercises-6.html#cb254-2" tabindex="-1"></a></span>
-<span id="cb254-3"><a href="at-home-exercises-6.html#cb254-3" tabindex="-1"></a><span class="co"># Read the data into an object called &#39;sesam2&#39;:</span></span>
-<span id="cb254-4"><a href="at-home-exercises-6.html#cb254-4" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
-<span id="cb254-5"><a href="at-home-exercises-6.html#cb254-5" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;Sesam2.sav&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="at-home-exercises-6.html#cb296-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb296-2"><a href="at-home-exercises-6.html#cb296-2" tabindex="-1"></a></span>
+<span id="cb296-3"><a href="at-home-exercises-6.html#cb296-3" tabindex="-1"></a><span class="co"># Read the data into an object called &#39;sesam2&#39;:</span></span>
+<span id="cb296-4"><a href="at-home-exercises-6.html#cb296-4" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb296-5"><a href="at-home-exercises-6.html#cb296-5" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;Sesam2.sav&quot;</span>))</span></code></pre></div>
 </details>
 <hr />
 <p><code>VIEWCAT</code> is a nominal grouping variable, but it is represented as a numeric variable in the <code>sesam2</code> data. The levels
@@ -465,25 +491,25 @@ pretty helpful.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="at-home-exercises-6.html#cb255-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb255-2"><a href="at-home-exercises-6.html#cb255-2" tabindex="-1"></a></span>
-<span id="cb255-3"><a href="at-home-exercises-6.html#cb255-3" tabindex="-1"></a><span class="do">## Store the old version for checking:</span></span>
-<span id="cb255-4"><a href="at-home-exercises-6.html#cb255-4" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> sesam2<span class="sc">$</span>VIEWCAT</span>
-<span id="cb255-5"><a href="at-home-exercises-6.html#cb255-5" tabindex="-1"></a></span>
-<span id="cb255-6"><a href="at-home-exercises-6.html#cb255-6" tabindex="-1"></a><span class="do">## Convert &#39;VIEWCAT&#39; to a factor:</span></span>
-<span id="cb255-7"><a href="at-home-exercises-6.html#cb255-7" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(sesam2, </span>
-<span id="cb255-8"><a href="at-home-exercises-6.html#cb255-8" tabindex="-1"></a>                 <span class="at">VIEWCAT =</span> <span class="fu">factor</span>(VIEWCAT,</span>
-<span id="cb255-9"><a href="at-home-exercises-6.html#cb255-9" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb255-10"><a href="at-home-exercises-6.html#cb255-10" tabindex="-1"></a>                                    <span class="st">&quot;Rarely/never&quot;</span>,</span>
-<span id="cb255-11"><a href="at-home-exercises-6.html#cb255-11" tabindex="-1"></a>                                    <span class="st">&quot;2-3 times per week&quot;</span>,</span>
-<span id="cb255-12"><a href="at-home-exercises-6.html#cb255-12" tabindex="-1"></a>                                    <span class="st">&quot;4-5 times per week&quot;</span>,</span>
-<span id="cb255-13"><a href="at-home-exercises-6.html#cb255-13" tabindex="-1"></a>                                    <span class="st">&quot;&gt; 5 times per week&quot;</span></span>
-<span id="cb255-14"><a href="at-home-exercises-6.html#cb255-14" tabindex="-1"></a>                                    )</span>
-<span id="cb255-15"><a href="at-home-exercises-6.html#cb255-15" tabindex="-1"></a>                                  )</span>
-<span id="cb255-16"><a href="at-home-exercises-6.html#cb255-16" tabindex="-1"></a>                )</span>
-<span id="cb255-17"><a href="at-home-exercises-6.html#cb255-17" tabindex="-1"></a></span>
-<span id="cb255-18"><a href="at-home-exercises-6.html#cb255-18" tabindex="-1"></a><span class="do">## Check the conversion:</span></span>
-<span id="cb255-19"><a href="at-home-exercises-6.html#cb255-19" tabindex="-1"></a><span class="fu">table</span>(<span class="at">new =</span> sesam2<span class="sc">$</span>VIEWCAT, <span class="at">old =</span> tmp, <span class="at">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="at-home-exercises-6.html#cb297-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb297-2"><a href="at-home-exercises-6.html#cb297-2" tabindex="-1"></a></span>
+<span id="cb297-3"><a href="at-home-exercises-6.html#cb297-3" tabindex="-1"></a><span class="do">## Store the old version for checking:</span></span>
+<span id="cb297-4"><a href="at-home-exercises-6.html#cb297-4" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> sesam2<span class="sc">$</span>VIEWCAT</span>
+<span id="cb297-5"><a href="at-home-exercises-6.html#cb297-5" tabindex="-1"></a></span>
+<span id="cb297-6"><a href="at-home-exercises-6.html#cb297-6" tabindex="-1"></a><span class="do">## Convert &#39;VIEWCAT&#39; to a factor:</span></span>
+<span id="cb297-7"><a href="at-home-exercises-6.html#cb297-7" tabindex="-1"></a>sesam2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(sesam2, </span>
+<span id="cb297-8"><a href="at-home-exercises-6.html#cb297-8" tabindex="-1"></a>                 <span class="at">VIEWCAT =</span> <span class="fu">factor</span>(VIEWCAT,</span>
+<span id="cb297-9"><a href="at-home-exercises-6.html#cb297-9" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb297-10"><a href="at-home-exercises-6.html#cb297-10" tabindex="-1"></a>                                    <span class="st">&quot;Rarely/never&quot;</span>,</span>
+<span id="cb297-11"><a href="at-home-exercises-6.html#cb297-11" tabindex="-1"></a>                                    <span class="st">&quot;2-3 times per week&quot;</span>,</span>
+<span id="cb297-12"><a href="at-home-exercises-6.html#cb297-12" tabindex="-1"></a>                                    <span class="st">&quot;4-5 times per week&quot;</span>,</span>
+<span id="cb297-13"><a href="at-home-exercises-6.html#cb297-13" tabindex="-1"></a>                                    <span class="st">&quot;&gt; 5 times per week&quot;</span></span>
+<span id="cb297-14"><a href="at-home-exercises-6.html#cb297-14" tabindex="-1"></a>                                    )</span>
+<span id="cb297-15"><a href="at-home-exercises-6.html#cb297-15" tabindex="-1"></a>                                  )</span>
+<span id="cb297-16"><a href="at-home-exercises-6.html#cb297-16" tabindex="-1"></a>                )</span>
+<span id="cb297-17"><a href="at-home-exercises-6.html#cb297-17" tabindex="-1"></a></span>
+<span id="cb297-18"><a href="at-home-exercises-6.html#cb297-18" tabindex="-1"></a><span class="do">## Check the conversion:</span></span>
+<span id="cb297-19"><a href="at-home-exercises-6.html#cb297-19" tabindex="-1"></a><span class="fu">table</span>(<span class="at">new =</span> sesam2<span class="sc">$</span>VIEWCAT, <span class="at">old =</span> tmp, <span class="at">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
 <pre><code>##                     old
 ## new                   1  2  3  4 &lt;NA&gt;
 ##   Rarely/never       25  0  0  0    0
@@ -505,12 +531,12 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="at-home-exercises-6.html#cb257-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb257-2"><a href="at-home-exercises-6.html#cb257-2" tabindex="-1"></a></span>
-<span id="cb257-3"><a href="at-home-exercises-6.html#cb257-3" tabindex="-1"></a><span class="fu">ggplot</span>(sesam2, <span class="fu">aes</span>(AGE, POSTNUMB, <span class="at">color =</span> VIEWCAT)) <span class="sc">+</span> </span>
-<span id="cb257-4"><a href="at-home-exercises-6.html#cb257-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb257-5"><a href="at-home-exercises-6.html#cb257-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-489-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="at-home-exercises-6.html#cb299-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb299-2"><a href="at-home-exercises-6.html#cb299-2" tabindex="-1"></a></span>
+<span id="cb299-3"><a href="at-home-exercises-6.html#cb299-3" tabindex="-1"></a><span class="fu">ggplot</span>(sesam2, <span class="fu">aes</span>(AGE, POSTNUMB, <span class="at">color =</span> VIEWCAT)) <span class="sc">+</span> </span>
+<span id="cb299-4"><a href="at-home-exercises-6.html#cb299-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb299-5"><a href="at-home-exercises-6.html#cb299-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="isem_files/figure-html/unnamed-chunk-486-1.png" alt="" width="672" /></p>
 <details>
 <summary>
 Click for explanation
@@ -543,12 +569,12 @@ grouping factor.</li>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="at-home-exercises-6.html#cb258-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb258-2"><a href="at-home-exercises-6.html#cb258-2" tabindex="-1"></a></span>
-<span id="cb258-3"><a href="at-home-exercises-6.html#cb258-3" tabindex="-1"></a><span class="do">## Estimate the unrestricted model a view the results:</span></span>
-<span id="cb258-4"><a href="at-home-exercises-6.html#cb258-4" tabindex="-1"></a>out_full <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + AGE&#39;</span>, <span class="at">data =</span> sesam2, <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
-<span id="cb258-5"><a href="at-home-exercises-6.html#cb258-5" tabindex="-1"></a><span class="fu">summary</span>(out_full)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 1 iteration
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="at-home-exercises-6.html#cb300-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb300-2"><a href="at-home-exercises-6.html#cb300-2" tabindex="-1"></a></span>
+<span id="cb300-3"><a href="at-home-exercises-6.html#cb300-3" tabindex="-1"></a><span class="do">## Estimate the unrestricted model a view the results:</span></span>
+<span id="cb300-4"><a href="at-home-exercises-6.html#cb300-4" tabindex="-1"></a>out_full <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + AGE&#39;</span>, <span class="at">data =</span> sesam2, <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
+<span id="cb300-5"><a href="at-home-exercises-6.html#cb300-5" tabindex="-1"></a><span class="fu">summary</span>(out_full)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 1 iteration
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -659,12 +685,12 @@ like <code>VIEWCAT</code> could moderate the focal effect.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="at-home-exercises-6.html#cb260-1" tabindex="-1"></a><span class="do">## Estimate the restricted model and view the results:</span></span>
-<span id="cb260-2"><a href="at-home-exercises-6.html#cb260-2" tabindex="-1"></a>out_res <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + c(&quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;) * AGE&#39;</span>,</span>
-<span id="cb260-3"><a href="at-home-exercises-6.html#cb260-3" tabindex="-1"></a>               <span class="at">data =</span> sesam2,</span>
-<span id="cb260-4"><a href="at-home-exercises-6.html#cb260-4" tabindex="-1"></a>               <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
-<span id="cb260-5"><a href="at-home-exercises-6.html#cb260-5" tabindex="-1"></a><span class="fu">summary</span>(out_res)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 38 iterations
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="at-home-exercises-6.html#cb302-1" tabindex="-1"></a><span class="do">## Estimate the restricted model and view the results:</span></span>
+<span id="cb302-2"><a href="at-home-exercises-6.html#cb302-2" tabindex="-1"></a>out_res <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="st">&#39;POSTNUMB ~ 1 + c(&quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;, &quot;b1&quot;) * AGE&#39;</span>,</span>
+<span id="cb302-3"><a href="at-home-exercises-6.html#cb302-3" tabindex="-1"></a>               <span class="at">data =</span> sesam2,</span>
+<span id="cb302-4"><a href="at-home-exercises-6.html#cb302-4" tabindex="-1"></a>               <span class="at">group =</span> <span class="st">&quot;VIEWCAT&quot;</span>)</span>
+<span id="cb302-5"><a href="at-home-exercises-6.html#cb302-5" tabindex="-1"></a><span class="fu">summary</span>(out_res)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 38 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -770,8 +796,8 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="at-home-exercises-6.html#cb262-1" tabindex="-1"></a><span class="do">## Test for moderation:</span></span>
-<span id="cb262-2"><a href="at-home-exercises-6.html#cb262-2" tabindex="-1"></a><span class="fu">anova</span>(out_full, out_res)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="at-home-exercises-6.html#cb304-1" tabindex="-1"></a><span class="do">## Test for moderation:</span></span>
+<span id="cb304-2"><a href="at-home-exercises-6.html#cb304-2" tabindex="-1"></a><span class="fu">anova</span>(out_full, out_res)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 
@@ -825,20 +851,20 @@ can find more information about this scale in <a href="https://doi.org/10.1016/j
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="at-home-exercises-6.html#cb264-1" tabindex="-1"></a><span class="do">## Load the data:</span></span>
-<span id="cb264-2"><a href="at-home-exercises-6.html#cb264-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">read.table</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;PGDdata2.txt&quot;</span>),</span>
-<span id="cb264-3"><a href="at-home-exercises-6.html#cb264-3" tabindex="-1"></a>                  <span class="at">na.strings =</span> <span class="st">&quot;-999&quot;</span>,</span>
-<span id="cb264-4"><a href="at-home-exercises-6.html#cb264-4" tabindex="-1"></a>                  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb264-5"><a href="at-home-exercises-6.html#cb264-5" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
-<span id="cb264-6"><a href="at-home-exercises-6.html#cb264-6" tabindex="-1"></a></span>
-<span id="cb264-7"><a href="at-home-exercises-6.html#cb264-7" tabindex="-1"></a><span class="do">## Check the results:</span></span>
-<span id="cb264-8"><a href="at-home-exercises-6.html#cb264-8" tabindex="-1"></a><span class="fu">head</span>(pgd)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="at-home-exercises-6.html#cb306-1" tabindex="-1"></a><span class="do">## Load the data:</span></span>
+<span id="cb306-2"><a href="at-home-exercises-6.html#cb306-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">read.table</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;PGDdata2.txt&quot;</span>),</span>
+<span id="cb306-3"><a href="at-home-exercises-6.html#cb306-3" tabindex="-1"></a>                  <span class="at">na.strings =</span> <span class="st">&quot;-999&quot;</span>,</span>
+<span id="cb306-4"><a href="at-home-exercises-6.html#cb306-4" tabindex="-1"></a>                  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb306-5"><a href="at-home-exercises-6.html#cb306-5" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb306-6"><a href="at-home-exercises-6.html#cb306-6" tabindex="-1"></a></span>
+<span id="cb306-7"><a href="at-home-exercises-6.html#cb306-7" tabindex="-1"></a><span class="do">## Check the results:</span></span>
+<span id="cb306-8"><a href="at-home-exercises-6.html#cb306-8" tabindex="-1"></a><span class="fu">head</span>(pgd)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Kin2"],"name":[1],"type":["int"],"align":["right"]},{"label":["b1pss1"],"name":[2],"type":["int"],"align":["right"]},{"label":["b2pss2"],"name":[3],"type":["int"],"align":["right"]},{"label":["b3pss3"],"name":[4],"type":["int"],"align":["right"]},{"label":["b4pss4"],"name":[5],"type":["int"],"align":["right"]},{"label":["b5pss5"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"1","3":"1","4":"1","5":"1","6":"1","_rn_":"1"},{"1":"0","2":"1","3":"0","4":"0","5":"1","6":"0","_rn_":"2"},{"1":"1","2":"1","3":"1","4":"1","5":"1","6":"0","_rn_":"3"},{"1":"1","2":"1","3":"0","4":"1","5":"1","6":"0","_rn_":"4"},{"1":"0","2":"1","3":"1","4":"2","5":"0","6":"0","_rn_":"5"},{"1":"1","2":"2","3":"2","4":"2","5":"2","6":"1","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="at-home-exercises-6.html#cb265-1" tabindex="-1"></a><span class="fu">summary</span>(pgd)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="at-home-exercises-6.html#cb307-1" tabindex="-1"></a><span class="fu">summary</span>(pgd)</span></code></pre></div>
 <pre><code>##       Kin2            b1pss1          b2pss2           b3pss3      
 ##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
 ##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
@@ -846,7 +872,7 @@ Click to show code
 ##  Mean   :0.6661   Mean   :1.235   Mean   :0.4606   Mean   :0.9772  
 ##  3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
 ##  Max.   :1.0000   Max.   :5.000   Max.   :3.0000   Max.   :5.0000  
-##  NA&#39;s   :2                                         NA&#39;s   :1       
+##  NAs    :2                                         NAs    :1       
 ##      b4pss4          b5pss5      
 ##  Min.   :0.000   Min.   :0.0000  
 ##  1st Qu.:0.000   1st Qu.:0.0000  
@@ -854,8 +880,8 @@ Click to show code
 ##  Mean   :1.011   Mean   :0.6754  
 ##  3rd Qu.:2.000   3rd Qu.:1.0000  
 ##  Max.   :3.000   Max.   :3.0000  
-##                  NA&#39;s   :1</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="at-home-exercises-6.html#cb267-1" tabindex="-1"></a><span class="fu">str</span>(pgd)</span></code></pre></div>
+##                  NAs    :1</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="at-home-exercises-6.html#cb309-1" tabindex="-1"></a><span class="fu">str</span>(pgd)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    571 obs. of  6 variables:
 ##  $ Kin2  : int  0 0 1 1 0 1 1 1 1 1 ...
 ##  $ b1pss1: int  1 1 1 1 1 2 1 3 1 1 ...
@@ -879,12 +905,12 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="at-home-exercises-6.html#cb269-1" tabindex="-1"></a><span class="do">## Process data</span></span>
-<span id="cb269-2"><a href="at-home-exercises-6.html#cb269-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pgd, <span class="at">Kin2 =</span> <span class="fu">factor</span>(Kin2, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;spouse&quot;</span>, <span class="st">&quot;other&quot;</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb269-3"><a href="at-home-exercises-6.html#cb269-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Kin2))</span>
-<span id="cb269-4"><a href="at-home-exercises-6.html#cb269-4" tabindex="-1"></a></span>
-<span id="cb269-5"><a href="at-home-exercises-6.html#cb269-5" tabindex="-1"></a><span class="do">## Save the processed data</span></span>
-<span id="cb269-6"><a href="at-home-exercises-6.html#cb269-6" tabindex="-1"></a><span class="fu">saveRDS</span>(pgd, here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;pgd_data.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="at-home-exercises-6.html#cb311-1" tabindex="-1"></a><span class="do">## Process data</span></span>
+<span id="cb311-2"><a href="at-home-exercises-6.html#cb311-2" tabindex="-1"></a>pgd <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pgd, <span class="at">Kin2 =</span> <span class="fu">factor</span>(Kin2, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;spouse&quot;</span>, <span class="st">&quot;other&quot;</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb311-3"><a href="at-home-exercises-6.html#cb311-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Kin2))</span>
+<span id="cb311-4"><a href="at-home-exercises-6.html#cb311-4" tabindex="-1"></a></span>
+<span id="cb311-5"><a href="at-home-exercises-6.html#cb311-5" tabindex="-1"></a><span class="do">## Save the processed data</span></span>
+<span id="cb311-6"><a href="at-home-exercises-6.html#cb311-6" tabindex="-1"></a><span class="fu">saveRDS</span>(pgd, here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;pgd_data.rds&quot;</span>))</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -899,11 +925,11 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="at-home-exercises-6.html#cb270-1" tabindex="-1"></a><span class="do">## Define the model syntax:</span></span>
-<span id="cb270-2"><a href="at-home-exercises-6.html#cb270-2" tabindex="-1"></a>cfaMod <span class="ot">&lt;-</span> <span class="st">&#39;grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5&#39;</span></span>
-<span id="cb270-3"><a href="at-home-exercises-6.html#cb270-3" tabindex="-1"></a></span>
-<span id="cb270-4"><a href="at-home-exercises-6.html#cb270-4" tabindex="-1"></a><span class="do">## Estimate the model:</span></span>
-<span id="cb270-5"><a href="at-home-exercises-6.html#cb270-5" tabindex="-1"></a>out0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="at-home-exercises-6.html#cb312-1" tabindex="-1"></a><span class="do">## Define the model syntax:</span></span>
+<span id="cb312-2"><a href="at-home-exercises-6.html#cb312-2" tabindex="-1"></a>cfaMod <span class="ot">&lt;-</span> <span class="st">&#39;grief =~ b1pss1 + b2pss2 + b3pss3 + b4pss4 + b5pss5&#39;</span></span>
+<span id="cb312-3"><a href="at-home-exercises-6.html#cb312-3" tabindex="-1"></a></span>
+<span id="cb312-4"><a href="at-home-exercises-6.html#cb312-4" tabindex="-1"></a><span class="do">## Estimate the model:</span></span>
+<span id="cb312-5"><a href="at-home-exercises-6.html#cb312-5" tabindex="-1"></a>out0 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd)</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -919,9 +945,9 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="at-home-exercises-6.html#cb271-1" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
-<span id="cb271-2"><a href="at-home-exercises-6.html#cb271-2" tabindex="-1"></a><span class="fu">summary</span>(out0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 19 iterations
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="at-home-exercises-6.html#cb313-1" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
+<span id="cb313-2"><a href="at-home-exercises-6.html#cb313-2" tabindex="-1"></a><span class="fu">summary</span>(out0, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 19 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -967,6 +993,12 @@ Click to show code
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.018
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.998
+##   90 Percent confidence interval - lower         0.989
+##   90 Percent confidence interval - upper         1.000
 ## 
 ## Parameter Estimates:
 ## 
@@ -1028,7 +1060,7 @@ has a standardized factor loading of <span class="math inline">\(\lambda = 0.495
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="at-home-exercises-6.html#cb273-1" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd, <span class="at">group =</span> <span class="st">&quot;Kin2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="at-home-exercises-6.html#cb315-1" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfaMod, <span class="at">data =</span> pgd, <span class="at">group =</span> <span class="st">&quot;Kin2&quot;</span>)</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -1043,8 +1075,8 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="at-home-exercises-6.html#cb274-1" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 27 iterations
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="at-home-exercises-6.html#cb316-1" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 27 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1094,6 +1126,12 @@ Click to show code
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.017
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.999
+##   90 Percent confidence interval - lower         0.990
+##   90 Percent confidence interval - upper         1.000
 ## 
 ## Parameter Estimates:
 ## 

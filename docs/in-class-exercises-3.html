@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 In-Class Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="4.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -53,8 +53,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -164,6 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
 <ul>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
@@ -174,7 +173,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html"><i class="fa fa-check"></i>Assignment Guidelines</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a1"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a2"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#data_options"><i class="fa fa-check"></i>Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#rules"><i class="fa fa-check"></i>Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-1"><i class="fa fa-check"></i>Assignment 1</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
 <ul>
 <li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
@@ -434,8 +460,8 @@ dataset that you analyzed in the at-home exercises.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="in-class-exercises-3.html#cb135-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
-<span id="cb135-2"><a href="in-class-exercises-3.html#cb135-2" tabindex="-1"></a>cattell <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;cattell.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="in-class-exercises-3.html#cb165-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb165-2"><a href="in-class-exercises-3.html#cb165-2" tabindex="-1"></a>cattell <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;cattell.rds&quot;</span>))</span></code></pre></div>
 </details>
 <hr />
 <p>In the following exercises, we’ll work primarily with the four-factor CFA shown in the following path diagram. This CFA
@@ -483,12 +509,12 @@ estimate 84 parameters.</li>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="in-class-exercises-3.html#cb136-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb136-2"><a href="in-class-exercises-3.html#cb136-2" tabindex="-1"></a><span class="st">warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
-<span id="cb136-3"><a href="in-class-exercises-3.html#cb136-3" tabindex="-1"></a><span class="st">liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10</span></span>
-<span id="cb136-4"><a href="in-class-exercises-3.html#cb136-4" tabindex="-1"></a><span class="st">vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10</span></span>
-<span id="cb136-5"><a href="in-class-exercises-3.html#cb136-5" tabindex="-1"></a><span class="st">tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9</span></span>
-<span id="cb136-6"><a href="in-class-exercises-3.html#cb136-6" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="in-class-exercises-3.html#cb166-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb166-2"><a href="in-class-exercises-3.html#cb166-2" tabindex="-1"></a><span class="st">warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
+<span id="cb166-3"><a href="in-class-exercises-3.html#cb166-3" tabindex="-1"></a><span class="st">liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10</span></span>
+<span id="cb166-4"><a href="in-class-exercises-3.html#cb166-4" tabindex="-1"></a><span class="st">vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10</span></span>
+<span id="cb166-5"><a href="in-class-exercises-3.html#cb166-5" tabindex="-1"></a><span class="st">tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9</span></span>
+<span id="cb166-6"><a href="in-class-exercises-3.html#cb166-6" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -504,15 +530,15 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="in-class-exercises-3.html#cb137-1" tabindex="-1"></a><span class="do">## Load the lavaan package:</span></span>
-<span id="cb137-2"><a href="in-class-exercises-3.html#cb137-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb137-3"><a href="in-class-exercises-3.html#cb137-3" tabindex="-1"></a></span>
-<span id="cb137-4"><a href="in-class-exercises-3.html#cb137-4" tabindex="-1"></a><span class="do">## Estimate the CFA model:</span></span>
-<span id="cb137-5"><a href="in-class-exercises-3.html#cb137-5" tabindex="-1"></a>outC1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell)</span>
-<span id="cb137-6"><a href="in-class-exercises-3.html#cb137-6" tabindex="-1"></a></span>
-<span id="cb137-7"><a href="in-class-exercises-3.html#cb137-7" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
-<span id="cb137-8"><a href="in-class-exercises-3.html#cb137-8" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 42 iterations
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="in-class-exercises-3.html#cb167-1" tabindex="-1"></a><span class="do">## Load the lavaan package:</span></span>
+<span id="cb167-2"><a href="in-class-exercises-3.html#cb167-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb167-3"><a href="in-class-exercises-3.html#cb167-3" tabindex="-1"></a></span>
+<span id="cb167-4"><a href="in-class-exercises-3.html#cb167-4" tabindex="-1"></a><span class="do">## Estimate the CFA model:</span></span>
+<span id="cb167-5"><a href="in-class-exercises-3.html#cb167-5" tabindex="-1"></a>outC1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell)</span>
+<span id="cb167-6"><a href="in-class-exercises-3.html#cb167-6" tabindex="-1"></a></span>
+<span id="cb167-7"><a href="in-class-exercises-3.html#cb167-7" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
+<span id="cb167-8"><a href="in-class-exercises-3.html#cb167-8" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 42 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -648,7 +674,7 @@ Click to show answer
 </summary>
 <p>Yes, the values should agree. This first part of the lavaan model summary reports the number of model parameters and the
 degrees of freedom.</p>
-<pre><code>## lavaan 0.6-21 ended normally after 42 iterations
+<pre><code>## lavaan 0.7-2 ended normally after 42 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -747,8 +773,8 @@ Only <em>Liveliness</em> and <em>Tension</em> are not significantly associated
 <li><code>modindices = TRUE</code>: Include the modification indices</li>
 </ul>
 <p>For example, the following code prints the summary including 95% confidence intervals for the parameter estimates.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="in-class-exercises-3.html#cb140-1" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 42 iterations
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="in-class-exercises-3.html#cb170-1" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 42 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -881,8 +907,8 @@ the <span class="math inline">\(R^2\)</span> values in the summary.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="in-class-exercises-3.html#cb142-1" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 42 iterations
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="in-class-exercises-3.html#cb172-1" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.1</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 42 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1051,7 +1077,7 @@ Click to show code
 <hr />
 <p>We can extract specific elements from the fitted lavaan object with the <code>lavInspect()</code> function. For example, the
 following code extracts the number of estimated parameters.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="in-class-exercises-3.html#cb144-1" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;npar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="in-class-exercises-3.html#cb174-1" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;npar&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 84</code></pre>
 <hr />
 </div>
@@ -1062,7 +1088,7 @@ following code extracts the number of estimated parameters.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="in-class-exercises-3.html#cb146-1" tabindex="-1"></a>?lavInspect</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="in-class-exercises-3.html#cb176-1" tabindex="-1"></a>?lavInspect</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -1079,11 +1105,11 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="in-class-exercises-3.html#cb147-1" tabindex="-1"></a><span class="co"># Extract the estimated parameter matrices</span></span>
-<span id="cb147-2"><a href="in-class-exercises-3.html#cb147-2" tabindex="-1"></a>parEst <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;estimates&quot;</span>)</span>
-<span id="cb147-3"><a href="in-class-exercises-3.html#cb147-3" tabindex="-1"></a></span>
-<span id="cb147-4"><a href="in-class-exercises-3.html#cb147-4" tabindex="-1"></a><span class="co"># Print the estimated factor loading matrix</span></span>
-<span id="cb147-5"><a href="in-class-exercises-3.html#cb147-5" tabindex="-1"></a>parEst<span class="sc">$</span>lambda</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="in-class-exercises-3.html#cb177-1" tabindex="-1"></a><span class="co"># Extract the estimated parameter matrices</span></span>
+<span id="cb177-2"><a href="in-class-exercises-3.html#cb177-2" tabindex="-1"></a>parEst <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;estimates&quot;</span>)</span>
+<span id="cb177-3"><a href="in-class-exercises-3.html#cb177-3" tabindex="-1"></a></span>
+<span id="cb177-4"><a href="in-class-exercises-3.html#cb177-4" tabindex="-1"></a><span class="co"># Print the estimated factor loading matrix</span></span>
+<span id="cb177-5"><a href="in-class-exercises-3.html#cb177-5" tabindex="-1"></a>parEst<span class="sc">$</span>lambda</span></code></pre></div>
 <pre><code>##     warmth lvlnss viglnc tensin
 ## A1   1.000  0.000  0.000  0.000
 ## A2   0.962  0.000  0.000  0.000
@@ -1124,22 +1150,22 @@ Click to show code
 ## P7   0.000  0.000  0.000  0.425
 ## P8   0.000  0.000  0.000 -0.747
 ## P9   0.000  0.000  0.000 -0.370</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="in-class-exercises-3.html#cb149-1" tabindex="-1"></a><span class="co"># Print the estimated latent covariance matrix</span></span>
-<span id="cb149-2"><a href="in-class-exercises-3.html#cb149-2" tabindex="-1"></a>parEst<span class="sc">$</span>psi</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="in-class-exercises-3.html#cb179-1" tabindex="-1"></a><span class="co"># Print the estimated latent covariance matrix</span></span>
+<span id="cb179-2"><a href="in-class-exercises-3.html#cb179-2" tabindex="-1"></a>parEst<span class="sc">$</span>psi</span></code></pre></div>
 <pre><code>##            warmth lvlnss viglnc tensin
 ## warmth      0.453                     
 ## liveliness  0.245  0.710              
 ## vigilance  -0.207 -0.112  0.301       
 ## tension    -0.241 -0.030  0.305  1.007</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="in-class-exercises-3.html#cb151-1" tabindex="-1"></a><span class="co"># Alternatively, we can directly extract the latent covariance matrix</span></span>
-<span id="cb151-2"><a href="in-class-exercises-3.html#cb151-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;cov.lv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="in-class-exercises-3.html#cb181-1" tabindex="-1"></a><span class="co"># Alternatively, we can directly extract the latent covariance matrix</span></span>
+<span id="cb181-2"><a href="in-class-exercises-3.html#cb181-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;cov.lv&quot;</span>)</span></code></pre></div>
 <pre><code>##            warmth lvlnss viglnc tensin
 ## warmth      0.453                     
 ## liveliness  0.245  0.710              
 ## vigilance  -0.207 -0.112  0.301       
 ## tension    -0.241 -0.030  0.305  1.007</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="in-class-exercises-3.html#cb153-1" tabindex="-1"></a><span class="co"># Extract the estimated R^2 values</span></span>
-<span id="cb153-2"><a href="in-class-exercises-3.html#cb153-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;r2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="in-class-exercises-3.html#cb183-1" tabindex="-1"></a><span class="co"># Extract the estimated R^2 values</span></span>
+<span id="cb183-2"><a href="in-class-exercises-3.html#cb183-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;r2&quot;</span>)</span></code></pre></div>
 <pre><code>##    A1    A2    A3    A4    A5    A6    A7    A8    A9   A10    E1    E2    E3 
 ## 0.433 0.517 0.275 0.323 0.477 0.406 0.353 0.101 0.368 0.078 0.506 0.672 0.160 
 ##    E4    E5    E6    E7    E8    E9   E10    I1    I2    I3    I4    I5    I6 
@@ -1160,22 +1186,22 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="in-class-exercises-3.html#cb155-1" tabindex="-1"></a><span class="co"># Modify the lavaan model syntax to fix the latent covariances</span></span>
-<span id="cb155-2"><a href="in-class-exercises-3.html#cb155-2" tabindex="-1"></a>mod1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb155-3"><a href="in-class-exercises-3.html#cb155-3" tabindex="-1"></a><span class="st">warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
-<span id="cb155-4"><a href="in-class-exercises-3.html#cb155-4" tabindex="-1"></a><span class="st">liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10</span></span>
-<span id="cb155-5"><a href="in-class-exercises-3.html#cb155-5" tabindex="-1"></a><span class="st">vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10</span></span>
-<span id="cb155-6"><a href="in-class-exercises-3.html#cb155-6" tabindex="-1"></a><span class="st">tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9</span></span>
-<span id="cb155-7"><a href="in-class-exercises-3.html#cb155-7" tabindex="-1"></a></span>
-<span id="cb155-8"><a href="in-class-exercises-3.html#cb155-8" tabindex="-1"></a><span class="st">liveliness ~~ 0*warmth</span></span>
-<span id="cb155-9"><a href="in-class-exercises-3.html#cb155-9" tabindex="-1"></a><span class="st">vigilance  ~~ 0*warmth + 0*liveliness</span></span>
-<span id="cb155-10"><a href="in-class-exercises-3.html#cb155-10" tabindex="-1"></a><span class="st">tension    ~~ 0*warmth + 0*liveliness + 0*vigilance</span></span>
-<span id="cb155-11"><a href="in-class-exercises-3.html#cb155-11" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb155-12"><a href="in-class-exercises-3.html#cb155-12" tabindex="-1"></a></span>
-<span id="cb155-13"><a href="in-class-exercises-3.html#cb155-13" tabindex="-1"></a><span class="co"># Estimate the new model</span></span>
-<span id="cb155-14"><a href="in-class-exercises-3.html#cb155-14" tabindex="-1"></a>outC1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1<span class="fl">.2</span>, <span class="at">data =</span> cattell)</span>
-<span id="cb155-15"><a href="in-class-exercises-3.html#cb155-15" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.2</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 36 iterations
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="in-class-exercises-3.html#cb185-1" tabindex="-1"></a><span class="co"># Modify the lavaan model syntax to fix the latent covariances</span></span>
+<span id="cb185-2"><a href="in-class-exercises-3.html#cb185-2" tabindex="-1"></a>mod1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb185-3"><a href="in-class-exercises-3.html#cb185-3" tabindex="-1"></a><span class="st">warmth     =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
+<span id="cb185-4"><a href="in-class-exercises-3.html#cb185-4" tabindex="-1"></a><span class="st">liveliness =~ E1 + E2 + E3 + E4 + E5 + E6 + E7 + E8 + E9 + E10</span></span>
+<span id="cb185-5"><a href="in-class-exercises-3.html#cb185-5" tabindex="-1"></a><span class="st">vigilance  =~ I1 + I2 + I3 + I4 + I5 + I6 + I7 + I8 + I9 + I10</span></span>
+<span id="cb185-6"><a href="in-class-exercises-3.html#cb185-6" tabindex="-1"></a><span class="st">tension    =~ P1 + P2 + P3 + P4 + P5 + P6 + P7 + P8 + P9</span></span>
+<span id="cb185-7"><a href="in-class-exercises-3.html#cb185-7" tabindex="-1"></a></span>
+<span id="cb185-8"><a href="in-class-exercises-3.html#cb185-8" tabindex="-1"></a><span class="st">liveliness ~~ 0*warmth</span></span>
+<span id="cb185-9"><a href="in-class-exercises-3.html#cb185-9" tabindex="-1"></a><span class="st">vigilance  ~~ 0*warmth + 0*liveliness</span></span>
+<span id="cb185-10"><a href="in-class-exercises-3.html#cb185-10" tabindex="-1"></a><span class="st">tension    ~~ 0*warmth + 0*liveliness + 0*vigilance</span></span>
+<span id="cb185-11"><a href="in-class-exercises-3.html#cb185-11" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb185-12"><a href="in-class-exercises-3.html#cb185-12" tabindex="-1"></a></span>
+<span id="cb185-13"><a href="in-class-exercises-3.html#cb185-13" tabindex="-1"></a><span class="co"># Estimate the new model</span></span>
+<span id="cb185-14"><a href="in-class-exercises-3.html#cb185-14" tabindex="-1"></a>outC1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1<span class="fl">.2</span>, <span class="at">data =</span> cattell)</span>
+<span id="cb185-15"><a href="in-class-exercises-3.html#cb185-15" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 36 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1302,9 +1328,9 @@ Click to show code
 ##     tension           1.047    0.066   15.950    0.000</code></pre>
 <p>Alternatively, we can keep the original model string and tell the <code>cfa()</code> function not to estimate any latent
 covariances by setting the option <code>orthogonal.x = TRUE</code>.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="in-class-exercises-3.html#cb157-1" tabindex="-1"></a>outC1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell, <span class="at">orthogonal.x =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb157-2"><a href="in-class-exercises-3.html#cb157-2" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.2</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 36 iterations
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="in-class-exercises-3.html#cb187-1" tabindex="-1"></a>outC1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell, <span class="at">orthogonal.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb187-2"><a href="in-class-exercises-3.html#cb187-2" tabindex="-1"></a><span class="fu">summary</span>(outC1<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 36 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1443,8 +1469,8 @@ differences (or lack thereof)?</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="in-class-exercises-3.html#cb159-1" tabindex="-1"></a><span class="co"># Factor loadings from the correlated-factor CFA</span></span>
-<span id="cb159-2"><a href="in-class-exercises-3.html#cb159-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;estimates&quot;</span>)<span class="sc">$</span>lambda[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="in-class-exercises-3.html#cb189-1" tabindex="-1"></a><span class="co"># Factor loadings from the correlated-factor CFA</span></span>
+<span id="cb189-2"><a href="in-class-exercises-3.html#cb189-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.1</span>, <span class="st">&quot;estimates&quot;</span>)<span class="sc">$</span>lambda[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div>
 <pre><code>##         warmth
 ## A1   1.0000000
 ## A2   0.9615773
@@ -1456,8 +1482,8 @@ Click to show code
 ## A8  -0.5341244
 ## A9  -0.9023822
 ## A10 -0.4305772</code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="in-class-exercises-3.html#cb161-1" tabindex="-1"></a><span class="co"># Factor loadings from the orthogonal-factor CFA</span></span>
-<span id="cb161-2"><a href="in-class-exercises-3.html#cb161-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.2</span>, <span class="st">&quot;estimates&quot;</span>)<span class="sc">$</span>lambda[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="in-class-exercises-3.html#cb191-1" tabindex="-1"></a><span class="co"># Factor loadings from the orthogonal-factor CFA</span></span>
+<span id="cb191-2"><a href="in-class-exercises-3.html#cb191-2" tabindex="-1"></a><span class="fu">lavInspect</span>(outC1<span class="fl">.2</span>, <span class="st">&quot;estimates&quot;</span>)<span class="sc">$</span>lambda[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div>
 <pre><code>##         warmth
 ## A1   1.0000000
 ## A2   0.9076620

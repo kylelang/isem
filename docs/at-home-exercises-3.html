@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.3 At-Home Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="4.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.3 At-Home Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -53,8 +53,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -164,6 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
 <ul>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
@@ -174,7 +173,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html"><i class="fa fa-check"></i>Assignment Guidelines</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a1"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a2"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#data_options"><i class="fa fa-check"></i>Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#rules"><i class="fa fa-check"></i>Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-1"><i class="fa fa-check"></i>Assignment 1</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
 <ul>
 <li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
@@ -471,7 +497,7 @@ personality scale data.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="at-home-exercises-3.html#cb121-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;semPlot&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="at-home-exercises-3.html#cb146-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;semPlot&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -485,8 +511,8 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="at-home-exercises-3.html#cb122-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
-<span id="cb122-2"><a href="at-home-exercises-3.html#cb122-2" tabindex="-1"></a>cattell <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;cattell.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="at-home-exercises-3.html#cb147-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb147-2"><a href="at-home-exercises-3.html#cb147-2" tabindex="-1"></a>cattell <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;cattell.rds&quot;</span>))</span></code></pre></div>
 </details>
 <hr />
 <p>We’ll first estimate a simple one-dimensional CFA of the <em>Warmth</em> factor. Our target model is defined as follows:</p>
@@ -545,9 +571,9 @@ Click to show the answer
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="at-home-exercises-3.html#cb123-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb123-2"><a href="at-home-exercises-3.html#cb123-2" tabindex="-1"></a><span class="st">warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
-<span id="cb123-3"><a href="at-home-exercises-3.html#cb123-3" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="at-home-exercises-3.html#cb148-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb148-2"><a href="at-home-exercises-3.html#cb148-2" tabindex="-1"></a><span class="st">warmth =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
+<span id="cb148-3"><a href="at-home-exercises-3.html#cb148-3" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
 <details>
 <summary>
 Click for explanation
@@ -574,15 +600,15 @@ model.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="at-home-exercises-3.html#cb124-1" tabindex="-1"></a><span class="do">## Load the lavaan package:</span></span>
-<span id="cb124-2"><a href="at-home-exercises-3.html#cb124-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb124-3"><a href="at-home-exercises-3.html#cb124-3" tabindex="-1"></a></span>
-<span id="cb124-4"><a href="at-home-exercises-3.html#cb124-4" tabindex="-1"></a><span class="do">## Estimate the CFA model:</span></span>
-<span id="cb124-5"><a href="at-home-exercises-3.html#cb124-5" tabindex="-1"></a>outH1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell)</span>
-<span id="cb124-6"><a href="at-home-exercises-3.html#cb124-6" tabindex="-1"></a></span>
-<span id="cb124-7"><a href="at-home-exercises-3.html#cb124-7" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
-<span id="cb124-8"><a href="at-home-exercises-3.html#cb124-8" tabindex="-1"></a><span class="fu">summary</span>(outH1<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 23 iterations
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="at-home-exercises-3.html#cb149-1" tabindex="-1"></a><span class="do">## Load the lavaan package:</span></span>
+<span id="cb149-2"><a href="at-home-exercises-3.html#cb149-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb149-3"><a href="at-home-exercises-3.html#cb149-3" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="at-home-exercises-3.html#cb149-4" tabindex="-1"></a><span class="do">## Estimate the CFA model:</span></span>
+<span id="cb149-5"><a href="at-home-exercises-3.html#cb149-5" tabindex="-1"></a>outH1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod1, <span class="at">data =</span> cattell)</span>
+<span id="cb149-6"><a href="at-home-exercises-3.html#cb149-6" tabindex="-1"></a></span>
+<span id="cb149-7"><a href="at-home-exercises-3.html#cb149-7" tabindex="-1"></a><span class="do">## Summarize the fitted model:</span></span>
+<span id="cb149-8"><a href="at-home-exercises-3.html#cb149-8" tabindex="-1"></a><span class="fu">summary</span>(outH1<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 23 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -656,7 +682,7 @@ Click to show answer
 </summary>
 <p>Yes, the values should agree. This first part of the lavaan model summary reports the number of model parameters and the
 degrees of freedom.</p>
-<pre><code>## lavaan 0.6-21 ended normally after 23 iterations
+<pre><code>## lavaan 0.7-2 ended normally after 23 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -683,9 +709,12 @@ degrees of freedom.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="at-home-exercises-3.html#cb127-1" tabindex="-1"></a><span class="fu">library</span>(semPlot)</span>
-<span id="cb127-2"><a href="at-home-exercises-3.html#cb127-2" tabindex="-1"></a><span class="fu">semPaths</span>(outH1<span class="fl">.1</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
-<img src="isem_files/figure-html/unnamed-chunk-271-1.png" alt="" width="672" />
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="at-home-exercises-3.html#cb152-1" tabindex="-1"></a><span class="fu">library</span>(semPlot)</span></code></pre></div>
+<pre><code>## Error in `library()`:
+## ! there is no package called &#39;semPlot&#39;</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="at-home-exercises-3.html#cb154-1" tabindex="-1"></a><span class="fu">semPaths</span>(outH1<span class="fl">.1</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `semPaths()`:
+## ! could not find function &quot;semPaths&quot;</code></pre>
 </details>
 <hr />
 <p>Now, we’re going to complicate matters slightly by adding another dimension to our model. We’ll now estimate a
@@ -720,10 +749,10 @@ of 20 observed indicators.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="at-home-exercises-3.html#cb128-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb128-2"><a href="at-home-exercises-3.html#cb128-2" tabindex="-1"></a><span class="st">warmth    =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
-<span id="cb128-3"><a href="at-home-exercises-3.html#cb128-3" tabindex="-1"></a><span class="st">dominance =~ D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10</span></span>
-<span id="cb128-4"><a href="at-home-exercises-3.html#cb128-4" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="at-home-exercises-3.html#cb156-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb156-2"><a href="at-home-exercises-3.html#cb156-2" tabindex="-1"></a><span class="st">warmth    =~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10</span></span>
+<span id="cb156-3"><a href="at-home-exercises-3.html#cb156-3" tabindex="-1"></a><span class="st">dominance =~ D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10</span></span>
+<span id="cb156-4"><a href="at-home-exercises-3.html#cb156-4" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -738,12 +767,12 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="at-home-exercises-3.html#cb129-1" tabindex="-1"></a><span class="do">## Estimate the two factor model:</span></span>
-<span id="cb129-2"><a href="at-home-exercises-3.html#cb129-2" tabindex="-1"></a>outH2<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod2, <span class="at">data =</span> cattell)</span>
-<span id="cb129-3"><a href="at-home-exercises-3.html#cb129-3" tabindex="-1"></a></span>
-<span id="cb129-4"><a href="at-home-exercises-3.html#cb129-4" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
-<span id="cb129-5"><a href="at-home-exercises-3.html#cb129-5" tabindex="-1"></a><span class="fu">summary</span>(outH2<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 26 iterations
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="at-home-exercises-3.html#cb157-1" tabindex="-1"></a><span class="do">## Estimate the two factor model:</span></span>
+<span id="cb157-2"><a href="at-home-exercises-3.html#cb157-2" tabindex="-1"></a>outH2<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod2, <span class="at">data =</span> cattell)</span>
+<span id="cb157-3"><a href="at-home-exercises-3.html#cb157-3" tabindex="-1"></a></span>
+<span id="cb157-4"><a href="at-home-exercises-3.html#cb157-4" tabindex="-1"></a><span class="do">## Summarize the results:</span></span>
+<span id="cb157-5"><a href="at-home-exercises-3.html#cb157-5" tabindex="-1"></a><span class="fu">summary</span>(outH2<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 26 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -866,8 +895,9 @@ Click to show answer
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="at-home-exercises-3.html#cb131-1" tabindex="-1"></a><span class="fu">semPaths</span>(outH2<span class="fl">.1</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-276-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="at-home-exercises-3.html#cb159-1" tabindex="-1"></a><span class="fu">semPaths</span>(outH2<span class="fl">.1</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `semPaths()`:
+## ! could not find function &quot;semPaths&quot;</code></pre>
 </details>
 <hr />
 </div>
@@ -882,9 +912,9 @@ Click to show code
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="at-home-exercises-3.html#cb132-1" tabindex="-1"></a>outH2<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod2, <span class="at">data =</span> cattell, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb132-2"><a href="at-home-exercises-3.html#cb132-2" tabindex="-1"></a><span class="fu">summary</span>(outH2<span class="fl">.2</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 18 iterations
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="at-home-exercises-3.html#cb161-1" tabindex="-1"></a>outH2<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod2, <span class="at">data =</span> cattell, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb161-2"><a href="at-home-exercises-3.html#cb161-2" tabindex="-1"></a><span class="fu">summary</span>(outH2<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 18 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1031,8 +1061,9 @@ the estimated latent covariance of <span class="math inline">\(\psi_{2,1} = 0.27
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="at-home-exercises-3.html#cb134-1" tabindex="-1"></a><span class="fu">semPaths</span>(outH2<span class="fl">.2</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
-<p><img src="isem_files/figure-html/unnamed-chunk-280-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="at-home-exercises-3.html#cb163-1" tabindex="-1"></a><span class="fu">semPaths</span>(outH2<span class="fl">.2</span>, <span class="at">whatLabels =</span> <span class="st">&quot;estimates&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `semPaths()`:
+## ! could not find function &quot;semPaths&quot;</code></pre>
 </details>
 <hr />
 <p>End of At-Home Exercises</p>

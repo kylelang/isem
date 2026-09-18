@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.4 In-Class Exercises | Introduction to Structural Equation Modeling</title>
   <meta name="description" content="7.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.4 In-Class Exercises | Introduction to Structural Equation Modeling" />
   <meta property="og:type" content="book" />
@@ -53,8 +53,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -164,6 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html"><i class="fa fa-check"></i>Logistics</a>
 <ul>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#weekly-preparation"><i class="fa fa-check"></i>Weekly preparation</a></li>
+<li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#evaluation"><i class="fa fa-check"></i>Evaluation</a></li>
 <li class="chapter" data-level="" data-path="logistics.html"><a href="logistics.html#attendance"><i class="fa fa-check"></i>Attendance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html"><i class="fa fa-check"></i>Using GenAI</a>
@@ -174,7 +173,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ai_policy.html"><a href="ai_policy.html#referencing-and-academic-integrity"><i class="fa fa-check"></i>Referencing and academic integrity</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a></li>
+<li class="chapter" data-level="" data-path="assignments.html"><a href="assignments.html"><i class="fa fa-check"></i>Assignments</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html"><i class="fa fa-check"></i>Assignment Guidelines</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a1"><i class="fa fa-check"></i>Assignment 1: Path Analysis</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#a2"><i class="fa fa-check"></i>Assignment 2: Structural Equation Modeling</a></li>
+<li class="chapter" data-level="" data-path="assignment-guidelines.html"><a href="assignment-guidelines.html#data_options"><i class="fa fa-check"></i>Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html"><i class="fa fa-check"></i>Elaboration &amp; Tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#progression"><i class="fa fa-check"></i>Progression</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#rq"><i class="fa fa-check"></i>Theoretical Model &amp; Research Question</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#model_assumptions"><i class="fa fa-check"></i>Assumptions</a></li>
+<li class="chapter" data-level="" data-path="elaboration-tips.html"><a href="elaboration-tips.html#reporting_standards"><i class="fa fa-check"></i>Reporting Standards</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i>Procedures</a>
+<ul>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#formatting"><i class="fa fa-check"></i>Formatting</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#length"><i class="fa fa-check"></i>Length</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#submission-2"><i class="fa fa-check"></i>Submission</a></li>
+<li class="chapter" data-level="" data-path="procedures.html"><a href="procedures.html#rules"><i class="fa fa-check"></i>Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html"><i class="fa fa-check"></i>Grading</a>
+<ul>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-1"><i class="fa fa-check"></i>Assignment 1</a></li>
+<li class="chapter" data-level="" data-path="assignment_grading.html"><a href="assignment_grading.html#assignment-2"><i class="fa fa-check"></i>Assignment 2</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="software-setup.html"><a href="software-setup.html"><i class="fa fa-check"></i>Software Setup</a>
 <ul>
 <li class="chapter" data-level="" data-path="typographic-conventions.html"><a href="typographic-conventions.html"><i class="fa fa-check"></i>Typographic Conventions</a></li>
@@ -459,8 +485,8 @@ years old.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="in-class-exercises-5.html#cb233-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
-<span id="cb233-2"><a href="in-class-exercises-5.html#cb233-2" tabindex="-1"></a>condom  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;toradata.csv&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="in-class-exercises-5.html#cb275-1" tabindex="-1"></a>dataDir <span class="ot">&lt;-</span> <span class="st">&quot;data&quot;</span></span>
+<span id="cb275-2"><a href="in-class-exercises-5.html#cb275-2" tabindex="-1"></a>condom  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(dataDir, <span class="st">&quot;toradata.csv&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -484,18 +510,18 @@ measurement model for these three constructs.</p>
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="in-class-exercises-5.html#cb234-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb234-2"><a href="in-class-exercises-5.html#cb234-2" tabindex="-1"></a></span>
-<span id="cb234-3"><a href="in-class-exercises-5.html#cb234-3" tabindex="-1"></a>mod_cfa <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb234-4"><a href="in-class-exercises-5.html#cb234-4" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb234-5"><a href="in-class-exercises-5.html#cb234-5" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb234-6"><a href="in-class-exercises-5.html#cb234-6" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb234-7"><a href="in-class-exercises-5.html#cb234-7" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb234-8"><a href="in-class-exercises-5.html#cb234-8" tabindex="-1"></a></span>
-<span id="cb234-9"><a href="in-class-exercises-5.html#cb234-9" tabindex="-1"></a>cfa_out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_cfa, <span class="at">data =</span> condom)</span>
-<span id="cb234-10"><a href="in-class-exercises-5.html#cb234-10" tabindex="-1"></a></span>
-<span id="cb234-11"><a href="in-class-exercises-5.html#cb234-11" tabindex="-1"></a><span class="fu">summary</span>(cfa_out, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 29 iterations
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="in-class-exercises-5.html#cb276-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb276-2"><a href="in-class-exercises-5.html#cb276-2" tabindex="-1"></a></span>
+<span id="cb276-3"><a href="in-class-exercises-5.html#cb276-3" tabindex="-1"></a>mod_cfa <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb276-4"><a href="in-class-exercises-5.html#cb276-4" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb276-5"><a href="in-class-exercises-5.html#cb276-5" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb276-6"><a href="in-class-exercises-5.html#cb276-6" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb276-7"><a href="in-class-exercises-5.html#cb276-7" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb276-8"><a href="in-class-exercises-5.html#cb276-8" tabindex="-1"></a></span>
+<span id="cb276-9"><a href="in-class-exercises-5.html#cb276-9" tabindex="-1"></a>cfa_out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_cfa, <span class="at">data =</span> condom)</span>
+<span id="cb276-10"><a href="in-class-exercises-5.html#cb276-10" tabindex="-1"></a></span>
+<span id="cb276-11"><a href="in-class-exercises-5.html#cb276-11" tabindex="-1"></a><span class="fu">summary</span>(cfa_out, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 29 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -540,6 +566,12 @@ Click to show code
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.037
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.988
+##   90 Percent confidence interval - lower         0.971
+##   90 Percent confidence interval - upper         0.999
 ## 
 ## Parameter Estimates:
 ## 
@@ -673,20 +705,20 @@ Click for explanation
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="in-class-exercises-5.html#cb236-1" tabindex="-1"></a>mod_tora1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb236-2"><a href="in-class-exercises-5.html#cb236-2" tabindex="-1"></a><span class="st">## Define the latent variables:</span></span>
-<span id="cb236-3"><a href="in-class-exercises-5.html#cb236-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1 + attit_2 + attit_3</span></span>
-<span id="cb236-4"><a href="in-class-exercises-5.html#cb236-4" tabindex="-1"></a><span class="st">norms     =~ norm_1  + norm_2  + norm_3</span></span>
-<span id="cb236-5"><a href="in-class-exercises-5.html#cb236-5" tabindex="-1"></a></span>
-<span id="cb236-6"><a href="in-class-exercises-5.html#cb236-6" tabindex="-1"></a><span class="st">## Define the structural model:</span></span>
-<span id="cb236-7"><a href="in-class-exercises-5.html#cb236-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
-<span id="cb236-8"><a href="in-class-exercises-5.html#cb236-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
-<span id="cb236-9"><a href="in-class-exercises-5.html#cb236-9" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb236-10"><a href="in-class-exercises-5.html#cb236-10" tabindex="-1"></a></span>
-<span id="cb236-11"><a href="in-class-exercises-5.html#cb236-11" tabindex="-1"></a>out_tora1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora1, <span class="at">data =</span> condom)</span>
-<span id="cb236-12"><a href="in-class-exercises-5.html#cb236-12" tabindex="-1"></a></span>
-<span id="cb236-13"><a href="in-class-exercises-5.html#cb236-13" tabindex="-1"></a><span class="fu">summary</span>(out_tora1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 24 iterations
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="in-class-exercises-5.html#cb278-1" tabindex="-1"></a>mod_tora1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb278-2"><a href="in-class-exercises-5.html#cb278-2" tabindex="-1"></a><span class="st">## Define the latent variables:</span></span>
+<span id="cb278-3"><a href="in-class-exercises-5.html#cb278-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1 + attit_2 + attit_3</span></span>
+<span id="cb278-4"><a href="in-class-exercises-5.html#cb278-4" tabindex="-1"></a><span class="st">norms     =~ norm_1  + norm_2  + norm_3</span></span>
+<span id="cb278-5"><a href="in-class-exercises-5.html#cb278-5" tabindex="-1"></a></span>
+<span id="cb278-6"><a href="in-class-exercises-5.html#cb278-6" tabindex="-1"></a><span class="st">## Define the structural model:</span></span>
+<span id="cb278-7"><a href="in-class-exercises-5.html#cb278-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
+<span id="cb278-8"><a href="in-class-exercises-5.html#cb278-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
+<span id="cb278-9"><a href="in-class-exercises-5.html#cb278-9" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb278-10"><a href="in-class-exercises-5.html#cb278-10" tabindex="-1"></a></span>
+<span id="cb278-11"><a href="in-class-exercises-5.html#cb278-11" tabindex="-1"></a>out_tora1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora1, <span class="at">data =</span> condom)</span>
+<span id="cb278-12"><a href="in-class-exercises-5.html#cb278-12" tabindex="-1"></a></span>
+<span id="cb278-13"><a href="in-class-exercises-5.html#cb278-13" tabindex="-1"></a><span class="fu">summary</span>(out_tora1, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 24 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -731,6 +763,12 @@ Click to show code
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.036
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.991
+##   90 Percent confidence interval - lower         0.973
+##   90 Percent confidence interval - upper         1.000
 ## 
 ## Parameter Estimates:
 ## 
@@ -868,19 +906,19 @@ Click for explanation
 <summary>
 Click to show code
 </summary>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="in-class-exercises-5.html#cb238-1" tabindex="-1"></a>mod_tora2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb238-2"><a href="in-class-exercises-5.html#cb238-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb238-3"><a href="in-class-exercises-5.html#cb238-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb238-4"><a href="in-class-exercises-5.html#cb238-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb238-5"><a href="in-class-exercises-5.html#cb238-5" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb238-6"><a href="in-class-exercises-5.html#cb238-6" tabindex="-1"></a><span class="st">behavior ~ intent + control</span></span>
-<span id="cb238-7"><a href="in-class-exercises-5.html#cb238-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
-<span id="cb238-8"><a href="in-class-exercises-5.html#cb238-8" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb238-9"><a href="in-class-exercises-5.html#cb238-9" tabindex="-1"></a></span>
-<span id="cb238-10"><a href="in-class-exercises-5.html#cb238-10" tabindex="-1"></a>out_tora2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora2, <span class="at">data =</span> condom)</span>
-<span id="cb238-11"><a href="in-class-exercises-5.html#cb238-11" tabindex="-1"></a></span>
-<span id="cb238-12"><a href="in-class-exercises-5.html#cb238-12" tabindex="-1"></a><span class="fu">summary</span>(out_tora2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 31 iterations
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="in-class-exercises-5.html#cb280-1" tabindex="-1"></a>mod_tora2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb280-2"><a href="in-class-exercises-5.html#cb280-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb280-3"><a href="in-class-exercises-5.html#cb280-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb280-4"><a href="in-class-exercises-5.html#cb280-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb280-5"><a href="in-class-exercises-5.html#cb280-5" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb280-6"><a href="in-class-exercises-5.html#cb280-6" tabindex="-1"></a><span class="st">behavior ~ intent + control</span></span>
+<span id="cb280-7"><a href="in-class-exercises-5.html#cb280-7" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms</span></span>
+<span id="cb280-8"><a href="in-class-exercises-5.html#cb280-8" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb280-9"><a href="in-class-exercises-5.html#cb280-9" tabindex="-1"></a></span>
+<span id="cb280-10"><a href="in-class-exercises-5.html#cb280-10" tabindex="-1"></a>out_tora2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_tora2, <span class="at">data =</span> condom)</span>
+<span id="cb280-11"><a href="in-class-exercises-5.html#cb280-11" tabindex="-1"></a></span>
+<span id="cb280-12"><a href="in-class-exercises-5.html#cb280-12" tabindex="-1"></a><span class="fu">summary</span>(out_tora2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 31 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -925,6 +963,12 @@ Click to show code
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.033
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.991
+##   90 Percent confidence interval - lower         0.975
+##   90 Percent confidence interval - upper         1.000
 ## 
 ## Parameter Estimates:
 ## 
@@ -1025,98 +1069,25 @@ effect of <em>control</em> on <em>behavior</em>, or the effect may be (partially
 <summary>
 Click for explanation
 </summary>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="in-class-exercises-5.html#cb240-1" tabindex="-1"></a>mod_ie <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb240-2"><a href="in-class-exercises-5.html#cb240-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb240-3"><a href="in-class-exercises-5.html#cb240-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb240-4"><a href="in-class-exercises-5.html#cb240-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb240-5"><a href="in-class-exercises-5.html#cb240-5" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb240-6"><a href="in-class-exercises-5.html#cb240-6" tabindex="-1"></a><span class="st">behavior ~ b*intent + control + attitudes + norms</span></span>
-<span id="cb240-7"><a href="in-class-exercises-5.html#cb240-7" tabindex="-1"></a><span class="st">intent   ~ a1*attitudes + a2*norms</span></span>
-<span id="cb240-8"><a href="in-class-exercises-5.html#cb240-8" tabindex="-1"></a></span>
-<span id="cb240-9"><a href="in-class-exercises-5.html#cb240-9" tabindex="-1"></a><span class="st">ie_att  := a1 * b</span></span>
-<span id="cb240-10"><a href="in-class-exercises-5.html#cb240-10" tabindex="-1"></a><span class="st">ie_norm := a2 * b</span></span>
-<span id="cb240-11"><a href="in-class-exercises-5.html#cb240-11" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb240-12"><a href="in-class-exercises-5.html#cb240-12" tabindex="-1"></a></span>
-<span id="cb240-13"><a href="in-class-exercises-5.html#cb240-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
-<span id="cb240-14"><a href="in-class-exercises-5.html#cb240-14" tabindex="-1"></a></span>
-<span id="cb240-15"><a href="in-class-exercises-5.html#cb240-15" tabindex="-1"></a>out_ie <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_ie, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
-<span id="cb240-16"><a href="in-class-exercises-5.html#cb240-16" tabindex="-1"></a></span>
-<span id="cb240-17"><a href="in-class-exercises-5.html#cb240-17" tabindex="-1"></a><span class="fu">summary</span>(out_ie, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 36 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                        29
-## 
-##   Number of observations                           250
-## 
-## Model Test User Model:
-##                                                       
-##   Test statistic                                48.629
-##   Degrees of freedom                                37
-##   P-value (Chi-square)                           0.096
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                            Bootstrap
-##   Number of requested bootstrap draws             1000
-##   Number of successful bootstrap draws            1000
-## 
-## Latent Variables:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   attitudes =~                                                          
-##     attit_1           1.000                               1.000    1.000
-##     attit_2           1.033    0.060   17.261    0.000    0.925    1.165
-##     attit_3          -1.025    0.064  -15.894    0.000   -1.163   -0.902
-##   norms =~                                                              
-##     norm_1            1.000                               1.000    1.000
-##     norm_2            0.984    0.071   13.794    0.000    0.843    1.127
-##     norm_3            0.955    0.093   10.324    0.000    0.792    1.157
-##   control =~                                                            
-##     control_1         1.000                               1.000    1.000
-##     control_2         0.860    0.113    7.624    0.000    0.653    1.098
-##     control_3         0.996    0.147    6.790    0.000    0.748    1.320
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   behavior ~                                                            
-##     intent     (b)    0.545    0.075    7.282    0.000    0.389    0.686
-##     control           0.428    0.232    1.847    0.065    0.046    0.934
-##     attitudes         0.010    0.122    0.084    0.933   -0.249    0.226
-##     norms             0.041    0.118    0.345    0.730   -0.194    0.266
-##   intent ~                                                              
-##     attitudes (a1)    0.447    0.067    6.674    0.000    0.324    0.585
-##     norms     (a2)    0.706    0.078    9.094    0.000    0.569    0.878
-## 
-## Covariances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   attitudes ~~                                                          
-##     norms             0.342    0.070    4.883    0.000    0.208    0.480
-##     control           0.475    0.069    6.850    0.000    0.344    0.612
-##   norms ~~                                                              
-##     control           0.350    0.067    5.218    0.000    0.221    0.484
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##    .attit_1           0.432    0.050    8.720    0.000    0.331    0.526
-##    .attit_2           0.330    0.045    7.382    0.000    0.238    0.415
-##    .attit_3           0.343    0.049    6.992    0.000    0.244    0.444
-##    .norm_1            0.496    0.060    8.305    0.000    0.376    0.614
-##    .norm_2            0.533    0.077    6.951    0.000    0.390    0.687
-##    .norm_3            0.594    0.069    8.597    0.000    0.443    0.719
-##    .control_1         0.624    0.076    8.216    0.000    0.477    0.763
-##    .control_2         0.875    0.092    9.495    0.000    0.686    1.052
-##    .control_3         0.745    0.079    9.398    0.000    0.574    0.889
-##    .behavior          0.544    0.058    9.379    0.000    0.415    0.639
-##    .intent            0.409    0.050    8.169    0.000    0.309    0.507
-##     attitudes         0.872    0.104    8.387    0.000    0.675    1.077
-##     norms             0.751    0.099    7.557    0.000    0.556    0.941
-##     control           0.486    0.096    5.042    0.000    0.303    0.684
-## 
-## Defined Parameters:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##     ie_att            0.244    0.050    4.863    0.000    0.150    0.352
-##     ie_norm           0.385    0.066    5.838    0.000    0.268    0.527</code></pre>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="in-class-exercises-5.html#cb282-1" tabindex="-1"></a>mod_ie <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb282-2"><a href="in-class-exercises-5.html#cb282-2" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb282-3"><a href="in-class-exercises-5.html#cb282-3" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb282-4"><a href="in-class-exercises-5.html#cb282-4" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb282-5"><a href="in-class-exercises-5.html#cb282-5" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb282-6"><a href="in-class-exercises-5.html#cb282-6" tabindex="-1"></a><span class="st">behavior ~ b*intent + control + attitudes + norms</span></span>
+<span id="cb282-7"><a href="in-class-exercises-5.html#cb282-7" tabindex="-1"></a><span class="st">intent   ~ a1*attitudes + a2*norms</span></span>
+<span id="cb282-8"><a href="in-class-exercises-5.html#cb282-8" tabindex="-1"></a></span>
+<span id="cb282-9"><a href="in-class-exercises-5.html#cb282-9" tabindex="-1"></a><span class="st">ie_att  := a1 * b</span></span>
+<span id="cb282-10"><a href="in-class-exercises-5.html#cb282-10" tabindex="-1"></a><span class="st">ie_norm := a2 * b</span></span>
+<span id="cb282-11"><a href="in-class-exercises-5.html#cb282-11" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb282-12"><a href="in-class-exercises-5.html#cb282-12" tabindex="-1"></a></span>
+<span id="cb282-13"><a href="in-class-exercises-5.html#cb282-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
+<span id="cb282-14"><a href="in-class-exercises-5.html#cb282-14" tabindex="-1"></a></span>
+<span id="cb282-15"><a href="in-class-exercises-5.html#cb282-15" tabindex="-1"></a>out_ie <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod_ie, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
+<span id="cb282-16"><a href="in-class-exercises-5.html#cb282-16" tabindex="-1"></a></span>
+<span id="cb282-17"><a href="in-class-exercises-5.html#cb282-17" tabindex="-1"></a><span class="fu">summary</span>(out_ie, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Length  Class   Mode 
+##      1 lavaan     S4</code></pre>
 <ul>
 <li>Yes, both indirect effects are significant according to the 95% bootstrapped CIs.</li>
 <li>Yes, both effects are completely mediated by <em>intention</em>. We can infer as much because the direct effects of
@@ -1146,7 +1117,7 @@ Click for explanation
 <p>We only need to compare the fit of the model with the direct effects included to the fit of the model without the direct
 effects. We’ve already estimated both models, so we can simply submit the fitted <strong>lavaan</strong> objects to the <code>anova()</code>
 function.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="in-class-exercises-5.html#cb242-1" tabindex="-1"></a><span class="fu">anova</span>(out_tora1, out_tora2)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="in-class-exercises-5.html#cb284-1" tabindex="-1"></a><span class="fu">anova</span>(out_tora1, out_tora2)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 
@@ -1179,97 +1150,25 @@ model. So, we should probably prefer the more parsimonious model.</p>
 Click to show code
 </summary>
 <p>One way to tackle this problem is to test the indirect, direct, and total effects.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="in-class-exercises-5.html#cb244-1" tabindex="-1"></a><span class="do">## Allow for partial mediation:</span></span>
-<span id="cb244-2"><a href="in-class-exercises-5.html#cb244-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb244-3"><a href="in-class-exercises-5.html#cb244-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb244-4"><a href="in-class-exercises-5.html#cb244-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb244-5"><a href="in-class-exercises-5.html#cb244-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb244-6"><a href="in-class-exercises-5.html#cb244-6" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb244-7"><a href="in-class-exercises-5.html#cb244-7" tabindex="-1"></a><span class="st">behavior ~ b*intent + c*control</span></span>
-<span id="cb244-8"><a href="in-class-exercises-5.html#cb244-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + a*control</span></span>
-<span id="cb244-9"><a href="in-class-exercises-5.html#cb244-9" tabindex="-1"></a></span>
-<span id="cb244-10"><a href="in-class-exercises-5.html#cb244-10" tabindex="-1"></a><span class="st">ie    := a * b</span></span>
-<span id="cb244-11"><a href="in-class-exercises-5.html#cb244-11" tabindex="-1"></a><span class="st">total := ie + c</span></span>
-<span id="cb244-12"><a href="in-class-exercises-5.html#cb244-12" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb244-13"><a href="in-class-exercises-5.html#cb244-13" tabindex="-1"></a></span>
-<span id="cb244-14"><a href="in-class-exercises-5.html#cb244-14" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
-<span id="cb244-15"><a href="in-class-exercises-5.html#cb244-15" tabindex="-1"></a></span>
-<span id="cb244-16"><a href="in-class-exercises-5.html#cb244-16" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod1, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
-<span id="cb244-17"><a href="in-class-exercises-5.html#cb244-17" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 33 iterations
-## 
-##   Estimator                                         ML
-##   Optimization method                           NLMINB
-##   Number of model parameters                        28
-## 
-##   Number of observations                           250
-## 
-## Model Test User Model:
-##                                                       
-##   Test statistic                                47.389
-##   Degrees of freedom                                38
-##   P-value (Chi-square)                           0.141
-## 
-## Parameter Estimates:
-## 
-##   Standard errors                            Bootstrap
-##   Number of requested bootstrap draws             1000
-##   Number of successful bootstrap draws            1000
-## 
-## Latent Variables:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   attitudes =~                                                          
-##     attit_1           1.000                               1.000    1.000
-##     attit_2           1.034    0.060   17.222    0.000    0.925    1.167
-##     attit_3          -1.021    0.064  -15.877    0.000   -1.158   -0.898
-##   norms =~                                                              
-##     norm_1            1.000                               1.000    1.000
-##     norm_2            0.985    0.071   13.803    0.000    0.848    1.133
-##     norm_3            0.948    0.093   10.204    0.000    0.786    1.155
-##   control =~                                                            
-##     control_1         1.000                               1.000    1.000
-##     control_2         0.861    0.113    7.635    0.000    0.653    1.100
-##     control_3         0.996    0.142    7.020    0.000    0.760    1.318
-## 
-## Regressions:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   behavior ~                                                            
-##     intent     (b)    0.551    0.074    7.487    0.000    0.391    0.683
-##     control    (c)    0.469    0.142    3.298    0.001    0.231    0.791
-##   intent ~                                                              
-##     attitudes         0.357    0.115    3.113    0.002    0.146    0.603
-##     norms             0.646    0.095    6.794    0.000    0.473    0.859
-##     control    (a)    0.199    0.199    1.002    0.317   -0.188    0.633
-## 
-## Covariances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##   attitudes ~~                                                          
-##     norms             0.344    0.070    4.905    0.000    0.210    0.481
-##     control           0.471    0.069    6.838    0.000    0.342    0.608
-##   norms ~~                                                              
-##     control           0.345    0.066    5.240    0.000    0.215    0.481
-## 
-## Variances:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##    .attit_1           0.429    0.050    8.628    0.000    0.329    0.524
-##    .attit_2           0.325    0.045    7.230    0.000    0.233    0.408
-##    .attit_3           0.347    0.049    7.011    0.000    0.248    0.455
-##    .norm_1            0.490    0.060    8.172    0.000    0.373    0.612
-##    .norm_2            0.525    0.076    6.869    0.000    0.385    0.684
-##    .norm_3            0.599    0.070    8.529    0.000    0.447    0.729
-##    .control_1         0.626    0.074    8.429    0.000    0.479    0.761
-##    .control_2         0.875    0.092    9.522    0.000    0.689    1.049
-##    .control_3         0.748    0.078    9.532    0.000    0.579    0.893
-##    .behavior          0.541    0.055    9.873    0.000    0.423    0.639
-##    .intent            0.412    0.050    8.283    0.000    0.307    0.504
-##     attitudes         0.875    0.104    8.385    0.000    0.676    1.081
-##     norms             0.757    0.099    7.616    0.000    0.560    0.949
-##     control           0.484    0.095    5.092    0.000    0.306    0.683
-## 
-## Defined Parameters:
-##                    Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
-##     ie                0.110    0.105    1.049    0.294   -0.105    0.309
-##     total             0.578    0.186    3.109    0.002    0.235    0.971</code></pre>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="in-class-exercises-5.html#cb286-1" tabindex="-1"></a><span class="do">## Allow for partial mediation:</span></span>
+<span id="cb286-2"><a href="in-class-exercises-5.html#cb286-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb286-3"><a href="in-class-exercises-5.html#cb286-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb286-4"><a href="in-class-exercises-5.html#cb286-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb286-5"><a href="in-class-exercises-5.html#cb286-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb286-6"><a href="in-class-exercises-5.html#cb286-6" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb286-7"><a href="in-class-exercises-5.html#cb286-7" tabindex="-1"></a><span class="st">behavior ~ b*intent + c*control</span></span>
+<span id="cb286-8"><a href="in-class-exercises-5.html#cb286-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + a*control</span></span>
+<span id="cb286-9"><a href="in-class-exercises-5.html#cb286-9" tabindex="-1"></a></span>
+<span id="cb286-10"><a href="in-class-exercises-5.html#cb286-10" tabindex="-1"></a><span class="st">ie    := a * b</span></span>
+<span id="cb286-11"><a href="in-class-exercises-5.html#cb286-11" tabindex="-1"></a><span class="st">total := ie + c</span></span>
+<span id="cb286-12"><a href="in-class-exercises-5.html#cb286-12" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb286-13"><a href="in-class-exercises-5.html#cb286-13" tabindex="-1"></a></span>
+<span id="cb286-14"><a href="in-class-exercises-5.html#cb286-14" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">235711</span>)</span>
+<span id="cb286-15"><a href="in-class-exercises-5.html#cb286-15" tabindex="-1"></a></span>
+<span id="cb286-16"><a href="in-class-exercises-5.html#cb286-16" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod1, <span class="at">data =</span> condom, <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
+<span id="cb286-17"><a href="in-class-exercises-5.html#cb286-17" tabindex="-1"></a><span class="fu">summary</span>(out1, <span class="at">ci =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Length  Class   Mode 
+##      1 lavaan     S4</code></pre>
 <details>
 <summary>
 Click for explanation
@@ -1291,22 +1190,22 @@ constraints and check which one best represents the data.</p>
 <ul>
 <li>The extended TORA model from <a href="in-class-exercises-5.html#updatedModel">7.4.6</a> already encodes the non-mediated direct effect.</li>
 </ul>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="in-class-exercises-5.html#cb246-1" tabindex="-1"></a><span class="do">## Force complete mediation:</span></span>
-<span id="cb246-2"><a href="in-class-exercises-5.html#cb246-2" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
-<span id="cb246-3"><a href="in-class-exercises-5.html#cb246-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
-<span id="cb246-4"><a href="in-class-exercises-5.html#cb246-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
-<span id="cb246-5"><a href="in-class-exercises-5.html#cb246-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
-<span id="cb246-6"><a href="in-class-exercises-5.html#cb246-6" tabindex="-1"></a><span class="st">             </span></span>
-<span id="cb246-7"><a href="in-class-exercises-5.html#cb246-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
-<span id="cb246-8"><a href="in-class-exercises-5.html#cb246-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + control</span></span>
-<span id="cb246-9"><a href="in-class-exercises-5.html#cb246-9" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb246-10"><a href="in-class-exercises-5.html#cb246-10" tabindex="-1"></a></span>
-<span id="cb246-11"><a href="in-class-exercises-5.html#cb246-11" tabindex="-1"></a><span class="do">## Estimate the two restricted models:</span></span>
-<span id="cb246-12"><a href="in-class-exercises-5.html#cb246-12" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod2, <span class="at">data =</span> condom)</span>
-<span id="cb246-13"><a href="in-class-exercises-5.html#cb246-13" tabindex="-1"></a></span>
-<span id="cb246-14"><a href="in-class-exercises-5.html#cb246-14" tabindex="-1"></a><span class="do">## Check the results:</span></span>
-<span id="cb246-15"><a href="in-class-exercises-5.html#cb246-15" tabindex="-1"></a><span class="fu">summary</span>(out2)</span></code></pre></div>
-<pre><code>## lavaan 0.6-21 ended normally after 33 iterations
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="in-class-exercises-5.html#cb288-1" tabindex="-1"></a><span class="do">## Force complete mediation:</span></span>
+<span id="cb288-2"><a href="in-class-exercises-5.html#cb288-2" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb288-3"><a href="in-class-exercises-5.html#cb288-3" tabindex="-1"></a><span class="st">attitudes =~ attit_1   + attit_2   + attit_3</span></span>
+<span id="cb288-4"><a href="in-class-exercises-5.html#cb288-4" tabindex="-1"></a><span class="st">norms     =~ norm_1    + norm_2    + norm_3</span></span>
+<span id="cb288-5"><a href="in-class-exercises-5.html#cb288-5" tabindex="-1"></a><span class="st">control   =~ control_1 + control_2 + control_3</span></span>
+<span id="cb288-6"><a href="in-class-exercises-5.html#cb288-6" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb288-7"><a href="in-class-exercises-5.html#cb288-7" tabindex="-1"></a><span class="st">behavior ~ intent</span></span>
+<span id="cb288-8"><a href="in-class-exercises-5.html#cb288-8" tabindex="-1"></a><span class="st">intent   ~ attitudes + norms + control</span></span>
+<span id="cb288-9"><a href="in-class-exercises-5.html#cb288-9" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb288-10"><a href="in-class-exercises-5.html#cb288-10" tabindex="-1"></a></span>
+<span id="cb288-11"><a href="in-class-exercises-5.html#cb288-11" tabindex="-1"></a><span class="do">## Estimate the two restricted models:</span></span>
+<span id="cb288-12"><a href="in-class-exercises-5.html#cb288-12" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod2, <span class="at">data =</span> condom)</span>
+<span id="cb288-13"><a href="in-class-exercises-5.html#cb288-13" tabindex="-1"></a></span>
+<span id="cb288-14"><a href="in-class-exercises-5.html#cb288-14" tabindex="-1"></a><span class="do">## Check the results:</span></span>
+<span id="cb288-15"><a href="in-class-exercises-5.html#cb288-15" tabindex="-1"></a><span class="fu">summary</span>(out2)</span></code></pre></div>
+<pre><code>## lavaan 0.7-2 ended normally after 33 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1374,16 +1273,16 @@ constraints and check which one best represents the data.</p>
 ##     attitudes         0.877    0.115    7.596    0.000
 ##     norms             0.757    0.112    6.733    0.000
 ##     control           0.500    0.098    5.076    0.000</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="in-class-exercises-5.html#cb248-1" tabindex="-1"></a><span class="do">## Does the full-mediation model fit worse than the partial mediation model?</span></span>
-<span id="cb248-2"><a href="in-class-exercises-5.html#cb248-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out2)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="in-class-exercises-5.html#cb290-1" tabindex="-1"></a><span class="do">## Does the full-mediation model fit worse than the partial mediation model?</span></span>
+<span id="cb290-2"><a href="in-class-exercises-5.html#cb290-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out2)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 
 ##      Df    AIC    BIC  Chisq Chisq diff   RMSEA Df diff Pr(&gt;Chisq)
 ## out1 38 7157.0 7255.6 47.389                                      
 ## out2 39 7170.4 7265.4 62.797     15.408 0.24007       1  8.662e-05</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="in-class-exercises-5.html#cb250-1" tabindex="-1"></a><span class="do">## Does the no-mediation model fit worse than the partial mediation model?</span></span>
-<span id="cb250-2"><a href="in-class-exercises-5.html#cb250-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out_tora2)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="in-class-exercises-5.html#cb292-1" tabindex="-1"></a><span class="do">## Does the no-mediation model fit worse than the partial mediation model?</span></span>
+<span id="cb292-2"><a href="in-class-exercises-5.html#cb292-2" tabindex="-1"></a><span class="fu">anova</span>(out1, out_tora2)</span></code></pre></div>
 <pre><code>## 
 ## Chi-Squared Difference Test
 ## 
@@ -1412,14 +1311,14 @@ Click to show code
 </summary>
 <p>We can also use <em>information criteria</em> to compare our models. The two most popular information criteria are the
 <em>Akaike’s Information Criterion</em> (AIC) and the <em>Bayesian Information Criterion</em> (BIC).</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="in-class-exercises-5.html#cb252-1" tabindex="-1"></a><span class="do">## Which model is the most parsimonious representation of the data?</span></span>
-<span id="cb252-2"><a href="in-class-exercises-5.html#cb252-2" tabindex="-1"></a><span class="fu">AIC</span>(out1, out2, out_tora2)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="in-class-exercises-5.html#cb294-1" tabindex="-1"></a><span class="do">## Which model is the most parsimonious representation of the data?</span></span>
+<span id="cb294-2"><a href="in-class-exercises-5.html#cb294-2" tabindex="-1"></a><span class="fu">AIC</span>(out1, out2, out_tora2)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7156.952","_rn_":"out1"},{"1":"27","2":"7170.360","_rn_":"out2"},{"1":"27","2":"7156.320","_rn_":"out_tora2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="in-class-exercises-5.html#cb253-1" tabindex="-1"></a><span class="fu">BIC</span>(out1, out2, out_tora2)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="in-class-exercises-5.html#cb295-1" tabindex="-1"></a><span class="fu">BIC</span>(out1, out2, out_tora2)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"28","2":"7255.553","_rn_":"out1"},{"1":"27","2":"7265.439","_rn_":"out2"},{"1":"27","2":"7251.400","_rn_":"out_tora2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1529,7 +1428,7 @@ summary(config, fit.measures = TRUE)
 ```
 
 ```
-## lavaan 0.6-21 ended normally after 54 iterations
+## lavaan 0.7-2 ended normally after 54 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1579,6 +1478,12 @@ summary(config, fit.measures = TRUE)
 ## Standardized Root Mean Square Residual:
 ## 
 ##   SRMR                                           0.048
+## 
+## Goodness of Fit Index:
+## 
+##   Goodness of Fit Index (GFI)                    0.983
+##   90 Percent confidence interval - lower         0.961
+##   90 Percent confidence interval - upper         0.999
 ## 
 ## Parameter Estimates:
 ## 
@@ -1698,7 +1603,7 @@ summary(weak)
 ```
 
 ```
-## lavaan 0.6-21 ended normally after 37 iterations
+## lavaan 0.7-2 ended normally after 37 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -1836,7 +1741,7 @@ summary(strong)
 ```
 
 ```
-## lavaan 0.6-21 ended normally after 60 iterations
+## lavaan 0.7-2 ended normally after 60 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -2015,12 +1920,14 @@ fitMeasures(strong)
 ##                 0.051                 0.055                 0.054 
 ##           crmr_nomean            srmr_mplus     srmr_mplus_nomean 
 ##                 0.059                 0.052                 0.054 
-##                 cn_05                 cn_01                   gfi 
-##               275.398               307.658                 0.997 
-##                  agfi                  pgfi                   mfi 
-##                 0.994                 0.554                 0.976 
-##                  ecvi 
-##                 0.672
+##                   gfi          gfi.ci.lower          gfi.ci.upper 
+##                 0.989                 0.967                 1.000 
+##          gfi.ci.level                 cn_05                 cn_01 
+##                 0.900               275.398               307.658 
+##            gfi_lisrel           agfi_lisrel                  pgfi 
+##                 0.997                 0.994                 0.554 
+##                   mfi                  ecvi 
+##                 0.976                 0.672
 ```
 
 Yes, we have been able to establish full measurement invariance. 
